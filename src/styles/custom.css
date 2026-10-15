@@ -1,36 +1,36 @@
 :root {
   --sl-font: 'Manrope Variable', sans-serif;
-  --sl-color-accent-low: #103f39;
-  --sl-color-accent: #62d5b5;
-  --sl-color-accent-high: #c6f5e5;
-  --sl-color-white: #f6f4ee;
-  --sl-color-gray-1: #e3e8e4;
-  --sl-color-gray-2: #b7c6be;
-  --sl-color-gray-3: #81988c;
-  --sl-color-gray-4: #41594e;
-  --sl-color-gray-5: #263b31;
-  --sl-color-gray-6: #172820;
-  --sl-color-black: #102018;
+  --sl-color-accent-low: #12254d;
+  --sl-color-accent: #7aa7ff;
+  --sl-color-accent-high: #d1e0ff;
+  --sl-color-white: #f2f5fc;
+  --sl-color-gray-1: #e2e8f4;
+  --sl-color-gray-2: #b8c5dc;
+  --sl-color-gray-3: #8698b8;
+  --sl-color-gray-4: #465a7d;
+  --sl-color-gray-5: #293954;
+  --sl-color-gray-6: #17243a;
+  --sl-color-black: #0d1729;
   --sl-content-width: 52rem;
   --sl-text-h1: clamp(2rem, 4.2vw, 3.4rem);
-  --project-grid: rgb(98 213 181 / 3%);
+  --project-grid: rgb(122 167 255 / 3%);
   --project-warm: #f5ae74;
 }
 
 :root[data-theme='light'] {
-  --sl-color-accent-low: #daf1e7;
-  --sl-color-accent: #0b6b60;
-  --sl-color-accent-high: #164d40;
-  --sl-color-white: #192c24;
-  --sl-color-gray-1: #263d32;
-  --sl-color-gray-2: #40564b;
-  --sl-color-gray-3: #60776b;
-  --sl-color-gray-4: #91a398;
-  --sl-color-gray-5: #d4ded6;
-  --sl-color-gray-6: #f0f3ec;
-  --sl-color-gray-7: #f6f7f1;
-  --sl-color-black: #fffdf6;
-  --project-grid: rgb(11 107 96 / 4%);
+  --sl-color-accent-low: #e1e9fb;
+  --sl-color-accent: #153e7e;
+  --sl-color-accent-high: #102d5b;
+  --sl-color-white: #14223a;
+  --sl-color-gray-1: #233552;
+  --sl-color-gray-2: #3b506e;
+  --sl-color-gray-3: #637895;
+  --sl-color-gray-4: #94a5bd;
+  --sl-color-gray-5: #d4deed;
+  --sl-color-gray-6: #eef2f8;
+  --sl-color-gray-7: #f6f8fc;
+  --sl-color-black: #fbfcff;
+  --project-grid: rgb(21 62 126 / 4%);
   --project-warm: #a44713;
 }
 
