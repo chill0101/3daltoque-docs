@@ -1,0 +1,16 @@
+erDiagram
+  archivos {
+    UUID id PK
+    UUID propietario_id FK
+    EstadoArchivo estado
+  }
+  analisis_archivos {
+    UUID id PK
+    UUID archivo_id FK
+    EstadoAnalisis estado
+  }
+  usuarios {
+    UUID id PK
+  }
+  usuarios ||--o{ archivos : "propietario_id"
+  archivos ||--o{ analisis_archivos : "archivo_id"

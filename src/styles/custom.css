@@ -100,6 +100,57 @@ h1, h2, h3, h4, .site-title, .hero .title {
   text-underline-offset: 0.2em;
 }
 
+.diagram-frame {
+  margin-block: 1.75rem;
+  overflow: hidden;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.85rem;
+  background: #ffffff;
+}
+
+.diagram-frame a {
+  display: block;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.diagram-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 48rem;
+  object-fit: contain;
+}
+
+.diagram-frame figcaption {
+  margin: 0;
+  padding: 0.8rem 1.25rem;
+  border-top: 1px solid #d4deed;
+  background: #eef3fc;
+  color: #233552;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.document-status {
+  margin-block: 1.25rem;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--sl-color-accent);
+  border-inline-start-width: 4px;
+  border-radius: 0.65rem;
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-white);
+  line-height: 1.7;
+}
+
+.document-status strong {
+  color: var(--sl-color-accent-high);
+}
+
+.sl-markdown-content img[src*="/diagramas/"] {
+  border-radius: 0.5rem;
+  background: #ffffff;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .hero > .stack {
     animation: appear 500ms ease-out both;

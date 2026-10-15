@@ -1,0 +1,107 @@
+erDiagram
+  pedidos {
+    UUID id PK
+    UUID solicitud_id FK
+    UUID oferta_id FK
+    Entero oferta_version_numero FK
+    EstadoPedido estado
+    UUID revision_actual_id FK
+  }
+  condiciones_pedido {
+    UUID pedido_id PK
+    Monto precio_pieza
+    Moneda moneda
+  }
+  historial_pedidos {
+    UUID id PK
+    UUID pedido_id FK
+    UUID actor_id FK
+  }
+  revisiones_resultado {
+    UUID id PK
+    UUID pedido_id FK
+    UUID presentada_por FK
+    EstadoRevision estado
+  }
+  evidencias {
+    UUID id PK
+    UUID revision_id FK
+    UUID archivo_id FK
+  }
+  decisiones_revision {
+    UUID id PK
+    UUID revision_id FK
+    UUID cliente_id FK
+  }
+  puntos_encuentro {
+    UUID id PK
+    UUID ubicacion_id FK
+    UUID creado_por FK
+  }
+  entregas {
+    UUID id PK
+    UUID pedido_id FK
+    UUID revision_aprobada_id FK
+    UUID punto_encuentro_id FK
+    EstadoEntrega estado
+  }
+  confirmaciones_entrega {
+    UUID id PK
+    UUID entrega_id FK
+    UUID actor_id FK
+  }
+  ofertas {
+    UUID id PK
+    UUID solicitud_id FK
+    UUID maker_id FK
+    Entero version_actual FK
+  }
+  oferta_versiones {
+    UUID oferta_id PK
+    Entero numero PK
+    UUID solicitud_id FK
+    Entero solicitud_version_numero FK
+    UUID maker_id FK
+    UUID invitacion_id FK
+    UUID configuracion_financiera_version_id FK
+  }
+  solicitudes {
+    UUID id PK
+    UUID cliente_id FK
+    Entero version_actual FK
+  }
+  usuarios {
+    UUID id PK
+  }
+  archivos {
+    UUID id PK
+    UUID propietario_id FK
+  }
+  clientes {
+    UUID usuario_id PK
+    UUID ubicacion_id FK
+  }
+  ubicaciones {
+    UUID id PK
+    UUID propietario_id FK
+  }
+  ofertas ||--o{ pedidos : "oferta_id_solicitud_id"
+  oferta_versiones ||--o| pedidos : "oferta_id_oferta_version_numero"
+  solicitudes ||--o| pedidos : "solicitud_id"
+  revisiones_resultado o|--o{ pedidos : "id_revision_actual_id"
+  pedidos ||--o| condiciones_pedido : "pedido_id"
+  pedidos ||--o{ historial_pedidos : "pedido_id"
+  usuarios o|--o{ historial_pedidos : "actor_id"
+  pedidos ||--o{ revisiones_resultado : "pedido_id"
+  usuarios ||--o{ revisiones_resultado : "presentada_por"
+  revisiones_resultado ||--o{ evidencias : "revision_id"
+  archivos ||--o{ evidencias : "archivo_id"
+  revisiones_resultado ||--o{ decisiones_revision : "revision_id"
+  clientes ||--o{ decisiones_revision : "cliente_id"
+  ubicaciones ||--o{ puntos_encuentro : "ubicacion_id"
+  usuarios ||--o{ puntos_encuentro : "creado_por"
+  pedidos ||--o| entregas : "pedido_id"
+  revisiones_resultado ||--o{ entregas : "pedido_id_revision_aprobada_id"
+  puntos_encuentro o|--o{ entregas : "punto_encuentro_id"
+  entregas ||--o{ confirmaciones_entrega : "entrega_id"
+  usuarios ||--o{ confirmaciones_entrega : "actor_id"

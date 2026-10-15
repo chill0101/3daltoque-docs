@@ -1,0 +1,54 @@
+classDiagram
+  class AceptarOfertaUseCase {
+    +execute(command)
+  }
+  class ConsultarMembresiaUseCase {
+    +execute(query)
+  }
+  class ComprarAbonoUseCase {
+    +execute(command)
+  }
+  class ConcederAccesoUseCase {
+    +execute(paymentResult)
+  }
+  class AprobarResultadoUseCase {
+    +execute(command)
+  }
+  class OfertaRepositoryPort {
+    <<interface>>
+    +aceptarAtomico(oferta, version)
+  }
+  class MembresiaRepositoryPort {
+    <<interface>>
+    +consultarPeriodos(maker)
+    +concederUnaVez(compra)
+  }
+  class PlanRepositoryPort {
+    <<interface>>
+    +obtenerVersionVigente()
+  }
+  class PaymentGatewayPort {
+    <<interface>>
+    +crearCheckout(compra)
+    +consultarResultado(referencia)
+    +verificarNotificacion(headers, body)
+  }
+  class RevisionRepositoryPort {
+    <<interface>>
+    +registrarDecision(revision, decision)
+  }
+  class MercadoPagoCheckoutProAdapter
+  class PagoSimuladoAdapter
+  class PersistenciaPostgresAdapter
+  AceptarOfertaUseCase --> OfertaRepositoryPort
+  AceptarOfertaUseCase --> MembresiaRepositoryPort
+  ConsultarMembresiaUseCase --> MembresiaRepositoryPort
+  ComprarAbonoUseCase --> PlanRepositoryPort
+  ComprarAbonoUseCase --> PaymentGatewayPort
+  ConcederAccesoUseCase --> PaymentGatewayPort
+  ConcederAccesoUseCase --> MembresiaRepositoryPort
+  AprobarResultadoUseCase --> RevisionRepositoryPort
+  MercadoPagoCheckoutProAdapter ..|> PaymentGatewayPort
+  PagoSimuladoAdapter ..|> PaymentGatewayPort
+  PersistenciaPostgresAdapter ..|> MembresiaRepositoryPort
+  PersistenciaPostgresAdapter ..|> OfertaRepositoryPort

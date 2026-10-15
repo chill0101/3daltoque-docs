@@ -1,45 +1,27 @@
 ---
-title: Estado de la documentación
-description: Contenido disponible en el portal y documentos que se incorporarán progresivamente.
+title: "Estado de la documentación"
+description: "Documentación de análisis y diseño de 3DAltoque."
 ---
 
-Este portal comienza con la presentación del producto, el manifiesto, los repositorios, la base técnica y el roadmap. **No constituye todavía la entrega completa de la materia.**
+## Estado de esta revisión
 
-## Cómo leer los estados
+Esta revisión incorpora el modelo de membresía prepaga, prueba gratuita y Makers Fundadores. La publicación de cada revisión se acuerda con el equipo. La disponibilidad del documento no equivale a una aprobación ni a software implementado.
 
-Que un documento no esté incluido aquí no significa que no exista un borrador de trabajo. Su incorporación requiere seleccionar una versión, revisar su coherencia y decidir que corresponde mostrarla.
+| Área | Contenido disponible | Pendiente |
+| --- | --- | --- |
+| Producto | Alcance, manifiesto y modelo comercial | Precio, moneda, cupo y políticas abiertas |
+| Requisitos | 54 RF vigentes, nueve RF-08 retirados y 19 RNF | Revisión y trazabilidad completa |
+| Casos de uso | 13 descripciones y diagrama de actores | Detalle y contraste final con plantilla de la materia |
+| Datos | 50 tablas, 460 columnas y ocho vistas DER | Revisión, migraciones e índices al implementar |
+| Arquitectura | Componentes, puertos/adaptadores, API e integraciones | Hosting, contratos implementados y pruebas |
+| Flujos | Solicitudes, ofertas, pedido, revisión, entrega, membresía y abono | Cerrar transiciones dependientes de políticas |
+| Prototipos y manuales | Plan de contenido y recorridos | Pantallas web/mobile y manuales de versión ejecutable |
+| Calidad | Escenarios y criterios propuestos | Catálogo completo, ejecución y evidencia |
 
-Estar publicado tampoco equivale a estar aprobado por el profesor. La aprobación académica se registrará solo cuando exista esa confirmación.
+## Qué cambió
 
-## Documentación por incorporar
+Se retiró el modelo de comisión por impresión. Mercado Pago cobra el servicio propio de acceso del maker, con renovación manual. El cliente paga la impresión directamente al maker. No hay split, deuda por comisiones, wallet o custodia. El acceso vencido limita trabajo nuevo, no la finalización de un pedido.
 
-| Elemento de la planificación académica | Situación en este portal |
-| --- | --- |
-| Requisitos funcionales | Pendiente de incorporación de la versión seleccionada |
-| Requisitos no funcionales | Pendiente de incorporación de la versión seleccionada |
-| Diagrama de casos de uso | Pendiente de incorporación |
-| Especificaciones de casos de uso | Pendiente de incorporación |
-| Prototipo de interfaz web | Pendiente de incorporación |
-| Prototipo de interfaz mobile | Pendiente de incorporación |
-| Diagrama de clases de dominio | Pendiente de incorporación |
-| Diagrama entidad-relación y modelo lógico | Pendiente de incorporación |
-| Definición de casos de prueba | Pendiente de incorporación |
-| Documento de trazabilidad | Pendiente de incorporación |
-| Diseño de arquitectura | Resumen disponible; diseño detallado pendiente de incorporación |
-| Diagrama de clases de diseño | Pendiente de incorporación |
-| Diseño de componentes | Pendiente de incorporación |
-| Interfaces entre sistemas e integraciones | Resumen disponible; contratos detallados pendientes de incorporación |
-| Manual de instalación | Pendiente de incorporación del manual de la aplicación |
-| Plan de tareas post cursada | Pendiente de incorporación |
-| Manual de usuario | Pendiente de incorporación |
-| Material de presentación | Pendiente de incorporación |
+## Publicación
 
-## Criterio de incorporación
-
-Cada documento debe identificar su versión o estado, mantener referencias consistentes y distinguir requisitos, propuestas y decisiones adoptadas. Los diagramas deben acompañarse de contexto y una fuente editable cuando corresponda.
-
-No se incorporan automáticamente notas internas, credenciales, datos personales de pruebas ni material de terceros sin autorización. Ocultar un enlace en el menú no evita que un archivo del sitio sea público.
-
-## Próximo avance documental
-
-La incorporación de requisitos, casos de uso y modelos permitirá mostrar el detalle del producto. Su selección se hará de forma explícita y conservando la trazabilidad entre los documentos.
+El equipo revisa cada incorporación antes de pasarla al repositorio oficial. Este portal presenta el avance del proyecto, no preguntas internas ni archivos de contexto académico. Los estados y las fechas de entregas se registrarán cuando correspondan; el horizonte informado sigue siendo marzo de 2027.

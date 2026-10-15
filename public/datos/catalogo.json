@@ -1,0 +1,5434 @@
+{
+  "version": "2.0-borrador",
+  "fecha": "2026-10-14",
+  "modelo": "Membresía prepaga con renovación manual; impresión pagada directamente al maker",
+  "schema": [
+    {
+      "name": "usuarios",
+      "module": "identidad",
+      "concept": "Usuario",
+      "description": "Identidad y contacto común; la autorización depende de roles y del recurso.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "email",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "email_normalizado",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "password_hash",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "nombre",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "apellido",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "telefono",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoUsuario",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "actualizado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "email_normalizado"
+        ]
+      ],
+      "foreign": [],
+      "rules": [
+        "No se almacena contraseña en texto plano. La normalización del identificador debe documentarse.",
+        "Nombre/apellido/contacto obligatorios por perfil se cierran en PD-01; la nulabilidad del borrador no habilita publicar un perfil incompleto.",
+        "Bloquear o anonimizar no elimina por cascada acuerdos ni evidencias financieras."
+      ],
+      "requirements": [
+        "RF-01.1",
+        "RF-01.4",
+        "RNF-04",
+        "RNF-11"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "usuario_roles",
+      "module": "identidad",
+      "concept": "RolUsuario",
+      "description": "Asignaciones autorizadas de cliente, maker o administrador.",
+      "cols": [
+        {
+          "name": "usuario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "rol",
+          "type": "Rol",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "otorgado_por",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "otorgado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "revocado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "usuario_id",
+        "rol"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "posee rol"
+        },
+        {
+          "cols": [
+            "otorgado_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "autoriza"
+        }
+      ],
+      "rules": [
+        "La relación permite representar varios roles, pero no decide si se habilitan simultáneamente: PD-01.",
+        "El registro público nunca otorga admin. No se elimina una asignación revocada si se necesita su historial."
+      ],
+      "requirements": [
+        "RF-01.1",
+        "RNF-04"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "clientes",
+      "module": "identidad",
+      "concept": "PerfilCliente",
+      "description": "Datos propios del perfil que solicita impresiones.",
+      "cols": [
+        {
+          "name": "usuario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ubicacion_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "perfil_completo",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "usuario_id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "tiene perfil cliente"
+        },
+        {
+          "cols": [
+            "ubicacion_id"
+          ],
+          "target": "ubicaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "ubica cliente"
+        }
+      ],
+      "rules": [
+        "El usuario debe tener rol cliente vigente para operar. La ubicación referenciada pertenece a un contexto autorizado."
+      ],
+      "requirements": [
+        "RF-01.3",
+        "RF-02.3"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "makers",
+      "module": "identidad",
+      "concept": "Maker",
+      "description": "Perfil productivo vinculado a la identidad.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "usuario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ubicacion_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "nombre_publico",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "descripcion",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "disponible",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoPerfil",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "horario_disponibilidad",
+          "type": "JSON",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "usuario_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "tiene perfil maker"
+        },
+        {
+          "cols": [
+            "ubicacion_id"
+          ],
+          "target": "ubicaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "ubica maker"
+        }
+      ],
+      "rules": [
+        "Operar exige rol maker vigente, perfil habilitado y capacidades declaradas.",
+        "La vista pública utiliza zona/precisión autorizada; el domicilio exacto no se envía a terceros.",
+        "Reputación/portfolio requieren sus reglas antes de incorporar tablas especializadas (PD-14).",
+        "La habilitación comercial para trabajos nuevos se consulta en membresías; vencer no altera pedidos existentes."
+      ],
+      "requirements": [
+        "RF-01.2",
+        "RF-03.1",
+        "RF-09.2"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "sesiones",
+      "module": "identidad",
+      "concept": "Sesion",
+      "description": "Sesiones y renovación revocable según la estrategia de identidad.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "usuario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "token_renovacion_hash",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "expira_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "revocada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "cliente_tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "token_renovacion_hash"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "inicia sesión"
+        }
+      ],
+      "rules": [
+        "El token bruto no se persiste ni se devuelve desde listados. Expiración/revocación se fijan en PD-01.",
+        "La unicidad del hash aplica a valores presentes; cerrar una sesión no supone cierre global."
+      ],
+      "requirements": [
+        "RF-01.4",
+        "RF-01.5",
+        "RNF-04"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "ubicaciones",
+      "module": "identidad",
+      "concept": "Ubicacion",
+      "description": "Referencia geográfica con origen, precisión y conservación explícitos.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "propietario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "latitud",
+          "type": "Coordenada",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "longitud",
+          "type": "Coordenada",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "zona_publica",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "precision_publica",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "origen",
+          "type": "OrigenUbicacion",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "proveedor",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "referencia_externa",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "confirmada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "valida_hasta",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "propietario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "registra ubicación"
+        }
+      ],
+      "rules": [
+        "Latitud/longitud se guardan juntas y dentro de sus rangos; una referencia sin coordenadas válidas no sirve para matching.",
+        "Las condiciones del proveedor determinan almacenamiento/renovación de datos externos; confirmar una ubicación no elimina esas condiciones.",
+        "Cambios de posición generan otra referencia si una versión publicada necesita preservar su contexto. Borrado/retención se aplican según PD-12."
+      ],
+      "requirements": [
+        "RF-01.3",
+        "RF-09.1",
+        "RF-09.2",
+        "RNF-11",
+        "RNF-12"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "impresoras",
+      "module": "identidad",
+      "concept": "Impresora",
+      "description": "Equipos y dimensiones útiles para validar compatibilidad.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "maker_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "nombre",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tecnologia",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "dimension_x_mm",
+          "type": "Decimal",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "dimension_y_mm",
+          "type": "Decimal",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "dimension_z_mm",
+          "type": "Decimal",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoRecurso",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "maker_id"
+          ],
+          "target": "makers",
+          "refs": [
+            "id"
+          ],
+          "label": "declara impresora"
+        }
+      ],
+      "rules": [
+        "Las dimensiones son positivas. Milímetros son la unidad interna propuesta; conversión/rotación se define en PD-02 y PD-04.",
+        "Estado/disponibilidad no prometen reserva de capacidad ni conexión con firmware."
+      ],
+      "requirements": [
+        "RF-01.2",
+        "RF-03.1"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "materiales",
+      "module": "identidad",
+      "concept": "Material",
+      "description": "Catálogo de materiales declarados por makers y solicitudes.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "codigo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "nombre",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "descripcion",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "activo",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "codigo"
+        ]
+      ],
+      "foreign": [],
+      "rules": [
+        "No se borra un material utilizado por versiones históricas; se desactiva para nuevas selecciones."
+      ],
+      "requirements": [
+        "RF-01.2",
+        "RF-02.1"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "capacidades_impresora",
+      "module": "identidad",
+      "concept": "CapacidadImpresora",
+      "description": "Materiales y colores admitidos por un equipo.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "impresora_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "material_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "color",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "disponible",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "observaciones",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "impresora_id",
+          "material_id",
+          "color"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "impresora_id"
+          ],
+          "target": "impresoras",
+          "refs": [
+            "id"
+          ],
+          "label": "admite capacidad"
+        },
+        {
+          "cols": [
+            "material_id"
+          ],
+          "target": "materiales",
+          "refs": [
+            "id"
+          ],
+          "label": "usa material"
+        }
+      ],
+      "rules": [
+        "La unicidad lógica trata color no especificado como un único valor; la implementación de NULL se define con el motor.",
+        "Maker se deriva de impresora, evitando un maker_id redundante que pueda contradecirla.",
+        "Compatibilidad final de geometría/acabado no queda garantizada por esta tabla."
+      ],
+      "requirements": [
+        "RF-01.2",
+        "RF-03.1"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "archivos",
+      "module": "archivos",
+      "concept": "Archivo",
+      "description": "Metadatos privados de STL, fotos/videos y adjuntos.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "propietario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "finalidad",
+          "type": "FinalidadArchivo",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "nombre_original",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "mime_declarado",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "mime_detectado",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "tamano_bytes",
+          "type": "Entero",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "checksum",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "proveedor_almacenamiento",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "storage_key",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_objeto",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoArchivo",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "autorizacion_expira_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "retirar_despues_de",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "retirado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "proveedor_almacenamiento",
+          "storage_key",
+          "version_objeto"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "propietario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "posee archivo"
+        }
+      ],
+      "rules": [
+        "Tamaño/integridad reales pueden ser desconocidos durante subida; no se sustituyen por cero.",
+        "Habilitar requiere comprobaciones completas. Storage_key es opaca y no una URL pública.",
+        "Una referencia usada por oferta/evidencia publicada conserva sus bytes o versión; una URL de subida no puede alterar evidencia aprobada.",
+        "Un retiro autorizado conserva los metadatos mínimos y el historial exigidos por política."
+      ],
+      "requirements": [
+        "RF-02.1",
+        "RF-02.2",
+        "RF-06.1",
+        "RF-10.1",
+        "RF-10.2",
+        "RF-10.3",
+        "RF-10.4"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "analisis_archivos",
+      "module": "archivos",
+      "concept": "AnalisisArchivo",
+      "description": "Resultados versionados del análisis técnico de un archivo.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "archivo_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "analizador",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_analizador",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoAnalisis",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "unidad_declarada",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "dimension_x_mm",
+          "type": "Decimal",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "dimension_y_mm",
+          "type": "Decimal",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "dimension_z_mm",
+          "type": "Decimal",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "volumen_geometrico_mm3",
+          "type": "Decimal",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "advertencias",
+          "type": "JSON",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "motivo_error",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "archivo_id"
+          ],
+          "target": "archivos",
+          "refs": [
+            "id"
+          ],
+          "label": "tiene análisis"
+        }
+      ],
+      "rules": [
+        "Dimensión/volumen desconocidos son NULL, no cero. Unidad debe confirmarse antes de interpretar escala.",
+        "El resultado refiere al objeto/checksum analizado y no se reescribe como si otro analizador hubiera producido el mismo informe.",
+        "Volumen geométrico no equivale automáticamente a material consumido ni a imprimibilidad."
+      ],
+      "requirements": [
+        "RF-02.2",
+        "RF-02.5",
+        "RNF-16"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "solicitudes",
+      "module": "cotizaciones",
+      "concept": "Solicitud",
+      "description": "Identidad estable de la necesidad del cliente.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cliente_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_actual",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoSolicitud",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "expira_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "cliente_id"
+          ],
+          "target": "clientes",
+          "refs": [
+            "usuario_id"
+          ],
+          "label": "crea solicitud"
+        },
+        {
+          "cols": [
+            "id",
+            "version_actual"
+          ],
+          "target": "solicitud_versiones",
+          "refs": [
+            "solicitud_id",
+            "numero"
+          ],
+          "label": "selecciona versión actual",
+          "current": true
+        }
+      ],
+      "rules": [
+        "La versión actual pertenece a la solicitud; el alta inicial conserva solicitud y primera versión en una transacción.",
+        "El vencimiento solo se utiliza si existe una política aprobada; no tiene valor de negocio por defecto.",
+        "Cambios después de enviar requieren PD-05 y pueden invalidar invitaciones/ofertas, sin reescribir versiones."
+      ],
+      "requirements": [
+        "RF-02.3",
+        "RF-02.4",
+        "RF-03.1"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "solicitud_versiones",
+      "module": "cotizaciones",
+      "concept": "VersionSolicitud",
+      "description": "Especificación preservada para cotizar una versión concreta.",
+      "cols": [
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "archivo_stl_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "material_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "ubicacion_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "titulo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "descripcion",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "color",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "cantidad",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "unidad_declarada",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "urgencia",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "presupuesto_referencia",
+          "type": "Monto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "moneda_referencia",
+          "type": "Moneda",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "publicada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "solicitud_id",
+        "numero"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "solicitud_id"
+          ],
+          "target": "solicitudes",
+          "refs": [
+            "id"
+          ],
+          "label": "conserva versión"
+        },
+        {
+          "cols": [
+            "archivo_stl_id"
+          ],
+          "target": "archivos",
+          "refs": [
+            "id"
+          ],
+          "label": "aporta STL"
+        },
+        {
+          "cols": [
+            "material_id"
+          ],
+          "target": "materiales",
+          "refs": [
+            "id"
+          ],
+          "label": "requiere material"
+        },
+        {
+          "cols": [
+            "ubicacion_id"
+          ],
+          "target": "ubicaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "orienta búsqueda"
+        }
+      ],
+      "rules": [
+        "Número y cantidad positivos. Campos incompletos solo se admiten en borrador; publicar exige los definidos en PD-02.",
+        "Archivo, ubicación y características publicadas no se sustituyen en la misma versión; se crea otra.",
+        "Presupuesto/moneda de referencia se informan juntos y nunca constituyen una oferta."
+      ],
+      "requirements": [
+        "RF-02.1",
+        "RF-02.3",
+        "RF-04.1"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "rondas_busqueda",
+      "module": "cotizaciones",
+      "concept": "RondaBusqueda",
+      "description": "Búsqueda auditada sobre una especificación y parámetros determinados.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_version_numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "configuracion_version_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "radio_metros",
+          "type": "Decimal",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "limite_makers",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "criterios_orden",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoRonda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "solicitud_id",
+          "numero"
+        ],
+        [
+          "id",
+          "solicitud_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "solicitud_id",
+            "solicitud_version_numero"
+          ],
+          "target": "solicitud_versiones",
+          "refs": [
+            "solicitud_id",
+            "numero"
+          ],
+          "label": "busca para versión"
+        },
+        {
+          "cols": [
+            "configuracion_version_id"
+          ],
+          "target": "configuraciones_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "fija reglas búsqueda"
+        }
+      ],
+      "rules": [
+        "Radio/límite positivos y coherentes con la política aprobada; no se impone un radio o grupo por defecto.",
+        "Los parámetros aplicados son un snapshot de búsqueda, independiente de futuras activaciones."
+      ],
+      "requirements": [
+        "RF-03.1",
+        "RF-02.4",
+        "RNF-06"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "invitaciones_maker",
+      "module": "cotizaciones",
+      "concept": "InvitacionMaker",
+      "description": "Destinatarios habilitados para responder una ronda.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ronda_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "maker_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoInvitacion",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "distancia_metros",
+          "type": "Decimal",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "respondida_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "motivo_rechazo",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "ronda_id",
+          "maker_id"
+        ],
+        [
+          "id",
+          "solicitud_id",
+          "maker_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "ronda_id",
+            "solicitud_id"
+          ],
+          "target": "rondas_busqueda",
+          "refs": [
+            "id",
+            "solicitud_id"
+          ],
+          "label": "invita destinatario"
+        },
+        {
+          "cols": [
+            "maker_id"
+          ],
+          "target": "makers",
+          "refs": [
+            "id"
+          ],
+          "label": "recibe invitación"
+        }
+      ],
+      "rules": [
+        "Un maker aparece una vez por ronda. La solicitud redundante se conserva para verificar contexto mediante FK compuesta.",
+        "La elegibilidad, permisos de archivo y plazos se comprueban al responder, no solo al crear la invitación."
+      ],
+      "requirements": [
+        "RF-03.1",
+        "RF-03.2",
+        "RF-04.5"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "estimaciones",
+      "module": "cotizaciones",
+      "concept": "Estimacion",
+      "description": "Referencia de precio calculada bajo supuestos identificados.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_version_numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "analisis_archivo_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "metodo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_metodo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "parametros",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "monto_desde",
+          "type": "Monto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "monto_hasta",
+          "type": "Monto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoEstimacion",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "advertencias",
+          "type": "JSON",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "solicitud_id",
+            "solicitud_version_numero"
+          ],
+          "target": "solicitud_versiones",
+          "refs": [
+            "solicitud_id",
+            "numero"
+          ],
+          "label": "estima referencia"
+        },
+        {
+          "cols": [
+            "analisis_archivo_id"
+          ],
+          "target": "analisis_archivos",
+          "refs": [
+            "id"
+          ],
+          "label": "aporta medidas"
+        }
+      ],
+      "rules": [
+        "El rango disponible cumple desde <= hasta y moneda definida; un resultado no disponible no usa precio cero ficticio.",
+        "Una estimación no modifica precio de oferta ni confirma pedido."
+      ],
+      "requirements": [
+        "RF-02.5"
+      ],
+      "status": "Condicional PD-03"
+    },
+    {
+      "name": "ofertas",
+      "module": "cotizaciones",
+      "concept": "Oferta",
+      "description": "Identidad de la propuesta de un maker sobre una solicitud.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "maker_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_actual",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoOferta",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "solicitud_id",
+          "maker_id"
+        ],
+        [
+          "id",
+          "solicitud_id",
+          "maker_id"
+        ],
+        [
+          "id",
+          "solicitud_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "solicitud_id"
+          ],
+          "target": "solicitudes",
+          "refs": [
+            "id"
+          ],
+          "label": "recibe oferta"
+        },
+        {
+          "cols": [
+            "maker_id"
+          ],
+          "target": "makers",
+          "refs": [
+            "id"
+          ],
+          "label": "presenta oferta"
+        },
+        {
+          "cols": [
+            "id",
+            "version_actual"
+          ],
+          "target": "oferta_versiones",
+          "refs": [
+            "oferta_id",
+            "numero"
+          ],
+          "label": "selecciona versión actual",
+          "current": true
+        }
+      ],
+      "rules": [
+        "Hay una oferta por maker/solicitud, con nuevas versiones cuando cambian condiciones.",
+        "La versión actual existe en la misma oferta. Cambiarla no altera la versión que ya aceptó un pedido.",
+        "Rechazar invitación no crea automáticamente una oferta."
+      ],
+      "requirements": [
+        "RF-04.1",
+        "RF-04.2"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "oferta_versiones",
+      "module": "cotizaciones",
+      "concept": "VersionOferta",
+      "description": "Precio, vigencia y especificación cotizada preservados.",
+      "cols": [
+        {
+          "name": "oferta_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_version_numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "maker_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "invitacion_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "configuracion_financiera_version_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "precio",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "plazo_cantidad",
+          "type": "Decimal",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "plazo_unidad",
+          "type": "UnidadPlazo",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "vence_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "condiciones",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "observaciones",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "oferta_id",
+        "numero"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "oferta_id",
+            "solicitud_id",
+            "maker_id"
+          ],
+          "target": "ofertas",
+          "refs": [
+            "id",
+            "solicitud_id",
+            "maker_id"
+          ],
+          "label": "conserva versión"
+        },
+        {
+          "cols": [
+            "solicitud_id",
+            "solicitud_version_numero"
+          ],
+          "target": "solicitud_versiones",
+          "refs": [
+            "solicitud_id",
+            "numero"
+          ],
+          "label": "cotiza especificación"
+        },
+        {
+          "cols": [
+            "invitacion_id",
+            "solicitud_id",
+            "maker_id"
+          ],
+          "target": "invitaciones_maker",
+          "refs": [
+            "id",
+            "solicitud_id",
+            "maker_id"
+          ],
+          "label": "autoriza cotización"
+        },
+        {
+          "cols": [
+            "configuracion_financiera_version_id"
+          ],
+          "target": "configuraciones_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "presenta política"
+        }
+      ],
+      "rules": [
+        "La identidad de versión es (oferta_id, numero); no se modifica después de publicarla.",
+        "La invitación y oferta corresponden al mismo maker/solicitud; además se comprueba que la ronda habilite la versión cotizada.",
+        "Precio no negativo, plazo positivo y vencimiento posterior a creación; PD-05 define duración y unidad del plazo.",
+        "La configuración financiera referenciada pertenece al dominio pagos y respalda las condiciones mostradas. Fijar política en oferta/aceptación es la propuesta técnica, pendiente de validar PD-10."
+      ],
+      "requirements": [
+        "RF-04.1",
+        "RF-04.2",
+        "RF-04.4"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "pedidos",
+      "module": "pedidos",
+      "concept": "Pedido",
+      "description": "Acuerdo confirmado con una versión de oferta concreta.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "oferta_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "oferta_version_numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoPedido",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "revision_actual_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "clave_aceptacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "confirmado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entrega_estimada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "solicitud_id"
+        ],
+        [
+          "oferta_id",
+          "oferta_version_numero"
+        ],
+        [
+          "id",
+          "solicitud_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "oferta_id",
+            "solicitud_id"
+          ],
+          "target": "ofertas",
+          "refs": [
+            "id",
+            "solicitud_id"
+          ],
+          "label": "contrata oferta"
+        },
+        {
+          "cols": [
+            "oferta_id",
+            "oferta_version_numero"
+          ],
+          "target": "oferta_versiones",
+          "refs": [
+            "oferta_id",
+            "numero"
+          ],
+          "label": "acepta versión"
+        },
+        {
+          "cols": [
+            "solicitud_id"
+          ],
+          "target": "solicitudes",
+          "refs": [
+            "id"
+          ],
+          "label": "confirma pedido"
+        },
+        {
+          "cols": [
+            "id",
+            "revision_actual_id"
+          ],
+          "target": "revisiones_resultado",
+          "refs": [
+            "pedido_id",
+            "id"
+          ],
+          "label": "presenta revisión actual",
+          "current": true
+        }
+      ],
+      "rules": [
+        "solicitud_id UNIQUE garantiza como máximo un pedido por solicitud, y las FK compuestas impiden aceptar una versión de otra oferta/solicitud.",
+        "Cliente y maker se derivan de solicitud y oferta; no se duplican como participantes editables.",
+        "La aceptación, cierre de alternativas y condiciones financieras se registran en una transacción. La unicidad no valida por sí sola vigencia ni autorización.",
+        "Repetir una clave con otro contenido produce conflicto. La versión aceptada permanece fija aunque cambie la oferta actual."
+      ],
+      "requirements": [
+        "RF-04.4",
+        "RF-06.5",
+        "RNF-05"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "condiciones_pedido",
+      "module": "pedidos",
+      "concept": "CondicionesEconomicas",
+      "description": "Precio y moneda del acuerdo de impresión, cuyo pago se realiza directamente entre cliente y maker.",
+      "cols": [
+        {
+          "name": "pedido_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "precio_pieza",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "total_cliente_acordado",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "fijadas_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "pedido_id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "pedido_id"
+          ],
+          "target": "pedidos",
+          "refs": [
+            "id"
+          ],
+          "label": "fija condiciones"
+        }
+      ],
+      "rules": [
+        "Se conserva la versión aceptada y el precio pactado; no se calculan comisiones de plataforma por impresión.",
+        "Estos importes no representan dinero cobrado, retenido o garantizado por 3DAltoque."
+      ],
+      "requirements": [
+        "RF-04.4",
+        "RF-05.3",
+        "RF-12.15"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "historial_pedidos",
+      "module": "pedidos",
+      "concept": "HistorialPedido",
+      "description": "Transiciones productivas registradas con actor y causa.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pedido_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "actor_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "origen_proceso",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado_anterior",
+          "type": "EstadoPedido",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado_nuevo",
+          "type": "EstadoPedido",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "motivo",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ocurrido_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "pedido_id",
+          "clave_operacion"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "pedido_id"
+          ],
+          "target": "pedidos",
+          "refs": [
+            "id"
+          ],
+          "label": "registra transición"
+        },
+        {
+          "cols": [
+            "actor_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "ejecuta transición"
+        }
+      ],
+      "rules": [
+        "Actor o proceso identifican el origen; la transición autorizada y el historial se conservan juntos.",
+        "Registros añadidos, no sobrescritura de una decisión pasada."
+      ],
+      "requirements": [
+        "RF-05.3",
+        "RF-06.5",
+        "RNF-06"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "revisiones_resultado",
+      "module": "pedidos",
+      "concept": "RevisionResultado",
+      "description": "Una presentación de resultado que conserva su conjunto de evidencias.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pedido_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "presentada_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoRevision",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "comentario_maker",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "presentada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "pedido_id",
+          "numero"
+        ],
+        [
+          "pedido_id",
+          "id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "pedido_id"
+          ],
+          "target": "pedidos",
+          "refs": [
+            "id"
+          ],
+          "label": "tiene revisión"
+        },
+        {
+          "cols": [
+            "presentada_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "presenta resultado"
+        }
+      ],
+      "rules": [
+        "Presentar exige al maker del pedido y evidencias habilitadas. No se presenta vacía.",
+        "Una revisión presentada fija sus evidencias; un resultado modificado genera otra revisión.",
+        "La revisión actual del pedido pertenece al mismo pedido. No se aprueba por tiempo ni por recordatorio."
+      ],
+      "requirements": [
+        "RF-06.1",
+        "RF-06.2",
+        "RF-06.4"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "evidencias",
+      "module": "pedidos",
+      "concept": "Evidencia",
+      "description": "Archivos que integran una revisión concreta.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "revision_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "archivo_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "descripcion",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "orden",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "revision_id",
+          "archivo_id"
+        ],
+        [
+          "revision_id",
+          "orden"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "revision_id"
+          ],
+          "target": "revisiones_resultado",
+          "refs": [
+            "id"
+          ],
+          "label": "contiene evidencia"
+        },
+        {
+          "cols": [
+            "archivo_id"
+          ],
+          "target": "archivos",
+          "refs": [
+            "id"
+          ],
+          "label": "muestra objeto"
+        }
+      ],
+      "rules": [
+        "Solo archivos habilitados, de finalidad válida y propietario autorizado.",
+        "Después de presentar/aprobar, ni el vínculo ni los bytes se reemplazan en esa revisión."
+      ],
+      "requirements": [
+        "RF-06.1",
+        "RF-10.2"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "decisiones_revision",
+      "module": "pedidos",
+      "concept": "DecisionRevision",
+      "description": "Historial de aprobación expresa u observación del cliente.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "revision_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cliente_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "decision",
+          "type": "DecisionRevision",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "observacion",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "decidida_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "revision_id",
+          "cliente_id",
+          "clave_operacion"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "revision_id"
+          ],
+          "target": "revisiones_resultado",
+          "refs": [
+            "id"
+          ],
+          "label": "recibe decisión"
+        },
+        {
+          "cols": [
+            "cliente_id"
+          ],
+          "target": "clientes",
+          "refs": [
+            "usuario_id"
+          ],
+          "label": "revisa resultado"
+        }
+      ],
+      "rules": [
+        "El actor es el cliente propietario del pedido. La aprobación requiere acción explícita sobre la revisión vigente.",
+        "El historial admite registrar eventos; las secuencias permitidas de observar/aprobar/corregir dependen de PD-07.",
+        "Una repetición identificada conserva el mismo efecto y no crea aprobación adicional."
+      ],
+      "requirements": [
+        "RF-06.3",
+        "RF-06.4"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "puntos_encuentro",
+      "module": "pedidos",
+      "concept": "PuntoEncuentro",
+      "description": "Lugar acordable de encuentro personal; no representa custodia.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ubicacion_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "etiqueta",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "indicaciones",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "activo",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "ubicacion_id"
+          ],
+          "target": "ubicaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "localiza encuentro"
+        },
+        {
+          "cols": [
+            "creado_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "propone punto"
+        }
+      ],
+      "rules": [
+        "Lugar utilizado para encuentro personal. No hay actor comercio custodio ni estado de almacenaje en v1.",
+        "La ubicación exacta del encuentro se comparte con sus participantes según permisos."
+      ],
+      "requirements": [
+        "RF-06.6",
+        "RF-09.2"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "entregas",
+      "module": "pedidos",
+      "concept": "Entrega",
+      "description": "Coordinación y cierre físico de un pedido aprobado.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pedido_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "revision_aprobada_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "punto_encuentro_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoEntrega",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "fecha_hora_acordada",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "acordada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "completada_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion_cierre",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "pedido_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "pedido_id"
+          ],
+          "target": "pedidos",
+          "refs": [
+            "id"
+          ],
+          "label": "coordina entrega"
+        },
+        {
+          "cols": [
+            "pedido_id",
+            "revision_aprobada_id"
+          ],
+          "target": "revisiones_resultado",
+          "refs": [
+            "pedido_id",
+            "id"
+          ],
+          "label": "sustenta entrega"
+        },
+        {
+          "cols": [
+            "punto_encuentro_id"
+          ],
+          "target": "puntos_encuentro",
+          "refs": [
+            "id"
+          ],
+          "label": "acuerda lugar"
+        }
+      ],
+      "rules": [
+        "La FK garantiza la revisión del mismo pedido; la aprobación vigente y actor se validan en la transición.",
+        "Coordinar exige aprobación expresa. Cambiar resultado requiere tratar la aprobación/entrega conforme PD-07.",
+        "Completar exige el mecanismo definido en PD-08; no se presupone código ni doble confirmación.",
+        "La recepción se registra una vez; el estado de entrega no acredita por sí solo movimiento de fondos."
+      ],
+      "requirements": [
+        "RF-06.6",
+        "RF-06.7",
+        "RNF-05"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "confirmaciones_entrega",
+      "module": "pedidos",
+      "concept": "ConfirmacionRecepcion",
+      "description": "Acciones de validación de recepción según el mecanismo que se acuerde.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entrega_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "actor_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "mecanismo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "verificacion_ref",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "resultado",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "confirmada_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "entrega_id",
+          "actor_id",
+          "clave_operacion"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "entrega_id"
+          ],
+          "target": "entregas",
+          "refs": [
+            "id"
+          ],
+          "label": "registra recepción"
+        },
+        {
+          "cols": [
+            "actor_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "confirma recepción"
+        }
+      ],
+      "rules": [
+        "Los actores y el número de acciones necesarias se fijan en PD-08; la tabla no habilita cualquier mecanismo.",
+        "Si se elige un código, su verificador se protege y no se guarda como texto público."
+      ],
+      "requirements": [
+        "RF-06.7"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "cuentas_pago",
+      "module": "pagos",
+      "concept": "CuentaPago",
+      "description": "Cuenta propia de la plataforma para cobrar abonos; no contiene cuentas ni autorizaciones OAuth de makers.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "proveedor",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ambiente_proveedor",
+          "type": "AmbienteProveedor",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cuenta_externa_id",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "credenciales_ref",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "proveedor",
+          "ambiente_proveedor",
+          "cuenta_externa_id"
+        ]
+      ],
+      "foreign": [],
+      "rules": [
+        "El receptor es la plataforma por su propio servicio; no se usa para custodiar fondos de impresiones.",
+        "Las credenciales son referencias protegidas por entorno, nunca tokens expuestos."
+      ],
+      "requirements": [
+        "RF-12.5",
+        "RF-12.6",
+        "RNF-04"
+      ],
+      "status": "Modelo de fondos PD-09"
+    },
+    {
+      "name": "pagos",
+      "module": "pagos",
+      "concept": "Pago",
+      "description": "Obligación de pago de una compra de membresía, no de una impresión.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "compra_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "modo",
+          "type": "ModoPago",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entorno_aplicacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "importe_debido",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoPago",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "conciliacion_estado",
+          "type": "EstadoConciliacion",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "actualizado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "compra_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "compra_id"
+          ],
+          "target": "compras_membresia",
+          "refs": [
+            "id"
+          ],
+          "label": "tiene obligación de abono"
+        }
+      ],
+      "rules": [
+        "Una compra tiene como máximo un agregado de pago; no hay FK a pedidos.",
+        "Importe y moneda corresponden a la compra y al contexto; se preservan modo y entorno.",
+        "Se concede acceso únicamente tras verificar el cobro elegible y con idempotencia por compra."
+      ],
+      "requirements": [
+        "RF-12.5",
+        "RF-12.6",
+        "RF-12.7",
+        "RF-12.8"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "intentos_pago",
+      "module": "pagos",
+      "concept": "IntentoPago",
+      "description": "Cada interacción de checkout con correlación e idempotencia local.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pago_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cuenta_pago_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "proveedor",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ambiente_proveedor",
+          "type": "AmbienteProveedor",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "modo",
+          "type": "ModoPago",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "referencia_negocio",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "referencia_checkout",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "importe_solicitado",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoIntento",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ultimo_error",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "actualizado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "pago_id",
+          "clave_operacion"
+        ],
+        [
+          "referencia_negocio"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "pago_id"
+          ],
+          "target": "pagos",
+          "refs": [
+            "id"
+          ],
+          "label": "incluye intento"
+        },
+        {
+          "cols": [
+            "cuenta_pago_id"
+          ],
+          "target": "cuentas_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "utiliza cuenta"
+        }
+      ],
+      "rules": [
+        "Cada intento corresponde a una obligación de una compra de membresía.",
+        "Cuenta receptora, entorno, modo, importe y moneda deben coincidir con la compra autorizada.",
+        "Resultado incierto se concilia antes de repetir un cargo; una referencia de checkout no se confunde con ID de pago."
+      ],
+      "requirements": [
+        "RF-12.5",
+        "RF-12.6",
+        "RF-12.7",
+        "RNF-09"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "operaciones_pago",
+      "module": "pagos",
+      "concept": "OperacionFinanciera",
+      "description": "Recursos y resultados externos del cobro de abonos, incluidos costos del proveedor y anomalías.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "intento_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cuenta_pago_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "proveedor",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ambiente_proveedor",
+          "type": "AmbienteProveedor",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tipo_recurso",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "recurso_externo_id",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tipo_operacion",
+          "type": "TipoOperacion",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado_proveedor",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado_local",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "importe_bruto",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "costo_proveedor_real",
+          "type": "Monto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "ocurrida_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "verificada_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "proveedor",
+          "ambiente_proveedor",
+          "recurso_externo_id",
+          "tipo_recurso",
+          "cuenta_pago_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "intento_id"
+          ],
+          "target": "intentos_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "produce operación"
+        },
+        {
+          "cols": [
+            "cuenta_pago_id"
+          ],
+          "target": "cuentas_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "contextualiza recurso"
+        }
+      ],
+      "rules": [
+        "La cuenta receptora es propia de la plataforma y se conserva en el contexto de la operación.",
+        "Cada cobro externo adicional se registra para conciliación; no concede por sí solo otro período.",
+        "Costo de procesamiento desconocido es NULL y no se presupone cero. No representa una comisión por pedido ni un pago al maker."
+      ],
+      "requirements": [
+        "RF-12.6",
+        "RF-12.7",
+        "RF-12.12",
+        "RNF-09"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "eventos_proveedor",
+      "module": "pagos",
+      "concept": "EventoProveedor",
+      "description": "Recepción durable y deduplicación de notificaciones autenticadas.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cuenta_pago_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "evento_externo_id",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tipo_evento",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "recurso_externo_id",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "operacion_pago_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado_procesamiento",
+          "type": "EstadoTrabajo",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "payload_minimo",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "recibido_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "procesado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "error_procesamiento",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "cuenta_pago_id",
+          "tipo_evento",
+          "evento_externo_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "cuenta_pago_id"
+          ],
+          "target": "cuentas_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "recibe evento"
+        },
+        {
+          "cols": [
+            "operacion_pago_id"
+          ],
+          "target": "operaciones_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "actualiza recurso"
+        }
+      ],
+      "rules": [
+        "La operación puede resolverse después de recibir el evento; su cuenta/contexto deben coincidir.",
+        "Firma/protocolo se verifica antes de aplicar un resultado. Rechazos de seguridad pueden quedar en auditoría sin crear un evento financiero válido.",
+        "Un evento repetido se conserva como recepción controlada sin duplicar efecto. Se limita el payload a datos necesarios, sin secretos."
+      ],
+      "requirements": [
+        "RF-12.6",
+        "RNF-04",
+        "RNF-09"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "reembolsos",
+      "module": "pagos",
+      "concept": "Reembolso",
+      "description": "Solicitud y resultado de devolución bajo política autorizada.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pago_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "operacion_cobro_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "operacion_resultado_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "solicitado_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "monto",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "motivo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoReembolso",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "pago_id",
+          "clave_operacion"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "pago_id"
+          ],
+          "target": "pagos",
+          "refs": [
+            "id"
+          ],
+          "label": "registra devolución"
+        },
+        {
+          "cols": [
+            "operacion_cobro_id"
+          ],
+          "target": "operaciones_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "origina devolución"
+        },
+        {
+          "cols": [
+            "operacion_resultado_id"
+          ],
+          "target": "operaciones_pago",
+          "refs": [
+            "id"
+          ],
+          "label": "confirma resultado"
+        },
+        {
+          "cols": [
+            "solicitado_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "solicita devolución"
+        }
+      ],
+      "rules": [
+        "La devolución pertenece a un cobro de membresía elegible; no devuelve el precio de una impresión.",
+        "Monto, moneda y concurrencia se controlan antes de llamar al proveedor; una petición pendiente no acredita devolución.",
+        "Política de devolución del abono y efecto sobre acceso futuro requieren PD-09; no impiden finalizar pedidos aceptados."
+      ],
+      "requirements": [
+        "RF-12.12",
+        "RNF-09"
+      ],
+      "status": "Condicional PD-07/09/10"
+    },
+    {
+      "name": "conversaciones",
+      "module": "comunicacion",
+      "concept": "Conversacion",
+      "description": "Contexto privado de pedido o de invitación si se adopta chat previo.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pedido_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "invitacion_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "pedido_id"
+        ],
+        [
+          "invitacion_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "pedido_id"
+          ],
+          "target": "pedidos",
+          "refs": [
+            "id"
+          ],
+          "label": "contextualiza chat"
+        },
+        {
+          "cols": [
+            "invitacion_id"
+          ],
+          "target": "invitaciones_maker",
+          "refs": [
+            "id"
+          ],
+          "label": "contextualiza consulta"
+        }
+      ],
+      "rules": [
+        "Exactamente un origen: pedido_id XOR invitacion_id. Pedido es el circuito base.",
+        "Chat previo por invitación se habilita solo si se acuerda PD-06; la estructura no lo aprueba automáticamente.",
+        "Un nuevo pedido no expone conversaciones con makers descartados."
+      ],
+      "requirements": [
+        "RF-05.1",
+        "RF-11.2"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "participantes_conversacion",
+      "module": "comunicacion",
+      "concept": "ParticipanteConversacion",
+      "description": "Autorizaciones por usuario y conversación.",
+      "cols": [
+        {
+          "name": "conversacion_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "usuario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tipo_participacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "puede_enviar",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "activo",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "autorizado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "conversacion_id",
+        "usuario_id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "conversacion_id"
+          ],
+          "target": "conversaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "habilita participante"
+        },
+        {
+          "cols": [
+            "usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "participa"
+        }
+      ],
+      "rules": [
+        "Solo participantes coherentes con el pedido/invitación o intervención aprobada en PD-06/14.",
+        "Revocar acceso no borra la autoría de mensajes existentes."
+      ],
+      "requirements": [
+        "RF-05.1",
+        "RNF-04"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "mensajes",
+      "module": "comunicacion",
+      "concept": "Mensaje",
+      "description": "Contenido persistido e identificador de reenvío.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "conversacion_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "remitente_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_cliente",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "texto",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "enviado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "conversacion_id",
+          "remitente_id",
+          "clave_cliente"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "conversacion_id"
+          ],
+          "target": "conversaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "contiene mensaje"
+        },
+        {
+          "cols": [
+            "conversacion_id",
+            "remitente_id"
+          ],
+          "target": "participantes_conversacion",
+          "refs": [
+            "conversacion_id",
+            "usuario_id"
+          ],
+          "label": "autoriza autor"
+        }
+      ],
+      "rules": [
+        "La FK comprueba pertenencia; activo/puede_enviar se validan al enviar.",
+        "Debe existir texto o al menos un adjunto válido al confirmar la transacción.",
+        "Se informa éxito después de persistir. La misma clave/contenido no duplica el mensaje."
+      ],
+      "requirements": [
+        "RF-05.2",
+        "RF-11.2"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "mensaje_archivos",
+      "module": "comunicacion",
+      "concept": "AdjuntoMensaje",
+      "description": "Relación de mensajes con archivos privados.",
+      "cols": [
+        {
+          "name": "mensaje_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "archivo_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "mensaje_id",
+        "archivo_id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "mensaje_id"
+          ],
+          "target": "mensajes",
+          "refs": [
+            "id"
+          ],
+          "label": "adjunta referencia"
+        },
+        {
+          "cols": [
+            "archivo_id"
+          ],
+          "target": "archivos",
+          "refs": [
+            "id"
+          ],
+          "label": "aporta adjunto"
+        }
+      ],
+      "rules": [
+        "Finalidad, propietario y habilitación se verifican para esa conversación."
+      ],
+      "requirements": [
+        "RF-05.2",
+        "RF-10.3"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "notificaciones",
+      "module": "comunicacion",
+      "concept": "Notificacion",
+      "description": "Avisos internos por destinatario y evento persistido.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "evento_salida_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "destinatario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tipo_aviso",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "titulo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "texto",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "recurso_tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "recurso_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "leida_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "evento_salida_id",
+          "destinatario_id",
+          "tipo_aviso"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "evento_salida_id"
+          ],
+          "target": "eventos_salida",
+          "refs": [
+            "id"
+          ],
+          "label": "origina aviso"
+        },
+        {
+          "cols": [
+            "destinatario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "recibe aviso"
+        }
+      ],
+      "rules": [
+        "El enlace lógico recurso_tipo/id se valida contra el evento y permisos; no es una FK genérica a múltiples tablas.",
+        "El aviso no cambia por sí mismo estado de pago, revisión o entrega."
+      ],
+      "requirements": [
+        "RF-07.1",
+        "RF-07.4",
+        "RNF-06"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "envios_notificacion",
+      "module": "comunicacion",
+      "concept": "EnvioNotificacion",
+      "description": "Estado del envío externo, diferente de su entrega efectiva.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "notificacion_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "canal",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "destino_ref",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "proveedor",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "plantilla_version",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "referencia_externa",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoEnvio",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "intentos",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "proximo_intento_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "aceptado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "entregado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "ultimo_error",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "notificacion_id",
+          "canal",
+          "destino_ref"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "notificacion_id"
+          ],
+          "target": "notificaciones",
+          "refs": [
+            "id"
+          ],
+          "label": "se distribuye"
+        }
+      ],
+      "rules": [
+        "Canal, destino y sus permisos se habilitan según PD-11. Si se elige push, debe detallarse el registro/expiración de dispositivos antes de cerrar esa integración.",
+        "Aceptado por proveedor no equivale a entregado. Reintentos mantienen la misma identidad y verifican si el aviso todavía corresponde.",
+        "El destino puede ser una referencia protegida; su trazabilidad no expone contacto o tokens en registros públicos."
+      ],
+      "requirements": [
+        "RF-07.3",
+        "RF-07.4",
+        "RNF-15"
+      ],
+      "status": "Canal externo PD-11"
+    },
+    {
+      "name": "configuraciones_versiones",
+      "module": "operacion",
+      "concept": "ConfiguracionVersion",
+      "description": "Contenido versionado y validado por dominio de configuración.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "dominio",
+          "type": "DominioConfig",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "valores",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creada_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "motivo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "dominio",
+          "numero"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "creada_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "versiona configuración"
+        }
+      ],
+      "rules": [
+        "Dominio+numero único. El contenido se valida con un esquema tipado por dominio, y es inmutable.",
+        "Pagos admite parámetros de comisión/base/pagador/moneda/redondeo definidos; búsqueda radios/cupos; archivos límites/retención; avisos canales/frecuencias.",
+        "No se almacenan credenciales privadas en valores ni se configura una tarifa externa como si fuera controlada por la plataforma."
+      ],
+      "requirements": [
+        "RNF-13"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "activaciones_configuracion",
+      "module": "operacion",
+      "concept": "ActivacionConfiguracion",
+      "description": "Vigencia auditada separada del contenido inmutable.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "configuracion_version_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "dominio",
+          "type": "DominioConfig",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "vigente_desde",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "vigente_hasta",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "activada_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cerrada_por",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "configuracion_version_id"
+          ],
+          "target": "configuraciones_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "entra en vigencia"
+        },
+        {
+          "cols": [
+            "activada_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "activa versión"
+        },
+        {
+          "cols": [
+            "cerrada_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "cierra vigencia"
+        }
+      ],
+      "rules": [
+        "La versión pertenece al mismo dominio y el intervalo no se solapa con otro efectivo para ese dominio.",
+        "Cerrar una vigencia se audita; no cambia el contenido ni los snapshots de pedidos.",
+        "La implementación de exclusión de intervalos depende del motor o una operación serializada equivalente."
+      ],
+      "requirements": [
+        "RNF-06",
+        "RNF-13"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "eventos_salida",
+      "module": "operacion",
+      "concept": "EventoDominio",
+      "description": "Outbox de hechos de negocio para avisos/tareas.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_contrato",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entidad_tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entidad_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "version_entidad",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "correlacion_id",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_evento",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "payload_minimo",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "ocurrido_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado_publicacion",
+          "type": "EstadoTrabajo",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "clave_evento"
+        ]
+      ],
+      "foreign": [],
+      "rules": [
+        "Se registra con la transacción del hecho de negocio; identificador estable para consumidores idempotentes.",
+        "entidad_tipo/id es referencia lógica validada, no una FK universal. Payload limitado al contrato de evento, sin secretos."
+      ],
+      "requirements": [
+        "RF-07.1",
+        "RF-11.2",
+        "RNF-05"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "trabajos",
+      "module": "operacion",
+      "concept": "Trabajo",
+      "description": "Ejecuciones recuperables de análisis, avisos, recordatorios y conciliación.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "evento_salida_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_deduplicacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "payload",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoTrabajo",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "intentos",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "proxima_ejecucion_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "reservado_hasta",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "reservado_por",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "ultimo_error",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "tipo",
+          "clave_deduplicacion"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "evento_salida_id"
+          ],
+          "target": "eventos_salida",
+          "refs": [
+            "id"
+          ],
+          "label": "programa trabajo"
+        }
+      ],
+      "rules": [
+        "Reserva con vencimiento; el worker recupera tareas sin suponer ejecución exactamente una vez.",
+        "Cada tipo valida su payload y recursos antes de ejecutar. Recordatorios comprueban revisión todavía pendiente.",
+        "Reintento financiero incierto sigue conciliación; no crea cobros a ciegas."
+      ],
+      "requirements": [
+        "RF-02.2",
+        "RF-07.4",
+        "RNF-15"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "auditoria",
+      "module": "operacion",
+      "concept": "RegistroAuditoria",
+      "description": "Registro transversal append-only de acciones y cambios pertinentes.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "actor_usuario_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "origen_proceso",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "entidad_tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entidad_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "accion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "resultado",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "motivo",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "correlacion_id",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "datos_pertinentes",
+          "type": "JSON",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "ocurrido_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "actor_usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "audita acción"
+        }
+      ],
+      "rules": [
+        "Registro añadido con origen identificable. Identidad de entidades se resuelve con tipo/id; la referencia lógica no otorga acceso.",
+        "Cambios de configuración, estados financieros y acciones administrativas preservan valor anterior/nuevo pertinente.",
+        "Retención y anonimización no exponen secretos ni destruyen evidencia que deba conservarse."
+      ],
+      "requirements": [
+        "RF-05.3",
+        "RF-07.2",
+        "RNF-06"
+      ],
+      "status": "Base"
+    },
+    {
+      "name": "casos_soporte",
+      "module": "operacion",
+      "concept": "CasoSoporte",
+      "description": "Casos operativos y de moderación cuando se adopte ese alcance.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "reportado_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "pedido_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "solicitud_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "pago_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "asignado_a",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "descripcion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoCaso",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "resolucion",
+          "type": "Texto",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "cerrado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "reportado_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "reporta caso"
+        },
+        {
+          "cols": [
+            "pedido_id"
+          ],
+          "target": "pedidos",
+          "refs": [
+            "id"
+          ],
+          "label": "involucra pedido"
+        },
+        {
+          "cols": [
+            "solicitud_id"
+          ],
+          "target": "solicitudes",
+          "refs": [
+            "id"
+          ],
+          "label": "involucra solicitud"
+        },
+        {
+          "cols": [
+            "pago_id"
+          ],
+          "target": "pagos",
+          "refs": [
+            "id"
+          ],
+          "label": "involucra pago"
+        },
+        {
+          "cols": [
+            "asignado_a"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "atiende caso"
+        }
+      ],
+      "rules": [
+        "Si hay varias referencias, describen el mismo contexto; la asignación requiere permisos de soporte.",
+        "Resolución no implica automáticamente reembolso, aprobación de pieza o entrega; utiliza los casos de uso autorizados.",
+        "Acciones y motivo se registran también en auditoría."
+      ],
+      "requirements": [
+        "RF-07.2",
+        "RF-06.3"
+      ],
+      "status": "Soporte PD-07/14"
+    },
+    {
+      "name": "aceptaciones_condiciones",
+      "module": "operacion",
+      "concept": "AceptacionCondiciones",
+      "description": "Evidencia de aceptación de una versión de condiciones cuando proceda.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "usuario_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "documento_tipo",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "documento_version",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "documento_hash",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "referencia_documento",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "finalidad",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "aceptada_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "usuario_id",
+          "documento_tipo",
+          "documento_version",
+          "finalidad"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "usuario_id"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "acepta condiciones"
+        }
+      ],
+      "rules": [
+        "Versión/hash identifican un documento conservado por el control documental elegido; no prueban por sí solos cumplimiento legal.",
+        "Al cambiar condiciones se registra otra aceptación cuando lo exija la política, sin sobrescribir la anterior."
+      ],
+      "requirements": [
+        "RNF-12"
+      ],
+      "status": "Datos reales/condiciones PD-12"
+    },
+    {
+      "name": "planes_membresia_versiones",
+      "module": "pagos",
+      "concept": "planes_membresia_versiones",
+      "description": "Versiones del único plan mensual prepago; versiones no representan niveles distintos.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "codigo_plan",
+          "type": "Texto",
+          "required": true,
+          "note": "Un único plan comercial en v1."
+        },
+        {
+          "name": "numero",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "importe",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "periodo_unidad",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "periodo_cantidad",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "condiciones",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "configuracion_version_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_por",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "codigo_plan",
+          "numero"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "configuracion_version_id"
+          ],
+          "target": "configuraciones_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "aplica configuración"
+        },
+        {
+          "cols": [
+            "creado_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "publica versión"
+        }
+      ],
+      "rules": [
+        "Precio, moneda y regla de calendario se acuerdan antes de publicar el plan.",
+        "Una versión publicada no se reescribe para alterar compras anteriores."
+      ],
+      "requirements": [
+        "RF-12.1",
+        "RNF-13"
+      ],
+      "status": "Base de membresía; diseño por revisar"
+    },
+    {
+      "name": "membresias_maker",
+      "module": "pagos",
+      "concept": "membresias_maker",
+      "description": "Registro comercial de un maker y su beneficio inicial; la habilitación efectiva se deriva de períodos y permisos.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "maker_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "habilitado_inicial_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": "Inicio de referencia para el beneficio gratuito, no la fecha de registro de usuario."
+        },
+        {
+          "name": "es_fundador",
+          "type": "Booleano",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "fundador_configuracion_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "fundador_asignado_por",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "fundador_asignado_en",
+          "type": "FechaHora",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "maker_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "maker_id"
+          ],
+          "target": "makers",
+          "refs": [
+            "id"
+          ],
+          "label": "tiene membresía"
+        },
+        {
+          "cols": [
+            "fundador_configuracion_id"
+          ],
+          "target": "configuraciones_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "registra programa"
+        },
+        {
+          "cols": [
+            "fundador_asignado_por"
+          ],
+          "target": "usuarios",
+          "refs": [
+            "id"
+          ],
+          "label": "asigna beneficio"
+        }
+      ],
+      "rules": [
+        "Una membresía por maker; editar el perfil no reinicia la antigüedad gratuita.",
+        "La asignación de fundador y el consumo del cupo configurado se coordinan atómicamente.",
+        "El beneficio fundador inicial dura 90 días totales en lugar de 30; no se acumulan ambas pruebas.",
+        "El distintivo no representa reputación, prioridad de matching ni participación societaria."
+      ],
+      "requirements": [
+        "RF-12.2",
+        "RF-12.3",
+        "RF-12.4",
+        "RF-12.13"
+      ],
+      "status": "Base de membresía; diseño por revisar"
+    },
+    {
+      "name": "compras_membresia",
+      "module": "pagos",
+      "concept": "compras_membresia",
+      "description": "Compra del servicio de plataforma por el maker; conserva precio y duración del plan.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "membresia_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "plan_version_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "importe",
+          "type": "Monto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "moneda",
+          "type": "Moneda",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "periodo_unidad",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "periodo_cantidad",
+          "type": "Entero",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "condiciones_aceptadas",
+          "type": "JSON",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_operacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "modo",
+          "type": "ModoPago",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entorno_aplicacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoCompra",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "membresia_id",
+          "clave_operacion"
+        ],
+        [
+          "id",
+          "membresia_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "membresia_id"
+          ],
+          "target": "membresias_maker",
+          "refs": [
+            "id"
+          ],
+          "label": "registra compra"
+        },
+        {
+          "cols": [
+            "plan_version_id"
+          ],
+          "target": "planes_membresia_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "conserva plan"
+        }
+      ],
+      "rules": [
+        "El backend fija importe y moneda desde la versión elegible del plan.",
+        "La renovación es manual y no crea mandatos de débito recurrente.",
+        "Una compra pendiente, el retorno del navegador o un comprobante no conceden acceso."
+      ],
+      "requirements": [
+        "RF-12.5",
+        "RF-12.7",
+        "RF-12.8",
+        "RF-12.9"
+      ],
+      "status": "Base de membresía; diseño por revisar"
+    },
+    {
+      "name": "periodos_membresia",
+      "module": "pagos",
+      "concept": "periodos_membresia",
+      "description": "Concesiones temporales de acceso por prueba, beneficio fundador o compra confirmada.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "membresia_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "origen",
+          "type": "OrigenAcceso",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "clave_origen",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "compra_id",
+          "type": "UUID",
+          "required": false,
+          "note": ""
+        },
+        {
+          "name": "configuracion_version_id",
+          "type": "UUID",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "inicio_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "fin_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "modo",
+          "type": "ModoPago",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "entorno_aplicacion",
+          "type": "Texto",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "estado",
+          "type": "EstadoPeriodo",
+          "required": true,
+          "note": ""
+        },
+        {
+          "name": "creado_en",
+          "type": "FechaHora",
+          "required": true,
+          "note": ""
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "membresia_id",
+          "clave_origen"
+        ],
+        [
+          "compra_id"
+        ]
+      ],
+      "foreign": [
+        {
+          "cols": [
+            "membresia_id"
+          ],
+          "target": "membresias_maker",
+          "refs": [
+            "id"
+          ],
+          "label": "concede acceso"
+        },
+        {
+          "cols": [
+            "compra_id",
+            "membresia_id"
+          ],
+          "target": "compras_membresia",
+          "refs": [
+            "id",
+            "membresia_id"
+          ],
+          "label": "origina período"
+        },
+        {
+          "cols": [
+            "configuracion_version_id"
+          ],
+          "target": "configuraciones_versiones",
+          "refs": [
+            "id"
+          ],
+          "label": "conserva condiciones"
+        }
+      ],
+      "rules": [
+        "inicio_en < fin_en; intervalos [inicio, fin) con reloj del servidor y fecha/hora inequívoca.",
+        "Un único beneficio inicial general o fundador; cada compra pagada concede como máximo un período.",
+        "Modo y entorno coinciden con el origen; una simulación nunca habilita acceso real en producción.",
+        "La política propuesta agrega renovaciones anticipadas después del acceso vigente; la regla exacta de calendario requiere PD-10.",
+        "El vencimiento no depende del worker de avisos y no bloquea la finalización de pedidos aceptados."
+      ],
+      "requirements": [
+        "RF-12.2",
+        "RF-12.3",
+        "RF-12.8",
+        "RF-12.10",
+        "RF-12.14"
+      ],
+      "status": "Base de membresía; diseño por revisar"
+    }
+  ],
+  "diagrams": [
+    {
+      "name": "der-general",
+      "title": "Pedidos de impresión y membresías: circuitos separados",
+      "ownedTables": [
+        "clientes",
+        "solicitudes",
+        "makers",
+        "ofertas",
+        "pedidos",
+        "revisiones_resultado",
+        "entregas",
+        "membresias_maker",
+        "planes_membresia_versiones",
+        "compras_membresia",
+        "periodos_membresia",
+        "pagos"
+      ],
+      "entities": [
+        "clientes",
+        "solicitudes",
+        "makers",
+        "ofertas",
+        "pedidos",
+        "revisiones_resultado",
+        "entregas",
+        "membresias_maker",
+        "planes_membresia_versiones",
+        "compras_membresia",
+        "periodos_membresia",
+        "pagos"
+      ],
+      "relationshipCount": 15,
+      "summary": true
+    },
+    {
+      "name": "der-identidad",
+      "title": "Identidad, ubicaciones y capacidades",
+      "ownedTables": [
+        "usuarios",
+        "usuario_roles",
+        "clientes",
+        "makers",
+        "sesiones",
+        "ubicaciones",
+        "impresoras",
+        "materiales",
+        "capacidades_impresora"
+      ],
+      "entities": [
+        "usuarios",
+        "usuario_roles",
+        "clientes",
+        "makers",
+        "sesiones",
+        "ubicaciones",
+        "impresoras",
+        "materiales",
+        "capacidades_impresora"
+      ],
+      "relationshipCount": 11
+    },
+    {
+      "name": "der-archivos",
+      "title": "Archivos y análisis",
+      "ownedTables": [
+        "archivos",
+        "analisis_archivos"
+      ],
+      "entities": [
+        "archivos",
+        "analisis_archivos",
+        "usuarios"
+      ],
+      "relationshipCount": 2
+    },
+    {
+      "name": "der-cotizaciones",
+      "title": "Solicitudes, búsqueda y ofertas",
+      "ownedTables": [
+        "solicitudes",
+        "solicitud_versiones",
+        "rondas_busqueda",
+        "invitaciones_maker",
+        "estimaciones",
+        "ofertas",
+        "oferta_versiones"
+      ],
+      "entities": [
+        "solicitudes",
+        "solicitud_versiones",
+        "rondas_busqueda",
+        "invitaciones_maker",
+        "estimaciones",
+        "ofertas",
+        "oferta_versiones",
+        "clientes",
+        "archivos",
+        "materiales",
+        "ubicaciones",
+        "configuraciones_versiones",
+        "makers",
+        "analisis_archivos"
+      ],
+      "relationshipCount": 19
+    },
+    {
+      "name": "der-pedidos",
+      "title": "Pedidos, revisión y entrega",
+      "ownedTables": [
+        "pedidos",
+        "condiciones_pedido",
+        "historial_pedidos",
+        "revisiones_resultado",
+        "evidencias",
+        "decisiones_revision",
+        "puntos_encuentro",
+        "entregas",
+        "confirmaciones_entrega"
+      ],
+      "entities": [
+        "pedidos",
+        "condiciones_pedido",
+        "historial_pedidos",
+        "revisiones_resultado",
+        "evidencias",
+        "decisiones_revision",
+        "puntos_encuentro",
+        "entregas",
+        "confirmaciones_entrega",
+        "ofertas",
+        "oferta_versiones",
+        "solicitudes",
+        "usuarios",
+        "archivos",
+        "clientes",
+        "ubicaciones"
+      ],
+      "relationshipCount": 20
+    },
+    {
+      "name": "der-pagos",
+      "title": "Membresías y cobros del abono",
+      "ownedTables": [
+        "cuentas_pago",
+        "pagos",
+        "intentos_pago",
+        "operaciones_pago",
+        "eventos_proveedor",
+        "reembolsos",
+        "planes_membresia_versiones",
+        "membresias_maker",
+        "compras_membresia",
+        "periodos_membresia"
+      ],
+      "entities": [
+        "cuentas_pago",
+        "pagos",
+        "intentos_pago",
+        "operaciones_pago",
+        "eventos_proveedor",
+        "reembolsos",
+        "planes_membresia_versiones",
+        "membresias_maker",
+        "compras_membresia",
+        "periodos_membresia",
+        "usuarios",
+        "configuraciones_versiones",
+        "makers"
+      ],
+      "relationshipCount": 21
+    },
+    {
+      "name": "der-comunicacion",
+      "title": "Conversaciones y notificaciones",
+      "ownedTables": [
+        "conversaciones",
+        "participantes_conversacion",
+        "mensajes",
+        "mensaje_archivos",
+        "notificaciones",
+        "envios_notificacion"
+      ],
+      "entities": [
+        "conversaciones",
+        "participantes_conversacion",
+        "mensajes",
+        "mensaje_archivos",
+        "notificaciones",
+        "envios_notificacion",
+        "pedidos",
+        "invitaciones_maker",
+        "usuarios",
+        "archivos",
+        "eventos_salida"
+      ],
+      "relationshipCount": 11
+    },
+    {
+      "name": "der-operacion",
+      "title": "Configuración, operación y auditoría",
+      "ownedTables": [
+        "configuraciones_versiones",
+        "activaciones_configuracion",
+        "eventos_salida",
+        "trabajos",
+        "auditoria",
+        "casos_soporte",
+        "aceptaciones_condiciones"
+      ],
+      "entities": [
+        "configuraciones_versiones",
+        "activaciones_configuracion",
+        "eventos_salida",
+        "trabajos",
+        "auditoria",
+        "casos_soporte",
+        "aceptaciones_condiciones",
+        "usuarios",
+        "pedidos",
+        "solicitudes",
+        "pagos"
+      ],
+      "relationshipCount": 12
+    }
+  ]
+}
