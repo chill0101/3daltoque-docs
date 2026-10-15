@@ -1,56 +1,28 @@
 ---
-title: Manifiesto de la aplicación
-description: Propósito y principios que guían las decisiones de 3DAltoque.
+title: "Manifiesto"
+description: "Documentación de análisis y diseño de 3DAltoque."
 ---
 
-Versión documental: **0.1**. Actualización: **14 de octubre de 2026**. Etapa: **análisis y diseño**.
+## Acercar capacidad a una necesidad concreta
 
-## Propósito
+Queremos que una persona pueda transformar una idea en una pieza encontrando makers compatibles cerca de ella. La ubicación importa, pero no reemplaza capacidades, materiales, plazos y condiciones claras.
 
-Facilitar el acceso a la impresión 3D conectando a quienes necesitan fabricar una pieza con makers capaces de realizarla cerca de su zona.
+## Un acuerdo visible de principio a fin
 
-Queremos ayudar a encontrar una alternativa viable, acordar condiciones claras y seguir el trabajo hasta su recepción. No buscamos automatizar todas las decisiones técnicas ni reducir una pieza a un precio calculado sin contexto.
+Solicitud, oferta versionada, aceptación, cola, producción, evidencia, revisión y entrega forman un mismo recorrido. Una estimación no es una oferta firme. La aprobación del resultado debe ser expresa y la falta de respuesta no significa conformidad.
 
-## Compatibilidad antes que cercanía
+## Cobrar por nuestro servicio, sin manejar dinero ajeno
 
-La búsqueda debe considerar material, dimensiones, capacidades de impresión y disponibilidad. La ubicación es un criterio importante, pero no compensa una incompatibilidad técnica.
+La propuesta comercial es una membresía mensual prepaga para makers, de renovación manual. El cliente paga la impresión directamente al maker. La plataforma no custodia, divide ni transfiere esos fondos, ni acumula comisiones por pedido.
 
-## Ofertas claras y decisiones expresas
+## Dar espacio para probar
 
-El cliente compara precio, plazo y vigencia. La estimación inicial orienta; la oferta vigente establece las condiciones que se aceptan. Un mensaje no reemplaza una confirmación formal.
+La primera habilitación inicia una prueba gratuita. Un programa acotado de Makers Fundadores propone más tiempo inicial a cambio de aprender con los primeros usuarios, sin exigir tarjeta ni prometer trabajos, ranking o beneficios vitalicios. Los parámetros se configuran y las condiciones se comunican antes de aceptar.
 
-## Un acuerdo, un pedido
+## No abandonar un acuerdo por un vencimiento
 
-Aceptar una oferta confirma un único pedido por solicitud y cierra las alternativas. Debe conservarse la versión exacta aceptada y evitar confirmaciones concurrentes contradictorias.
+Un maker con acceso vencido puede terminar los pedidos que ya aceptó. La continuidad del trabajo y la evidencia del resultado no se usan como barrera para forzar una renovación.
 
-## Evidencia antes de la entrega
+## Mostrar el avance con honestidad
 
-El maker presenta fotos o video de la pieza terminada. La aprobación se vincula a una revisión concreta e inmutable, no a una imagen que pueda reemplazarse sin registro.
-
-## El silencio no aprueba
-
-La falta de respuesta mantiene la revisión pendiente. Los recordatorios pueden ayudar, pero no sustituyen el consentimiento del cliente.
-
-## Comunicación con contexto
-
-Los mensajes, archivos y cambios de estado deben asociarse al trabajo correspondiente. El historial debe poder recuperarse y solo mostrarse a participantes autorizados.
-
-## Transparencia económica
-
-Los pagos y la comisión configurable son parte del producto. Deben distinguirse el precio acordado, la comisión propia y los costos del proveedor. Las condiciones aplicadas a un pedido deben conservarse aunque la configuración cambie después.
-
-## Privacidad desde el diseño
-
-Un archivo STL, una ubicación o una conversación no son públicos por defecto. Cada acceso requiere una finalidad y una autorización definidas.
-
-## Simplicidad con límites claros
-
-La arquitectura debe separar reglas de negocio e integraciones sin multiplicar servicios innecesariamente. Web y mobile compartirán la API y las mismas reglas del producto.
-
-## Avance honesto y verificable
-
-Planificado, diseñado, implementado y probado son estados diferentes. Una simulación debe identificarse como tal; una decisión pendiente no debe presentarse como aprobada.
-
-## Alcance responsable
-
-Nos concentramos en solicitudes de impresión, selección de makers, ofertas, comunicación, pagos, producción, aprobación y recepción. El alcance de la aplicación nativa inicial sigue pendiente; el prototipo mobile forma parte de la documentación académica prevista.
+Distinguimos decisiones, hipótesis, implementación y resultados. La simulación se identifica como tal y no se presenta como dinero real, prueba ejecutada o integración productiva.

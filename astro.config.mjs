@@ -27,7 +27,7 @@ export default defineConfig({
       ],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
       sidebar: [
-        { label: 'Inicio', link: '/3daltoque-docs/' },
+        { label: 'Inicio', link: '/' },
         {
           label: 'El proyecto',
           items: [
@@ -35,6 +35,15 @@ export default defineConfig({
             { slug: 'proyecto/manifiesto', label: 'Manifiesto' },
             { slug: 'proyecto/base-tecnica', label: 'Base técnica' },
             { slug: 'proyecto/repositorios', label: 'Repositorios y equipo' },
+          ],
+        },
+        {
+          label: 'Análisis',
+          items: [
+            { slug: 'analisis/requisitos', label: 'Requisitos: guía de lectura' },
+            { slug: 'analisis/requisitos/funcionales', label: 'Requisitos funcionales' },
+            { slug: 'analisis/requisitos/no-funcionales', label: 'Requisitos no funcionales' },
+            { slug: 'analisis/reglas-de-negocio', label: 'Reglas de negocio' },
           ],
         },
         {
