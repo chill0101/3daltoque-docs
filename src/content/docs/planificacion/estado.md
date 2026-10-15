@@ -3,11 +3,11 @@ title: Estado de la documentación
 description: Contenido disponible en el portal y documentos que se incorporarán progresivamente.
 ---
 
-Este portal comienza con la presentación del producto, el manifiesto, los repositorios, la base técnica y el roadmap. **No constituye todavía la entrega completa de la materia.**
+El portal reúne la presentación del producto, el manifiesto, los repositorios, la base técnica y el roadmap. Su contenido crece siguiendo los checkpoints de la materia.
 
 ## Cómo leer los estados
 
-Que un documento no esté incluido aquí no significa que no exista un borrador de trabajo. Su incorporación requiere seleccionar una versión, revisar su coherencia y decidir que corresponde mostrarla.
+El equipo selecciona y revisa cada documento antes de incorporarlo al portal. La publicación sigue el orden y el alcance acordados para cada checkpoint.
 
 Estar publicado tampoco equivale a estar aprobado por el profesor. La aprobación académica se registrará solo cuando exista esa confirmación.
 
@@ -38,7 +38,7 @@ Estar publicado tampoco equivale a estar aprobado por el profesor. La aprobació
 
 Cada documento debe identificar su versión o estado, mantener referencias consistentes y distinguir requisitos, propuestas y decisiones adoptadas. Los diagramas deben acompañarse de contexto y una fuente editable cuando corresponda.
 
-No se incorporan automáticamente notas internas, credenciales, datos personales de pruebas ni material de terceros sin autorización. Ocultar un enlace en el menú no evita que un archivo del sitio sea público.
+Todo archivo publicado en el sitio queda accesible públicamente. El equipo selecciona material autorizado y conserva las credenciales, los datos privados y las notas internas en sus espacios de trabajo.
 
 ## Próximo avance documental
 

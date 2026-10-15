@@ -29,20 +29,20 @@ La propuesta es organizar ese recorrido en un mismo sistema, manteniendo la deci
 6. El maker presenta fotos o video del resultado. El cliente aprueba esa revisión o registra observaciones.
 7. Tras la aprobación, se coordina un encuentro personal y se registra la recepción.
 
-Conversar no reserva al cliente. Una estimación inicial es orientativa y no reemplaza la oferta del maker.
+La aceptación de una oferta confirma el acuerdo entre cliente y maker. La estimación inicial orienta la comparación y la oferta del maker establece las condiciones del trabajo.
 
 ## Pagos y comisiones
 
-Los pagos mediante Mercado Pago y una comisión de plataforma configurable forman parte del alcance. No se da por supuesto que el proveedor permita retener fondos hasta la entrega.
+El maker abona una membresía mensual prepaga mediante Mercado Pago Checkout Pro, con renovación manual. El cliente acuerda y paga la impresión directamente al maker.
 
 El momento del cobro, la distribución de fondos, las devoluciones y la fórmula completa de la comisión requieren una definición financiera explícita. Se contempla un adaptador simulado, claramente identificado, como respaldo para la demostración académica.
 
 ## Límites de la primera versión
 
-No se incluyen como obligaciones iniciales una flota propia, seguimiento GPS de repartidores, reparación automática avanzada de archivos STL ni un mercado de diseños o productos en stock.
+La primera versión concentra el trabajo en solicitudes de impresión, ofertas, producción, revisión del resultado y entrega personal. Las ampliaciones se evalúan en el roadmap.
 
-La entrega se plantea mediante un encuentro personal. Los puntos neutrales de encuentro no implican custodia de piezas por terceros.
+La entrega se realiza en un encuentro personal acordado entre cliente y maker. Ambos participantes coordinan el lugar y conservan la responsabilidad sobre el intercambio de la pieza.
 
 ## Estado
 
-Este documento describe el **producto previsto**. La existencia de repositorios o de este portal no acredita una aplicación implementada, desplegada o probada.
+La documentación del proyecto reúne el alcance, los requisitos, las decisiones técnicas y el plan de trabajo.

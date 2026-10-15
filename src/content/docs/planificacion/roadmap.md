@@ -5,7 +5,7 @@ description: Etapas de trabajo, dependencias y criterios de avance del proyecto.
 
 Última actualización: **14 de octubre de 2026**.
 
-El roadmap describe una secuencia de trabajo, no porcentajes completados ni fechas comprometidas. El proyecto se encuentra en análisis y diseño; las etapas de implementación no se presentan como realizadas.
+El roadmap organiza las etapas, sus dependencias y los criterios de avance. Las fechas y los responsables se acuerdan durante la planificación del equipo.
 
 ## Etapas
 
@@ -35,7 +35,7 @@ También deben acordarse las reglas de búsqueda, vigencia de ofertas, revisione
 - **Implementado:** existe código funcional que realiza el comportamiento.
 - **Probado:** existe evidencia del resultado de una verificación definida.
 
-Estos estados se registrarán por elemento. No se asignan porcentajes globales sin un criterio de medición acordado.
+Cada elemento registra su estado, responsable y evidencia de avance según los criterios acordados por el equipo.
 
 ## Entregas académicas
 

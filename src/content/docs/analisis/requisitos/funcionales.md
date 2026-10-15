@@ -5,9 +5,9 @@ description: "Documentación de análisis y diseño de 3DAltoque."
 
 Versión 2.0-borrador. Fecha: 14 de octubre de 2026. 54 fichas vigentes; nueve requisitos anteriores retirados.
 
-Decisión vigente: membresía mensual prepaga del maker, renovación manual, prueba general de 30 días y beneficio fundador de 90 días totales como valores iniciales configurables. No se cobran impresiones ni comisiones por pedido.
+Decisión vigente: membresía mensual prepaga del maker, renovación manual, prueba general de 30 días y beneficio fundador de 90 días totales como valores iniciales configurables. El cliente y el maker gestionan directamente el pago de la impresión. El ingreso de la plataforma corresponde al abono.
 
-RF-08.1 a RF-08.9 se retiran del alcance vigente; no se reutilizan sus identificadores. Su versión anterior queda preservada en el antecedente del cambio comercial. Véase ADR-002.
+RF-08.1 a RF-08.9 quedan archivados con sus identificadores originales como antecedentes del cambio comercial. Su versión anterior queda preservada en el antecedente del cambio comercial. Véase ADR-002.
 
 ## Índice de fichas vigentes
 
@@ -168,7 +168,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 | ID requerimiento | RF-01.5 |
 | Nombre | Cerrar sesión |
 | Propósito | Finalizar el acceso autorizado desde el cliente utilizado. |
-| Descripción | El sistema debe permitir cerrar la sesión activa y retirar o revocar la autorización correspondiente según la estrategia elegida. La duración residual y revocación de credenciales se especifican en PD-01. El cierre afecta al cliente indicado; no se presume cierre global de todos los dispositivos. |
+| Descripción | El sistema debe permitir cerrar la sesión activa y retirar o revocar la autorización correspondiente según la estrategia elegida. La duración residual y revocación de credenciales se especifican en PD-01. El cierre revoca la sesión del cliente indicado. El alcance de la revocación entre dispositivos se define en PD-01. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -214,14 +214,14 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02).
 | ID requerimiento | RF-02.2 |
 | Nombre | Validar archivos y límites técnicos |
 | Propósito | Detectar cargas incompletas o inválidas antes de utilizarlas. |
-| Descripción | El sistema debe comprobar tamaño real, formato/contenido admitido e integridad del archivo recibido conforme a límites documentados. El análisis debe indicar si el archivo puede usarse o qué problema impide hacerlo. La extensión del nombre por sí sola no acredita validez. Esta validación no garantiza imprimibilidad ni incluye reparación avanzada automática. |
+| Descripción | El sistema debe comprobar tamaño real, formato/contenido admitido e integridad del archivo recibido conforme a límites documentados. El análisis debe indicar si el archivo puede usarse o qué problema impide hacerlo. La validación comprueba el contenido y la integridad del archivo. El maker evalúa su imprimibilidad al preparar la oferta. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Un STL válido dentro de los límites queda habilitado para su uso autorizado.<br>2. Un archivo truncado, de contenido no admitido o fuera de límites permanece sin habilitar y tiene un motivo de rechazo.<br>3. Durante un análisis pendiente no se informa validación final ni precio definitivo. |
+| Criterio de éxito | 1. Un STL válido dentro de los límites queda habilitado para su uso autorizado.<br>2. Un archivo truncado, de contenido no admitido o fuera de límites permanece sin habilitar y tiene un motivo de rechazo.<br>3. Durante el análisis se muestra el estado pendiente. Los resultados y la estimación se publican al completar el procesamiento correspondiente. |
 
 Requisitos/CU relacionados: [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15), [RNF-16](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-16).
 
@@ -244,7 +244,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-12
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Una creación válida conserva propietario, archivo y características de la solicitud.<br>2. Una solicitud incompleta según PD-02 no se envía a makers y explica qué debe corregirse.<br>3. Un presupuesto o estimación de referencia no se presenta como aceptación contractual de un maker. |
+| Criterio de éxito | 1. Una creación válida conserva propietario, archivo y características de la solicitud.<br>2. Una solicitud incompleta según PD-02 no se envía a makers y explica qué debe corregirse.<br>3. El presupuesto o la estimación se identifica como referencia orientativa. La aceptación de una oferta confirma las condiciones del acuerdo. |
 
 Requisitos/CU relacionados: [RF-02.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-1), [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), CU-01.
 
@@ -267,7 +267,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-05
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. La ausencia de un plazo aprobado no se reemplaza por una fecha inventada. |
+| Criterio de éxito | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. Cada fecha mostrada corresponde a un plazo registrado; los plazos pendientes aparecen por definir. |
 
 Requisitos/CU relacionados: [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14), CU-01.
 
@@ -283,7 +283,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-05
 | ID requerimiento | RF-02.5 |
 | Nombre | Presentar estimación orientativa |
 | Propósito | Ayudar al cliente a comparar referencias sin sustituir la oferta humana. |
-| Descripción | Si se adopta la estimación inicial, el sistema debe presentarla como importe o rango orientativo con sus supuestos y unidad monetaria. El método, sus entradas y el grado de análisis del STL requieren PD-03. La ausencia de datos suficientes se informa explícitamente; no se fabrica una cotización final. |
+| Descripción | Si se adopta la estimación inicial, el sistema debe presentarla como importe o rango orientativo con sus supuestos y unidad monetaria. El método, sus entradas y el grado de análisis del STL requieren PD-03. Cuando faltan datos para estimar, el sistema identifica la información requerida y solicita completarla. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -329,7 +329,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04).
 | ID requerimiento | RF-03.2 |
 | Nombre | Consultar solicitudes recibidas por el maker |
 | Propósito | Organizar las oportunidades de trabajo habilitadas para cada maker. |
-| Descripción | El sistema debe presentar al maker las solicitudes para las que fue invitado, con información necesaria, estado y plazos. El orden de presentación se define en PD-04; experiencia y reputación no se convierten en filtros obligatorios sin definir sus datos y reglas. El acceso a archivos se rige por RF-10.3. |
+| Descripción | El sistema debe presentar al maker las solicitudes para las que fue invitado, con información necesaria, estado y plazos. El orden de presentación se define en PD-04; los filtros de experiencia y reputación requieren datos y reglas definidos. El acceso a archivos se rige por RF-10.3. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -467,7 +467,7 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-14
 | ID requerimiento | RF-05.1 |
 | Nombre | Conversar en el contexto del pedido |
 | Propósito | Permitir coordinación y seguimiento entre cliente y maker. |
-| Descripción | El sistema debe disponer de una conversación vinculada al pedido confirmado y accesible por sus participantes autorizados. Debe permitir consultar el historial y enviar mensajes. El chat anterior a la selección de oferta, la participación administrativa y la visibilidad adicional requieren PD-06 y no se deducen del chat de pedido. |
+| Descripción | El sistema debe disponer de una conversación vinculada al pedido confirmado y accesible por sus participantes autorizados. Debe permitir consultar el historial y enviar mensajes. El chat anterior a la selección de oferta, la participación administrativa y la visibilidad adicional se definen en PD-06. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -559,7 +559,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-07
 | ID requerimiento | RF-06.2 |
 | Nombre | Solicitar revisión del cliente |
 | Propósito | Abrir el control de conformidad de la pieza. |
-| Descripción | El sistema debe poner el resultado presentado en pendiente de revisión cuando la evidencia obligatoria esté disponible y habilitada. Debe mostrar al cliente lo que tiene que revisar y las acciones de aprobación u observación. La presentación de evidencia no equivale a aprobación ni habilita por sí sola la entrega. |
+| Descripción | El sistema debe poner el resultado presentado en pendiente de revisión cuando la evidencia obligatoria esté disponible y habilitada. Debe mostrar al cliente lo que tiene que revisar y las acciones de aprobación u observación. La aprobación expresa del cliente sobre la evidencia presentada habilita la coordinación de entrega. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -582,7 +582,7 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07).
 | ID requerimiento | RF-06.3 |
 | Nombre | Aprobar resultado o registrar observaciones |
 | Propósito | Expresar conformidad o iniciar la resolución de un problema. |
-| Descripción | El sistema debe permitir al cliente del pedido aprobar explícitamente la revisión presentada o registrar observaciones/reclamo. La decisión se asocia a esa evidencia, actor y fecha. La corrección y el escalamiento requieren PD-07; una aprobación de una revisión anterior no se presume válida para archivos sustituidos. |
+| Descripción | El sistema debe permitir al cliente del pedido aprobar explícitamente la revisión presentada o registrar observaciones/reclamo. La decisión se asocia a esa evidencia, actor y fecha. La corrección y el escalamiento requieren PD-07; cada aprobación corresponde a una revisión identificada; los archivos sustituidos requieren una nueva revisión. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -727,7 +727,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Should (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
-| Criterio de éxito | 1. Solo un rol autorizado consulta o resuelve un caso de soporte.<br>2. Una acción de moderación registra actor, motivo y resultado.<br>3. La intervención no concede acceso privado irrestricto ni modifica pagos reales sin el circuito de verificación correspondiente. |
+| Criterio de éxito | 1. Solo un rol autorizado consulta o resuelve un caso de soporte.<br>2. Una acción de moderación registra actor, motivo y resultado.<br>3. La intervención aplica los permisos definidos y el circuito de verificación correspondiente para cada acción. |
 
 Requisitos/CU relacionados: [RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), CU-07.
 
@@ -743,7 +743,7 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-14
 | ID requerimiento | RF-07.3 |
 | Nombre | Enviar avisos por canales externos habilitados |
 | Propósito | Extender los avisos cuando el usuario no está usando la plataforma. |
-| Descripción | Si se adopta un canal externo, el sistema debe entregar al proveedor un aviso con destinatario, plantilla y datos mínimos, y registrar aceptación/error. Correo, push y SMS requieren selección en PD-11; no se presume utilizar todos. Las confirmaciones de entrega se registran separadas de la aceptación del envío cuando estén disponibles. |
+| Descripción | Si se adopta un canal externo, el sistema debe entregar al proveedor un aviso con destinatario, plantilla y datos mínimos, y registrar aceptación/error. La selección de canales de correo, push y SMS se define en PD-11. Las confirmaciones de entrega se registran separadas de la aceptación del envío cuando estén disponibles. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -927,7 +927,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13
 | ID requerimiento | RF-11.1 |
 | Nombre | Exponer operaciones mediante API común |
 | Propósito | Permitir que los canales habilitados utilicen el mismo negocio. |
-| Descripción | El sistema debe exponer por la API FastAPI las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías, pagos de abonos, evidencia, entrega y avisos. Web y clientes mobile implementados utilizan las mismas reglas de negocio y permisos. Las rutas, entradas, salidas y errores se consolidan en el catálogo API; la app mobile no se considera implementada por existir este contrato. |
+| Descripción | El sistema debe exponer por la API FastAPI las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías, pagos de abonos, evidencia, entrega y avisos. Web y clientes mobile implementados utilizan las mismas reglas de negocio y permisos. Las rutas, entradas, salidas y errores se consolidan en el catálogo API. La aplicación mobile consume las operaciones de ese contrato según el alcance acordado. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -994,7 +994,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | ID requerimiento | RF-12.2 |
 | Nombre | Iniciar la prueba gratuita general |
 | Propósito | Permitir evaluar el servicio antes del primer abono. |
-| Descripción | Al habilitar por primera vez el perfil para recibir solicitudes, se concede una prueba general de 30 días como parámetro inicial configurable. La fecha de alta de usuario por sí sola no inicia el plazo. No se solicita tarjeta ni se crea un cobro automático. El criterio de habilitación se completa en PD-01. |
+| Descripción | Al habilitar por primera vez el perfil para recibir solicitudes, se concede una prueba general de 30 días como parámetro inicial configurable. La primera habilitación del perfil establece el inicio de la prueba gratuita. La renovación posterior requiere una compra iniciada por el maker. El criterio de habilitación se completa en PD-01. |
 | Historial | 2026-10-14: alta por ADR-002; nueva familia de requisitos, sin reutilizar RF-08. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
@@ -1022,7 +1022,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Revisión académica pendiente. |
 | Prioridad | Must |
 | Estabilidad | Media |
-| Criterio de éxito | 1. Una misma identidad maker no consume dos cupos ni obtiene pruebas acumuladas.<br>2. Dos asignaciones concurrentes no superan el cupo configurado.<br>3. Se muestran duración y condiciones; no se promete precio vitalicio, pedidos, prioridad de búsqueda ni mejor reputación. |
+| Criterio de éxito | 1. Una misma identidad maker no consume dos cupos ni obtiene pruebas acumuladas.<br>2. Dos asignaciones concurrentes no superan el cupo configurado.<br>3. Se muestran la duración, las condiciones y los beneficios concretos del programa. La selección de ofertas y la reputación siguen las reglas generales de la plataforma. |
 
 Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 
@@ -1043,7 +1043,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Revisión académica pendiente. |
 | Prioridad | Must |
 | Estabilidad | Alta |
-| Criterio de éxito | 1. El maker solo consulta sus propios datos comerciales y compras.<br>2. La vista distingue prueba, beneficio fundador, acceso pago y vencimiento.<br>3. No se representa una compra pendiente, un retorno de checkout o un pago simulado como una renovación real. |
+| Criterio de éxito | 1. El maker solo consulta sus propios datos comerciales y compras.<br>2. La vista distingue prueba, beneficio fundador, acceso pago y vencimiento.<br>3. La vista identifica compras pendientes, confirmadas y simuladas según el estado verificado y el entorno correspondiente. |
 
 Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 
@@ -1057,14 +1057,14 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | ID requerimiento | RF-12.5 |
 | Nombre | Iniciar el pago del abono |
 | Propósito | Cobrar el servicio propio de la plataforma al maker. |
-| Descripción | El maker inicia o recupera una compra del plan vigente y su checkout de Mercado Pago Checkout Pro. El backend fija importe, moneda, versión y referencia; la plataforma es la receptora de sus propios abonos. No se cobra al cliente por la impresión ni se utiliza OAuth de vendedores, split, retención o Payouts. |
+| Descripción | El maker inicia o recupera una compra del plan vigente y su checkout de Mercado Pago Checkout Pro. El backend fija importe, moneda, versión y referencia; la plataforma es la receptora de sus propios abonos. La compra corresponde exclusivamente al abono del maker a la plataforma. |
 | Historial | 2026-10-14: alta por ADR-002; nueva familia de requisitos, sin reutilizar RF-08. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Revisión académica pendiente. |
 | Prioridad | Must |
 | Estabilidad | Alta |
-| Criterio de éxito | 1. El intento pertenece a una compra y al maker autenticado.<br>2. Repetir la misma operación recupera el intento existente o informa su estado incierto.<br>3. Importe y moneda enviados por la interfaz no sustituyen las condiciones conservadas en la compra. |
+| Criterio de éxito | 1. El intento pertenece a una compra y al maker autenticado.<br>2. Repetir la misma operación recupera el intento existente o informa su estado incierto.<br>3. El backend utiliza el importe y la moneda conservados en la compra. |
 
 Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 
@@ -1099,7 +1099,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | ID requerimiento | RF-12.7 |
 | Nombre | Consultar y conciliar compras de membresía |
 | Propósito | Resolver pagos pendientes o inciertos sin duplicar cargos. |
-| Descripción | El maker consulta sus compras e intentos y el proceso autorizado contrasta con Mercado Pago sus resultados pendientes o inciertos. Un segundo cobro efectivo se conserva como anomalía para resolución, no se oculta ni otorga otro mes por accidente. |
+| Descripción | El maker consulta sus compras e intentos y el proceso autorizado contrasta con Mercado Pago sus resultados pendientes o inciertos. Un segundo cobro efectivo se registra como anomalía para resolución y conciliación. La compra conserva una única concesión de acceso. |
 | Historial | 2026-10-14: alta por ADR-002; nueva familia de requisitos, sin reutilizar RF-08. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
@@ -1141,7 +1141,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | ID requerimiento | RF-12.9 |
 | Nombre | Renovar manualmente la membresía |
 | Propósito | Mantener un cobro explícito y simple en la primera versión. |
-| Descripción | El maker puede iniciar una nueva compra para renovar el acceso. No se almacena una autorización de débito recurrente ni se carga una tarjeta automáticamente al terminar la prueba. La interfaz muestra claramente que la renovación es manual. |
+| Descripción | El maker puede iniciar una nueva compra para renovar el acceso. Cada renovación requiere una acción expresa del maker para iniciar una compra. La interfaz informa el importe, la duración y el carácter manual de la renovación. |
 | Historial | 2026-10-14: alta por ADR-002; nueva familia de requisitos, sin reutilizar RF-08. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
@@ -1169,7 +1169,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Revisión académica pendiente. |
 | Prioridad | Must |
 | Estabilidad | Media |
-| Criterio de éxito | 1. Un maker vencido no confirma un trabajo nuevo mediante una petición directa que eluda la interfaz.<br>2. Vencer el acceso no cancela pedidos ni bloquea su finalización.<br>3. La guarda usa fecha y permisos del servidor, no una tarea de recordatorios como autoridad. |
+| Criterio de éxito | 1. Un maker vencido no confirma un trabajo nuevo mediante una petición directa que eluda la interfaz.<br>2. Vencer el acceso no cancela pedidos ni bloquea su finalización.<br>3. La guarda utiliza la fecha y los permisos calculados por el servidor. |
 
 Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 
@@ -1190,7 +1190,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Revisión académica pendiente. |
 | Prioridad | Must |
 | Estabilidad | Alta |
-| Criterio de éxito | 1. Los destinatarios son autorizados y los reintentos no duplican efectos comerciales.<br>2. Un fallo al avisar no extiende ni acorta la vigencia.<br>3. No se promete un precio todavía no configurado. |
+| Criterio de éxito | 1. Los destinatarios son autorizados y los reintentos no duplican efectos comerciales.<br>2. Un fallo al avisar no extiende ni acorta la vigencia.<br>3. Los avisos de precio utilizan exclusivamente los valores del plan configurado. |
 
 Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 
@@ -1204,7 +1204,7 @@ Requisitos relacionados: RNF-04, RNF-05, RNF-06, RNF-09, RNF-10, RNF-13.
 | ID requerimiento | RF-12.12 |
 | Nombre | Gestionar devoluciones del abono autorizadas |
 | Propósito | Resolver devoluciones de nuestro servicio sin intervenir en el precio de la impresión. |
-| Descripción | Cuando la política aplicable lo autorice, el proceso registra y verifica una devolución total o parcial de un abono cobrado por la plataforma. Se conserva motivo, monto, operación y resultado. Condiciones, responsable y efecto sobre períodos futuros requieren PD-09; no se decide automáticamente por un reclamo sobre la pieza. |
+| Descripción | Cuando la política aplicable lo autorice, el proceso registra y verifica una devolución total o parcial de un abono cobrado por la plataforma. Se conserva motivo, monto, operación y resultado. Condiciones, responsable y efecto sobre períodos futuros requieren PD-09; la autorización de devolución sigue la política específica del abono. |
 | Historial | 2026-10-14: alta por ADR-002; nueva familia de requisitos, sin reutilizar RF-08. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
