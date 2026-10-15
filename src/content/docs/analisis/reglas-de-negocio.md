@@ -11,37 +11,37 @@ Versión 2.0-borrador. Fecha: 14 de octubre de 2026.
 - La búsqueda considera capacidad, material, ubicación, disponibilidad y habilitación comercial; no notifica a todos los makers.
 - Las ofertas conservan versiones y vigencia. Conversar no reserva al cliente.
 - Aceptar una versión válida confirma un único pedido por solicitud y cierra alternativas de forma atómica.
-- Precio y condiciones aceptadas se conservan; no se calcula comisión de plataforma por impresión.
+- Cada pedido conserva el precio y las condiciones aceptadas. El ingreso de la plataforma corresponde al abono del maker.
 
 ## Membresía y promociones
 
 - Existe un único plan mensual prepago, con renovación manual.
 - Prueba general: 30 días iniciales configurables desde la primera habilitación para recibir solicitudes.
-- Fundadores: 90 días totales iniciales configurables en lugar de 30, con cupo limitado; no se acumulan ambos beneficios.
+- Fundadores: prueba inicial de 90 días totales configurables, con cupo limitado. Cada maker recibe una única modalidad de prueba inicial.
 - La asignación es autorizada y auditada. El perfil no obtiene más pruebas por editarse o reactivarse.
-- No se solicita tarjeta para la prueba ni se cobra automáticamente al vencer.
+- La prueba gratuita se activa con los datos del perfil. Al vencer, la renovación requiere una compra iniciada por el maker.
 - Los cambios de precio, plazo o cupo no reescriben condiciones ya concedidas.
 - El distintivo fundador no garantiza trabajo, ranking, reputación, calidad ni participación societaria.
 
 ## Cobro propio y vigencia
 
-El maker paga nuestro abono por Checkout Pro. Se comprueba el resultado con Mercado Pago antes de conceder acceso; el retorno del navegador no acredita el pago.
+El maker paga el abono por Checkout Pro. El backend verifica el estado de la operación con Mercado Pago y concede acceso cuando el pago queda confirmado.
 
 Una compra confirmada concede como máximo un período. Las renovaciones anticipadas deben conservar días ya otorgados; la regla mensual y las situaciones tardías se acuerdan en PD-10.
 
-La vigencia usa fecha del servidor y no depende de recordatorios. Al vencer se limitan trabajos nuevos, pero no se cancelan ni bloquean pedidos aceptados, chat, producción, evidencia, revisión o entrega.
+La vigencia se calcula con la fecha del servidor. El acceso vigente habilita trabajos nuevos. Al vencer, el maker conserva los pedidos aceptados y sus funciones de chat, producción, evidencia, revisión y entrega. Los recordatorios informan el vencimiento.
 
 ## Pago de la impresión
 
-Se acuerda directamente entre cliente y maker. 3DAltoque no cobra, retiene, reparte, liquida ni garantiza esos fondos. Un comprobante externo no se muestra como pago verificado por nuestra plataforma.
+El cliente y el maker acuerdan y gestionan directamente el pago de la impresión. La información sobre ese intercambio se identifica como declarada por sus participantes. Los pagos verificados por 3DAltoque corresponden a sus propios abonos.
 
-No se utiliza deuda de comisiones, split, vinculación OAuth de vendedores, Payouts ni billetera propia en v1.
+El circuito financiero de v1 comprende la compra, confirmación y renovación manual del abono de la plataforma.
 
 ## Evidencia, aprobación y entrega
 
 El maker presenta evidencia habilitada de una revisión concreta. La aprobación del cliente es expresa y anterior a la entrega; ningún silencio o recordatorio aprueba.
 
-El encuentro es personal. Los puntos neutrales no implican custodia de terceros y no deben exponer el domicilio privado del maker.
+El encuentro es personal y puede realizarse en un punto neutral acordado. Cliente y maker coordinan el intercambio de la pieza y comparten únicamente la ubicación necesaria para la entrega.
 
 ## Decisiones abiertas
 

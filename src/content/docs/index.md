@@ -14,7 +14,6 @@ hero:
       variant: secondary
 ---
 
-<div class="project-status"><strong>Análisis y diseño</strong><span>Documentamos el producto previsto. No presentamos estas funcionalidades como implementadas.</span></div>
 
 ## Una plataforma, un recorrido completo
 
@@ -37,7 +36,7 @@ La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar maker
 
 - Una solicitud confirmada genera un único pedido, con las condiciones exactas de la oferta aceptada.
 - El maker presenta evidencia del resultado y el cliente la aprueba expresamente antes de coordinar la entrega.
-- La falta de respuesta no equivale a aprobar una pieza.
+- Cada aprobación queda vinculada a la evidencia presentada por el maker.
 - Los pagos y la comisión configurable forman parte del producto.
 - La simulación, cuando se utilice, debe estar identificada y no presentarse como una integración real.
 
