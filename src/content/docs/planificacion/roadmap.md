@@ -1,29 +1,44 @@
 ---
-title: "Roadmap"
-description: "Documentación de análisis y diseño de 3DAltoque."
+title: Roadmap
+description: Etapas de trabajo, dependencias y criterios de avance del proyecto.
 ---
 
-Última actualización: **14 de octubre de 2026**. Secuencia propuesta; sin fechas ni porcentajes inventados.
+Última actualización: **14 de octubre de 2026**.
 
-## Etapas y criterios de avance
+El roadmap describe una secuencia de trabajo, no porcentajes completados ni fechas comprometidas. El proyecto se encuentra en análisis y diseño; las etapas de implementación no se presentan como realizadas.
 
-| Etapa | Objetivo | Evidencia pendiente para cerrarla |
+## Etapas
+
+| Etapa | Objetivo | Evidencia para considerar el avance |
 | --- | --- | --- |
-| M0. Producto y organización | Alcance, repositorios y modelo comercial | Revisión del equipo, responsables y condiciones académicas |
-| M1. Análisis | RF/RNF, CU, reglas y prototipos web/mobile | Cierre de políticas y trazabilidad revisada con plantillas |
-| M2. Diseño y base técnica | FastAPI modular, API, modelo lógico, DER e integraciones | Decisiones de hosting/ORM y diseño revisado; migraciones al implementar |
-| M3. Identidad y acceso comercial | Perfil, habilitación, prueba general y fundadores | Flujo verificable, cupo concurrente y permisos para trabajos nuevos/existentes |
-| M4. Abono propio | Checkout Pro, webhooks, conciliación, renovación manual | Pago de prueba verificado y concesión idempotente; simulación aislada si aplica |
-| M5. Marketplace | Solicitudes, matching, ofertas y aceptación | Recorrido integrado y aceptación concurrente segura |
-| M6. Producción y recepción | Cola, chat, evidencia, revisión y entrega | Aprobación expresa y continuidad del pedido con acceso vencido |
-| M7. Calidad y entrega | Pruebas, accesibilidad, operación, manuales y presentación | Ejecuciones con evidencia, trazabilidad y revisión docente correspondiente |
-
-Las etapas pueden solaparse; la integración del abono se explora temprano para no descubrir bloqueantes al final. No se agrega split, OAuth de makers, saldos o transferencias de impresión a estas etapas.
+| M0. Organización y presentación | Establecer repositorios, propósito y forma de mostrar el trabajo | Repositorios identificados y presentación revisada |
+| M1. Requisitos y alcance | Acordar funcionalidades, calidad, reglas y límites | Requisitos revisados, criterios de aceptación y decisiones pendientes identificadas |
+| M2. Diseño y prototipos | Definir interacción, dominio, datos, arquitectura e interfaces | Prototipos web/mobile, modelos y contratos coherentes con los requisitos |
+| M3. Fundamentos técnicos | Preparar identidad, permisos, persistencia y archivos | Primer recorrido ejecutable con controles de acceso y manejo seguro de archivos |
+| M4. Solicitudes y ofertas | Implementar búsqueda, invitaciones, cotización y aceptación | Recorrido hasta un pedido único, con condiciones aceptadas conservadas |
+| M5. Comunicación y seguimiento | Implementar chat contextual, historial y notificaciones | Mensajes recuperables, permisos y cambios de estado trazables |
+| M6. Pagos y comisiones | Integrar el modelo financiero acordado | Operaciones idempotentes, comisión conservada y conciliación; modo real o simulado identificado |
+| M7. Producción y entrega | Gestionar evidencia, aprobación y recepción | Revisión explícitamente aprobada antes del encuentro y recepción registrada |
+| M8. Calidad y operación | Consolidar pruebas, seguridad, despliegue y manuales | Resultados de pruebas, trazabilidad y procedimientos reproducibles |
+| M9. Cierre académico | Preparar la entrega final y su presentación | Documentación seleccionada, demostración y material de exposición |
 
 ## Decisiones tempranas
 
-Precio y moneda del único plan; cupo fundador y vigencia de convocatoria; calendario de renovación; criterios de primera habilitación; política del abono; elegibilidad de ofertas ante vencimiento; versiones de herramientas, hosting y alcance de implementación mobile. Los 30/90 días son valores iniciales propuestos y configurables.
+Aunque la implementación de pagos figure en M6, su viabilidad debe analizarse desde M1. Antes de comprometer un flujo, hay que resolver el momento del cobro, quién recibe los fondos, el cálculo de la comisión, las devoluciones y las capacidades reales del proveedor.
 
-## Seguimiento
+También deben acordarse las reglas de búsqueda, vigencia de ofertas, revisiones del resultado, conservación de archivos y alcance de la primera versión mobile.
 
-Cada hito requiere responsable, fecha acordada, documento/versiones y evidencia antes de cerrarse. Tener un diseño no significa tener la funcionalidad implementada. Marzo de 2027 es el horizonte informado por el equipo; parciales, simulacro y condiciones de diciembre dependen de confirmación de cátedra.
+## Seguimiento del avance
+
+- **Planificado:** existe una intención y un alcance propuesto.
+- **Diseñado:** existe una especificación revisable y coherente con los requisitos.
+- **Implementado:** existe código funcional que realiza el comportamiento.
+- **Probado:** existe evidencia del resultado de una verificación definida.
+
+Estos estados se registrarán por elemento. No se asignan porcentajes globales sin un criterio de medición acordado.
+
+## Entregas académicas
+
+El horizonte informado es marzo de 2027. Las condiciones de diciembre de 2026, parciales y simulacro de tesis se incorporarán cuando la cátedra confirme los requisitos aplicables.
+
+Las entregas formales reflejarán el avance real del proyecto, sin sustituir la documentación técnica por un checklist.

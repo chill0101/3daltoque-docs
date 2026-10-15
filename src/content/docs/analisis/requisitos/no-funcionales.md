@@ -56,7 +56,7 @@ Las metas numéricas de disponibilidad, rendimiento, tamaño de vista y recupera
 
 Requisitos/CU relacionados: [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-03, INT-05.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -79,7 +79,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-03.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-2), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -102,7 +102,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11
 
 Requisitos/CU relacionados: [RNF-02](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-02), [RNF-18](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-18).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -125,7 +125,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-13
 
 Requisitos/CU relacionados: [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), [RF-12.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-6), [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-02, INT-03, INT-05, INT-06.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -148,7 +148,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-06
 
 Requisitos/CU relacionados: [RF-04.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-4), [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RF-06.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-7).
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 
@@ -171,7 +171,7 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-07
 
 Requisitos/CU relacionados: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-03, INT-04, INT-05.
 
 Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -194,7 +194,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14
 
 Requisitos/CU relacionados: [RNF-01](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-01), [RNF-02](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-02), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-02, INT-03, INT-04, INT-05, INT-06.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -217,7 +217,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RF-04.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-3), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05.
 
 Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -240,7 +240,7 @@ Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
 Requisitos/CU relacionados: [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-6), [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-12.12](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-12).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01.
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10](/3daltoque-docs/analisis/requisitos/#pd-10).
 
@@ -263,7 +263,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10
 
 Requisitos/CU relacionados: [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14), [RNF-09](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-09), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-05.
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-15](/3daltoque-docs/analisis/requisitos/#pd-15).
 
@@ -286,7 +286,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-15
 
 Requisitos/CU relacionados: [RF-10.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-4), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-19](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-19).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-03, INT-04.
 
 Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -309,7 +309,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13
 
 Requisitos/CU relacionados: [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-02, INT-03, INT-04.
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -332,7 +332,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 
 Requisitos/CU relacionados: [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-05.
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10](/3daltoque-docs/analisis/requisitos/#pd-10), [PD-15](/3daltoque-docs/analisis/requisitos/#pd-15).
 
@@ -355,7 +355,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10
 
 Requisitos/CU relacionados: [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1), [RNF-10](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-10), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-03, INT-04, INT-05, INT-06.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -378,7 +378,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-09
 
 Requisitos/CU relacionados: [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-02, INT-03, INT-04, INT-06.
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -401,7 +401,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 
 Requisitos/CU relacionados: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-10.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-1), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-03, INT-04, INT-05.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -424,7 +424,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11
 
 Requisitos/CU relacionados: [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05, INT-06.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -447,7 +447,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RNF-03](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-03), [RNF-10](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-10), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-02, INT-03, INT-04, INT-05.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -470,7 +470,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-10.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-4), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 
-Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-01, INT-03.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 

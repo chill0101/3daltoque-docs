@@ -47,4 +47,4 @@ El encuentro es personal. Los puntos neutrales no implican custodia de terceros 
 
 Se deben cerrar precio y moneda del abono, cupo y ventana de fundadores, habilitación inicial, calendario, ofertas vigentes al vencer, devoluciones del abono, correcciones de piezas, recepción, búsqueda y políticas de datos.
 
-El detalle comercial y sus consecuencias están en [Modelo comercial](/3daltoque-docs/proyecto/modelo-comercial/) y [ADR-002](/3daltoque-docs/proyecto/modelo-comercial/).
+El detalle comercial y sus consecuencias están en Modelo comercial y ADR-002.

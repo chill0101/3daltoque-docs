@@ -1,40 +1,48 @@
 ---
-title: "Qué es 3DAltoque"
-description: "Documentación de análisis y diseño de 3DAltoque."
+title: Qué es 3DAltoque
+description: Problema, destinatarios, recorrido y alcance previsto de la plataforma.
 ---
 
-Versión 2.0-borrador. Fecha: 14 de octubre de 2026.
+**3DAltoque** es una plataforma que busca conectar a personas que necesitan una pieza impresa en 3D con makers cercanos y compatibles con el trabajo solicitado.
 
-## Propósito
+## El problema
 
-Conectar a personas que necesitan una impresión 3D con makers cercanos y compatibles, organizando solicitud, ofertas, acuerdo, comunicación, producción, revisión y entrega personal.
+Conseguir una impresión 3D requiere encontrar un proveedor, comunicar las especificaciones, acordar precio y plazo y coordinar la entrega. Cuando ese proceso se reparte entre contactos y conversaciones aisladas, se dificulta comparar propuestas y recuperar las condiciones acordadas.
 
-## Recorrido principal
+La propuesta es organizar ese recorrido en un mismo sistema, manteniendo la decisión del cliente y el criterio técnico del maker.
 
-1. El cliente carga STL, material, cantidad y especificaciones.
-2. Se invita a un grupo reducido de makers compatibles y comercialmente habilitados.
-3. Los makers presentan ofertas versionadas con precio, plazo y vigencia.
-4. El cliente acepta una versión válida; se confirma un único pedido y se cierran las alternativas.
-5. Las partes coordinan directamente el pago de la impresión. 3DAltoque no procesa ni garantiza esos fondos.
-6. El maker fabrica y presenta evidencia. El cliente aprueba la revisión concreta o registra observaciones.
-7. Después de la aprobación se coordina un encuentro personal y se registra la recepción.
+## A quiénes está dirigida
 
-Conversar no reserva al cliente. La estimación inicial es orientativa y no reemplaza la oferta del maker. El silencio no aprueba el resultado.
+| Actor | Necesidad |
+| --- | --- |
+| Cliente | Encontrar un maker compatible, comparar ofertas y seguir su pedido |
+| Maker | Recibir solicitudes viables, cotizar y gestionar sus trabajos |
+| Administración | Gestionar parámetros autorizados, trazabilidad y soporte |
 
-## Acceso del maker y monetización
+## Cómo funcionará
 
-El maker utiliza un único plan mensual prepago. La prueba general comienza al habilitar el perfil y tiene 30 días iniciales configurables. Makers Fundadores recibe 90 días totales en vez de 30, con cupo limitado y condiciones visibles.
+1. El cliente carga un archivo STL e indica material, cantidad y condiciones de impresión.
+2. La plataforma identifica un grupo reducido de makers compatibles y cercanos.
+3. Los makers presentan ofertas con precio, plazo y vigencia.
+4. El cliente compara y acepta una versión concreta de una oferta. Se confirma un único pedido y se cierran las alternativas.
+5. Las partes se comunican y consultan el avance del trabajo.
+6. El maker presenta fotos o video del resultado. El cliente aprueba esa revisión o registra observaciones.
+7. Tras la aprobación, se coordina un encuentro personal y se registra la recepción.
 
-El abono se cobra mediante Checkout Pro y se renueva manualmente. Vencer limita trabajos nuevos, no la finalización de pedidos existentes. Precio, moneda, cupo y reglas abiertas se detallan en [Modelo comercial](/3daltoque-docs/proyecto/modelo-comercial/).
+Conversar no reserva al cliente. Una estimación inicial es orientativa y no reemplaza la oferta del maker.
 
-## Límites de v1
+## Pagos y comisiones
 
-No hay comisión por pedido, pago de impresiones dentro de nuestra pasarela, custodia de fondos, split, OAuth de vendedores ni transferencias a makers. Tampoco se incorporan flota propia, GPS de repartidores, custodia en comercios, reparación avanzada automática de STL o venta de diseños como núcleo obligatorio.
+Los pagos mediante Mercado Pago y una comisión de plataforma configurable forman parte del alcance. No se da por supuesto que el proveedor permita retener fondos hasta la entrega.
 
-La inclusión de una app nativa en la implementación inicial sigue pendiente; su prototipo permanece en la documentación académica prevista.
+El momento del cobro, la distribución de fondos, las devoluciones y la fórmula completa de la comisión requieren una definición financiera explícita. Se contempla un adaptador simulado, claramente identificado, como respaldo para la demostración académica.
 
-## Base técnica y estado
+## Límites de la primera versión
 
-Backend FastAPI y Python; monolito modular con separación hexagonal simple. React web y React Native previsto consumen la misma API. PostgreSQL/PostGIS, persistencia y hosting siguen como propuestas según los documentos técnicos.
+No se incluyen como obligaciones iniciales una flota propia, seguimiento GPS de repartidores, reparación automática avanzada de archivos STL ni un mercado de diseños o productos en stock.
 
-Se documenta un diseño, no una aplicación implementada. El cambio comercial está registrado en [ADR-002](/3daltoque-docs/proyecto/modelo-comercial/).
+La entrega se plantea mediante un encuentro personal. Los puntos neutrales de encuentro no implican custodia de piezas por terceros.
+
+## Estado
+
+Este documento describe el **producto previsto**. La existencia de repositorios o de este portal no acredita una aplicación implementada, desplegada o probada.

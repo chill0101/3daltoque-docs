@@ -1,32 +1,74 @@
 # 3DAltoque · Documentación
 
-Documentación pública del proyecto final de Bernardez, Cariaga y Ruiz. Plataforma que conecta clientes y makers de impresión 3D compatibles por ubicación y capacidad, con ofertas, cola, revisión y entrega personal.
+Una plataforma para conectar a quienes necesitan una pieza impresa en 3D con makers cercanos y compatibles con su solicitud.
+
+**Estado del producto:** análisis y diseño. Este repositorio presenta el avance documental; no acredita funcionalidades implementadas.
+
+## Contenido
+
+- [Presentación del proyecto](src/content/docs/proyecto/presentacion.md).
+- [Manifiesto de la aplicación](src/content/docs/proyecto/manifiesto.md).
+- [Base técnica](src/content/docs/proyecto/base-tecnica.md).
+- [Repositorios y equipo](src/content/docs/proyecto/repositorios.md).
+- [Roadmap](src/content/docs/planificacion/roadmap.md).
+- [Estado de la documentación](src/content/docs/planificacion/estado.md).
+
+Los documentos completos de requisitos, casos de uso, prototipos, modelos, pruebas y manuales se incorporarán progresivamente, tras seleccionar y revisar las versiones que se quieran presentar.
 
 ## Repositorios del proyecto
 
 | Repositorio | Responsabilidad |
 | --- | --- |
-| [3daltoque-docs](https://github.com/chill0101/3daltoque-docs) | Documentación y portal Astro/Starlight |
-| [3daltoque-backend](https://github.com/chill0101/3daltoque-backend) | Backend FastAPI / Python y API compartida |
-| [3daltoque-frontend](https://github.com/chill0101/3daltoque-frontend) | Aplicación web; puede requerir acceso al repositorio |
-| [3daltoque-mobile](https://github.com/chill0101/3daltoque-mobile) | Aplicación React Native prevista |
+| [3daltoque-docs](https://github.com/chill0101/3daltoque-docs) | Documentación y presentación |
+| [3daltoque-backend](https://github.com/chill0101/3daltoque-backend) | API y reglas de negocio con FastAPI y Python |
+| [3daltoque-frontend](https://github.com/chill0101/3daltoque-frontend) | Interfaz web; acceso privado informado |
+| [3daltoque-mobile](https://github.com/chill0101/3daltoque-mobile) | Aplicación mobile prevista |
 
-Los repositorios identifican responsabilidades; no acreditan funcionalidades implementadas.
+## Desarrollo del portal
 
-## Modelo vigente
+El sitio utiliza Astro y Starlight. Requiere **Node.js 24** y **npm 11 o superior**. Las versiones directas están fijadas y las dependencias resueltas se conservan en `package-lock.json`.
 
-Membresía mensual prepaga para makers, renovación manual y Checkout Pro para cobrar nuestro abono. Prueba general de 30 días y programa Makers Fundadores con 90 días totales propuestos, ambos configurables; cupo fundador por definir. Inicio al habilitar por primera vez el perfil para recibir solicitudes. No se exige tarjeta para la prueba ni se cobra automáticamente al vencer.
+```sh
+npm ci
+npm run dev
+```
 
-El cliente paga la impresión directamente al maker. No hay comisión por pedido, split, retención ni transferencias de impresión. Vencer el acceso comercial limita trabajos nuevos, pero no impide terminar los ya aceptados.
+La ruta local es `http://localhost:4321/3daltoque-docs/`. Si el puerto está ocupado, Astro informará el utilizado.
 
-## Portal
+Para generar y previsualizar la versión estática:
 
-[Documentación](https://chill0101.github.io/3daltoque-docs/) · [Manifiesto](https://chill0101.github.io/3daltoque-docs/proyecto/manifiesto/) · [Roadmap](https://chill0101.github.io/3daltoque-docs/planificacion/roadmap/).
+```sh
+npm run build
+npm run preview
+```
 
-La revisión local del 14 de octubre incorpora 54 RF vigentes, 19 RNF, casos de uso, diseño, flujos y ocho vistas DER de un catálogo de 50 tablas. Es análisis y diseño en revisión, no una entrega académica aprobada.
+El buscador se genera durante el build. Para revisar la búsqueda hay que utilizar la previsualización de la versión generada, no solamente el servidor de desarrollo.
 
-## Desarrollo del sitio
+## Publicación en GitHub Pages
 
-El proyecto usa Astro y Starlight. Con las dependencias del proyecto instaladas, npm run dev inicia la vista local, npm run build genera dist/ y npm run preview sirve ese resultado.
+La configuración apunta a [chill0101.github.io/3daltoque-docs/](https://chill0101.github.io/3daltoque-docs/). **Una URL configurada no implica que el sitio ya esté publicado.**
 
-El despliegue configurado en GitHub Actions utiliza GitHub Pages y la base /3daltoque-docs/. Una actualización local no modifica el sitio público: requiere revisión y publicación acordada. No incluir archivos privados, secretos o fuentes de contexto en public/.
+1. Seleccionar **GitHub Actions** en **Settings → Pages → Build and deployment → Source** del repositorio.
+2. Revisar e integrar los cambios en `main`.
+3. El workflow de `.github/workflows/deploy.yml` instalará las dependencias, generará el sitio y lo desplegará. También admite ejecución manual desde `main`.
+
+La primera ejecución necesita que GitHub Pages esté habilitado y que las políticas del repositorio permitan las acciones utilizadas. El workflow no publica otras ramas ni contiene credenciales propias.
+
+Las rutas `site` y `base` están configuradas en `astro.config.mjs`. Si cambia el nombre del repositorio o se utiliza un dominio propio, habrá que adaptar también los enlaces internos con prefijo.
+
+## Organización de archivos
+
+| Ruta | Contenido |
+| --- | --- |
+| `src/content/docs/` | Páginas Markdown del portal |
+| `src/content.config.ts` | Colección de documentos y esquema de Starlight |
+| `src/styles/custom.css` | Identidad visual y ajustes responsive |
+| `src/assets/` y `public/` | Recursos propios del sitio |
+| `astro.config.mjs` | Navegación, idioma y rutas de publicación |
+| `.github/workflows/deploy.yml` | Generación y despliegue con GitHub Actions |
+
+## Equipo y entrega
+
+Lucas Bernardez, Rocío Cariaga y Lucas Ruiz. Horizonte de entrega final informado: **marzo de 2027**.
+
+Las contribuciones y el criterio de publicación se describen en [CONTRIBUTING.md](CONTRIBUTING.md). La preparación del portal sigue la [guía de Starlight](https://starlight.astro.build/manual-setup/) y la [guía oficial de Astro para GitHub Pages](https://docs.astro.build/en/guides/deploy/github/).

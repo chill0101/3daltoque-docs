@@ -33,7 +33,6 @@ export default defineConfig({
           items: [
             { slug: 'proyecto/presentacion', label: 'Qué es 3DAltoque' },
             { slug: 'proyecto/manifiesto', label: 'Manifiesto' },
-            { slug: 'proyecto/modelo-comercial', label: 'Modelo comercial y fundadores' },
             { slug: 'proyecto/base-tecnica', label: 'Base técnica' },
             { slug: 'proyecto/repositorios', label: 'Repositorios y equipo' },
           ],
@@ -45,34 +44,6 @@ export default defineConfig({
             { slug: 'analisis/requisitos/funcionales', label: 'Requisitos funcionales' },
             { slug: 'analisis/requisitos/no-funcionales', label: 'Requisitos no funcionales' },
             { slug: 'analisis/reglas-de-negocio', label: 'Reglas de negocio' },
-            { slug: 'analisis/casos-de-uso', label: 'Casos de uso' },
-          ],
-        },
-        {
-          label: 'Modelado',
-          items: [
-            { slug: 'modelado/dominio', label: 'Modelo de dominio' },
-            { slug: 'modelado/datos', label: 'Diagrama entidad-relación' },
-            { slug: 'modelado/modelo-logico', label: 'Modelo lógico y diccionario' },
-          ],
-        },
-        {
-          label: 'Arquitectura y diseño',
-          items: [
-            { slug: 'diseno/arquitectura', label: 'Arquitectura y componentes' },
-            { slug: 'diseno/hexagonal', label: 'Puertos, adaptadores y clases' },
-            { slug: 'diseno/integraciones', label: 'Plan de integraciones' },
-            { slug: 'diseno/api-eventos', label: 'API y eventos' },
-          ],
-        },
-        {
-          label: 'Flujos y estados',
-          items: [
-            { slug: 'flujos/cotizacion', label: 'Solicitudes y ofertas' },
-            { slug: 'flujos/produccion', label: 'Producción y revisión' },
-            { slug: 'flujos/membresia', label: 'Prueba, fundadores y vigencia' },
-            { slug: 'flujos/pagos', label: 'Cobro del abono' },
-            { slug: 'flujos/entrega', label: 'Entrega y recepción' },
           ],
         },
         {

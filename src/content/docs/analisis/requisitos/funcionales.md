@@ -7,7 +7,7 @@ Versión 2.0-borrador. Fecha: 14 de octubre de 2026. 54 fichas vigentes; nueve r
 
 Decisión vigente: membresía mensual prepaga del maker, renovación manual, prueba general de 30 días y beneficio fundador de 90 días totales como valores iniciales configurables. No se cobran impresiones ni comisiones por pedido.
 
-RF-08.1 a RF-08.9 se retiran del alcance vigente; no se reutilizan sus identificadores. Su versión anterior queda preservada en el antecedente del cambio comercial. Véase [ADR-002](/3daltoque-docs/proyecto/modelo-comercial/).
+RF-08.1 a RF-08.9 se retiran del alcance vigente; no se reutilizan sus identificadores. Su versión anterior queda preservada en el antecedente del cambio comercial. Véase ADR-002.
 
 ## Índice de fichas vigentes
 
@@ -85,9 +85,9 @@ RF-08.1 a RF-08.9 se retiran del alcance vigente; no se reutilizan sus identific
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una solicitud válida crea una sola cuenta y su perfil, y permite consultar su estado.<br>2. Datos obligatorios ausentes o identificador de acceso duplicado producen un error comprensible sin una cuenta parcial.<br>3. Un usuario que se registra públicamente no obtiene permisos administrativos. |
 
-Requisitos/CU relacionados: [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [CU-01](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), CU-01.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 
@@ -110,7 +110,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 
 Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04).
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04).
 
@@ -133,7 +133,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-04
 
 Requisitos/CU relacionados: [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -156,7 +156,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-04
 
 Requisitos/CU relacionados: [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17).
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 
@@ -179,7 +179,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 
 Requisitos/CU relacionados: [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04).
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 
@@ -200,9 +200,9 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El archivo completado y habilitado queda vinculado a la solicitud del cliente correcto.<br>2. Un archivo inexistente, ajeno o no habilitado no puede utilizarse para enviar la solicitud.<br>3. La información de escala y parámetros se conserva y puede consultarse para cotizar. |
 
-Requisitos/CU relacionados: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-10.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-1), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [CU-01](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-10.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-1), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), CU-01.
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03, INT-05.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02).
 
@@ -225,7 +225,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02).
 
 Requisitos/CU relacionados: [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15), [RNF-16](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-16).
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -246,9 +246,9 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-12
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una creación válida conserva propietario, archivo y características de la solicitud.<br>2. Una solicitud incompleta según PD-02 no se envía a makers y explica qué debe corregirse.<br>3. Un presupuesto o estimación de referencia no se presenta como aceptación contractual de un maker. |
 
-Requisitos/CU relacionados: [RF-02.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-1), [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [CU-01](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-02.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-1), [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), CU-01.
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03, INT-05.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 
@@ -269,9 +269,9 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-05
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. La ausencia de un plazo aprobado no se reemplaza por una fecha inventada. |
 
-Requisitos/CU relacionados: [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14), [CU-01](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14), CU-01.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 
@@ -292,9 +292,9 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-05
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. Una estimación disponible se identifica como orientativa y permite conocer sus supuestos.<br>2. Una entrada sin datos suficientes muestra que no hay estimación válida, en lugar de un precio contractual.<br>3. La oferta aceptada conserva el precio propuesto por el maker aunque difiera de la estimación. |
 
-Requisitos/CU relacionados: [RF-02.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-3), [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), [CU-01](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-02.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-3), [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), CU-01.
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-03](/3daltoque-docs/analisis/requisitos/#pd-03).
 
@@ -315,9 +315,9 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-03
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Para un conjunto conocido de makers, los invitados cumplen los filtros y el límite configurados para la prueba.<br>2. Un maker incompatible o fuera del criterio geográfico no se incorpora por ser el único disponible.<br>3. Si no hay candidatos se informa el resultado y no se envía indiscriminadamente a toda la plataforma. |
 
-Requisitos/CU relacionados: [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1), [CU-01](/3daltoque-docs/analisis/casos-de-uso/), [CU-02](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1), CU-01, CU-02.
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-04.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04).
 
@@ -338,9 +338,9 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El maker consulta las solicitudes habilitadas para su cuenta y no las reservadas a otros destinatarios.<br>2. La lista sigue el orden acordado y muestra estados/plazos actuales.<br>3. Una solicitud cerrada o no elegible no se presenta como una invitación todavía accionable. |
 
-Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3), [CU-02](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3), CU-02.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -361,9 +361,9 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-12
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Una oferta válida queda asociada al maker y solicitud correctos con sus condiciones.<br>2. Precio/plazo inválidos o un maker sin autorización impiden publicar la oferta.<br>3. El cliente sigue comparando hasta seleccionar una oferta vigente. |
 
-Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), [CU-02](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), CU-02.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 
@@ -384,9 +384,9 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una oferta que llegó a su vencimiento no puede aceptarse aunque la pantalla no se haya actualizado.<br>2. Una oferta cerrada por otra selección deja de estar disponible.<br>3. La consulta permite identificar las condiciones y vigencia que se muestran al cliente. |
 
-Requisitos/CU relacionados: [RF-04.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-4), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [CU-02](/3daltoque-docs/analisis/casos-de-uso/), [CU-03](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-04.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-4), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), CU-02, CU-03.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 
@@ -407,9 +407,9 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Las ofertas de una misma solicitud presentan los campos acordados de forma comparable.<br>2. Una oferta vencida o cerrada se identifica y no aparece como seleccionable.<br>3. Los filtros no alteran los precios o condiciones y el cliente puede cambiar de opción antes de confirmar. |
 
-Requisitos/CU relacionados: [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), [CU-03](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2), CU-03.
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05, INT-06.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 
@@ -430,9 +430,9 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-05
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Una aceptación válida crea un pedido y deja las ofertas competidoras cerradas.<br>2. Dos aceptaciones concurrentes no crean dos pedidos para la misma solicitud.<br>3. Una oferta vencida/modificada se rechaza de forma controlada; repetir la misma operación confirmada devuelve el mismo acuerdo, sin uno adicional. |
 
-Requisitos/CU relacionados: [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [CU-03](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), CU-03.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 
@@ -453,9 +453,9 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El rechazo de una invitación no genera pedido ni cobro.<br>2. Aceptar referencia o contraofertar produce la oferta explícita de RF-04.1.<br>3. Un maker no invitado no responde una solicitud y una solicitud cerrada no recibe nuevas ofertas. |
 
-Requisitos/CU relacionados: [RF-03.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-2), [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), [CU-02](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-03.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-2), [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), CU-02.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -476,9 +476,9 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-14
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Los participantes del pedido acceden a la conversación correcta.<br>2. Un usuario ajeno no consulta ni envía mensajes a esa conversación.<br>3. La consulta mantiene contexto e historial después de cerrar y volver a abrir la sesión. |
 
-Requisitos/CU relacionados: [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [CU-04](/3daltoque-docs/analisis/casos-de-uso/), [CU-05](/3daltoque-docs/analisis/casos-de-uso/), [CU-06](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), CU-04, CU-05, CU-06.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06).
 
@@ -499,9 +499,9 @@ Decisiones a cerrar: [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Un mensaje informado como enviado puede recuperarse en el historial autorizado.<br>2. Repetir el mismo envío identificado no genera otro mensaje visible.<br>3. Un adjunto ajeno, inválido o no habilitado no se publica como parte del mensaje. |
 
-Requisitos/CU relacionados: [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [CU-04](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), CU-04.
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03, INT-04, INT-06.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -522,9 +522,9 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-06
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Cada transición permitida deja un registro ligado al pedido.<br>2. Una transición rechazada no figura como realizada y conserva la evidencia operativa correspondiente.<br>3. La consulta permite reconstruir quién cambió el pedido y cuándo sin exponer secretos. |
 
-Requisitos/CU relacionados: [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [CU-04](/3daltoque-docs/analisis/casos-de-uso/), [CU-05](/3daltoque-docs/analisis/casos-de-uso/), [CU-07](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), CU-04, CU-05, CU-07.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -545,9 +545,9 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-12
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una presentación válida conserva archivos, pedido, maker y fecha de la revisión.<br>2. Un usuario que no sea el maker autorizado no presenta evidencia en ese pedido.<br>3. El cliente puede consultar los mismos archivos que componen la revisión a aprobar. |
 
-Requisitos/CU relacionados: [RF-06.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-2), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [CU-04](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-06.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-2), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), CU-04.
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03, INT-04.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -568,9 +568,9 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-07
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Una evidencia final válida genera una revisión pendiente identificable.<br>2. Una presentación sin evidencia requerida no habilita la revisión final ni la entrega.<br>3. El cliente ve la revisión actual y el maker puede conocer que espera su respuesta. |
 
-Requisitos/CU relacionados: [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [CU-05](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), CU-05.
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03, INT-04, INT-05.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07).
 
@@ -591,9 +591,9 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una aprobación válida identifica la revisión y permite las acciones de entrega autorizadas.<br>2. Una observación conserva el motivo y mantiene bloqueada la entrega hasta resolver el proceso acordado.<br>3. Otro usuario o una solicitud sin revisión pendiente no produce una aprobación válida. |
 
-Requisitos/CU relacionados: [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4), [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6), [CU-05](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4), [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6), CU-05.
 
-Integraciones: [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-04, INT-05.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 
@@ -614,9 +614,9 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-08
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Avanzar el tiempo sobre una revisión sin respuesta no cambia su estado a aprobada.<br>2. Un recordatorio enviado no habilita entrega o finalización.<br>3. Toda aprobación registrada tiene una acción explícita y autorizada del cliente sobre la revisión. |
 
-Requisitos/CU relacionados: [RF-07.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [CU-05](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-07.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), CU-05.
 
-Integraciones: [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-04.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -637,9 +637,9 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-11
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Los participantes consultan avance e historial.<br>2. Solo el actor autorizado ejecuta una transición válida.<br>3. El vencimiento comercial no cancela ni bloquea la finalización de pedidos existentes. |
 
-Requisitos/CU relacionados: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10), [CU-04](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10), CU-04.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07).
 
@@ -660,9 +660,9 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Un pedido aprobado puede registrar un acuerdo de punto y horario entre sus participantes.<br>2. Un pedido sin aprobación vigente no habilita coordinación de entrega.<br>3. La búsqueda pública no expone el domicilio privado del maker como consecuencia de coordinar el encuentro. |
 
-Requisitos/CU relacionados: [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2), [CU-06](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2), CU-06.
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-04, INT-05.
 
 Decisiones a cerrar: [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 
@@ -683,9 +683,9 @@ Decisiones a cerrar: [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. El mecanismo acordado registra una única finalización para una entrega válida.<br>2. Una repetición de la misma confirmación no genera otra entrega ni otro cierre financiero.<br>3. Sin aprobación vigente o sin validación del mecanismo elegido no se registra entrega completada. |
 
-Requisitos/CU relacionados: [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [CU-06](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), CU-06.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 
@@ -706,9 +706,9 @@ Decisiones a cerrar: [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El evento elegido genera un aviso para los destinatarios correctos después de quedar registrado.<br>2. Un usuario consulta solo sus avisos y recursos permitidos.<br>3. La repetición de procesamiento no duplica el mismo aviso visible. |
 
-Requisitos/CU relacionados: [RF-07.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-3), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [CU-01](/3daltoque-docs/analisis/casos-de-uso/), [CU-02](/3daltoque-docs/analisis/casos-de-uso/), [CU-04](/3daltoque-docs/analisis/casos-de-uso/), [CU-05](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-07.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-3), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), CU-01, CU-02, CU-04, CU-05.
 
-Integraciones: [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-04, INT-05, INT-06.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -729,9 +729,9 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. Solo un rol autorizado consulta o resuelve un caso de soporte.<br>2. Una acción de moderación registra actor, motivo y resultado.<br>3. La intervención no concede acceso privado irrestricto ni modifica pagos reales sin el circuito de verificación correspondiente. |
 
-Requisitos/CU relacionados: [RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [CU-07](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), CU-07.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -754,7 +754,7 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-14
 
 Requisitos/CU relacionados: [RF-07.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-1), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15).
 
-Integraciones: [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-04.
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -775,9 +775,9 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una revisión pendiente genera recordatorios en los momentos previstos por la configuración aprobada.<br>2. Un recordatorio que se ejecuta después de aprobar o cancelar la revisión deja de enviarse.<br>3. La programación y el envío de recordatorios nunca producen una aprobación automática. |
 
-Requisitos/CU relacionados: [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4), [RF-07.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-1), [CU-05](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4), [RF-07.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-1), CU-05.
 
-Integraciones: [INT-04](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-04.
 
 Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -800,7 +800,7 @@ Decisiones a cerrar: [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-11
 
 Requisitos/CU relacionados: [RF-01.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-3), [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -823,7 +823,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11
 
 Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08).
 
-Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-02, INT-05.
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -846,7 +846,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11
 
 Requisitos/CU relacionados: [RF-02.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-1), [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04).
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -869,7 +869,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11
 
 Requisitos/CU relacionados: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05).
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03.
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -892,7 +892,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-07
 
 Requisitos/CU relacionados: [RF-03.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-2), [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04).
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03.
 
 Decisiones a cerrar: [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -915,7 +915,7 @@ Decisiones a cerrar: [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06), [PD-11
 
 Requisitos/CU relacionados: [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11), [RNF-19](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-19).
 
-Integraciones: [INT-03](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-03.
 
 Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -936,9 +936,9 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Una operación equivalente desde clientes habilitados conserva las mismas condiciones de negocio y autorizaciones.<br>2. El contrato identifica datos obligatorios, errores y resultados que cada cliente debe manejar.<br>3. El cliente no puede modificar importes, destinatarios o estados autoritativos omitiendo la validación del backend. |
 
-Requisitos/CU relacionados: [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17), [CU-01](/3daltoque-docs/analisis/casos-de-uso/), [CU-03](/3daltoque-docs/analisis/casos-de-uso/).
+Requisitos/CU relacionados: [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17), CU-01, CU-03.
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05.
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -961,7 +961,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-11
 
 Requisitos/CU relacionados: [RF-04.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-3), [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15).
 
-Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
+Integraciones: INT-05, INT-06.
 
 Decisiones a cerrar: [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 

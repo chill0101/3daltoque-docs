@@ -27,12 +27,6 @@ La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar maker
 | Para conocer… | Empezá por… |
 | --- | --- |
 | El problema, los usuarios y el recorrido propuesto | [Qué es 3DAltoque](/3daltoque-docs/proyecto/presentacion/) |
-| Las fichas de funcionalidades y calidad | [Requisitos](/3daltoque-docs/analisis/requisitos/) |
-| Los actores y sus interacciones con el sistema | [Casos de uso](/3daltoque-docs/analisis/casos-de-uso/) |
-| Las entidades, relaciones y estructuras de datos | [Modelo de datos](/3daltoque-docs/modelado/datos/) |
-| Los componentes y la separación hexagonal | [Arquitectura](/3daltoque-docs/diseno/arquitectura/) |
-| Las secuencias y los ciclos de vida del negocio | [Solicitudes y ofertas](/3daltoque-docs/flujos/cotizacion/) |
-| El abono, la prueba y Makers Fundadores | [Modelo comercial](/3daltoque-docs/proyecto/modelo-comercial/) |
 | Los principios y límites del producto | [Manifiesto](/3daltoque-docs/proyecto/manifiesto/) |
 | La arquitectura y las decisiones técnicas | [Base técnica](/3daltoque-docs/proyecto/base-tecnica/) |
 | Los repositorios y las responsabilidades del equipo | [Repositorios y equipo](/3daltoque-docs/proyecto/repositorios/) |
@@ -44,13 +38,11 @@ La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar maker
 - Una solicitud confirmada genera un único pedido, con las condiciones exactas de la oferta aceptada.
 - El maker presenta evidencia del resultado y el cliente la aprueba expresamente antes de coordinar la entrega.
 - La falta de respuesta no equivale a aprobar una pieza.
-- La plataforma cobra su membresía al maker; el cliente paga la impresión directamente al maker.
-- La prueba y Makers Fundadores tienen parámetros configurables, sin tarjeta ni cobro automático al vencer.
-- Vencer la membresía limita trabajos nuevos, pero no bloquea los pedidos existentes.
+- Los pagos y la comisión configurable forman parte del producto.
 - La simulación, cuando se utilice, debe estar identificada y no presentarse como una integración real.
 
 ## Un proyecto en construcción
 
-Este sitio presenta el avance del trabajo final de **Bernardez, Cariaga y Ruiz**. Esta versión incorpora requisitos, casos de uso, modelos y diagramas de diseño. Cada sección distingue el material en borrador de las decisiones adoptadas; las pruebas y los manuales se incorporarán en avances posteriores.
+Este sitio presenta el avance del trabajo final de **Bernardez, Cariaga y Ruiz**. Se ampliará con los documentos revisados de requisitos, diseño, pruebas y operación.
 
 Horizonte de entrega final informado: **marzo de 2027**, sujeto a las condiciones académicas que confirme la cátedra.
