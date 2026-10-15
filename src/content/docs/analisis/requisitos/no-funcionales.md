@@ -9,7 +9,7 @@ Versión: 2.0-borrador. Fecha: 14 de octubre de 2026.
 
 Cada ficha reproduce los 11 campos de la plantilla de requerimiento de la materia. Los vínculos posteriores permiten relacionar el requisito con integraciones, otros requisitos y decisiones de negocio. Los CU relacionados son referencias del catálogo actual; el catálogo de casos de uso amplía identidad y membresías; su revisión con la plantilla y los flujos de pantalla sigue pendiente.
 
-La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión del equipo. Un criterio definido sobre una política abierta se comprueba con esa política una vez acordada; su redacción no sustituye la decisión. El [índice del catálogo](/3daltoque-docs/analisis/requisitos/) registra esas decisiones y las condiciones de medición. El campo Autor identifica el equipo del proyecto y declara la preparación asistida; no registra una aprobación inexistente.
+La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión del equipo. Un criterio definido sobre una política abierta se comprueba con esa política una vez acordada; su aplicación requiere la política acordada. El [índice del catálogo](/3daltoque-docs/analisis/requisitos/) registra esas decisiones y las condiciones de medición. El campo Autor identifica al equipo responsable de la ficha.
 
 ## Índice de fichas
 
@@ -45,7 +45,7 @@ Las metas numéricas de disponibilidad, rendimiento, tamaño de vista y recupera
 | ID requerimiento | RNF-01 |
 | Nombre | Disponibilidad del servicio |
 | Propósito | Permitir utilizar el recorrido acordado durante la evaluación académica. |
-| Descripción | El servicio debe sostener la disponibilidad del recorrido base en el entorno de demostración. Se propone inicialmente una disponibilidad de al menos 99% durante una ventana continua de 24 horas, medida cada minuto sobre una operación de lectura representativa con sus dependencias necesarias. Ventana, hosting y objetivo requieren PD-13. Las fallas de proveedores se registran por función y no se ocultan en la medición. |
+| Descripción | El servicio debe sostener la disponibilidad del recorrido base en el entorno de demostración. Se propone inicialmente una disponibilidad de al menos 99% durante una ventana continua de 24 horas, medida cada minuto sobre una operación de lectura representativa con sus dependencias necesarias. Ventana, hosting y objetivo requieren PD-13. La medición registra las fallas de proveedores y las funciones afectadas. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -213,7 +213,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Los flujos web críticos se recorren por teclado y los errores se relacionan con el campo o acción afectados.<br>2. Las mediciones de contraste de los textos incluidos cumplen los umbrales aprobados; estado o error no se comunican únicamente por color.<br>3. Antes de aceptar/pagar el usuario identifica precio acordado, estimación y modo real/simulado; la revisión requiere una acción explícita. |
+| Criterio de éxito | 1. Los flujos web críticos se recorren por teclado y los errores se relacionan con el campo o acción afectados.<br>2. Las mediciones de contraste de los textos incluidos cumplen los umbrales aprobados; cada estado o error combina texto, indicadores y color.<br>3. Antes de aceptar/pagar el usuario identifica precio acordado, estimación y modo real/simulado; la revisión requiere una acción explícita. |
 
 Requisitos/CU relacionados: [RF-04.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-3), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17).
 
@@ -229,7 +229,7 @@ Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 | ID requerimiento | RNF-09 |
 | Nombre | Integridad financiera del abono |
 | Propósito | Mantener importes, estados y referencias coherentes. |
-| Descripción | Los importes de compras de membresía utilizan precisión decimal y condiciones conservadas por compra. Se verifica proveedor, cuenta receptora propia, entorno, importe, moneda y referencia antes de conceder acceso. Cada compra pagada concede como máximo un período y los eventos repetidos no añaden meses. No se modelan saldos de impresiones ni netos de makers. |
+| Descripción | Los importes de compras de membresía utilizan precisión decimal y condiciones conservadas por compra. Se verifica proveedor, cuenta receptora propia, entorno, importe, moneda y referencia antes de conceder acceso. Cada compra pagada concede como máximo un período; los eventos repetidos recuperan el resultado ya registrado. El registro financiero corresponde a los abonos cobrados por la plataforma. |
 | Historial | 2026-10-14: actualización de alcance por ADR-002; pagos exclusivos del abono de makers. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
@@ -367,14 +367,14 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-09
 | ID requerimiento | RNF-15 |
 | Nombre | Tolerancia a fallas de integraciones |
 | Propósito | Conservar acuerdos y ofrecer recuperación controlada. |
-| Descripción | Las llamadas a proveedores deben tener tiempo máximo y tratamiento de errores/reintentos definidos por operación. Las tareas persistidas deben poder recuperarse después de interrupciones. No se habilitan archivos incompletos ni se deshacen acuerdos por un aviso fallido. Las operaciones financieras inciertas se concilian antes de repetir el cobro. Valores y políticas de reintento requieren PD-11 y PD-13. |
+| Descripción | Las llamadas a proveedores deben tener tiempo máximo y tratamiento de errores/reintentos definidos por operación. Las tareas persistidas deben poder recuperarse después de interrupciones. Los archivos quedan disponibles al completarse su transferencia y validación. Los acuerdos permanecen vigentes durante la recuperación de un aviso fallido. Las operaciones financieras inciertas se concilian antes de repetir el cobro. Valores y políticas de reintento requieren PD-11 y PD-13. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Una respuesta ausente termina conforme al timeout definido, registra el problema y permite el tratamiento de recuperación acordado.<br>2. Interrumpir y restablecer un worker conserva tareas y evita duplicar efectos de negocio.<br>3. Fallas de pago, mapa, archivo y aviso producen estados diferenciados; no se muestran como éxito o como ausencia normal de resultados. |
+| Criterio de éxito | 1. Una respuesta ausente termina conforme al timeout definido, registra el problema y permite el tratamiento de recuperación acordado.<br>2. Interrumpir y restablecer un worker conserva tareas y evita duplicar efectos de negocio.<br>3. Las fallas de pago, mapa, archivo y aviso se identifican con su estado y motivo. |
 
 Requisitos/CU relacionados: [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
@@ -390,7 +390,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 | ID requerimiento | RNF-16 |
 | Nombre | Límites de uso y recursos |
 | Propósito | Controlar cargas y consumo de servicios. |
-| Descripción | Se deben definir y aplicar límites de peticiones, tamaño/tipo de archivos, análisis y uso de proveedores por entorno. Los límites, cuotas, presupuesto y umbrales se documentan con unidades y responsables. El consumo real de servicios se mide y se identifican excedentes; alertar sobre presupuesto no se presenta como garantía de que el proveedor deje de facturar. |
+| Descripción | Se deben definir y aplicar límites de peticiones, tamaño/tipo de archivos, análisis y uso de proveedores por entorno. Los límites, cuotas, presupuesto y umbrales se documentan con unidades y responsables. El consumo real de servicios se mide, se identifican excedentes y se generan alertas. Los límites automáticos de consumo dependen de las funciones y condiciones del proveedor. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -476,7 +476,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12
 
 ## Referencias de accesibilidad
 
-RNF-08 propone incorporar los criterios de contraste y teclado como parte de las verificaciones de accesibilidad. Cubrir estos criterios no acredita por sí solo conformidad con todo WCAG.
+RNF-08 incorpora criterios de contraste y teclado al plan de accesibilidad. La evaluación de conformidad WCAG requiere definir su nivel y alcance y cubrir los criterios correspondientes.
 
 - [W3C, criterio 1.4.3 de contraste mínimo](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
 - [W3C, criterio 2.1.1 de teclado](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html).

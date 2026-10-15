@@ -2,7 +2,7 @@
 
 Una plataforma para conectar a quienes necesitan una pieza impresa en 3D con makers cercanos y compatibles con su solicitud.
 
-**Estado del producto:** análisis y diseño. Este repositorio presenta el avance documental; no acredita funcionalidades implementadas.
+**Estado del producto:** análisis y diseño. Este repositorio reúne la documentación y el avance del proyecto 3DAltoque.
 
 ## Contenido
 
@@ -46,7 +46,7 @@ El buscador se genera durante el build. Para revisar la búsqueda hay que utiliz
 
 ## Publicación en GitHub Pages
 
-La configuración apunta a [chill0101.github.io/3daltoque-docs/](https://chill0101.github.io/3daltoque-docs/). **Una URL configurada no implica que el sitio ya esté publicado.**
+El portal del proyecto se consulta en [chill0101.github.io/3daltoque-docs/](https://chill0101.github.io/3daltoque-docs/).
 
 1. Seleccionar **GitHub Actions** en **Settings → Pages → Build and deployment → Source** del repositorio.
 2. Revisar e integrar los cambios en `main`.

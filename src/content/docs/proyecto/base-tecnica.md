@@ -5,7 +5,7 @@ description: Stack, enfoque de arquitectura e integraciones previstas.
 
 ## Backend compartido
 
-El backend se implementará con **FastAPI y Python**. La interfaz web y la aplicación mobile consumirán la misma API; no se necesita un backend distinto por plataforma.
+El backend se implementará con **FastAPI y Python**. La interfaz web y la aplicación mobile consumirán una API compartida.
 
 ## Arquitectura
 
@@ -34,10 +34,10 @@ FastAPI será un adaptador de entrada. Las reglas de negocio no deberían depend
 
 ## Integraciones
 
-Los contratos deberán contemplar autenticación, permisos, errores, reintentos, idempotencia y trazabilidad según corresponda. Recibir una notificación o volver de una pantalla de pago no equivale, por sí solo, a confirmar una operación financiera.
+Los contratos deberán contemplar autenticación, permisos, errores, reintentos, idempotencia y trazabilidad según corresponda. El backend confirma cada operación financiera mediante la verificación de su estado con el proveedor de pagos.
 
-Los archivos y las evidencias requieren almacenamiento privado y accesos autorizados. Las notificaciones externas no sustituyen el historial persistido de la aplicación.
+Los archivos y las evidencias requieren almacenamiento privado y accesos autorizados. La aplicación conserva el historial de eventos y utiliza notificaciones externas para informar a los participantes.
 
-## Este portal no es la aplicación
+## Tecnología del portal de documentación
 
-La documentación utiliza **Astro y Starlight**, con salida estática preparada para **GitHub Pages**. Esta elección solo afecta a la presentación de los documentos: no reemplaza React, React Native, FastAPI ni la base de datos del producto.
+El portal de documentación utiliza **Astro y Starlight**, con salida estática para **GitHub Pages**. La aplicación combina React, React Native, FastAPI y PostgreSQL.
