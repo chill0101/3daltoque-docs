@@ -1,0 +1,25 @@
+{
+  "name": "3daltoque-docs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Documentación del proyecto 3DAltoque con Astro y Starlight.",
+  "engines": {
+    "node": ">=24.0.0 <25",
+    "npm": ">=11"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/markdown-remark": "7.3.2",
+    "@astrojs/starlight": "0.42.6",
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/space-grotesk": "5.3.0",
+    "astro": "7.3.8"
+  }
+}
