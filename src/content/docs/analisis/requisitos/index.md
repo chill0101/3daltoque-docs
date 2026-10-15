@@ -11,7 +11,18 @@ Versión 2.0-borrador. Decisión de alcance adoptada el 14 de octubre de 2026; r
 
 El cliente paga la impresión directamente al maker, por el medio que acuerden. La plataforma no recibe, retiene, reparte, liquida ni garantiza ese dinero. No cobra comisiones por pedido ni registra deuda de comisiones del maker.
 
-La integración de pagos permite cobrar el servicio de 3DAltoque al maker mediante una cuenta receptora propia de la plataforma. El pago de la impresión se acuerda y gestiona directamente entre cliente y maker.\n\n## Catálogo vigente\n\n54 requisitos funcionales y 19 no funcionales con las once filas de la plantilla de la materia. RF-08.1 a RF-08.9 quedan archivados con sus identificadores originales como antecedentes del cambio comercial. Su versión anterior queda preservada en el antecedente del cambio comercial.\n\n- [Fichas funcionales](/3daltoque-docs/analisis/requisitos/funcionales/).\n- [Fichas no funcionales](/3daltoque-docs/analisis/requisitos/no-funcionales/).\n- Modelo comercial.\n- ADR-002.\n\n| ID | Nombre |
+La integración de pagos permite cobrar el servicio de 3DAltoque al maker mediante una cuenta receptora propia de la plataforma. El pago de la impresión se acuerda y gestiona directamente entre cliente y maker.
+
+## Catálogo vigente
+
+54 requisitos funcionales y 19 no funcionales con las once filas de la plantilla de la materia. RF-08.1 a RF-08.9 quedan archivados con sus identificadores originales como antecedentes del cambio comercial. Su versión anterior queda preservada en el antecedente del cambio comercial.
+
+- [Fichas funcionales](/3daltoque-docs/analisis/requisitos/funcionales/).
+- [Fichas no funcionales](/3daltoque-docs/analisis/requisitos/no-funcionales/).
+- Modelo comercial.
+- ADR-002.
+
+| ID | Nombre |
 | --- | --- |
 | RF-01.1 | [Registrar clientes y makers](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1) |
 | RF-01.2 | [Gestionar capacidades del maker](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2) |
@@ -66,7 +77,95 @@ La integración de pagos permite cobrar el servicio de 3DAltoque al maker median
 | RF-12.12 | [Gestionar devoluciones del abono autorizadas](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-12) |
 | RF-12.13 | [Auditar cambios del plan y beneficios](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13) |
 | RF-12.14 | [Separar simulación y cobros reales de membresía](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14) |
-| RF-12.15 | [Informar el alcance del pago y del programa de fundadores](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-15) |\n\n## Requisitos retirados\n\n| IDs | Situación |\n| --- | --- |\n| RF-08.1 a RF-08.9 | Antecedente del modelo comercial, conservado para trazabilidad |\n\n## Decisiones que condicionan el cierre\n\n<a id="pd-01"></a>\n### PD-01 Identidad y habilitación\n\nRoles coexistentes, criterios de perfil completo y primera habilitación del maker. La prueba comienza con la primera habilitación del perfil maker.\n\n<a id="pd-02"></a>\n### PD-02 Archivos de entrada\n\nMaterial, unidades, formatos, límites y finalidad de archivos.\n\n<a id="pd-03"></a>\n### PD-03 Estimación orientativa\n\nMétodo, supuestos, límites y advertencias cuando se implemente.\n\n<a id="pd-04"></a>\n### PD-04 Búsqueda y ubicación\n\nRadio, grupo, ampliación, orden, precisión pública y ubicación manual.\n\n<a id="pd-05"></a>\n### PD-05 Solicitudes, ofertas y vigencia comercial\n\nCambios tras envío, renovación y ofertas previas a un vencimiento de membresía. Los pedidos ya aceptados conservan su continuidad al vencer la membresía.\n\n<a id="pd-06"></a>\n### PD-06 Conversaciones y visibilidad\n\nParticipantes, chat previo al pedido y acceso administrativo autorizado.\n\n<a id="pd-07"></a>\n### PD-07 Revisión de piezas y reclamos\n\nCorrecciones, observaciones, escalamiento y cancelación del trabajo; sin devolución de fondos de impresiones por nuestra pasarela.\n\n<a id="pd-08"></a>\n### PD-08 Entrega y recepción\n\nEncuentro personal, mecanismo de recepción y tratamiento de incidentes.\n\n<a id="pd-09"></a>\n### PD-09 Cobro y devolución del abono\n\nCheckout Pro para nuestro servicio y renovación manual adoptados. Pendientes: configuración de cuentas, vencimientos de checkout y política de devoluciones de membresía. La cuenta de la plataforma recibe el importe de su propio servicio.\n\n<a id="pd-10"></a>\n### PD-10 Parámetros del plan y fundadores\n\nUn plan, 30 días generales y 90 totales para fundadores como base configurable. Pendientes: importe, moneda, cupo, ventana, calendario mensual y beneficios asignados después del inicio.\n\n<a id="pd-11"></a>\n### PD-11 Servicios y canales\n\nMapas, archivos, avisos y transporte de actualizaciones en vivo.\n\n<a id="pd-12"></a>\n### PD-12 Datos y conservación\n\nPermisos, retención, borrado, respaldos, términos y privacidad.\n\n<a id="pd-13"></a>\n### PD-13 Calidad y presupuesto\n\nObjetivos medibles, límites de recursos, recuperación y costos de infraestructura.\n\n<a id="pd-14"></a>\n### PD-14 Soporte y administración\n\nPermisos, acceso privado, moderación y acciones auditadas.\n\n<a id="pd-15"></a>\n### PD-15 Simulación\n\nEntornos y permisos; los pagos simulados conceden acceso exclusivamente dentro del entorno de demostración.\n\n## Revisión pendiente\n\nLas prioridades y las metas numéricas de calidad siguen como propuestas. La planificación vincula cada requisito con sus casos de uso, elementos de diseño y casos de prueba. El seguimiento registra el estado y las evidencias de cada checkpoint.\n
+| RF-12.15 | [Informar el alcance del pago y del programa de fundadores](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-15) |
+
+## Requisitos retirados
+
+| IDs | Situación |
+| --- | --- |
+| RF-08.1 a RF-08.9 | Antecedente del modelo comercial, conservado para trazabilidad |
+
+## Decisiones que condicionan el cierre
+
+<a id="pd-01"></a>
+### PD-01 Identidad y habilitación
+
+Roles coexistentes, criterios de perfil completo y primera habilitación del maker. La prueba comienza con la primera habilitación del perfil maker.
+
+<a id="pd-02"></a>
+### PD-02 Archivos de entrada
+
+Material, unidades, formatos, límites y finalidad de archivos.
+
+<a id="pd-03"></a>
+### PD-03 Estimación orientativa
+
+Método, supuestos, límites y advertencias cuando se implemente.
+
+<a id="pd-04"></a>
+### PD-04 Búsqueda y ubicación
+
+Radio, grupo, ampliación, orden, precisión pública y ubicación manual.
+
+<a id="pd-05"></a>
+### PD-05 Solicitudes, ofertas y vigencia comercial
+
+Cambios tras envío, renovación y ofertas previas a un vencimiento de membresía. Los pedidos ya aceptados conservan su continuidad al vencer la membresía.
+
+<a id="pd-06"></a>
+### PD-06 Conversaciones y visibilidad
+
+Participantes, chat previo al pedido y acceso administrativo autorizado.
+
+<a id="pd-07"></a>
+### PD-07 Revisión de piezas y reclamos
+
+Correcciones, observaciones, escalamiento y cancelación del trabajo; sin devolución de fondos de impresiones por nuestra pasarela.
+
+<a id="pd-08"></a>
+### PD-08 Entrega y recepción
+
+Encuentro personal, mecanismo de recepción y tratamiento de incidentes.
+
+<a id="pd-09"></a>
+### PD-09 Cobro y devolución del abono
+
+Checkout Pro para nuestro servicio y renovación manual adoptados. Pendientes: configuración de cuentas, vencimientos de checkout y política de devoluciones de membresía. La cuenta de la plataforma recibe el importe de su propio servicio.
+
+<a id="pd-10"></a>
+### PD-10 Parámetros del plan y fundadores
+
+Un plan, 30 días generales y 90 totales para fundadores como base configurable. Pendientes: importe, moneda, cupo, ventana, calendario mensual y beneficios asignados después del inicio.
+
+<a id="pd-11"></a>
+### PD-11 Servicios y canales
+
+Mapas, archivos, avisos y transporte de actualizaciones en vivo.
+
+<a id="pd-12"></a>
+### PD-12 Datos y conservación
+
+Permisos, retención, borrado, respaldos, términos y privacidad.
+
+<a id="pd-13"></a>
+### PD-13 Calidad y presupuesto
+
+Objetivos medibles, límites de recursos, recuperación y costos de infraestructura.
+
+<a id="pd-14"></a>
+### PD-14 Soporte y administración
+
+Permisos, acceso privado, moderación y acciones auditadas.
+
+<a id="pd-15"></a>
+### PD-15 Simulación
+
+Entornos y permisos; los pagos simulados conceden acceso exclusivamente dentro del entorno de demostración.
+
+## Revisión pendiente
+
+Las prioridades y las metas numéricas de calidad siguen como propuestas. La planificación vincula cada requisito con sus casos de uso, elementos de diseño y casos de prueba. El seguimiento registra el estado y las evidencias de cada checkpoint.
+
 
 <a id="perfil-de-medicion"></a>
 ## Perfil de medición
