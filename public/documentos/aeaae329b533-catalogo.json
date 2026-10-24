@@ -1,0 +1,1233 @@
+{
+  "version": "1.0",
+  "fecha": "2026-10-17",
+  "convenciones": "00-contratos-y-convenciones.md",
+  "funcionalidades": [
+    {
+      "id": "F01",
+      "name": "Registro e inicio de sesión",
+      "file": "f01-registro-e-inicio-de-sesion.md",
+      "screens": [
+        "WEB-AUTH-01",
+        "WEB-AUTH-02",
+        "MOB-AUTH-01",
+        "MOB-AUTH-02"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS06",
+        "DS11",
+        "DS24"
+      ],
+      "rfs": [
+        "RF-01.1",
+        "RF-01.4",
+        "RF-01.5"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-08",
+        "RNF-12",
+        "RNF-17"
+      ]
+    },
+    {
+      "id": "F02",
+      "name": "Gestión de perfil de cliente",
+      "file": "f02-gestion-de-perfil-de-cliente.md",
+      "screens": [
+        "WEB-CLI-01",
+        "MOB-CLI-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS09",
+        "DS11",
+        "DS37"
+      ],
+      "rfs": [
+        "RF-01.3",
+        "RF-09.1"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-08",
+        "RNF-11",
+        "RNF-12",
+        "RNF-17"
+      ]
+    },
+    {
+      "id": "F03",
+      "name": "Gestión de perfil de maker",
+      "file": "f03-gestion-de-perfil-de-maker.md",
+      "screens": [
+        "WEB-MKR-01",
+        "MOB-MKR-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS07",
+        "DS08",
+        "DS21",
+        "DS37"
+      ],
+      "rfs": [
+        "RF-01.2",
+        "RF-12.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-08",
+        "RNF-13",
+        "RNF-17"
+      ]
+    },
+    {
+      "id": "F04",
+      "name": "Portfolio del maker",
+      "file": "f04-portfolio-del-maker.md",
+      "screens": [
+        "WEB-MKR-02",
+        "MOB-MKR-02"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS25",
+        "DS26",
+        "DS31"
+      ],
+      "rfs": [],
+      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-08",
+        "RNF-11",
+        "RNF-12",
+        "RNF-16"
+      ]
+    },
+    {
+      "id": "F05",
+      "name": "Alta de solicitud de impresión",
+      "file": "f05-alta-de-solicitud-de-impresion.md",
+      "screens": [
+        "WEB-SOL-01",
+        "MOB-SOL-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS21",
+        "DS24",
+        "DS25",
+        "DS26"
+      ],
+      "rfs": [
+        "RF-02.1",
+        "RF-02.2",
+        "RF-02.3"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-08",
+        "RNF-12",
+        "RNF-16"
+      ]
+    },
+    {
+      "id": "F06",
+      "name": "Cotización estimativa inicial",
+      "file": "f06-cotizacion-estimativa-inicial.md",
+      "screens": [
+        "WEB-SOL-01",
+        "WEB-SOL-02",
+        "MOB-SOL-01",
+        "MOB-SOL-02"
+      ],
+      "components": [
+        "DS09",
+        "DS10",
+        "DS11",
+        "DS17",
+        "DS18",
+        "DS22"
+      ],
+      "rfs": [
+        "RF-02.5"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-07",
+        "RNF-08",
+        "RNF-15",
+        "RNF-16"
+      ]
+    },
+    {
+      "id": "F07",
+      "name": "Búsqueda de makers cercanos",
+      "file": "f07-busqueda-de-makers-cercanos.md",
+      "screens": [
+        "WEB-BUS-01",
+        "MOB-BUS-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS17",
+        "DS37",
+        "DS40"
+      ],
+      "rfs": [
+        "RF-09.1",
+        "RF-09.2",
+        "RF-03.1"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-02",
+        "RNF-04",
+        "RNF-08",
+        "RNF-15",
+        "RNF-17"
+      ]
+    },
+    {
+      "id": "F08",
+      "name": "Matching y envío a makers",
+      "file": "f08-matching-y-envio-a-makers.md",
+      "screens": [
+        "WEB-MKR-03",
+        "MOB-MKR-03"
+      ],
+      "components": [
+        "DS09",
+        "DS10",
+        "DS17",
+        "DS19",
+        "DS20"
+      ],
+      "rfs": [
+        "RF-03.1",
+        "RF-03.2",
+        "RF-12.10"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-02",
+        "RNF-03",
+        "RNF-05",
+        "RNF-06"
+      ]
+    },
+    {
+      "id": "F09",
+      "name": "Gestión de ofertas",
+      "file": "f09-gestion-de-ofertas.md",
+      "screens": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS09",
+        "DS19",
+        "DS27"
+      ],
+      "rfs": [
+        "RF-04.1",
+        "RF-04.2",
+        "RF-04.3",
+        "RF-04.5"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ]
+    },
+    {
+      "id": "F10",
+      "name": "Confirmación de oferta",
+      "file": "f10-confirmacion-de-oferta.md",
+      "screens": [
+        "WEB-OFE-01",
+        "WEB-OFE-03",
+        "MOB-OFE-01",
+        "MOB-OFE-03"
+      ],
+      "components": [
+        "DS01",
+        "DS11",
+        "DS12",
+        "DS27",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-04.4",
+        "RF-12.10",
+        "RF-12.15"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-15"
+      ]
+    },
+    {
+      "id": "F11",
+      "name": "Membresía y abono",
+      "file": "f11-membresia-y-abono.md",
+      "screens": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "components": [
+        "DS01",
+        "DS10",
+        "DS11",
+        "DS12",
+        "DS18",
+        "DS20",
+        "DS22",
+        "DS33",
+        "DS34"
+      ],
+      "rfs": [
+        "RF-12.1",
+        "RF-12.2",
+        "RF-12.3",
+        "RF-12.4",
+        "RF-12.5",
+        "RF-12.6",
+        "RF-12.7",
+        "RF-12.8",
+        "RF-12.9",
+        "RF-12.10",
+        "RF-12.11",
+        "RF-12.12",
+        "RF-12.13",
+        "RF-12.14",
+        "RF-12.15"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-09",
+        "RNF-10",
+        "RNF-13",
+        "RNF-15",
+        "RNF-17",
+        "RNF-19"
+      ]
+    },
+    {
+      "id": "F12",
+      "name": "Gestión de estados del pedido",
+      "file": "f12-gestion-de-estados-del-pedido.md",
+      "screens": [
+        "WEB-PED-01",
+        "WEB-MKR-04",
+        "MOB-PED-01",
+        "MOB-MKR-04"
+      ],
+      "components": [
+        "DS10",
+        "DS19",
+        "DS28",
+        "DS35",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-02.4",
+        "RF-05.3",
+        "RF-06.5",
+        "RF-12.10"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ]
+    },
+    {
+      "id": "F13",
+      "name": "Mensajería cliente–maker",
+      "file": "f13-mensajeria-cliente-maker.md",
+      "screens": [
+        "WEB-CHAT-01",
+        "MOB-CHAT-01"
+      ],
+      "components": [
+        "DS16",
+        "DS25",
+        "DS29",
+        "DS30",
+        "DS41"
+      ],
+      "rfs": [
+        "RF-05.1",
+        "RF-05.2",
+        "RF-11.2",
+        "RF-12.10"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-11",
+        "RNF-15",
+        "RNF-17",
+        "RNF-19"
+      ]
+    },
+    {
+      "id": "F14",
+      "name": "Notificaciones",
+      "file": "f14-notificaciones.md",
+      "screens": [
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "components": [
+        "DS10",
+        "DS14",
+        "DS17",
+        "DS28",
+        "DS41"
+      ],
+      "rfs": [
+        "RF-07.1",
+        "RF-07.3",
+        "RF-07.4",
+        "RF-12.11"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-06",
+        "RNF-07",
+        "RNF-15",
+        "RNF-16"
+      ]
+    },
+    {
+      "id": "F15",
+      "name": "Evidencia previa a la entrega",
+      "file": "f15-evidencia-previa-a-la-entrega.md",
+      "screens": [
+        "WEB-REV-01",
+        "MOB-REV-01"
+      ],
+      "components": [
+        "DS03",
+        "DS25",
+        "DS26",
+        "DS31"
+      ],
+      "rfs": [
+        "RF-06.1",
+        "RF-06.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-11",
+        "RNF-16"
+      ]
+    },
+    {
+      "id": "F16",
+      "name": "Entrega en Nodo Amigo",
+      "file": "f16-entrega-en-nodo-amigo.md",
+      "screens": [
+        "WEB-ENT-01",
+        "MOB-ENT-01"
+      ],
+      "components": [
+        "DS03",
+        "DS12",
+        "DS23",
+        "DS37"
+      ],
+      "rfs": [
+        "RF-06.6",
+        "RF-09.1",
+        "RF-09.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-08",
+        "RNF-12",
+        "RNF-17"
+      ]
+    },
+    {
+      "id": "F17",
+      "name": "Validación de recepción",
+      "file": "f17-validacion-de-recepcion.md",
+      "screens": [
+        "WEB-ENT-02",
+        "MOB-ENT-02"
+      ],
+      "components": [
+        "DS01",
+        "DS11",
+        "DS12",
+        "DS28"
+      ],
+      "rfs": [
+        "RF-06.7"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ]
+    },
+    {
+      "id": "F18",
+      "name": "Reputación bidireccional",
+      "file": "f18-reputacion-bidireccional.md",
+      "screens": [
+        "WEB-REP-01",
+        "MOB-REP-01"
+      ],
+      "components": [
+        "DS03",
+        "DS07",
+        "DS09",
+        "DS39"
+      ],
+      "rfs": [],
+      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08",
+        "RNF-12"
+      ]
+    },
+    {
+      "id": "F19",
+      "name": "Historial de pedidos",
+      "file": "f19-historial-de-pedidos.md",
+      "screens": [
+        "WEB-HIS-01",
+        "MOB-HIS-01"
+      ],
+      "components": [
+        "DS05",
+        "DS19",
+        "DS20",
+        "DS28",
+        "DS40"
+      ],
+      "rfs": [
+        "RF-02.4",
+        "RF-05.3"
+      ],
+      "stage": "Cobertura parcial; completar la consulta consolidada.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-06",
+        "RNF-08",
+        "RNF-11"
+      ]
+    },
+    {
+      "id": "F20",
+      "name": "Panel de administración",
+      "file": "f20-panel-de-administracion.md",
+      "screens": [
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01"
+      ],
+      "components": [
+        "DS03",
+        "DS11",
+        "DS12",
+        "DS19",
+        "DS24",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-07.2",
+        "RF-12.1",
+        "RF-12.3",
+        "RF-12.7",
+        "RF-12.12",
+        "RF-12.13"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-13"
+      ]
+    },
+    {
+      "id": "F21",
+      "name": "Reporte de actividad",
+      "file": "f21-reporte-de-actividad.md",
+      "screens": [
+        "WEB-ADM-02"
+      ],
+      "components": [
+        "DS05",
+        "DS19",
+        "DS20",
+        "DS36",
+        "DS40"
+      ],
+      "rfs": [],
+      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-06",
+        "RNF-08",
+        "RNF-11"
+      ]
+    },
+    {
+      "id": "F22",
+      "name": "Revisión y aprobación del resultado",
+      "file": "f22-revision-y-aprobacion-del-resultado.md",
+      "screens": [
+        "WEB-REV-02",
+        "MOB-REV-02"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS12",
+        "DS31",
+        "DS32"
+      ],
+      "rfs": [
+        "RF-06.3",
+        "RF-06.4"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ]
+    },
+    {
+      "id": "F23",
+      "name": "Gestión de archivos privados",
+      "file": "f23-gestion-de-archivos-privados.md",
+      "screens": [
+        "WEB-SOL-01",
+        "WEB-REV-01",
+        "WEB-CHAT-01",
+        "MOB-SOL-01",
+        "MOB-REV-01",
+        "MOB-CHAT-01"
+      ],
+      "components": [
+        "DS03",
+        "DS11",
+        "DS18",
+        "DS25",
+        "DS26"
+      ],
+      "rfs": [
+        "RF-10.1",
+        "RF-10.2",
+        "RF-10.3",
+        "RF-10.4"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-07",
+        "RNF-11",
+        "RNF-12",
+        "RNF-15",
+        "RNF-16",
+        "RNF-19"
+      ]
+    },
+    {
+      "id": "F24",
+      "name": "API común y sincronización",
+      "file": "f24-api-comun-y-sincronizacion.md",
+      "screens": [
+        "WEB-SYS-01",
+        "MOB-SYS-01"
+      ],
+      "components": [
+        "DS11",
+        "DS16",
+        "DS38",
+        "DS41",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-11.1",
+        "RF-11.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-01",
+        "RNF-03",
+        "RNF-04",
+        "RNF-07",
+        "RNF-14",
+        "RNF-15",
+        "RNF-17",
+        "RNF-18",
+        "RNF-19"
+      ]
+    }
+  ],
+  "pantallas": [
+    {
+      "id": "MOB-AUTH-01",
+      "name": "Acceso",
+      "route": "/ingresar",
+      "role": "Visitante / usuario",
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "MOB-AUTH-02",
+      "name": "Registro",
+      "route": "/registro",
+      "role": "Visitante / usuario",
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "MOB-BUS-01",
+      "name": "Mapa y lista de candidatos",
+      "route": "/buscar",
+      "role": "Participantes autorizados",
+      "features": [
+        "F07"
+      ]
+    },
+    {
+      "id": "MOB-CHAT-01",
+      "name": "Conversación del pedido",
+      "route": "/pedidos/:id/conversacion",
+      "role": "Participantes autorizados",
+      "features": [
+        "F13",
+        "F23"
+      ]
+    },
+    {
+      "id": "MOB-CLI-01",
+      "name": "Perfil de cliente",
+      "route": "/mi-perfil",
+      "role": "Cliente",
+      "features": [
+        "F02"
+      ]
+    },
+    {
+      "id": "MOB-ENT-01",
+      "name": "Coordinar encuentro",
+      "route": "/pedidos/:id/entrega",
+      "role": "Participantes autorizados",
+      "features": [
+        "F16"
+      ]
+    },
+    {
+      "id": "MOB-ENT-02",
+      "name": "Registrar recepción",
+      "route": "/entregas/:id/confirmar",
+      "role": "Participantes autorizados",
+      "features": [
+        "F17"
+      ]
+    },
+    {
+      "id": "MOB-HIS-01",
+      "name": "Historial",
+      "route": "/actividad",
+      "role": "Participantes autorizados",
+      "features": [
+        "F19"
+      ]
+    },
+    {
+      "id": "MOB-MEM-01",
+      "name": "Panel de membresía",
+      "route": "/maker/membresia",
+      "role": "Maker",
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "MOB-MEM-02",
+      "name": "Compra o renovación",
+      "route": "/maker/membresia/comprar",
+      "role": "Maker",
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "MOB-MEM-03",
+      "name": "Retorno del checkout",
+      "route": "/maker/membresia/retorno",
+      "role": "Maker",
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "MOB-MKR-01",
+      "name": "Perfil y capacidades maker",
+      "route": "/maker/perfil",
+      "role": "Maker",
+      "features": [
+        "F03"
+      ]
+    },
+    {
+      "id": "MOB-MKR-02",
+      "name": "Portfolio",
+      "route": "/maker/portfolio",
+      "role": "Maker",
+      "features": [
+        "F04"
+      ]
+    },
+    {
+      "id": "MOB-MKR-03",
+      "name": "Invitaciones recibidas",
+      "route": "/maker/solicitudes",
+      "role": "Maker",
+      "features": [
+        "F08"
+      ]
+    },
+    {
+      "id": "MOB-MKR-04",
+      "name": "Cola del maker",
+      "route": "/maker/pedidos",
+      "role": "Maker",
+      "features": [
+        "F12"
+      ]
+    },
+    {
+      "id": "MOB-NOT-01",
+      "name": "Bandeja de avisos",
+      "route": "/notificaciones",
+      "role": "Participantes autorizados",
+      "features": [
+        "F14"
+      ]
+    },
+    {
+      "id": "MOB-OFE-01",
+      "name": "Comparación de ofertas",
+      "route": "/solicitudes/:id/ofertas",
+      "role": "Cliente",
+      "features": [
+        "F09",
+        "F10"
+      ]
+    },
+    {
+      "id": "MOB-OFE-02",
+      "name": "Preparar oferta",
+      "route": "/invitaciones/:id/oferta",
+      "role": "Maker",
+      "features": [
+        "F09"
+      ]
+    },
+    {
+      "id": "MOB-OFE-03",
+      "name": "Confirmar versión de oferta",
+      "route": "/ofertas/:id/confirmar",
+      "role": "Cliente",
+      "features": [
+        "F10"
+      ]
+    },
+    {
+      "id": "MOB-PED-01",
+      "name": "Seguimiento de pedido",
+      "route": "/pedidos/:id",
+      "role": "Participantes autorizados",
+      "features": [
+        "F12"
+      ]
+    },
+    {
+      "id": "MOB-REP-01",
+      "name": "Valoración",
+      "route": "/pedidos/:id/valoracion",
+      "role": "Participantes autorizados",
+      "features": [
+        "F18"
+      ]
+    },
+    {
+      "id": "MOB-REV-01",
+      "name": "Presentar evidencia",
+      "route": "/pedidos/:id/evidencia",
+      "role": "Maker",
+      "features": [
+        "F15",
+        "F23"
+      ]
+    },
+    {
+      "id": "MOB-REV-02",
+      "name": "Decidir sobre una revisión",
+      "route": "/pedidos/:id/revision/:revision",
+      "role": "Cliente",
+      "features": [
+        "F22"
+      ]
+    },
+    {
+      "id": "MOB-SOL-01",
+      "name": "Nueva solicitud",
+      "route": "/solicitudes/nueva",
+      "role": "Cliente",
+      "features": [
+        "F05",
+        "F06",
+        "F23"
+      ]
+    },
+    {
+      "id": "MOB-SOL-02",
+      "name": "Detalle de solicitud y estimación",
+      "route": "/solicitudes/:id",
+      "role": "Cliente",
+      "features": [
+        "F06"
+      ]
+    },
+    {
+      "id": "MOB-SYS-01",
+      "name": "Estado de conexión y acceso",
+      "route": "Contenedor global",
+      "role": "Participantes autorizados",
+      "features": [
+        "F24"
+      ]
+    },
+    {
+      "id": "WEB-ADM-01",
+      "name": "Soporte y operación",
+      "route": "/admin/soporte",
+      "role": "Administración",
+      "features": [
+        "F20"
+      ]
+    },
+    {
+      "id": "WEB-ADM-02",
+      "name": "Reporte de actividad",
+      "route": "/admin/actividad",
+      "role": "Administración",
+      "features": [
+        "F21"
+      ]
+    },
+    {
+      "id": "WEB-ADM-MEM-01",
+      "name": "Plan y programa fundador",
+      "route": "/admin/membresia",
+      "role": "Administración",
+      "features": [
+        "F11",
+        "F20"
+      ]
+    },
+    {
+      "id": "WEB-AUTH-01",
+      "name": "Acceso",
+      "route": "/ingresar",
+      "role": "Visitante / usuario",
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "WEB-AUTH-02",
+      "name": "Registro",
+      "route": "/registro",
+      "role": "Visitante / usuario",
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "WEB-BUS-01",
+      "name": "Mapa y lista de candidatos",
+      "route": "/buscar",
+      "role": "Participantes autorizados",
+      "features": [
+        "F07"
+      ]
+    },
+    {
+      "id": "WEB-CHAT-01",
+      "name": "Conversación del pedido",
+      "route": "/pedidos/:id/conversacion",
+      "role": "Participantes autorizados",
+      "features": [
+        "F13",
+        "F23"
+      ]
+    },
+    {
+      "id": "WEB-CLI-01",
+      "name": "Perfil de cliente",
+      "route": "/mi-perfil",
+      "role": "Cliente",
+      "features": [
+        "F02"
+      ]
+    },
+    {
+      "id": "WEB-ENT-01",
+      "name": "Coordinar encuentro",
+      "route": "/pedidos/:id/entrega",
+      "role": "Participantes autorizados",
+      "features": [
+        "F16"
+      ]
+    },
+    {
+      "id": "WEB-ENT-02",
+      "name": "Registrar recepción",
+      "route": "/entregas/:id/confirmar",
+      "role": "Participantes autorizados",
+      "features": [
+        "F17"
+      ]
+    },
+    {
+      "id": "WEB-HIS-01",
+      "name": "Historial",
+      "route": "/actividad",
+      "role": "Participantes autorizados",
+      "features": [
+        "F19"
+      ]
+    },
+    {
+      "id": "WEB-MEM-01",
+      "name": "Panel de membresía",
+      "route": "/maker/membresia",
+      "role": "Maker",
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "WEB-MEM-02",
+      "name": "Compra o renovación",
+      "route": "/maker/membresia/comprar",
+      "role": "Maker",
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "WEB-MEM-03",
+      "name": "Retorno del checkout",
+      "route": "/maker/membresia/retorno",
+      "role": "Maker",
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "WEB-MKR-01",
+      "name": "Perfil y capacidades maker",
+      "route": "/maker/perfil",
+      "role": "Maker",
+      "features": [
+        "F03"
+      ]
+    },
+    {
+      "id": "WEB-MKR-02",
+      "name": "Portfolio",
+      "route": "/maker/portfolio",
+      "role": "Maker",
+      "features": [
+        "F04"
+      ]
+    },
+    {
+      "id": "WEB-MKR-03",
+      "name": "Invitaciones recibidas",
+      "route": "/maker/solicitudes",
+      "role": "Maker",
+      "features": [
+        "F08"
+      ]
+    },
+    {
+      "id": "WEB-MKR-04",
+      "name": "Cola del maker",
+      "route": "/maker/pedidos",
+      "role": "Maker",
+      "features": [
+        "F12"
+      ]
+    },
+    {
+      "id": "WEB-NOT-01",
+      "name": "Bandeja de avisos",
+      "route": "/notificaciones",
+      "role": "Participantes autorizados",
+      "features": [
+        "F14"
+      ]
+    },
+    {
+      "id": "WEB-OFE-01",
+      "name": "Comparación de ofertas",
+      "route": "/solicitudes/:id/ofertas",
+      "role": "Cliente",
+      "features": [
+        "F09",
+        "F10"
+      ]
+    },
+    {
+      "id": "WEB-OFE-02",
+      "name": "Preparar oferta",
+      "route": "/invitaciones/:id/oferta",
+      "role": "Maker",
+      "features": [
+        "F09"
+      ]
+    },
+    {
+      "id": "WEB-OFE-03",
+      "name": "Confirmar versión de oferta",
+      "route": "/ofertas/:id/confirmar",
+      "role": "Cliente",
+      "features": [
+        "F10"
+      ]
+    },
+    {
+      "id": "WEB-PED-01",
+      "name": "Seguimiento de pedido",
+      "route": "/pedidos/:id",
+      "role": "Participantes autorizados",
+      "features": [
+        "F12"
+      ]
+    },
+    {
+      "id": "WEB-REP-01",
+      "name": "Valoración",
+      "route": "/pedidos/:id/valoracion",
+      "role": "Participantes autorizados",
+      "features": [
+        "F18"
+      ]
+    },
+    {
+      "id": "WEB-REV-01",
+      "name": "Presentar evidencia",
+      "route": "/pedidos/:id/evidencia",
+      "role": "Maker",
+      "features": [
+        "F15",
+        "F23"
+      ]
+    },
+    {
+      "id": "WEB-REV-02",
+      "name": "Decidir sobre una revisión",
+      "route": "/pedidos/:id/revision/:revision",
+      "role": "Cliente",
+      "features": [
+        "F22"
+      ]
+    },
+    {
+      "id": "WEB-SOL-01",
+      "name": "Nueva solicitud",
+      "route": "/solicitudes/nueva",
+      "role": "Cliente",
+      "features": [
+        "F05",
+        "F06",
+        "F23"
+      ]
+    },
+    {
+      "id": "WEB-SOL-02",
+      "name": "Detalle de solicitud y estimación",
+      "route": "/solicitudes/:id",
+      "role": "Cliente",
+      "features": [
+        "F06"
+      ]
+    },
+    {
+      "id": "WEB-SYS-01",
+      "name": "Estado de conexión y acceso",
+      "route": "Contenedor global",
+      "role": "Participantes autorizados",
+      "features": [
+        "F24"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+actor Cliente
+actor Maker
+actor Administrador
+actor "Mercado Pago (abono)" as MercadoPago
+rectangle "3DAltoque" {
+  usecase "CU-01\nPublicar solicitud" as CU01
+  usecase "CU-02\nRecibir y responder ofertas" as CU02
+  usecase "CU-03\nElegir oferta" as CU03
+  usecase "CU-04\nProducción y evidencia" as CU04
+  usecase "CU-05\nRevisión y aprobación" as CU05
+  usecase "CU-06\nEntrega personal" as CU06
+  usecase "CU-07\nAdministración operativa" as CU07
+  usecase "CU-08\nConsultar membresía" as CU08
+  usecase "CU-09\nHabilitar perfil e iniciar prueba" as CU09
+  usecase "CU-10\nAsignar beneficio fundador" as CU10
+  usecase "CU-11\nPagar o renovar abono" as CU11
+  usecase "CU-12\nGestionar plan y promociones" as CU12
+  usecase "CU-13\nRegistrarse y acceder" as CU13
+}
+Cliente -- CU01
+Maker -- CU02
+Cliente -- CU03
+Maker -- CU04
+Cliente -- CU05
+Cliente -- CU06
+Maker -- CU06
+Administrador -- CU07
+Maker -- CU08
+Maker -- CU09
+Administrador -- CU09
+Administrador -- CU10
+Maker -- CU11
+MercadoPago -- CU11
+Administrador -- CU12
+Cliente -- CU13
+Maker -- CU13
+Administrador -- CU13
+note bottom of CU11
+La plataforma cobra solo su abono.
+El cliente paga la impresión al maker por fuera.
+end note
+@enduml

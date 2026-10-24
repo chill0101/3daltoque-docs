@@ -1,0 +1,762 @@
+{
+  "version": 1,
+  "documentos": {
+    "estado": {
+      "origen": "docs/publicacion/paginas/estado.md",
+      "destino": "src/content/docs/planificacion/estado.md",
+      "checkpoint": "Checklist",
+      "estado": "preparacion",
+      "sha256Fuente": "9d818c994f5bb0ac7b657034618c95fcaebb783705aa81e88036732442aa8ba1",
+      "sha256": "eb467a236300f21f6ef3d876bfe569a7def380e29e77db9a8dded8d799b7b12e",
+      "huella": "359686cbc570508858b3a4c67c825157cd6d2417216b04b0b7499e108de16a27",
+      "adjuntos": []
+    },
+    "casos-de-uso": {
+      "origen": "docs/04-casos-de-uso-y-aceptacion.md",
+      "destino": "src/content/docs/analisis/casos-de-uso.md",
+      "checkpoint": "3 y 4",
+      "estado": "preparacion",
+      "sha256Fuente": "b3b822d64d6885cb565e22ee558d8a4a5e99d343c73247a0822c35cabc2ee705",
+      "sha256": "45e46cafaf3a3d6468ac13bd3b24b68a9d29f58ac4a66345eae67f525671ff70",
+      "huella": "751c32b60ca7b7379c566798e6b8a47c09f7a2dc1cca3f07981a398e07b9ec82",
+      "adjuntos": [
+        {
+          "origen": "docs/diagramas/casos-de-uso.svg",
+          "destino": "public/documentos/56672ecacb3e-casos-de-uso.svg",
+          "archivo": "starlight/public/documentos/56672ecacb3e-casos-de-uso.svg",
+          "sha256": "321352a30245e274d5cbdaafd3d632ac642d0d7cf11369fe9672b17a76023a46"
+        },
+        {
+          "origen": "docs/diagramas/casos-de-uso.puml",
+          "destino": "public/documentos/c14d6068439c-casos-de-uso.puml",
+          "archivo": "starlight/public/documentos/c14d6068439c-casos-de-uso.puml",
+          "sha256": "78d8b3b23fc1a70818284c600366ef7e263a18522777ace2954047564e8e0d65"
+        }
+      ]
+    },
+    "arquitectura": {
+      "origen": "docs/05-arquitectura-y-diseno.md",
+      "destino": "src/content/docs/diseno/arquitectura.md",
+      "checkpoint": "11 y 13",
+      "estado": "preparacion",
+      "sha256Fuente": "1db2b63148e99825e1ae1f88e65fa4d28113c533f633ada1e5a735b2766b917f",
+      "sha256": "84112c74df34fe24e35f9888252052fc01fabe041cd4783ba3438fbb03ade502",
+      "huella": "9ebab216da09abf0c24094db3d775d017163664575de24dcfabdddf8927c5699",
+      "adjuntos": [
+        {
+          "origen": "docs/diagramas/componentes.svg",
+          "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "706772bb70f9b0ca65ed3b36eabbf5fda29811446a7e2da08402f1c15553d3e7"
+        },
+        {
+          "origen": "docs/diagramas/componentes.mmd",
+          "destino": "public/documentos/410048d78c61-componentes.mmd",
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "86502186ac7569e50ed658217a8eaf3f5ea66aa5aafe1feea873798693d18922"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.svg",
+          "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.mmd",
+          "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+        }
+      ]
+    },
+    "implementacion": {
+      "origen": "docs/12-arquitectura-de-implementacion.md",
+      "destino": "src/content/docs/diseno/implementacion.md",
+      "checkpoint": "12",
+      "estado": "preparacion",
+      "sha256Fuente": "79f0041b7f3bc176968daa65dbeb2a4657dbcf97a633a04e6655d9f773955361",
+      "sha256": "2882fb21caa28768fa87f8ca14fe5483a1b0b0dfc5a7e69a3d06e2b660156732",
+      "huella": "1766120750d29e124fa86e30f6f5fad5e2026fac1ee887ecb272a04259d53834",
+      "adjuntos": [
+        {
+          "origen": "docs/diagramas/componentes.svg",
+          "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "706772bb70f9b0ca65ed3b36eabbf5fda29811446a7e2da08402f1c15553d3e7"
+        },
+        {
+          "origen": "docs/diagramas/componentes.mmd",
+          "destino": "public/documentos/410048d78c61-componentes.mmd",
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "86502186ac7569e50ed658217a8eaf3f5ea66aa5aafe1feea873798693d18922"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.svg",
+          "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.mmd",
+          "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+        }
+      ]
+    },
+    "der": {
+      "origen": "docs/modelo-datos/der.md",
+      "destino": "src/content/docs/modelado/datos.md",
+      "checkpoint": "8",
+      "estado": "preparacion",
+      "sha256Fuente": "a8a297bd870adac9c3e18aeab13a256755d34674a5f3cf62107eedbbdce76cfe",
+      "sha256": "c3f6e014f5dd5029b178e2e7b6a1ca8d76c07291e57c7d766ea8e1dcf4b6cbcf",
+      "huella": "f4962869c7325428e7db0c9c1aed9f3a6e11831292239c75f1ba71a0c03225fe",
+      "adjuntos": [
+        {
+          "origen": "docs/modelo-datos/diagramas/der-general.svg",
+          "destino": "public/documentos/b603b79b1a48-der-general.svg",
+          "archivo": "starlight/public/documentos/b603b79b1a48-der-general.svg",
+          "sha256": "45e12e290dbb279290dcc30ffedd1abb5a7e201498847287b8284fff09fab572"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-general.mmd",
+          "destino": "public/documentos/20d7c914f94a-der-general.mmd",
+          "archivo": "starlight/public/documentos/20d7c914f94a-der-general.mmd",
+          "sha256": "6bd31842b4d5a3f3bec3fe366f2bb1f4dc35749114edc25b471d0789e337db06"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-identidad.svg",
+          "destino": "public/documentos/ccaa2a178084-der-identidad.svg",
+          "archivo": "starlight/public/documentos/ccaa2a178084-der-identidad.svg",
+          "sha256": "7fa85f69b148523d7d05deb288773b397057035c56f8a5be7016ed1ae8f36758"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-identidad.mmd",
+          "destino": "public/documentos/c9a8a7b5f5d5-der-identidad.mmd",
+          "archivo": "starlight/public/documentos/c9a8a7b5f5d5-der-identidad.mmd",
+          "sha256": "706e1f80d71b6e0cf5a7d45832fa61353ad80ddb42351c86bb261a96845d78ea"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-archivos.svg",
+          "destino": "public/documentos/66377b824f4a-der-archivos.svg",
+          "archivo": "starlight/public/documentos/66377b824f4a-der-archivos.svg",
+          "sha256": "a9d56fe0b72dee2647ad4433d7d456fb2685a64539c0103ba70853ca96f9a75c"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-archivos.mmd",
+          "destino": "public/documentos/86c73d05e0e9-der-archivos.mmd",
+          "archivo": "starlight/public/documentos/86c73d05e0e9-der-archivos.mmd",
+          "sha256": "7f6bae45217c2840013a8c9ef19abcf683bbdb97b97e45f1df547bdd5299acc2"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-cotizaciones.svg",
+          "destino": "public/documentos/57c3386e5db7-der-cotizaciones.svg",
+          "archivo": "starlight/public/documentos/57c3386e5db7-der-cotizaciones.svg",
+          "sha256": "86cddc7ca1084ddd927ac098bfa53b67733da7df78e543afcad80b595da0e1ce"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-cotizaciones.mmd",
+          "destino": "public/documentos/a77b05bb3349-der-cotizaciones.mmd",
+          "archivo": "starlight/public/documentos/a77b05bb3349-der-cotizaciones.mmd",
+          "sha256": "65d52ce3c38ce1312ae788d51402c604477f32e102881f46c32ed0909ee508f5"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-pedidos.svg",
+          "destino": "public/documentos/6a68fff74395-der-pedidos.svg",
+          "archivo": "starlight/public/documentos/6a68fff74395-der-pedidos.svg",
+          "sha256": "0ac38f6e3476c1256e992f451577b91341535001a2214f73324b8b4af55e129a"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-pedidos.mmd",
+          "destino": "public/documentos/78e4f83529b8-der-pedidos.mmd",
+          "archivo": "starlight/public/documentos/78e4f83529b8-der-pedidos.mmd",
+          "sha256": "d15cf54ba058f23f27dbc2cfb9251881abbb31c8573ed30171003e79363535d7"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-pagos.svg",
+          "destino": "public/documentos/5950f8bd018c-der-pagos.svg",
+          "archivo": "starlight/public/documentos/5950f8bd018c-der-pagos.svg",
+          "sha256": "fd96e5d049194c1e18b98121dd325d1841b7bfd089176261af8268e6a3f25637"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-pagos.mmd",
+          "destino": "public/documentos/3dc6180a8ed6-der-pagos.mmd",
+          "archivo": "starlight/public/documentos/3dc6180a8ed6-der-pagos.mmd",
+          "sha256": "781110604b42128679e02c4d7afe7491ef911b5e6652dcf89e85a8791944df25"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-comunicacion.svg",
+          "destino": "public/documentos/e596445273e8-der-comunicacion.svg",
+          "archivo": "starlight/public/documentos/e596445273e8-der-comunicacion.svg",
+          "sha256": "cbc44bac1edd11847ebcef9353587f1b2aa06f5be2a914c30af98dc57ca11187"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-comunicacion.mmd",
+          "destino": "public/documentos/94b9740f694c-der-comunicacion.mmd",
+          "archivo": "starlight/public/documentos/94b9740f694c-der-comunicacion.mmd",
+          "sha256": "32619047f65272bca0b3928a78893b1f31c77f9c352dc8cf184b852298040e65"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-operacion.svg",
+          "destino": "public/documentos/4b5695cb3462-der-operacion.svg",
+          "archivo": "starlight/public/documentos/4b5695cb3462-der-operacion.svg",
+          "sha256": "0d0f540e398472e90e12707084ae1c243cbcec9873844c9a4628c209874b5538"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-operacion.mmd",
+          "destino": "public/documentos/e618405f9449-der-operacion.mmd",
+          "archivo": "starlight/public/documentos/e618405f9449-der-operacion.mmd",
+          "sha256": "7ccf0b2f71c4b2b64cb4a50949ede4aad5e64cd691685e45cd1bb03c4450742b"
+        }
+      ]
+    },
+    "modelo-logico": {
+      "origen": "docs/modelo-datos/modelo-logico.md",
+      "destino": "src/content/docs/modelado/modelo-logico.md",
+      "checkpoint": "8",
+      "estado": "preparacion",
+      "sha256Fuente": "f86186dd4c964b5abe85bf252d48c09fa7baedbf417d552d58e76197f17eb687",
+      "sha256": "2ad8e3dc1d7db9f08031aa5f0736bc80d5df64924002d5d53ded9c38a6b6933a",
+      "huella": "87b183ae79a34857b10a8eb121486ec120c732893fa1ee23ede3439ef94f56da",
+      "adjuntos": []
+    },
+    "flujos": {
+      "origen": "docs/08-flujos-y-diagramas.md",
+      "destino": "src/content/docs/flujos/estados.md",
+      "checkpoint": "3 y 4",
+      "estado": "preparacion",
+      "sha256Fuente": "bd4fab1d9fa9185a98a9ef78d1680257680c9784c0048fb7266fded14b2b72cc",
+      "sha256": "4d66dbb4919c8bcdd39bbe1cb64900f36fdf8c098e0080230b1801dfe0d1f63a",
+      "huella": "f1859bf1487f78ae7a91f850fac3ac6d6621215976801162f1d65f84ab7aa450",
+      "adjuntos": [
+        {
+          "origen": "docs/diagramas/secuencia-cotizacion.svg",
+          "destino": "public/documentos/97d5eef655ae-secuencia-cotizacion.svg",
+          "archivo": "starlight/public/documentos/97d5eef655ae-secuencia-cotizacion.svg",
+          "sha256": "b3c9700e3d5a6b166f1c391c073df74463d9752f5f8e760e2b4d99bbaa8e06b1"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-cotizacion.mmd",
+          "destino": "public/documentos/3fcf0ef2e392-secuencia-cotizacion.mmd",
+          "archivo": "starlight/public/documentos/3fcf0ef2e392-secuencia-cotizacion.mmd",
+          "sha256": "0b9c7135682e300248a2cb9e9d04fa8d5a8fc68e9a9c8a29bb051ab48d98accd"
+        },
+        {
+          "origen": "docs/diagramas/estados-solicitud.svg",
+          "destino": "public/documentos/5a3710605866-estados-solicitud.svg",
+          "archivo": "starlight/public/documentos/5a3710605866-estados-solicitud.svg",
+          "sha256": "4d2066100558e2d8d7484d6956c4f9742c1ae1f388772f5d89710fd05dcaa1c8"
+        },
+        {
+          "origen": "docs/diagramas/estados-solicitud.mmd",
+          "destino": "public/documentos/1441f04a2334-estados-solicitud.mmd",
+          "archivo": "starlight/public/documentos/1441f04a2334-estados-solicitud.mmd",
+          "sha256": "3a36052c6515913b68556b0419ec5d852e596754cc6f689ce82358bc27b30236"
+        },
+        {
+          "origen": "docs/diagramas/estados-oferta.svg",
+          "destino": "public/documentos/a8692614b574-estados-oferta.svg",
+          "archivo": "starlight/public/documentos/a8692614b574-estados-oferta.svg",
+          "sha256": "c05c4d6cb1ed2f70a9e4f5b8cf37b1bc4509798e0599d7ce6cf8939828f633ff"
+        },
+        {
+          "origen": "docs/diagramas/estados-oferta.mmd",
+          "destino": "public/documentos/b1d5026866f3-estados-oferta.mmd",
+          "archivo": "starlight/public/documentos/b1d5026866f3-estados-oferta.mmd",
+          "sha256": "4212b4ef7e0e4123acfa713ba8a782caa0a1242613faa2d4d22d7ae3369ebf99"
+        },
+        {
+          "origen": "docs/diagramas/estados-pedido.svg",
+          "destino": "public/documentos/e9d99ad5c424-estados-pedido.svg",
+          "archivo": "starlight/public/documentos/e9d99ad5c424-estados-pedido.svg",
+          "sha256": "be1264ae8f77825dfefe1f224fe1a6e14a4b33f0410e3e503eec1ac877efce69"
+        },
+        {
+          "origen": "docs/diagramas/estados-pedido.mmd",
+          "destino": "public/documentos/51c245f91b6b-estados-pedido.mmd",
+          "archivo": "starlight/public/documentos/51c245f91b6b-estados-pedido.mmd",
+          "sha256": "c7606f2c12f81d733e13fa5a106752fdc241c0a2d9842476872498e0525ec6e6"
+        },
+        {
+          "origen": "docs/diagramas/estados-revision.svg",
+          "destino": "public/documentos/d72adef0e9f0-estados-revision.svg",
+          "archivo": "starlight/public/documentos/d72adef0e9f0-estados-revision.svg",
+          "sha256": "4d17df115c3e731994faa1db8554ea8a9ada7054f3382d7daac3f1464b905fd3"
+        },
+        {
+          "origen": "docs/diagramas/estados-revision.mmd",
+          "destino": "public/documentos/bf6af2ee5236-estados-revision.mmd",
+          "archivo": "starlight/public/documentos/bf6af2ee5236-estados-revision.mmd",
+          "sha256": "5a7717994e69d4e110883c6c1dbd100a17684fe2e1f1bd9ddecd82c4874482ef"
+        },
+        {
+          "origen": "docs/diagramas/estados-entrega.svg",
+          "destino": "public/documentos/1c6a0d8124ee-estados-entrega.svg",
+          "archivo": "starlight/public/documentos/1c6a0d8124ee-estados-entrega.svg",
+          "sha256": "78808f0690daf41260387f8b776ac4a28c80614072192b6045e61a723e8f2252"
+        },
+        {
+          "origen": "docs/diagramas/estados-entrega.mmd",
+          "destino": "public/documentos/e91a1c54d94b-estados-entrega.mmd",
+          "archivo": "starlight/public/documentos/e91a1c54d94b-estados-entrega.mmd",
+          "sha256": "e14f8e20363b62df66b2742ec29896716b216717527ad96b0158c8864a967a20"
+        },
+        {
+          "origen": "docs/diagramas/estados-membresia.svg",
+          "destino": "public/documentos/f2ba7a368209-estados-membresia.svg",
+          "archivo": "starlight/public/documentos/f2ba7a368209-estados-membresia.svg",
+          "sha256": "50981750609a3740fc9608b23d445e11ce7b88389ffe48daacc0e4a2729ea311"
+        },
+        {
+          "origen": "docs/diagramas/estados-membresia.mmd",
+          "destino": "public/documentos/8f909307fb54-estados-membresia.mmd",
+          "archivo": "starlight/public/documentos/8f909307fb54-estados-membresia.mmd",
+          "sha256": "33f7d13a5ac0df8e083459230878143457dc57657c5563ea773f3b9d61089d98"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-pago.svg",
+          "destino": "public/documentos/5b550fb39979-secuencia-pago.svg",
+          "archivo": "starlight/public/documentos/5b550fb39979-secuencia-pago.svg",
+          "sha256": "7cbdae2ef4dcb51b4a9667d5ea2b96ef2e2a7b5f3efddb8e30f9c6fdc94e4a78"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-pago.mmd",
+          "destino": "public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
+          "archivo": "starlight/public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
+          "sha256": "039b04e78bc664fbdd5e54f7be2e0547745f3b88c893cf64920114a08e3e3395"
+        },
+        {
+          "origen": "docs/diagramas/estados-pago.svg",
+          "destino": "public/documentos/c748c25e7e54-estados-pago.svg",
+          "archivo": "starlight/public/documentos/c748c25e7e54-estados-pago.svg",
+          "sha256": "a7fab06f81708953689a774caf6eb4e862970850989aa07c34b426dea76bd11d"
+        },
+        {
+          "origen": "docs/diagramas/estados-pago.mmd",
+          "destino": "public/documentos/564f67e434cc-estados-pago.mmd",
+          "archivo": "starlight/public/documentos/564f67e434cc-estados-pago.mmd",
+          "sha256": "e801289c2d0e440b1a77ee005ad68a415f5c081c2e7ad8fb2865ca3e36971ae5"
+        }
+      ]
+    },
+    "paquete-design-system-index": {
+      "origen": "docs/design-system/README.md",
+      "destino": "src/content/docs/design-system/index.md",
+      "checkpoint": "Design system",
+      "estado": "preparacion",
+      "sha256Fuente": "b2d72b46e440711713146fa59b03b5d8ee755dd9cafa0c969f3a287c12ea8b6c",
+      "sha256": "6ab14dd1c527c24bdb977903aa807cda9ee468c00438ecf3407fb54c66947d50",
+      "huella": "7337897c57914f0efcd8ca70c16fa6c1edf7d4bd4eb1185f8e2382226ad1226b",
+      "adjuntos": [
+        {
+          "origen": "docs/design-system/galeria.html",
+          "destino": "public/documentos/f899ffe07256-galeria.html",
+          "archivo": "starlight/public/documentos/f899ffe07256-galeria.html",
+          "sha256": "3ff1334008fef095a2a7386881c53dc446d79ee66356edac21450fc3a5c72a54"
+        },
+        {
+          "origen": "docs/design-system/assets/logo-3daltoque.png",
+          "destino": "public/documentos/bd9b070ce086-logo-3daltoque.png",
+          "archivo": "starlight/public/documentos/bd9b070ce086-logo-3daltoque.png",
+          "sha256": "67ff9c55fc77361c6b51b2060ed40fdbe17d561904d299199b263525fb02f9b5"
+        },
+        {
+          "origen": "docs/design-system/tokens.json",
+          "destino": "public/documentos/af2fb6e4ad4f-tokens.json",
+          "archivo": "starlight/public/documentos/af2fb6e4ad4f-tokens.json",
+          "sha256": "0234d250c72b2477762e3cace924b8d0c1d3f0de53b994ed59f3aba0ae32b5d4"
+        },
+        {
+          "origen": "docs/design-system/tokens.css",
+          "destino": "public/documentos/e0b4a0dfc260-tokens.css",
+          "archivo": "starlight/public/documentos/e0b4a0dfc260-tokens.css",
+          "sha256": "22337c2f6ce28f2f8749d8a76bf99ee844ebcc58fb3128105332fbc2e33c96ec"
+        },
+        {
+          "origen": "docs/design-system/components.css",
+          "destino": "public/documentos/6b56a309b006-components.css",
+          "archivo": "starlight/public/documentos/6b56a309b006-components.css",
+          "sha256": "066a09acdfd078af916372b316c879dc9e889fa78557bb6ac639a060b7c5efa9"
+        },
+        {
+          "origen": "docs/design-system/web/components.tsx",
+          "destino": "public/documentos/bd404f0f5a1c-components.tsx",
+          "archivo": "starlight/public/documentos/bd404f0f5a1c-components.tsx",
+          "sha256": "70433def20a2a3ec363546cd4cda5de4370a5088ecc0f4de62c7597e223a76da"
+        },
+        {
+          "origen": "docs/design-system/web/patterns.tsx",
+          "destino": "public/documentos/f2f8e693cf43-patterns.tsx",
+          "archivo": "starlight/public/documentos/f2f8e693cf43-patterns.tsx",
+          "sha256": "0ed269a9cffbbff8e387550fe4ee085bbd140cc1ccfab10ed544c6fe55ffe01f"
+        },
+        {
+          "origen": "docs/design-system/web/index.ts",
+          "destino": "public/documentos/635daedc7218-index.ts",
+          "archivo": "starlight/public/documentos/635daedc7218-index.ts",
+          "sha256": "85a6022176d86c3418c0898ca6788312bd6350f72f7cd1960c8b1012db6636d2"
+        },
+        {
+          "origen": "docs/design-system/mobile/primitives.tsx",
+          "destino": "public/documentos/d681c041a08b-primitives.tsx",
+          "archivo": "starlight/public/documentos/d681c041a08b-primitives.tsx",
+          "sha256": "c7c48219b2f31d88a86030c63ac95dea8d01885c711093b9e780f8421f1ea103"
+        },
+        {
+          "origen": "docs/design-system/mobile/tokens.native.ts",
+          "destino": "public/documentos/d1172ba370c8-tokens.native.ts",
+          "archivo": "starlight/public/documentos/d1172ba370c8-tokens.native.ts",
+          "sha256": "d67379bd10edc0cc8e4bd0b5e727980990e0ae8462fbaef62b6ccd410bb54ebe"
+        },
+        {
+          "origen": "docs/design-system/build-tokens.mjs",
+          "destino": "public/documentos/29110f9209b0-build-tokens.mjs",
+          "archivo": "starlight/public/documentos/29110f9209b0-build-tokens.mjs",
+          "sha256": "e96a9c0f4eea64c8e8e7d7b90cbf2366d281810cfcd0c546f1fce4df21182d61"
+        }
+      ]
+    },
+    "paquete-design-system-02-componentes": {
+      "origen": "docs/design-system/02-componentes.md",
+      "destino": "src/content/docs/design-system/02-componentes.md",
+      "checkpoint": "Design system",
+      "estado": "preparacion",
+      "sha256Fuente": "14557122c3faf6802d316fdd5a4e51e5f63efc9fe80239db7b2a55f0bad98c4d",
+      "sha256": "80a915e767134236eaa65d38d43d5a82384ef58e7d732c222b5232cc0d0a6c61",
+      "huella": "39c5536087382b982e390c010c40818b212de6723fa2c90ece097346e5b54142",
+      "adjuntos": []
+    },
+    "paquete-specs-01-navegacion-y-pantallas": {
+      "origen": "docs/specs/01-navegacion-y-pantallas.md",
+      "destino": "src/content/docs/specs/01-navegacion-y-pantallas.md",
+      "checkpoint": "Specs funcionales",
+      "estado": "preparacion",
+      "sha256Fuente": "19378a7d2e89e324d0c98f4e745445bb5bbe46b34e0a56ee575d69b1de5e35ec",
+      "sha256": "b3e06be2c792da0834fa8871cf99e6a0e5b3575218483bdff417df99f6848d2d",
+      "huella": "b1b09ccd83808448fa33ae4805f92d144bc94ae5d94c77900fa3455a15ce1d82",
+      "adjuntos": [
+        {
+          "origen": "docs/design-system/figma/previews/2026-10-23/vista-web-solicitud.png",
+          "destino": "public/documentos/bec86659d33a-vista-web-solicitud.png",
+          "archivo": "starlight/public/documentos/bec86659d33a-vista-web-solicitud.png",
+          "sha256": "5d1c7117129f1e10696a08042a1cfa7ac760ab43a0a9870ebb2d6f59a4163483"
+        },
+        {
+          "origen": "docs/design-system/figma/previews/2026-10-23-plataformas/mobile-request.png",
+          "destino": "public/documentos/cc62b202a1bb-mobile-request.png",
+          "archivo": "starlight/public/documentos/cc62b202a1bb-mobile-request.png",
+          "sha256": "5df249a58a3cfef83ad40074fbecccd03c592654b4809103790f98d684b55fbf"
+        },
+        {
+          "origen": "docs/design-system/figma/previews/2026-10-23/vista-mobile-busqueda.png",
+          "destino": "public/documentos/849429e79cb7-vista-mobile-busqueda.png",
+          "archivo": "starlight/public/documentos/849429e79cb7-vista-mobile-busqueda.png",
+          "sha256": "e23b0971568bf76d5fc6d3b4756d9b798992a7c5b92aca4acea694ffa978969e"
+        },
+        {
+          "origen": "docs/specs/vistas-complementarias.json",
+          "destino": "public/documentos/b06f2f01e8a2-vistas-complementarias.json",
+          "archivo": "starlight/public/documentos/b06f2f01e8a2-vistas-complementarias.json",
+          "sha256": "8f37a7a6866bff33c9b7a07c1db6f85c67091dca2edb5069c3129f356dbd6908"
+        }
+      ]
+    },
+    "paquete-specs-03-inventario-de-vistas-y-flujos": {
+      "origen": "docs/specs/03-inventario-de-vistas-y-flujos.md",
+      "destino": "src/content/docs/specs/03-inventario-de-vistas-y-flujos.md",
+      "checkpoint": "Specs funcionales",
+      "estado": "preparacion",
+      "sha256Fuente": "9235eb5e2c744fa5f72ea55548a2356c1dbc35058cdf95f9f4f444a7fccffbe3",
+      "sha256": "f9049344eba40e13e46862faa8b9c100014717468e150224bef7de174e285c42",
+      "huella": "db41e1e718bf311ccaf16bbac95047296b969491d5448e08e6b8a1d5d121dc19",
+      "adjuntos": [
+        {
+          "origen": "docs/specs/catalogo.json",
+          "destino": "public/documentos/aeaae329b533-catalogo.json",
+          "archivo": "starlight/public/documentos/aeaae329b533-catalogo.json",
+          "sha256": "1ddb5132811c107b5f6f285b7d8f68ebf9bc0f8a48739e815bba1960f2a5cb4e"
+        },
+        {
+          "origen": "docs/specs/vistas-complementarias.json",
+          "destino": "public/documentos/b06f2f01e8a2-vistas-complementarias.json",
+          "archivo": "starlight/public/documentos/b06f2f01e8a2-vistas-complementarias.json",
+          "sha256": "8f37a7a6866bff33c9b7a07c1db6f85c67091dca2edb5069c3129f356dbd6908"
+        }
+      ]
+    },
+    "indice-diagramas": {
+      "origen": "docs/planificacion/11-diagramas.md",
+      "destino": "src/content/docs/modelado/diagramas.md",
+      "checkpoint": "Análisis, modelado y arquitectura",
+      "estado": "preparacion",
+      "sha256Fuente": "233b681c1d0eb96c7ca17bd700c52e42cdd3fd4be95cedb8fc919489c2d87a8f",
+      "sha256": "d87818edddade7bbf185edcdb26e92f67bb0b8955b5f760affb144a5d7604a88",
+      "huella": "1e763dfd2c36a382e7999ae3eeddc934b058850db4605cdd796ab74e6ec1ba2b",
+      "adjuntos": [
+        {
+          "origen": "docs/diagramas/casos-de-uso.svg",
+          "destino": "public/documentos/56672ecacb3e-casos-de-uso.svg",
+          "archivo": "starlight/public/documentos/56672ecacb3e-casos-de-uso.svg",
+          "sha256": "321352a30245e274d5cbdaafd3d632ac642d0d7cf11369fe9672b17a76023a46"
+        },
+        {
+          "origen": "docs/diagramas/casos-de-uso.puml",
+          "destino": "public/documentos/c14d6068439c-casos-de-uso.puml",
+          "archivo": "starlight/public/documentos/c14d6068439c-casos-de-uso.puml",
+          "sha256": "78d8b3b23fc1a70818284c600366ef7e263a18522777ace2954047564e8e0d65"
+        },
+        {
+          "origen": "docs/diagramas/dominio.svg",
+          "destino": "public/documentos/3a38ed4d1833-dominio.svg",
+          "archivo": "starlight/public/documentos/3a38ed4d1833-dominio.svg",
+          "sha256": "3c1a6e4afe38ff1c0d1444856189564d2a914e91b6dd1ecd9779dfc0416ebd44"
+        },
+        {
+          "origen": "docs/diagramas/dominio.mmd",
+          "destino": "public/documentos/6420bfd40263-dominio.mmd",
+          "archivo": "starlight/public/documentos/6420bfd40263-dominio.mmd",
+          "sha256": "4f83799e74db30cbcd868a5f315bb584492a3969a43584048f95ce8f611074d5"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.svg",
+          "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.mmd",
+          "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+        },
+        {
+          "origen": "docs/diagramas/componentes.svg",
+          "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "706772bb70f9b0ca65ed3b36eabbf5fda29811446a7e2da08402f1c15553d3e7"
+        },
+        {
+          "origen": "docs/diagramas/componentes.mmd",
+          "destino": "public/documentos/410048d78c61-componentes.mmd",
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "86502186ac7569e50ed658217a8eaf3f5ea66aa5aafe1feea873798693d18922"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-cotizacion.svg",
+          "destino": "public/documentos/97d5eef655ae-secuencia-cotizacion.svg",
+          "archivo": "starlight/public/documentos/97d5eef655ae-secuencia-cotizacion.svg",
+          "sha256": "b3c9700e3d5a6b166f1c391c073df74463d9752f5f8e760e2b4d99bbaa8e06b1"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-cotizacion.mmd",
+          "destino": "public/documentos/3fcf0ef2e392-secuencia-cotizacion.mmd",
+          "archivo": "starlight/public/documentos/3fcf0ef2e392-secuencia-cotizacion.mmd",
+          "sha256": "0b9c7135682e300248a2cb9e9d04fa8d5a8fc68e9a9c8a29bb051ab48d98accd"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-pago.svg",
+          "destino": "public/documentos/5b550fb39979-secuencia-pago.svg",
+          "archivo": "starlight/public/documentos/5b550fb39979-secuencia-pago.svg",
+          "sha256": "7cbdae2ef4dcb51b4a9667d5ea2b96ef2e2a7b5f3efddb8e30f9c6fdc94e4a78"
+        },
+        {
+          "origen": "docs/diagramas/secuencia-pago.mmd",
+          "destino": "public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
+          "archivo": "starlight/public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
+          "sha256": "039b04e78bc664fbdd5e54f7be2e0547745f3b88c893cf64920114a08e3e3395"
+        },
+        {
+          "origen": "docs/diagramas/estados-solicitud.svg",
+          "destino": "public/documentos/5a3710605866-estados-solicitud.svg",
+          "archivo": "starlight/public/documentos/5a3710605866-estados-solicitud.svg",
+          "sha256": "4d2066100558e2d8d7484d6956c4f9742c1ae1f388772f5d89710fd05dcaa1c8"
+        },
+        {
+          "origen": "docs/diagramas/estados-solicitud.mmd",
+          "destino": "public/documentos/1441f04a2334-estados-solicitud.mmd",
+          "archivo": "starlight/public/documentos/1441f04a2334-estados-solicitud.mmd",
+          "sha256": "3a36052c6515913b68556b0419ec5d852e596754cc6f689ce82358bc27b30236"
+        },
+        {
+          "origen": "docs/diagramas/estados-oferta.svg",
+          "destino": "public/documentos/a8692614b574-estados-oferta.svg",
+          "archivo": "starlight/public/documentos/a8692614b574-estados-oferta.svg",
+          "sha256": "c05c4d6cb1ed2f70a9e4f5b8cf37b1bc4509798e0599d7ce6cf8939828f633ff"
+        },
+        {
+          "origen": "docs/diagramas/estados-oferta.mmd",
+          "destino": "public/documentos/b1d5026866f3-estados-oferta.mmd",
+          "archivo": "starlight/public/documentos/b1d5026866f3-estados-oferta.mmd",
+          "sha256": "4212b4ef7e0e4123acfa713ba8a782caa0a1242613faa2d4d22d7ae3369ebf99"
+        },
+        {
+          "origen": "docs/diagramas/estados-pedido.svg",
+          "destino": "public/documentos/e9d99ad5c424-estados-pedido.svg",
+          "archivo": "starlight/public/documentos/e9d99ad5c424-estados-pedido.svg",
+          "sha256": "be1264ae8f77825dfefe1f224fe1a6e14a4b33f0410e3e503eec1ac877efce69"
+        },
+        {
+          "origen": "docs/diagramas/estados-pedido.mmd",
+          "destino": "public/documentos/51c245f91b6b-estados-pedido.mmd",
+          "archivo": "starlight/public/documentos/51c245f91b6b-estados-pedido.mmd",
+          "sha256": "c7606f2c12f81d733e13fa5a106752fdc241c0a2d9842476872498e0525ec6e6"
+        },
+        {
+          "origen": "docs/diagramas/estados-revision.svg",
+          "destino": "public/documentos/d72adef0e9f0-estados-revision.svg",
+          "archivo": "starlight/public/documentos/d72adef0e9f0-estados-revision.svg",
+          "sha256": "4d17df115c3e731994faa1db8554ea8a9ada7054f3382d7daac3f1464b905fd3"
+        },
+        {
+          "origen": "docs/diagramas/estados-revision.mmd",
+          "destino": "public/documentos/bf6af2ee5236-estados-revision.mmd",
+          "archivo": "starlight/public/documentos/bf6af2ee5236-estados-revision.mmd",
+          "sha256": "5a7717994e69d4e110883c6c1dbd100a17684fe2e1f1bd9ddecd82c4874482ef"
+        },
+        {
+          "origen": "docs/diagramas/estados-entrega.svg",
+          "destino": "public/documentos/1c6a0d8124ee-estados-entrega.svg",
+          "archivo": "starlight/public/documentos/1c6a0d8124ee-estados-entrega.svg",
+          "sha256": "78808f0690daf41260387f8b776ac4a28c80614072192b6045e61a723e8f2252"
+        },
+        {
+          "origen": "docs/diagramas/estados-entrega.mmd",
+          "destino": "public/documentos/e91a1c54d94b-estados-entrega.mmd",
+          "archivo": "starlight/public/documentos/e91a1c54d94b-estados-entrega.mmd",
+          "sha256": "e14f8e20363b62df66b2742ec29896716b216717527ad96b0158c8864a967a20"
+        },
+        {
+          "origen": "docs/diagramas/estados-membresia.svg",
+          "destino": "public/documentos/f2ba7a368209-estados-membresia.svg",
+          "archivo": "starlight/public/documentos/f2ba7a368209-estados-membresia.svg",
+          "sha256": "50981750609a3740fc9608b23d445e11ce7b88389ffe48daacc0e4a2729ea311"
+        },
+        {
+          "origen": "docs/diagramas/estados-membresia.mmd",
+          "destino": "public/documentos/8f909307fb54-estados-membresia.mmd",
+          "archivo": "starlight/public/documentos/8f909307fb54-estados-membresia.mmd",
+          "sha256": "33f7d13a5ac0df8e083459230878143457dc57657c5563ea773f3b9d61089d98"
+        },
+        {
+          "origen": "docs/diagramas/estados-pago.svg",
+          "destino": "public/documentos/c748c25e7e54-estados-pago.svg",
+          "archivo": "starlight/public/documentos/c748c25e7e54-estados-pago.svg",
+          "sha256": "a7fab06f81708953689a774caf6eb4e862970850989aa07c34b426dea76bd11d"
+        },
+        {
+          "origen": "docs/diagramas/estados-pago.mmd",
+          "destino": "public/documentos/564f67e434cc-estados-pago.mmd",
+          "archivo": "starlight/public/documentos/564f67e434cc-estados-pago.mmd",
+          "sha256": "e801289c2d0e440b1a77ee005ad68a415f5c081c2e7ad8fb2865ca3e36971ae5"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-general.svg",
+          "destino": "public/documentos/b603b79b1a48-der-general.svg",
+          "archivo": "starlight/public/documentos/b603b79b1a48-der-general.svg",
+          "sha256": "45e12e290dbb279290dcc30ffedd1abb5a7e201498847287b8284fff09fab572"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-identidad.svg",
+          "destino": "public/documentos/ccaa2a178084-der-identidad.svg",
+          "archivo": "starlight/public/documentos/ccaa2a178084-der-identidad.svg",
+          "sha256": "7fa85f69b148523d7d05deb288773b397057035c56f8a5be7016ed1ae8f36758"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-archivos.svg",
+          "destino": "public/documentos/66377b824f4a-der-archivos.svg",
+          "archivo": "starlight/public/documentos/66377b824f4a-der-archivos.svg",
+          "sha256": "a9d56fe0b72dee2647ad4433d7d456fb2685a64539c0103ba70853ca96f9a75c"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-cotizaciones.svg",
+          "destino": "public/documentos/57c3386e5db7-der-cotizaciones.svg",
+          "archivo": "starlight/public/documentos/57c3386e5db7-der-cotizaciones.svg",
+          "sha256": "86cddc7ca1084ddd927ac098bfa53b67733da7df78e543afcad80b595da0e1ce"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-pedidos.svg",
+          "destino": "public/documentos/6a68fff74395-der-pedidos.svg",
+          "archivo": "starlight/public/documentos/6a68fff74395-der-pedidos.svg",
+          "sha256": "0ac38f6e3476c1256e992f451577b91341535001a2214f73324b8b4af55e129a"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-pagos.svg",
+          "destino": "public/documentos/5950f8bd018c-der-pagos.svg",
+          "archivo": "starlight/public/documentos/5950f8bd018c-der-pagos.svg",
+          "sha256": "fd96e5d049194c1e18b98121dd325d1841b7bfd089176261af8268e6a3f25637"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-comunicacion.svg",
+          "destino": "public/documentos/e596445273e8-der-comunicacion.svg",
+          "archivo": "starlight/public/documentos/e596445273e8-der-comunicacion.svg",
+          "sha256": "cbc44bac1edd11847ebcef9353587f1b2aa06f5be2a914c30af98dc57ca11187"
+        },
+        {
+          "origen": "docs/modelo-datos/diagramas/der-operacion.svg",
+          "destino": "public/documentos/4b5695cb3462-der-operacion.svg",
+          "archivo": "starlight/public/documentos/4b5695cb3462-der-operacion.svg",
+          "sha256": "0d0f540e398472e90e12707084ae1c243cbcec9873844c9a4628c209874b5538"
+        },
+        {
+          "origen": "docs/design-system/figma/diagramas-docs-hidden-2026-10-23.json",
+          "destino": "public/documentos/7b1c6feb8bec-diagramas-docs-hidden-2026-10-23.json",
+          "archivo": "starlight/public/documentos/7b1c6feb8bec-diagramas-docs-hidden-2026-10-23.json",
+          "sha256": "e9b7e0e06c5864ba9fd6dc0662af88bd500df2bc235a55eb77215ad070b77982"
+        }
+      ]
+    },
+    "modelado-arquitectura": {
+      "origen": "docs/planificacion/04-modelado-y-arquitectura.md",
+      "destino": "src/content/docs/modelado/clases-y-arquitectura.md",
+      "checkpoint": "7) Diagrama de clases de dominio",
+      "estado": "preparacion",
+      "sha256Fuente": "137f4e86e09a5520b1e29672f87f1d0765d24696fcc02aca393fccbe4f3a8ff6",
+      "sha256": "6f29f0c166bac981bdc8c5708291da47a1a0fa7b2bce1e36c81183fbd8a2333d",
+      "huella": "d2c31c4231966c8df642eb65ab182bc2cb20a1a6553bc8256beff7454d588ab8",
+      "adjuntos": [
+        {
+          "origen": "docs/diagramas/dominio.svg",
+          "destino": "public/documentos/3a38ed4d1833-dominio.svg",
+          "archivo": "starlight/public/documentos/3a38ed4d1833-dominio.svg",
+          "sha256": "3c1a6e4afe38ff1c0d1444856189564d2a914e91b6dd1ecd9779dfc0416ebd44"
+        },
+        {
+          "origen": "docs/diagramas/dominio.mmd",
+          "destino": "public/documentos/6420bfd40263-dominio.mmd",
+          "archivo": "starlight/public/documentos/6420bfd40263-dominio.mmd",
+          "sha256": "4f83799e74db30cbcd868a5f315bb584492a3969a43584048f95ce8f611074d5"
+        },
+        {
+          "origen": "docs/diagramas/componentes.svg",
+          "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "706772bb70f9b0ca65ed3b36eabbf5fda29811446a7e2da08402f1c15553d3e7"
+        },
+        {
+          "origen": "docs/diagramas/componentes.mmd",
+          "destino": "public/documentos/410048d78c61-componentes.mmd",
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "86502186ac7569e50ed658217a8eaf3f5ea66aa5aafe1feea873798693d18922"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.svg",
+          "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+        },
+        {
+          "origen": "docs/diagramas/diseno-hexagonal.mmd",
+          "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+        }
+      ]
+    }
+  },
+  "integracion": {
+    "src/styles/custom.css": "d40611f749e601cf9fe60dea33171c37d66cdf4014d3cfed5437c2592505c266",
+    "src/assets/marca.svg": "abc0fca69cb21aaabf211b356eebdaaa4b20e3ea3ce7f2a27945bc27353f7cea",
+    "public/favicon.svg": "17a9fca9eec7243c27ae8d83c49f6bb9d0f078b3964ac4064b7fdfc6e7daa0b4"
+  }
+}

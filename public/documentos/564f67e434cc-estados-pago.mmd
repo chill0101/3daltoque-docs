@@ -1,0 +1,18 @@
+stateDiagram-v2
+  direction TB
+  state "Sin iniciar" as sin_iniciar
+  state "Pendiente" as pendiente
+  state "Aprobado" as aprobado
+  state "Rechazado" as rechazado
+  state "En revisión" as revision
+  [*] --> sin_iniciar
+  sin_iniciar --> pendiente: Crear intento de una compra de membresía
+  pendiente --> aprobado: Cobro del abono verificado
+  pendiente --> rechazado: Rechazo verificado
+  pendiente --> revision: Resultado incierto o discrepancia
+  revision --> aprobado: Conciliación confirma resultado
+  revision --> rechazado: Conciliación confirma rechazo
+  note right of aprobado
+    Una compra concede como máximo un período.
+    El pago no pertenece a un pedido de impresión.
+  end note
