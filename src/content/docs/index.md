@@ -26,6 +26,8 @@ La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar maker
 | Para conocer… | Empezá por… |
 | --- | --- |
 | El problema, los usuarios y el recorrido propuesto | [Qué es 3DAltoque](/3daltoque-docs/proyecto/presentacion/) |
+| El catálogo completo de capacidades (`F01`–`F24`) | [Documento de funcionalidades](/3daltoque-docs/analisis/funcionalidades/) |
+| El diagrama y las especificaciones paso a paso de casos de uso (`CU-01`–`CU-13`) | [Casos de uso y aceptación](/3daltoque-docs/analisis/casos-de-uso/) |
 | Los principios y límites del producto | [Manifiesto](/3daltoque-docs/proyecto/manifiesto/) |
 | La arquitectura y las decisiones técnicas | [Base técnica](/3daltoque-docs/proyecto/base-tecnica/) |
 | Los repositorios y las responsabilidades del equipo | [Repositorios y equipo](/3daltoque-docs/proyecto/repositorios/) |
@@ -37,7 +39,7 @@ La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar maker
 - Una solicitud confirmada genera un único pedido, con las condiciones exactas de la oferta aceptada.
 - El maker presenta evidencia del resultado y el cliente la aprueba expresamente antes de coordinar la entrega.
 - Cada aprobación queda vinculada a la evidencia presentada por el maker.
-- Los pagos y la comisión configurable forman parte del producto.
+- La plataforma se sostiene mediante una membresía mensual prepaga para makers (con prueba gratuita inicial o beneficio fundador), mientras que el cliente acuerda y abona la impresión directamente al maker por fuera.
 - La simulación, cuando se utilice, debe estar identificada y no presentarse como una integración real.
 
 ## Un proyecto en construcción

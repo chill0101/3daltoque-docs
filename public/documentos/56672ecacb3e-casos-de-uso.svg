@@ -1,1 +1,164 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1430 1300" role="img" aria-labelledby="title desc"><title id="title">Casos de uso de 3DAltoque</title><desc id="desc">Cliente, Maker, Administración y Mercado Pago, este último asociado solo al pago del abono. Casos de uso CU-01 a CU-13.</desc><rect width="1430" height="1300" fill="#ffffff"/><g font-family="Trebuchet MS, sans-serif"><rect x="310" y="35" width="810" height="1170" rx="16" fill="#f5f8fe" stroke="#2457a5" stroke-width="2"/><text x="715" y="66" text-anchor="middle" fill="#14223a" font-size="24" font-weight="bold">3DAltoque · casos de uso propuestos</text><path d="M130 242 L390 108" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 194" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 242 L390 280" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 366" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 242 L390 452" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 242 L390 538" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 538" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 1092 L390 624" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 710" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 796" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 1092 L390 796" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 1092 L390 882" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 968" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M1285 662 L1040 968" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 1092 L390 1054" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 242 L390 1140" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 672 L390 1140" stroke="#7393bc" stroke-width="1.4" fill="none"/><path d="M130 1092 L390 1140" stroke="#7393bc" stroke-width="1.4" fill="none"/><ellipse cx="715" cy="108" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="114" text-anchor="middle" fill="#14223a" font-size="18">CU-01 · Publicar solicitud</text><ellipse cx="715" cy="194" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="200" text-anchor="middle" fill="#14223a" font-size="18">CU-02 · Recibir y responder ofertas</text><ellipse cx="715" cy="280" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="286" text-anchor="middle" fill="#14223a" font-size="18">CU-03 · Elegir oferta</text><ellipse cx="715" cy="366" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="372" text-anchor="middle" fill="#14223a" font-size="18">CU-04 · Producción y evidencia</text><ellipse cx="715" cy="452" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="458" text-anchor="middle" fill="#14223a" font-size="18">CU-05 · Revisión y aprobación</text><ellipse cx="715" cy="538" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="544" text-anchor="middle" fill="#14223a" font-size="18">CU-06 · Entrega personal</text><ellipse cx="715" cy="624" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="630" text-anchor="middle" fill="#14223a" font-size="18">CU-07 · Administración operativa</text><ellipse cx="715" cy="710" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="716" text-anchor="middle" fill="#14223a" font-size="18">CU-08 · Consultar membresía</text><ellipse cx="715" cy="796" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="802" text-anchor="middle" fill="#14223a" font-size="18">CU-09 · Habilitar perfil e iniciar prueba</text><ellipse cx="715" cy="882" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="888" text-anchor="middle" fill="#14223a" font-size="18">CU-10 · Asignar beneficio fundador</text><ellipse cx="715" cy="968" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="974" text-anchor="middle" fill="#14223a" font-size="18">CU-11 · Pagar o renovar abono</text><ellipse cx="715" cy="1054" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="1060" text-anchor="middle" fill="#14223a" font-size="18">CU-12 · Gestionar plan y promociones</text><ellipse cx="715" cy="1140" rx="325" ry="31" fill="#e7eefb" stroke="#2457a5" stroke-width="1.8"/><text x="715" y="1146" text-anchor="middle" fill="#14223a" font-size="18">CU-13 · Registrarse y acceder</text><g stroke="#2457a5" stroke-width="2" fill="none"><circle cx="100" cy="206" r="15"/><path d="M100 221v45m-28-25h56m-28 25l-23 32m23-32l23 32"/></g><text x="100" y="319" text-anchor="middle" fill="#14223a" font-size="17">Cliente</text><g stroke="#2457a5" stroke-width="2" fill="none"><circle cx="100" cy="636" r="15"/><path d="M100 651v45m-28-25h56m-28 25l-23 32m23-32l23 32"/></g><text x="100" y="749" text-anchor="middle" fill="#14223a" font-size="17">Maker</text><g stroke="#2457a5" stroke-width="2" fill="none"><circle cx="100" cy="1056" r="15"/><path d="M100 1071v45m-28-25h56m-28 25l-23 32m23-32l23 32"/></g><text x="100" y="1169" text-anchor="middle" fill="#14223a" font-size="17">Administrador</text><g stroke="#2457a5" stroke-width="2" fill="none"><circle cx="1310" cy="626" r="15"/><path d="M1310 641v45m-28-25h56m-28 25l-23 32m23-32l23 32"/></g><text x="1310" y="739" text-anchor="middle" fill="#14223a" font-size="17">Mercado Pago</text><text x="715" y="1243" text-anchor="middle" fill="#14223a" font-size="18">El pago de impresión es directo entre cliente y maker; no lo procesa la plataforma.</text><text x="715" y="1273" text-anchor="middle" fill="#446a9c" font-size="16">CU-09: el actor definitivo de habilitación se acuerda en PD-01.</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 1320" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama de casos de uso de 3DAltoque</title>
+  <desc id="desc">Actores primarios (Cliente, Maker, Administrador), casos de uso CU-01 a CU-13, subcasos incluidos/extendidos (CU-INC-01 a CU-EXT-03) y sistemas externos (Mercado Pago, Servicio de Mapas y Almacenamiento de Archivos).</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#2457a5"/>
+    </marker>
+  </defs>
+  <rect width="1720" height="1320" fill="#ffffff"/>
+  <g font-family="Trebuchet MS, sans-serif">
+    <!-- Límite del sistema -->
+    <rect x="250" y="30" width="1210" height="1185" rx="16" fill="#f5f8fe" stroke="#2457a5" stroke-width="2"/>
+    <text x="855" y="64" text-anchor="middle" fill="#14223a" font-size="24" font-weight="bold">Sistema 3DAltoque · Diagrama de Casos de Uso (CU-01 a CU-13 + Subcasos)</text>
+
+    <!-- Asociaciones actores primarios (izquierda) a CU-01..CU-13 -->
+    <g stroke="#7393bc" stroke-width="1.5" fill="none">
+      <!-- Cliente (110, 240) -->
+      <path d="M135 240 L315 110"/>
+      <path d="M135 240 L315 280"/>
+      <path d="M135 240 L315 450"/>
+      <path d="M135 240 L315 535"/>
+      <path d="M135 240 L315 1130"/>
+      <!-- Maker (110, 660) -->
+      <path d="M135 660 L315 195"/>
+      <path d="M135 660 L315 365"/>
+      <path d="M135 660 L315 535"/>
+      <path d="M135 660 L315 705"/>
+      <path d="M135 660 L315 790"/>
+      <path d="M135 660 L315 960"/>
+      <path d="M135 660 L315 1130"/>
+      <!-- Administrador (110, 1060) -->
+      <path d="M135 1060 L315 620"/>
+      <path d="M135 1060 L315 790"/>
+      <path d="M135 1060 L315 875"/>
+      <path d="M135 1060 L315 1045"/>
+      <path d="M135 1060 L315 1130"/>
+    </g>
+
+    <!-- Relaciones <<include>> y <<extend>> (entre columna central e izquierda/derecha interna) -->
+    <g stroke="#2457a5" stroke-width="1.5" stroke-dasharray="6,4" fill="none" marker-end="url(#arrow)">
+      <!-- CU-01 -> INC-01 (include) -->
+      <path d="M845 110 L965 140"/>
+      <!-- CU-01 -> INC-02 (include) -->
+      <path d="M845 120 L965 250"/>
+      <!-- EXT-01 -> CU-01 (extend) -->
+      <path d="M965 360 L845 130"/>
+      <!-- CU-04 -> INC-01 (include) -->
+      <path d="M845 355 L965 155"/>
+      <!-- EXT-02 -> CU-04, CU-05, CU-06 (extend) -->
+      <path d="M965 480 L845 375"/>
+      <path d="M965 490 L845 450"/>
+      <path d="M965 500 L845 530"/>
+      <!-- EXT-03 -> CU-05 (extend) -->
+      <path d="M965 610 L845 460"/>
+      <!-- CU-11 -> INC-03 (include) -->
+      <path d="M845 960 L965 960"/>
+    </g>
+
+    <!-- Etiquetas <<include>> / <<extend>> -->
+    <g fill="#1d4ed8" font-size="13" font-style="italic" text-anchor="middle">
+      <text x="905" y="116">&lt;&lt;include&gt;&gt;</text>
+      <text x="910" y="198">&lt;&lt;include&gt;&gt;</text>
+      <text x="915" y="280">&lt;&lt;extend&gt;&gt;</text>
+      <text x="908" y="420">&lt;&lt;extend&gt;&gt;</text>
+      <text x="905" y="555">&lt;&lt;extend&gt;&gt;</text>
+      <text x="905" y="950">&lt;&lt;include&gt;&gt;</text>
+    </g>
+
+    <!-- Asociaciones con actores secundarios (derecha) -->
+    <g stroke="#7393bc" stroke-width="1.5" fill="none">
+      <!-- Almacenamiento (1595, 220) -->
+      <path d="M1405 145 L1565 220"/>
+      <!-- Servicio de Mapas (1595, 560) -->
+      <path d="M1405 255 L1565 550"/>
+      <path d="M845 540 L1565 560"/>
+      <path d="M845 790 L1565 570"/>
+      <!-- Mercado Pago (1595, 960) -->
+      <path d="M845 972 L1565 955"/>
+      <path d="M1405 960 L1565 965"/>
+    </g>
+
+    <!-- Elipses CU-01 a CU-13 (columna izquierda interna) -->
+    <g fill="#e7eefb" stroke="#2457a5" stroke-width="1.8">
+      <ellipse cx="580" cy="110" rx="265" ry="29"/>
+      <ellipse cx="580" cy="195" rx="265" ry="29"/>
+      <ellipse cx="580" cy="280" rx="265" ry="29"/>
+      <ellipse cx="580" cy="365" rx="265" ry="29"/>
+      <ellipse cx="580" cy="450" rx="265" ry="29"/>
+      <ellipse cx="580" cy="535" rx="265" ry="29"/>
+      <ellipse cx="580" cy="620" rx="265" ry="29"/>
+      <ellipse cx="580" cy="705" rx="265" ry="29"/>
+      <ellipse cx="580" cy="790" rx="265" ry="29"/>
+      <ellipse cx="580" cy="875" rx="265" ry="29"/>
+      <ellipse cx="580" cy="960" rx="265" ry="29"/>
+      <ellipse cx="580" cy="1045" rx="265" ry="29"/>
+      <ellipse cx="580" cy="1130" rx="265" ry="29"/>
+    </g>
+    <g fill="#14223a" font-size="16" text-anchor="middle" font-weight="bold">
+      <text x="580" y="116">CU-01 · Publicar solicitud</text>
+      <text x="580" y="201">CU-02 · Recibir y responder ofertas</text>
+      <text x="580" y="286">CU-03 · Elegir oferta</text>
+      <text x="580" y="371">CU-04 · Producción y evidencia</text>
+      <text x="580" y="456">CU-05 · Revisión y aprobación</text>
+      <text x="580" y="541">CU-06 · Entrega personal</text>
+      <text x="580" y="626">CU-07 · Administración operativa</text>
+      <text x="580" y="711">CU-08 · Consultar membresía</text>
+      <text x="580" y="796">CU-09 · Habilitar perfil e iniciar prueba</text>
+      <text x="580" y="881">CU-10 · Asignar beneficio fundador</text>
+      <text x="580" y="966">CU-11 · Pagar o renovar abono</text>
+      <text x="580" y="1051">CU-12 · Gestionar plan y promociones</text>
+      <text x="580" y="1136">CU-13 · Registrarse y acceder</text>
+    </g>
+
+    <!-- Elipses Subcasos include / extend (columna derecha interna) -->
+    <g fill="#eefbf3" stroke="#1e7e4e" stroke-width="1.6">
+      <ellipse cx="1185" cy="145" rx="220" ry="28"/>
+      <ellipse cx="1185" cy="255" rx="220" ry="28"/>
+      <ellipse cx="1185" cy="960" rx="220" ry="28"/>
+    </g>
+    <g fill="#fff8eb" stroke="#b45309" stroke-width="1.6">
+      <ellipse cx="1185" cy="365" rx="220" ry="28"/>
+      <ellipse cx="1185" cy="490" rx="220" ry="28"/>
+      <ellipse cx="1185" cy="610" rx="220" ry="28"/>
+    </g>
+    <g fill="#14223a" font-size="14" text-anchor="middle">
+      <text x="1185" y="150">CU-INC-01 · Cargar y validar archivo privado</text>
+      <text x="1185" y="260">CU-INC-02 · Ejecutar matching compatible</text>
+      <text x="1185" y="370">CU-EXT-01 · Calcular estimación orientativa</text>
+      <text x="1185" y="495">CU-EXT-02 · Conversar en el pedido</text>
+      <text x="1185" y="615">CU-EXT-03 · Registrar observaciones</text>
+      <text x="1185" y="965">CU-INC-03 · Verificar notificación de pago</text>
+    </g>
+
+    <!-- Actores primarios (izquierda) -->
+    <g stroke="#2457a5" stroke-width="2" fill="none">
+      <circle cx="110" cy="204" r="15"/><path d="M110 219v45m-28-25h56m-28 25l-23 32m23-32l23 32"/>
+      <circle cx="110" cy="624" r="15"/><path d="M110 639v45m-28-25h56m-28 25l-23 32m23-32l23 32"/>
+      <circle cx="110" cy="1024" r="15"/><path d="M110 1039v45m-28-25h56m-28 25l-23 32m23-32l23 32"/>
+    </g>
+    <g fill="#14223a" font-size="17" text-anchor="middle" font-weight="bold">
+      <text x="110" y="318">Cliente</text>
+      <text x="110" y="738">Maker</text>
+      <text x="110" y="1138">Administrador</text>
+    </g>
+
+    <!-- Actores secundarios (derecha) -->
+    <g stroke="#2457a5" stroke-width="2" fill="none">
+      <circle cx="1595" cy="184" r="15"/><path d="M1595 199v45m-28-25h56m-28 25l-23 32m23-32l23 32"/>
+      <circle cx="1595" cy="524" r="15"/><path d="M1595 539v45m-28-25h56m-28 25l-23 32m23-32l23 32"/>
+      <circle cx="1595" cy="924" r="15"/><path d="M1595 939v45m-28-25h56m-28 25l-23 32m23-32l23 32"/>
+    </g>
+    <g fill="#14223a" font-size="15" text-anchor="middle" font-weight="bold">
+      <text x="1595" y="298">Almacenamiento</text>
+      <text x="1595" y="316">de Archivos</text>
+      <text x="1595" y="638">Servicio de Mapas</text>
+      <text x="1595" y="1038">Mercado Pago</text>
+      <text x="1595" y="1056">(Abono Maker)</text>
+    </g>
+
+    <!-- Notas al pie -->
+    <text x="855" y="1255" text-anchor="middle" fill="#14223a" font-size="17">El pago de cada impresión se acuerda directamente entre Cliente y Maker; Mercado Pago procesa exclusivamente el abono mensual del Maker (CU-11).</text>
+    <text x="855" y="1285" text-anchor="middle" fill="#446a9c" font-size="15">Subcasos en verde (&lt;&lt;include&gt;&gt;) son obligatorios; subcasos en ámbar (&lt;&lt;extend&gt;&gt;) son condicionales/opcionales.</text>
+  </g>
+</svg>

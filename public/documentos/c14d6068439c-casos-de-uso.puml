@@ -1,9 +1,14 @@
 @startuml
 left to right direction
+skinparam packageStyle rectangle
+
 actor Cliente
 actor Maker
 actor Administrador
-actor "Mercado Pago (abono)" as MercadoPago
+actor "Mercado Pago\n(abono)" as MercadoPago
+actor "Servicio de Mapas" as Mapas
+actor "Almacenamiento\nde Archivos" as Storage
+
 rectangle "3DAltoque" {
   usecase "CU-01\nPublicar solicitud" as CU01
   usecase "CU-02\nRecibir y responder ofertas" as CU02
@@ -18,7 +23,16 @@ rectangle "3DAltoque" {
   usecase "CU-11\nPagar o renovar abono" as CU11
   usecase "CU-12\nGestionar plan y promociones" as CU12
   usecase "CU-13\nRegistrarse y acceder" as CU13
+
+  usecase "CU-INC-01\nCargar y validar archivo privado" as INC01
+  usecase "CU-INC-02\nEjecutar matching compatible" as INC02
+  usecase "CU-INC-03\nVerificar notificación de pago" as INC03
+  usecase "CU-EXT-01\nCalcular estimación orientativa" as EXT01
+  usecase "CU-EXT-02\nConversar en el pedido" as EXT02
+  usecase "CU-EXT-03\nRegistrar observaciones" as EXT03
 }
+
+' Asociaciones con actores primarios
 Cliente -- CU01
 Maker -- CU02
 Cliente -- CU03
@@ -32,13 +46,34 @@ Maker -- CU09
 Administrador -- CU09
 Administrador -- CU10
 Maker -- CU11
-MercadoPago -- CU11
 Administrador -- CU12
 Cliente -- CU13
 Maker -- CU13
 Administrador -- CU13
+
+' Relaciones <<include>> y <<extend>>
+CU01 ..> INC01 : <<include>>
+CU01 ..> INC02 : <<include>>
+EXT01 ..> CU01 : <<extend>>
+
+CU04 ..> INC01 : <<include>>
+EXT02 ..> CU04 : <<extend>>
+EXT02 ..> CU05 : <<extend>>
+EXT02 ..> CU06 : <<extend>>
+EXT03 ..> CU05 : <<extend>>
+
+CU11 ..> INC03 : <<include>>
+
+' Asociaciones con sistemas externos
+INC01 -- Storage
+INC02 -- Mapas
+CU06 -- Mapas
+CU09 -- Mapas
+CU11 -- MercadoPago
+INC03 -- MercadoPago
+
 note bottom of CU11
-La plataforma cobra solo su abono.
+La plataforma cobra solo su abono mensual.
 El cliente paga la impresión al maker por fuera.
 end note
 @enduml

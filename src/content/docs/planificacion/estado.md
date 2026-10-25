@@ -15,10 +15,11 @@ El checklist registra por separado la revisión del equipo, la publicación y la
 
 | Elemento de la planificación académica | Situación en este portal |
 | --- | --- |
+| Documento de funcionalidades (Planificación de proyecto) | [Catálogo de 24 funcionalidades F01–F24 y prioridad de entrega](/3daltoque-docs/analisis/funcionalidades/) disponible |
 | Requisitos funcionales | [54 fichas disponibles](/3daltoque-docs/analisis/requisitos/funcionales/); revisión del equipo pendiente de cierre |
 | Requisitos no funcionales | [19 fichas disponibles](/3daltoque-docs/analisis/requisitos/no-funcionales/); metas y perfil de medición por acordar |
-| Diagrama de casos de uso | [Diagrama de actores y CU-01 a CU-13](/3daltoque-docs/analisis/casos-de-uso/#diagrama-de-casos-de-uso) disponible, con imagen ampliable y fuente editable |
-| Especificaciones de casos de uso | [13 fichas disponibles](/3daltoque-docs/analisis/casos-de-uso/); ampliar los flujos y las alternativas y completar las referencias a casos de prueba |
+| Diagrama de casos de uso | [Diagrama de actores, CU-01 a CU-13 y relaciones include/extend](/3daltoque-docs/analisis/casos-de-uso/#diagrama-de-casos-de-uso) disponible, con imagen ampliable, fuente editable y 4 vistas modulares |
+| Especificaciones de casos de uso | [13 fichas principales y 6 subcasos (`CU-INC-01..03`, `CU-EXT-01..03`) disponibles](/3daltoque-docs/analisis/casos-de-uso/) con flujos normales paso a paso (`Nro | Ejecutor | Paso`), flujos alternativos y criterios de aceptación |
 | Prototipo de interfaz web | [60 vistas y composiciones inventariadas](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/#web), con enlaces a Figma y [captura de referencia](/3daltoque-docs/specs/01-navegacion-y-pantallas/#vistas-de-referencia); completar estados alternativos y recorridos de extremo a extremo |
 | Prototipo de interfaz mobile | [50 vistas y composiciones inventariadas](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/#mobile), con enlaces a Figma y [capturas de solicitud y búsqueda](/3daltoque-docs/specs/01-navegacion-y-pantallas/#vistas-de-referencia); completar estados alternativos y recorridos de extremo a extremo |
 | Diagrama de clases de dominio | [Diagrama disponible](/3daltoque-docs/modelado/clases-y-arquitectura/#dominio), con imagen ampliable y fuente editable; cerrar la revisión de relaciones |
