@@ -33,51 +33,83 @@ export default defineConfig({
         },
         {
           "label": "El proyecto",
-          "autogenerate": {
-            "directory": "proyecto"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "proyecto"
+              }
+            }
+          ]
         },
         {
           "label": "Análisis",
-          "autogenerate": {
-            "directory": "analisis"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "analisis"
+              }
+            }
+          ]
         },
         {
           "label": "Pantallas y prototipos",
-          "autogenerate": {
-            "directory": "specs"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "specs"
+              }
+            }
+          ]
         },
         {
           "label": "Design system",
-          "autogenerate": {
-            "directory": "design-system"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "design-system"
+              }
+            }
+          ]
         },
         {
           "label": "Modelado y diagramas",
-          "autogenerate": {
-            "directory": "modelado"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "modelado"
+              }
+            }
+          ]
         },
         {
           "label": "Arquitectura y diseño",
-          "autogenerate": {
-            "directory": "diseno"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "diseno"
+              }
+            }
+          ]
         },
         {
           "label": "Flujos y estados",
-          "autogenerate": {
-            "directory": "flujos"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "flujos"
+              }
+            }
+          ]
         },
         {
           "label": "Plan de trabajo",
-          "autogenerate": {
-            "directory": "planificacion"
-          }
+          "items": [
+            {
+              "autogenerate": {
+                "directory": "planificacion"
+              }
+            }
+          ]
         }
       ],
     }),
