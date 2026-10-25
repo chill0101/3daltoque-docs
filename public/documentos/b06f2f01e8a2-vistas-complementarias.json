@@ -1,0 +1,5153 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-23",
+  "source": "RF vigentes, CU-01 a CU-13 y specs F01 a F24",
+  "counts": {
+    "features": 24,
+    "rfs": 54,
+    "baseViews": 55,
+    "additionalViews": 55,
+    "totalViews": 110,
+    "web": 60,
+    "mobile": 50,
+    "sharedRecoveryViews": 26
+  },
+  "features": [
+    {
+      "id": "F01",
+      "name": "Registro e inicio de sesión",
+      "file": "f01-registro-e-inicio-de-sesion.md",
+      "screens": [
+        "WEB-AUTH-01",
+        "WEB-AUTH-02",
+        "MOB-AUTH-01",
+        "MOB-AUTH-02"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS06",
+        "DS11",
+        "DS24"
+      ],
+      "rfs": [
+        "RF-01.1",
+        "RF-01.4",
+        "RF-01.5"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-08",
+        "RNF-12",
+        "RNF-17"
+      ],
+      "cases": "CU-13",
+      "represented": "Registro, acceso y cierre de sesión con confirmación.",
+      "pending": "Completar composiciones específicas de cuenta bloqueada, sesión vencida durante un comando y validación por campo.",
+      "additionalViews": [
+        "WEB-AUTH-03",
+        "MOB-AUTH-03"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F02",
+      "name": "Gestión de perfil de cliente",
+      "file": "f02-gestion-de-perfil-de-cliente.md",
+      "screens": [
+        "WEB-CLI-01",
+        "MOB-CLI-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS09",
+        "DS11",
+        "DS37"
+      ],
+      "rfs": [
+        "RF-01.3",
+        "RF-09.1"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-08",
+        "RNF-11",
+        "RNF-12",
+        "RNF-17"
+      ],
+      "cases": "CU-13, CU-01",
+      "represented": "Contacto, ubicación confirmada y alternativa de ingreso manual.",
+      "pending": "Dibujar conflicto de edición del perfil y recuperación del formulario ante pérdida de conexión.",
+      "additionalViews": [],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F03",
+      "name": "Gestión de perfil de maker",
+      "file": "f03-gestion-de-perfil-de-maker.md",
+      "screens": [
+        "WEB-MKR-01",
+        "MOB-MKR-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS07",
+        "DS08",
+        "DS21",
+        "DS37"
+      ],
+      "rfs": [
+        "RF-01.2",
+        "RF-12.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-08",
+        "RNF-13",
+        "RNF-17"
+      ],
+      "cases": "CU-09",
+      "represented": "Capacidades y revisión de habilitación con beneficio inicial.",
+      "pending": "Desglosar edición de impresoras y disponibilidad; cerrar criterios de perfil habilitable de PD-01.",
+      "additionalViews": [
+        "WEB-MKR-05",
+        "MOB-MKR-05"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F04",
+      "name": "Portfolio del maker",
+      "file": "f04-portfolio-del-maker.md",
+      "screens": [
+        "WEB-MKR-02",
+        "MOB-MKR-02"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS25",
+        "DS26",
+        "DS31"
+      ],
+      "rfs": [],
+      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-08",
+        "RNF-11",
+        "RNF-12",
+        "RNF-16"
+      ],
+      "cases": "Pendiente",
+      "represented": "Portfolio incluido como propuesta complementaria.",
+      "pending": "Definir alcance v1, RF/CU, visibilidad y moderación; completar edición, retiro y consulta pública según esa decisión.",
+      "additionalViews": [],
+      "closure": "Definición funcional pendiente"
+    },
+    {
+      "id": "F05",
+      "name": "Alta de solicitud de impresión",
+      "file": "f05-alta-de-solicitud-de-impresion.md",
+      "screens": [
+        "WEB-SOL-01",
+        "MOB-SOL-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS21",
+        "DS24",
+        "DS25",
+        "DS26"
+      ],
+      "rfs": [
+        "RF-02.1",
+        "RF-02.2",
+        "RF-02.3"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-08",
+        "RNF-12",
+        "RNF-16"
+      ],
+      "cases": "CU-01",
+      "represented": "Carga, parámetros, revisión con ubicación y resultado del envío.",
+      "pending": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador.",
+      "additionalViews": [
+        "WEB-SOL-03",
+        "WEB-SOL-04",
+        "MOB-SOL-03",
+        "MOB-SOL-04"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F06",
+      "name": "Cotización estimativa inicial",
+      "file": "f06-cotizacion-estimativa-inicial.md",
+      "screens": [
+        "WEB-SOL-01",
+        "WEB-SOL-02",
+        "MOB-SOL-01",
+        "MOB-SOL-02"
+      ],
+      "components": [
+        "DS09",
+        "DS10",
+        "DS11",
+        "DS17",
+        "DS18",
+        "DS22"
+      ],
+      "rfs": [
+        "RF-02.5"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-07",
+        "RNF-08",
+        "RNF-15",
+        "RNF-16"
+      ],
+      "cases": "CU-01",
+      "represented": "Detalle de estimación con rango, entradas, método y supuestos.",
+      "pending": "Cerrar método de PD-06 y dibujar rango disponible, datos insuficientes y cálculo invalidado por nueva versión.",
+      "additionalViews": [
+        "WEB-SOL-05",
+        "MOB-SOL-05"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F07",
+      "name": "Búsqueda de makers cercanos",
+      "file": "f07-busqueda-de-makers-cercanos.md",
+      "screens": [
+        "WEB-BUS-01",
+        "MOB-BUS-01"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS17",
+        "DS37",
+        "DS40"
+      ],
+      "rfs": [
+        "RF-09.1",
+        "RF-09.2",
+        "RF-03.1"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-02",
+        "RNF-04",
+        "RNF-08",
+        "RNF-15",
+        "RNF-17"
+      ],
+      "cases": "CU-01",
+      "represented": "Búsqueda, mapa/lista, filtros y referencia confirmada.",
+      "pending": "Completar permiso de ubicación denegado, mapa indisponible y ampliación permitida del radio ante resultados vacíos.",
+      "additionalViews": [
+        "WEB-SOL-03",
+        "MOB-SOL-03"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F08",
+      "name": "Matching y envío a makers",
+      "file": "f08-matching-y-envio-a-makers.md",
+      "screens": [
+        "WEB-MKR-03",
+        "MOB-MKR-03"
+      ],
+      "components": [
+        "DS09",
+        "DS10",
+        "DS17",
+        "DS19",
+        "DS20"
+      ],
+      "rfs": [
+        "RF-03.1",
+        "RF-03.2",
+        "RF-12.10"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-02",
+        "RNF-03",
+        "RNF-05",
+        "RNF-06"
+      ],
+      "cases": "CU-01, CU-02",
+      "represented": "Ronda de envío y detalle de invitación con elegibilidad.",
+      "pending": "Dibujar ronda con candidatos insuficientes, invitación cerrada y aviso externo fallido; cerrar política versionada de matching.",
+      "additionalViews": [
+        "WEB-SOL-04",
+        "WEB-MKR-06",
+        "MOB-SOL-04",
+        "MOB-MKR-06"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F09",
+      "name": "Gestión de ofertas",
+      "file": "f09-gestion-de-ofertas.md",
+      "screens": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "components": [
+        "DS03",
+        "DS05",
+        "DS09",
+        "DS19",
+        "DS27"
+      ],
+      "rfs": [
+        "RF-04.1",
+        "RF-04.2",
+        "RF-04.3",
+        "RF-04.5"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ],
+      "cases": "CU-02, CU-03",
+      "represented": "Invitación, rechazo, cotización, comparación y oferta actualizada.",
+      "pending": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05.",
+      "additionalViews": [
+        "WEB-MKR-06",
+        "WEB-MKR-07",
+        "WEB-OFE-04",
+        "MOB-MKR-06",
+        "MOB-MKR-07",
+        "MOB-OFE-04"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F10",
+      "name": "Confirmación de oferta",
+      "file": "f10-confirmacion-de-oferta.md",
+      "screens": [
+        "WEB-OFE-01",
+        "WEB-OFE-03",
+        "MOB-OFE-01",
+        "MOB-OFE-03"
+      ],
+      "components": [
+        "DS01",
+        "DS11",
+        "DS12",
+        "DS27",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-04.4",
+        "RF-12.10",
+        "RF-12.15"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-15"
+      ],
+      "cases": "CU-03",
+      "represented": "Resumen de versión, confirmación y revisión de condiciones actualizadas.",
+      "pending": "Dibujar aceptación concurrente y resultado incierto con recuperación del pedido confirmado.",
+      "additionalViews": [
+        "WEB-OFE-04",
+        "MOB-OFE-04"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F11",
+      "name": "Membresía y abono",
+      "file": "f11-membresia-y-abono.md",
+      "screens": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "components": [
+        "DS01",
+        "DS10",
+        "DS11",
+        "DS12",
+        "DS18",
+        "DS20",
+        "DS22",
+        "DS33",
+        "DS34"
+      ],
+      "rfs": [
+        "RF-12.1",
+        "RF-12.2",
+        "RF-12.3",
+        "RF-12.4",
+        "RF-12.5",
+        "RF-12.6",
+        "RF-12.7",
+        "RF-12.8",
+        "RF-12.9",
+        "RF-12.10",
+        "RF-12.11",
+        "RF-12.12",
+        "RF-12.13",
+        "RF-12.14",
+        "RF-12.15"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-09",
+        "RNF-10",
+        "RNF-13",
+        "RNF-15",
+        "RNF-17",
+        "RNF-19"
+      ],
+      "cases": "CU-08, CU-09, CU-10, CU-11, CU-12",
+      "represented": "Membresía, compras y resultados de pago; formularios administrativos de beneficios y conciliación.",
+      "pending": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10.",
+      "additionalViews": [
+        "WEB-MKR-05",
+        "WEB-MEM-04",
+        "WEB-MEM-05",
+        "WEB-MEM-06",
+        "WEB-MEM-07",
+        "WEB-MEM-08",
+        "WEB-ADM-MEM-02",
+        "WEB-ADM-MEM-03",
+        "WEB-ADM-MEM-04",
+        "WEB-ADM-MEM-05",
+        "WEB-ADM-MEM-06",
+        "WEB-ADM-04",
+        "MOB-MKR-05",
+        "MOB-MEM-04",
+        "MOB-MEM-05",
+        "MOB-MEM-06",
+        "MOB-MEM-07",
+        "MOB-MEM-08"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F12",
+      "name": "Gestión de estados del pedido",
+      "file": "f12-gestion-de-estados-del-pedido.md",
+      "screens": [
+        "WEB-PED-01",
+        "WEB-MKR-04",
+        "MOB-PED-01",
+        "MOB-MKR-04"
+      ],
+      "components": [
+        "DS10",
+        "DS19",
+        "DS28",
+        "DS35",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-02.4",
+        "RF-05.3",
+        "RF-06.5",
+        "RF-12.10"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ],
+      "cases": "CU-04",
+      "represented": "Pedido del maker, acción de producción, confirmación e historial.",
+      "pending": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión.",
+      "additionalViews": [
+        "WEB-PED-02",
+        "WEB-PED-03",
+        "WEB-HIS-02",
+        "MOB-PED-02",
+        "MOB-PED-03",
+        "MOB-HIS-02"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F13",
+      "name": "Mensajería cliente–maker",
+      "file": "f13-mensajeria-cliente-maker.md",
+      "screens": [
+        "WEB-CHAT-01",
+        "MOB-CHAT-01"
+      ],
+      "components": [
+        "DS16",
+        "DS25",
+        "DS29",
+        "DS30",
+        "DS41"
+      ],
+      "rfs": [
+        "RF-05.1",
+        "RF-05.2",
+        "RF-11.2",
+        "RF-12.10"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-11",
+        "RNF-15",
+        "RNF-17",
+        "RNF-19"
+      ],
+      "cases": "CU-04",
+      "represented": "Conversación y recuperación de un mensaje fallido conservando su identificador.",
+      "pending": "Completar carga de historial, adjunto rechazado, permiso revocado y reconexión con cursor vencido.",
+      "additionalViews": [
+        "WEB-PED-02",
+        "WEB-CHAT-02",
+        "MOB-PED-02",
+        "MOB-CHAT-02"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F14",
+      "name": "Notificaciones",
+      "file": "f14-notificaciones.md",
+      "screens": [
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "components": [
+        "DS10",
+        "DS14",
+        "DS17",
+        "DS28",
+        "DS41"
+      ],
+      "rfs": [
+        "RF-07.1",
+        "RF-07.3",
+        "RF-07.4",
+        "RF-12.11"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-06",
+        "RNF-07",
+        "RNF-15",
+        "RNF-16"
+      ],
+      "cases": "CU-04, CU-05, CU-08",
+      "represented": "Bandeja y acceso al recurso del evento.",
+      "pending": "Completar leído/pendiente, destino cerrado o sin permiso y preferencias de canales cuando su política esté definida.",
+      "additionalViews": [
+        "WEB-SOL-04",
+        "MOB-SOL-04"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F15",
+      "name": "Evidencia previa a la entrega",
+      "file": "f15-evidencia-previa-a-la-entrega.md",
+      "screens": [
+        "WEB-REV-01",
+        "MOB-REV-01"
+      ],
+      "components": [
+        "DS03",
+        "DS25",
+        "DS26",
+        "DS31"
+      ],
+      "rfs": [
+        "RF-06.1",
+        "RF-06.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-11",
+        "RNF-16"
+      ],
+      "cases": "CU-04",
+      "represented": "Carga de fotos/videos y confirmación de presentación de la revisión.",
+      "pending": "Completar análisis pendiente por archivo, revisión cerrada y recuperación de una transferencia incompleta.",
+      "additionalViews": [
+        "WEB-PED-02",
+        "WEB-REV-03",
+        "MOB-PED-02",
+        "MOB-REV-03"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F16",
+      "name": "Entrega en Nodo Amigo",
+      "file": "f16-entrega-en-nodo-amigo.md",
+      "screens": [
+        "WEB-ENT-01",
+        "MOB-ENT-01"
+      ],
+      "components": [
+        "DS03",
+        "DS12",
+        "DS23",
+        "DS37"
+      ],
+      "rfs": [
+        "RF-06.6",
+        "RF-09.1",
+        "RF-09.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-08",
+        "RNF-12",
+        "RNF-17"
+      ],
+      "cases": "CU-06",
+      "represented": "Punto, horario, zona horaria y confirmación del acuerdo.",
+      "pending": "Cerrar actores y reglas de acuerdo de PD-08; dibujar cambio de coordinación y alternativa textual del mapa.",
+      "additionalViews": [
+        "WEB-REV-04",
+        "WEB-ENT-03",
+        "MOB-REV-04",
+        "MOB-ENT-03"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F17",
+      "name": "Validación de recepción",
+      "file": "f17-validacion-de-recepcion.md",
+      "screens": [
+        "WEB-ENT-02",
+        "MOB-ENT-02"
+      ],
+      "components": [
+        "DS01",
+        "DS11",
+        "DS12",
+        "DS28"
+      ],
+      "rfs": [
+        "RF-06.7"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ],
+      "cases": "CU-06",
+      "represented": "Resumen de recepción y salida de cierre verificado.",
+      "pending": "Definir mecanismo de PD-08, completar captura y errores del mecanismo elegido; mantener la captura bloqueada mientras falte configuración.",
+      "additionalViews": [
+        "WEB-ENT-04",
+        "MOB-ENT-04"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F18",
+      "name": "Reputación bidireccional",
+      "file": "f18-reputacion-bidireccional.md",
+      "screens": [
+        "WEB-REP-01",
+        "MOB-REP-01"
+      ],
+      "components": [
+        "DS03",
+        "DS07",
+        "DS09",
+        "DS39"
+      ],
+      "rfs": [],
+      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08",
+        "RNF-12"
+      ],
+      "cases": "Pendiente",
+      "represented": "Vista de valoración conservada con captura bloqueada ante escala sin configurar.",
+      "pending": "Definir RF/CU, escala, elegibilidad, unicidad y moderación; completar estados de publicación según esas reglas.",
+      "additionalViews": [],
+      "closure": "Definición funcional pendiente"
+    },
+    {
+      "id": "F19",
+      "name": "Historial de pedidos",
+      "file": "f19-historial-de-pedidos.md",
+      "screens": [
+        "WEB-HIS-01",
+        "MOB-HIS-01"
+      ],
+      "components": [
+        "DS05",
+        "DS19",
+        "DS20",
+        "DS28",
+        "DS40"
+      ],
+      "rfs": [
+        "RF-02.4",
+        "RF-05.3"
+      ],
+      "stage": "Cobertura parcial; completar la consulta consolidada.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-06",
+        "RNF-08",
+        "RNF-11"
+      ],
+      "cases": "CU-04, CU-06",
+      "represented": "Listado, filtros y consulta del historial de cambios del pedido.",
+      "pending": "Completar paginación/cursor, retención y consulta consolidada; ampliar trazabilidad de origen de F19.",
+      "additionalViews": [
+        "WEB-ENT-04",
+        "WEB-HIS-02",
+        "MOB-ENT-04",
+        "MOB-HIS-02"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F20",
+      "name": "Panel de administración",
+      "file": "f20-panel-de-administracion.md",
+      "screens": [
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01"
+      ],
+      "components": [
+        "DS03",
+        "DS11",
+        "DS12",
+        "DS19",
+        "DS24",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-07.2",
+        "RF-12.1",
+        "RF-12.3",
+        "RF-12.7",
+        "RF-12.12",
+        "RF-12.13"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-13"
+      ],
+      "cases": "CU-07, CU-10, CU-12",
+      "represented": "Soporte, plan, beneficios, compras y auditoría con capacidades administrativas.",
+      "pending": "Completar confirmación y resultado de cada intervención sensible; cerrar permisos finos, devoluciones y conflictos de configuración.",
+      "additionalViews": [
+        "WEB-ADM-MEM-02",
+        "WEB-ADM-MEM-03",
+        "WEB-ADM-MEM-04",
+        "WEB-ADM-MEM-05",
+        "WEB-ADM-MEM-06",
+        "WEB-ADM-03",
+        "WEB-ADM-04"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F21",
+      "name": "Reporte de actividad",
+      "file": "f21-reporte-de-actividad.md",
+      "screens": [
+        "WEB-ADM-02"
+      ],
+      "components": [
+        "DS05",
+        "DS19",
+        "DS20",
+        "DS36",
+        "DS40"
+      ],
+      "rfs": [],
+      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-06",
+        "RNF-08",
+        "RNF-11"
+      ],
+      "cases": "Pendiente",
+      "represented": "Reporte de actividad conservado como propuesta complementaria.",
+      "pending": "Definir RF/CU, fórmulas, fuentes, períodos e indicadores; completar detalle y ausencia de datos según esas definiciones.",
+      "additionalViews": [],
+      "closure": "Definición funcional pendiente"
+    },
+    {
+      "id": "F22",
+      "name": "Revisión y aprobación del resultado",
+      "file": "f22-revision-y-aprobacion-del-resultado.md",
+      "screens": [
+        "WEB-REV-02",
+        "MOB-REV-02"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS12",
+        "DS31",
+        "DS32"
+      ],
+      "rfs": [
+        "RF-06.3",
+        "RF-06.4"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08"
+      ],
+      "cases": "CU-05",
+      "represented": "Evidencia, aprobación expresa y confirmación de observaciones de una revisión exacta.",
+      "pending": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada.",
+      "additionalViews": [
+        "WEB-REV-04",
+        "WEB-REV-05",
+        "MOB-REV-04",
+        "MOB-REV-05"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F23",
+      "name": "Gestión de archivos privados",
+      "file": "f23-gestion-de-archivos-privados.md",
+      "screens": [
+        "WEB-SOL-01",
+        "WEB-REV-01",
+        "WEB-CHAT-01",
+        "MOB-SOL-01",
+        "MOB-REV-01",
+        "MOB-CHAT-01"
+      ],
+      "components": [
+        "DS03",
+        "DS11",
+        "DS18",
+        "DS25",
+        "DS26"
+      ],
+      "rfs": [
+        "RF-10.1",
+        "RF-10.2",
+        "RF-10.3",
+        "RF-10.4"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-07",
+        "RNF-11",
+        "RNF-12",
+        "RNF-15",
+        "RNF-16",
+        "RNF-19"
+      ],
+      "cases": "CU-01, CU-04",
+      "represented": "Transferencia contextual, detalle de archivo y retiro sujeto a autorización/retención.",
+      "pending": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención.",
+      "additionalViews": [
+        "WEB-SOL-03",
+        "WEB-MKR-06",
+        "WEB-REV-03",
+        "WEB-ARC-01",
+        "WEB-ARC-02",
+        "MOB-SOL-03",
+        "MOB-MKR-06",
+        "MOB-REV-03",
+        "MOB-ARC-01",
+        "MOB-ARC-02"
+      ],
+      "closure": "Estados y decisiones por completar"
+    },
+    {
+      "id": "F24",
+      "name": "API común y sincronización",
+      "file": "f24-api-comun-y-sincronizacion.md",
+      "screens": [
+        "WEB-SYS-01",
+        "MOB-SYS-01"
+      ],
+      "components": [
+        "DS11",
+        "DS16",
+        "DS38",
+        "DS41",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-11.1",
+        "RF-11.2"
+      ],
+      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "rnfs": [
+        "RNF-01",
+        "RNF-03",
+        "RNF-04",
+        "RNF-07",
+        "RNF-14",
+        "RNF-15",
+        "RNF-17",
+        "RNF-18",
+        "RNF-19"
+      ],
+      "cases": "CU-01 a CU-13",
+      "represented": "Estados de acceso/conexión, conflicto de oferta y recuperación del mensaje/compra.",
+      "pending": "Completar reconciliación de comandos con resultado incierto y estados contextualizados de sesión/cursor vencidos; acordar contratos de transporte.",
+      "additionalViews": [
+        "WEB-MEM-08",
+        "WEB-CHAT-02",
+        "MOB-MEM-08",
+        "MOB-CHAT-02"
+      ],
+      "closure": "Estados y decisiones por completar"
+    }
+  ],
+  "rfCoverage": [
+    {
+      "id": "RF-01.1",
+      "title": "Registrar clientes y makers",
+      "kind": "Interacción de usuario",
+      "views": [
+        "AUTH-02"
+      ],
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "RF-01.2",
+      "title": "Gestionar capacidades del maker",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MKR-01",
+        "MKR-05"
+      ],
+      "features": [
+        "F03"
+      ]
+    },
+    {
+      "id": "RF-01.3",
+      "title": "Gestionar contacto y ubicación del cliente",
+      "kind": "Interacción de usuario",
+      "views": [
+        "CLI-01"
+      ],
+      "features": [
+        "F02"
+      ]
+    },
+    {
+      "id": "RF-01.4",
+      "title": "Iniciar sesión",
+      "kind": "Interacción de usuario",
+      "views": [
+        "AUTH-01",
+        "SYS-01"
+      ],
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "RF-01.5",
+      "title": "Cerrar sesión",
+      "kind": "Interacción de usuario",
+      "views": [
+        "AUTH-03"
+      ],
+      "features": [
+        "F01"
+      ]
+    },
+    {
+      "id": "RF-02.1",
+      "title": "Cargar STL y parámetros de impresión",
+      "kind": "Interacción de usuario",
+      "views": [
+        "SOL-01",
+        "SOL-03"
+      ],
+      "features": [
+        "F05"
+      ]
+    },
+    {
+      "id": "RF-02.2",
+      "title": "Validar archivos y límites técnicos",
+      "kind": "Interacción de usuario",
+      "views": [
+        "SOL-01",
+        "ARC-01"
+      ],
+      "features": [
+        "F05"
+      ]
+    },
+    {
+      "id": "RF-02.3",
+      "title": "Crear solicitud de impresión",
+      "kind": "Interacción de usuario",
+      "views": [
+        "SOL-03",
+        "SOL-04"
+      ],
+      "features": [
+        "F05"
+      ]
+    },
+    {
+      "id": "RF-02.4",
+      "title": "Consultar estado y plazos de solicitud",
+      "kind": "Interacción de usuario",
+      "views": [
+        "SOL-02",
+        "PED-01",
+        "HIS-01"
+      ],
+      "features": [
+        "F12",
+        "F19"
+      ]
+    },
+    {
+      "id": "RF-02.5",
+      "title": "Presentar estimación orientativa",
+      "kind": "Interacción de usuario",
+      "views": [
+        "SOL-02",
+        "SOL-05"
+      ],
+      "features": [
+        "F06"
+      ]
+    },
+    {
+      "id": "RF-03.1",
+      "title": "Enviar solicitud a makers compatibles y cercanos",
+      "kind": "Interacción de usuario",
+      "views": [
+        "BUS-01",
+        "SOL-04"
+      ],
+      "features": [
+        "F07",
+        "F08"
+      ]
+    },
+    {
+      "id": "RF-03.2",
+      "title": "Consultar solicitudes recibidas por el maker",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MKR-03",
+        "MKR-06"
+      ],
+      "features": [
+        "F08"
+      ]
+    },
+    {
+      "id": "RF-04.1",
+      "title": "Presentar oferta de precio y plazo",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MKR-06",
+        "OFE-02"
+      ],
+      "features": [
+        "F09"
+      ]
+    },
+    {
+      "id": "RF-04.2",
+      "title": "Gestionar vigencia y estado de oferta",
+      "kind": "Interacción de usuario",
+      "views": [
+        "OFE-01",
+        "OFE-04"
+      ],
+      "features": [
+        "F09"
+      ]
+    },
+    {
+      "id": "RF-04.3",
+      "title": "Comparar ofertas disponibles",
+      "kind": "Interacción de usuario",
+      "views": [
+        "OFE-01"
+      ],
+      "features": [
+        "F09"
+      ]
+    },
+    {
+      "id": "RF-04.4",
+      "title": "Aceptar una sola oferta y confirmar pedido",
+      "kind": "Interacción de usuario",
+      "views": [
+        "OFE-03",
+        "OFE-04"
+      ],
+      "features": [
+        "F10"
+      ]
+    },
+    {
+      "id": "RF-04.5",
+      "title": "Responder o rechazar invitación de cotización",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MKR-06",
+        "MKR-07"
+      ],
+      "features": [
+        "F09"
+      ]
+    },
+    {
+      "id": "RF-05.1",
+      "title": "Conversar en el contexto del pedido",
+      "kind": "Interacción de usuario",
+      "views": [
+        "CHAT-01"
+      ],
+      "features": [
+        "F13"
+      ]
+    },
+    {
+      "id": "RF-05.2",
+      "title": "Registrar mensajes y adjuntos autorizados",
+      "kind": "Interacción de usuario",
+      "views": [
+        "CHAT-01",
+        "CHAT-02",
+        "ARC-01"
+      ],
+      "features": [
+        "F13"
+      ]
+    },
+    {
+      "id": "RF-05.3",
+      "title": "Auditar cambios de estado del pedido",
+      "kind": "Interacción de usuario",
+      "views": [
+        "PED-02",
+        "PED-03",
+        "HIS-02"
+      ],
+      "features": [
+        "F12",
+        "F19"
+      ]
+    },
+    {
+      "id": "RF-06.1",
+      "title": "Presentar evidencia de la pieza terminada",
+      "kind": "Interacción de usuario",
+      "views": [
+        "REV-01",
+        "REV-03"
+      ],
+      "features": [
+        "F15"
+      ]
+    },
+    {
+      "id": "RF-06.2",
+      "title": "Solicitar revisión del cliente",
+      "kind": "Interacción de usuario",
+      "views": [
+        "REV-03",
+        "PED-01"
+      ],
+      "features": [
+        "F15"
+      ]
+    },
+    {
+      "id": "RF-06.3",
+      "title": "Aprobar resultado o registrar observaciones",
+      "kind": "Interacción de usuario",
+      "views": [
+        "REV-02",
+        "REV-04",
+        "REV-05"
+      ],
+      "features": [
+        "F22"
+      ]
+    },
+    {
+      "id": "RF-06.4",
+      "title": "Conservar revisión pendiente ante silencio",
+      "kind": "Interacción de usuario",
+      "views": [
+        "REV-02",
+        "PED-01",
+        "NOT-01"
+      ],
+      "features": [
+        "F22"
+      ]
+    },
+    {
+      "id": "RF-06.5",
+      "title": "Consultar y actualizar avance de producción",
+      "kind": "Interacción de usuario",
+      "views": [
+        "PED-02",
+        "PED-03",
+        "MKR-04"
+      ],
+      "features": [
+        "F12"
+      ]
+    },
+    {
+      "id": "RF-06.6",
+      "title": "Coordinar entrega personal",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ENT-01",
+        "ENT-03"
+      ],
+      "features": [
+        "F16"
+      ]
+    },
+    {
+      "id": "RF-06.7",
+      "title": "Registrar recepción y completar entrega",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ENT-02",
+        "ENT-04"
+      ],
+      "features": [
+        "F17"
+      ]
+    },
+    {
+      "id": "RF-07.1",
+      "title": "Notificar eventos dentro de la plataforma",
+      "kind": "Interacción de usuario",
+      "views": [
+        "NOT-01"
+      ],
+      "features": [
+        "F14"
+      ]
+    },
+    {
+      "id": "RF-07.2",
+      "title": "Gestionar moderación y soporte",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ADM-01",
+        "ADM-03"
+      ],
+      "features": [
+        "F20"
+      ]
+    },
+    {
+      "id": "RF-07.3",
+      "title": "Enviar avisos por canales externos habilitados",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "NOT-01",
+        "SYS-01"
+      ],
+      "features": [
+        "F14"
+      ]
+    },
+    {
+      "id": "RF-07.4",
+      "title": "Recordar revisiones pendientes",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "NOT-01",
+        "REV-02"
+      ],
+      "features": [
+        "F14"
+      ]
+    },
+    {
+      "id": "RF-09.1",
+      "title": "Seleccionar y confirmar ubicación de referencia",
+      "kind": "Interacción de usuario",
+      "views": [
+        "CLI-01",
+        "BUS-01",
+        "SOL-03",
+        "ENT-01"
+      ],
+      "features": [
+        "F02",
+        "F07",
+        "F16"
+      ]
+    },
+    {
+      "id": "RF-09.2",
+      "title": "Visualizar zonas y puntos en mapa",
+      "kind": "Interacción de usuario",
+      "views": [
+        "BUS-01",
+        "ENT-01"
+      ],
+      "features": [
+        "F07",
+        "F16"
+      ]
+    },
+    {
+      "id": "RF-10.1",
+      "title": "Autorizar transferencia de archivos privados",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "SOL-01",
+        "REV-01",
+        "CHAT-01"
+      ],
+      "features": [
+        "F23"
+      ]
+    },
+    {
+      "id": "RF-10.2",
+      "title": "Completar y habilitar archivo recibido",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "SOL-01",
+        "REV-01",
+        "CHAT-01",
+        "ARC-01"
+      ],
+      "features": [
+        "F23"
+      ]
+    },
+    {
+      "id": "RF-10.3",
+      "title": "Consultar y descargar archivos con permiso",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ARC-01"
+      ],
+      "features": [
+        "F23"
+      ]
+    },
+    {
+      "id": "RF-10.4",
+      "title": "Aplicar retiro y retención de archivos",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ARC-02"
+      ],
+      "features": [
+        "F23"
+      ]
+    },
+    {
+      "id": "RF-11.1",
+      "title": "Exponer operaciones mediante API común",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "SYS-01"
+      ],
+      "features": [
+        "F24"
+      ]
+    },
+    {
+      "id": "RF-11.2",
+      "title": "Sincronizar cambios de ofertas, chat y pedidos",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "CHAT-02",
+        "OFE-04",
+        "PED-01"
+      ],
+      "features": [
+        "F13",
+        "F24"
+      ]
+    },
+    {
+      "id": "RF-12.1",
+      "title": "Configurar el único plan de membresía",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ADM-MEM-01",
+        "ADM-MEM-06"
+      ],
+      "features": [
+        "F11",
+        "F20"
+      ]
+    },
+    {
+      "id": "RF-12.2",
+      "title": "Iniciar la prueba gratuita general",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MKR-05",
+        "MEM-01"
+      ],
+      "features": [
+        "F03",
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.3",
+      "title": "Asignar el programa Makers Fundadores",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ADM-MEM-02",
+        "MEM-01"
+      ],
+      "features": [
+        "F11",
+        "F20"
+      ]
+    },
+    {
+      "id": "RF-12.4",
+      "title": "Consultar estado y vencimiento de acceso",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MEM-01"
+      ],
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.5",
+      "title": "Iniciar el pago del abono",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MEM-02"
+      ],
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.6",
+      "title": "Verificar notificaciones de pago del abono",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "MEM-03",
+        "MEM-05",
+        "MEM-06",
+        "MEM-08"
+      ],
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.7",
+      "title": "Consultar y conciliar compras de membresía",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MEM-04",
+        "ADM-MEM-03",
+        "ADM-MEM-04"
+      ],
+      "features": [
+        "F11",
+        "F20"
+      ]
+    },
+    {
+      "id": "RF-12.8",
+      "title": "Conceder acceso por un pago confirmado",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "MEM-05"
+      ],
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.9",
+      "title": "Renovar manualmente la membresía",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MEM-02",
+        "MEM-04",
+        "MEM-05"
+      ],
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.10",
+      "title": "Aplicar vigencia a trabajos nuevos y preservar los activos",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MEM-01",
+        "MKR-03",
+        "PED-02"
+      ],
+      "features": [
+        "F08",
+        "F10",
+        "F11",
+        "F12",
+        "F13"
+      ]
+    },
+    {
+      "id": "RF-12.11",
+      "title": "Recordar vencimientos de acceso",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "NOT-01",
+        "MEM-01"
+      ],
+      "features": [
+        "F11",
+        "F14"
+      ]
+    },
+    {
+      "id": "RF-12.12",
+      "title": "Gestionar devoluciones del abono autorizadas",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ADM-MEM-05"
+      ],
+      "features": [
+        "F11",
+        "F20"
+      ]
+    },
+    {
+      "id": "RF-12.13",
+      "title": "Auditar cambios del plan y beneficios",
+      "kind": "Interacción de usuario",
+      "views": [
+        "ADM-04",
+        "ADM-MEM-06"
+      ],
+      "features": [
+        "F11",
+        "F20"
+      ]
+    },
+    {
+      "id": "RF-12.14",
+      "title": "Separar simulación y cobros reales de membresía",
+      "kind": "Integración con resultado visible",
+      "views": [
+        "MEM-02",
+        "ADM-MEM-04"
+      ],
+      "features": [
+        "F11"
+      ]
+    },
+    {
+      "id": "RF-12.15",
+      "title": "Informar el alcance del pago y del programa de fundadores",
+      "kind": "Interacción de usuario",
+      "views": [
+        "MEM-01",
+        "MEM-02",
+        "OFE-03"
+      ],
+      "features": [
+        "F10",
+        "F11"
+      ]
+    }
+  ],
+  "caseFlows": [
+    {
+      "id": "CU-01",
+      "flow": "SOL-01 → SOL-03 → SOL-04 → SOL-02; BUS-01; SOL-05; ARC-01",
+      "condition": "Archivo habilitado, referencia confirmada, recuperación del borrador y ronda insuficiente."
+    },
+    {
+      "id": "CU-02",
+      "flow": "MKR-03 → MKR-06 → OFE-02; MKR-06 → MKR-07",
+      "condition": "Invitación vigente, elegibilidad del maker y rechazo confirmado."
+    },
+    {
+      "id": "CU-03",
+      "flow": "OFE-01 → OFE-03 → PED-01; OFE-04 → OFE-03",
+      "condition": "Versión exacta, aceptación única, vencimiento y concurrencia."
+    },
+    {
+      "id": "CU-04",
+      "flow": "MKR-04 → PED-02 → PED-03; REV-01 → REV-03; CHAT-01 / CHAT-02; HIS-02",
+      "condition": "Transición autorizada, archivos habilitados y revisión identificada."
+    },
+    {
+      "id": "CU-05",
+      "flow": "REV-02 → REV-04 → ENT-01; REV-02 → REV-05",
+      "condition": "Aprobación expresa, observaciones y revisión pendiente ante silencio."
+    },
+    {
+      "id": "CU-06",
+      "flow": "ENT-01 → ENT-03 → ENT-02 → ENT-04; HIS-02",
+      "condition": "Acuerdo y mecanismo de recepción sujetos a PD-08."
+    },
+    {
+      "id": "CU-07",
+      "flow": "ADM-01 → ADM-03; ADM-MEM-03 → ADM-MEM-04 → ADM-MEM-05; ADM-04",
+      "condition": "Capacidad específica, motivo, confirmación sensible y auditoría."
+    },
+    {
+      "id": "CU-08",
+      "flow": "MEM-01 → MEM-04; MEM-01 → MEM-02",
+      "condition": "Estado y vencimiento del acceso; beneficio y renovación manual."
+    },
+    {
+      "id": "CU-09",
+      "flow": "MKR-01 → MKR-05 → MEM-01",
+      "condition": "Perfil completo e inicio único del beneficio inicial."
+    },
+    {
+      "id": "CU-10",
+      "flow": "ADM-01 → ADM-MEM-02 → ADM-04",
+      "condition": "Elegibilidad, cupo/ventana y asignación previa; PD-10."
+    },
+    {
+      "id": "CU-11",
+      "flow": "MEM-02 → Checkout Pro → MEM-03; MEM-05 / MEM-06 / MEM-07 / MEM-08; MEM-04",
+      "condition": "Resultado verificado, acreditación única y conservación de días vigentes."
+    },
+    {
+      "id": "CU-12",
+      "flow": "ADM-MEM-01 → ADM-MEM-06 → ADM-04",
+      "condition": "Nueva versión validada, permiso específico y motivo del cambio."
+    },
+    {
+      "id": "CU-13",
+      "flow": "AUTH-02 → AUTH-01; AUTH-03 → AUTH-01; SYS-01",
+      "condition": "Identidad, rol, permiso sobre recurso y cierre de sesión."
+    }
+  ],
+  "views": [
+    {
+      "id": "WEB-AUTH-03",
+      "title": "Cerrar sesión",
+      "features": [
+        "F01"
+      ],
+      "cu": [
+        "CU-13"
+      ],
+      "role": "Usuario",
+      "kind": "dialog",
+      "description": "Se cerrará la sesión de esta cuenta en el dispositivo.",
+      "rows": [
+        [
+          "Cuenta",
+          "lucas@ejemplo.com"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Cerrar sesión",
+          "AUTH-01"
+        ],
+        [
+          "Seguir en la aplicación",
+          "HIS-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "",
+      "dependencies": [],
+      "rfs": [
+        "RF-01.5"
+      ],
+      "key": "AUTH-03",
+      "channel": "web",
+      "nodeId": "72:2543",
+      "sectionId": "72:4379",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2543",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar composiciones específicas de cuenta bloqueada, sesión vencida durante un comando y validación por campo."
+    },
+    {
+      "id": "WEB-MKR-05",
+      "title": "Habilitar perfil de maker",
+      "features": [
+        "F03",
+        "F11"
+      ],
+      "cu": [
+        "CU-09"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Revisá las capacidades y el beneficio inicial antes de habilitar el perfil.",
+      "rows": [
+        [
+          "Impresoras",
+          "Capacidades y materiales registrados"
+        ],
+        [
+          "Ubicación",
+          "Referencia confirmada"
+        ],
+        [
+          "Disponibilidad",
+          "Calendario y zona horaria registrados"
+        ],
+        [
+          "Beneficio",
+          "Prueba general: 30 días; fundador asignado: 90 días totales"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar habilitación",
+          "MEM-01"
+        ],
+        [
+          "Completar capacidades",
+          "MKR-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La habilitación recupera el beneficio inicial cuando ya existe una asignación. Los criterios de perfil completo se definen en PD-01.",
+      "dependencies": [
+        "PD-01"
+      ],
+      "rfs": [
+        "RF-01.2",
+        "RF-12.2",
+        "RF-12.4"
+      ],
+      "key": "MKR-05",
+      "channel": "web",
+      "nodeId": "72:2557",
+      "sectionId": "72:4380",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2557",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Desglosar edición de impresoras y disponibilidad; cerrar criterios de perfil habilitable de PD-01."
+    },
+    {
+      "id": "WEB-SOL-03",
+      "title": "Revisar y publicar solicitud",
+      "features": [
+        "F05",
+        "F07",
+        "F23"
+      ],
+      "cu": [
+        "CU-01"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Confirmá los parámetros de impresión y la ubicación que se usarán para buscar makers.",
+      "rows": [
+        [
+          "Archivo",
+          "soporte-camara.stl · habilitado"
+        ],
+        [
+          "Cantidad",
+          "1 unidad"
+        ],
+        [
+          "Material",
+          "PLA"
+        ],
+        [
+          "Unidad del modelo",
+          "Milímetros"
+        ],
+        [
+          "Ubicación de referencia",
+          "Referencia elegida por el cliente"
+        ]
+      ],
+      "fields": [
+        [
+          "Ubicación confirmada",
+          "Seleccionar o confirmar referencia",
+          "El permiso de ubicación es opcional; se admite ingreso manual.",
+          "location"
+        ]
+      ],
+      "actions": [
+        [
+          "Publicar solicitud",
+          "SOL-04"
+        ],
+        [
+          "Editar solicitud",
+          "SOL-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Un archivo pendiente de análisis conserva el borrador y mantiene la publicación bloqueada hasta su habilitación.",
+      "dependencies": [],
+      "rfs": [
+        "RF-02.1",
+        "RF-02.2",
+        "RF-02.3",
+        "RF-09.1"
+      ],
+      "key": "SOL-03",
+      "channel": "web",
+      "nodeId": "72:2623",
+      "sectionId": "72:4381",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2623",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+    },
+    {
+      "id": "WEB-SOL-04",
+      "title": "Solicitud enviada",
+      "features": [
+        "F05",
+        "F08",
+        "F14"
+      ],
+      "cu": [
+        "CU-01"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Consultá el estado de la ronda de invitaciones y las respuestas recibidas.",
+      "rows": [
+        [
+          "Solicitud",
+          "ATQ-024"
+        ],
+        [
+          "Ronda",
+          "Grupo compatible según radio y política vigentes"
+        ],
+        [
+          "Avisos",
+          "Las invitaciones permanecen disponibles en la bandeja del maker"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Ver solicitud",
+          "SOL-02"
+        ],
+        [
+          "Ver ofertas",
+          "OFE-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Con pocos candidatos, se ofrece ajustar el radio dentro de la política vigente. La interfaz conserva el resultado de la operación ante un reintento.",
+      "dependencies": [],
+      "rfs": [
+        "RF-02.3",
+        "RF-03.1",
+        "RF-07.1"
+      ],
+      "key": "SOL-04",
+      "channel": "web",
+      "nodeId": "72:2730",
+      "sectionId": "72:4382",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2730",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+    },
+    {
+      "id": "WEB-MKR-06",
+      "title": "Detalle de invitación",
+      "features": [
+        "F08",
+        "F09",
+        "F23"
+      ],
+      "cu": [
+        "CU-02"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Evaluá la pieza, los parámetros y el plazo de respuesta antes de cotizar.",
+      "rows": [
+        [
+          "Solicitud",
+          "ATQ-024 · versión vigente"
+        ],
+        [
+          "Archivo",
+          "soporte-camara.stl · acceso autorizado"
+        ],
+        [
+          "Parámetros",
+          "PLA · 1 unidad · milímetros"
+        ],
+        [
+          "Vigencia",
+          "Fecha y hora de cierre de la invitación"
+        ],
+        [
+          "Elegibilidad",
+          "Capacidades, disponibilidad y membresía vigentes"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Preparar oferta",
+          "OFE-02"
+        ],
+        [
+          "Rechazar invitación",
+          "MKR-07",
+          "Secondary"
+        ],
+        [
+          "Ver archivo",
+          "ARC-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Una invitación cerrada o un acceso vencido bloquean compromisos nuevos. Los pedidos aceptados conservan sus acciones.",
+      "dependencies": [],
+      "rfs": [
+        "RF-03.2",
+        "RF-04.5",
+        "RF-10.3",
+        "RF-12.10"
+      ],
+      "key": "MKR-06",
+      "channel": "web",
+      "nodeId": "72:2793",
+      "sectionId": "72:4383",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2793",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Dibujar ronda con candidatos insuficientes, invitación cerrada y aviso externo fallido; cerrar política versionada de matching."
+    },
+    {
+      "id": "WEB-MKR-07",
+      "title": "Rechazar invitación",
+      "features": [
+        "F09"
+      ],
+      "cu": [
+        "CU-02"
+      ],
+      "role": "Maker",
+      "kind": "dialog",
+      "description": "Confirmá que querés rechazar esta invitación de cotización.",
+      "rows": [
+        [
+          "Solicitud",
+          "ATQ-024"
+        ],
+        [
+          "Acción",
+          "Registrar rechazo de la invitación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar rechazo",
+          "MKR-03"
+        ],
+        [
+          "Volver a la invitación",
+          "MKR-06",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "",
+      "dependencies": [],
+      "rfs": [
+        "RF-04.5"
+      ],
+      "key": "MKR-07",
+      "channel": "web",
+      "nodeId": "72:2864",
+      "sectionId": "72:4384",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2864",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+    },
+    {
+      "id": "WEB-OFE-04",
+      "title": "La oferta tiene una nueva versión",
+      "features": [
+        "F09",
+        "F10"
+      ],
+      "cu": [
+        "CU-03"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Revisá las condiciones actualizadas antes de confirmar el pedido.",
+      "rows": [
+        [
+          "Referencia",
+          "Oferta de Taller Sur"
+        ],
+        [
+          "Cambio",
+          "Importe, plazo o condiciones actualizados"
+        ],
+        [
+          "Versión",
+          "Versión vigente informada por el servidor"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Revisar versión vigente",
+          "OFE-03"
+        ],
+        [
+          "Comparar ofertas",
+          "OFE-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La confirmación utiliza la versión exacta que revisó el cliente. Una operación con resultado incierto recupera primero el pedido confirmado.",
+      "dependencies": [],
+      "rfs": [
+        "RF-04.2",
+        "RF-04.3",
+        "RF-04.4"
+      ],
+      "key": "OFE-04",
+      "channel": "web",
+      "nodeId": "72:2881",
+      "sectionId": "72:4385",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2881",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+    },
+    {
+      "id": "WEB-PED-02",
+      "title": "Producción del pedido",
+      "features": [
+        "F12",
+        "F15",
+        "F13"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Consultá el avance y las acciones autorizadas para este pedido.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024 · soporte para cámara"
+        ],
+        [
+          "Estado",
+          "Estado vigente y versión del pedido"
+        ],
+        [
+          "Siguiente paso",
+          "Acciones habilitadas por el servidor"
+        ]
+      ],
+      "fields": [
+        [
+          "Acción de producción",
+          "Seleccionar transición permitida",
+          "La lista se obtiene del estado vigente del pedido.",
+          "select"
+        ],
+        [
+          "Motivo",
+          "Describí el motivo cuando la transición lo requiera",
+          "Se incorpora al historial del pedido.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Revisar cambio de estado",
+          "PED-03"
+        ],
+        [
+          "Presentar evidencia",
+          "REV-01",
+          "Secondary"
+        ],
+        [
+          "Abrir conversación",
+          "CHAT-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El acceso de membresía vencido conserva las acciones de este pedido aceptado.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.5",
+        "RF-05.3",
+        "RF-12.10"
+      ],
+      "key": "PED-02",
+      "channel": "web",
+      "nodeId": "72:2944",
+      "sectionId": "72:4386",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2944",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    },
+    {
+      "id": "WEB-PED-03",
+      "title": "Confirmar avance de producción",
+      "features": [
+        "F12"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Maker",
+      "kind": "dialog",
+      "description": "Revisá el cambio antes de registrarlo en el historial.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Estado actual",
+          "Versión consultada"
+        ],
+        [
+          "Acción",
+          "Transición permitida seleccionada"
+        ],
+        [
+          "Registro",
+          "Actor, fecha y motivo cuando corresponda"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar avance",
+          "PED-02"
+        ],
+        [
+          "Volver al pedido",
+          "PED-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Un cambio concurrente recupera el estado vigente y solicita revisar la acción.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.5",
+        "RF-05.3"
+      ],
+      "key": "PED-03",
+      "channel": "web",
+      "nodeId": "72:3032",
+      "sectionId": "72:4387",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3032",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    },
+    {
+      "id": "WEB-REV-03",
+      "title": "Presentar revisión al cliente",
+      "features": [
+        "F15",
+        "F23"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Maker",
+      "kind": "dialog",
+      "description": "Verificá los archivos y el comentario de la revisión que recibirá el cliente.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Revisión",
+          "Identificador de revisión vigente"
+        ],
+        [
+          "Evidencia",
+          "Fotos o videos habilitados y vinculados al pedido"
+        ],
+        [
+          "Comentario",
+          "Comentario del maker para esta revisión"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Presentar revisión",
+          "PED-02"
+        ],
+        [
+          "Volver a la evidencia",
+          "REV-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La presentación requiere que todos los archivos incluidos estén habilitados.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.1",
+        "RF-06.2",
+        "RF-10.2"
+      ],
+      "key": "REV-03",
+      "channel": "web",
+      "nodeId": "72:3057",
+      "sectionId": "72:4388",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3057",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar análisis pendiente por archivo, revisión cerrada y recuperación de una transferencia incompleta."
+    },
+    {
+      "id": "WEB-REV-04",
+      "title": "Confirmar aprobación",
+      "features": [
+        "F22",
+        "F16"
+      ],
+      "cu": [
+        "CU-05"
+      ],
+      "role": "Cliente",
+      "kind": "dialog",
+      "description": "La aprobación corresponde a la revisión que acabás de consultar.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Revisión",
+          "Versión de evidencia revisada"
+        ],
+        [
+          "Siguiente paso",
+          "Coordinar la entrega personal"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Aprobar esta revisión",
+          "ENT-01"
+        ],
+        [
+          "Seguir revisando",
+          "REV-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Una revisión reemplazada requiere consultar la evidencia vigente antes de decidir.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.3"
+      ],
+      "key": "REV-04",
+      "channel": "web",
+      "nodeId": "72:3082",
+      "sectionId": "72:4389",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3082",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+    },
+    {
+      "id": "WEB-REV-05",
+      "title": "Enviar observaciones",
+      "features": [
+        "F22"
+      ],
+      "cu": [
+        "CU-05"
+      ],
+      "role": "Cliente",
+      "kind": "dialog",
+      "description": "Confirmá las observaciones que recibirá el maker sobre esta revisión.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Revisión",
+          "Versión de evidencia revisada"
+        ]
+      ],
+      "fields": [
+        [
+          "Observaciones",
+          "Describí qué requiere revisión",
+          "Validación según la política de correcciones vigente.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Enviar observaciones",
+          "PED-01"
+        ],
+        [
+          "Volver a la revisión",
+          "REV-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Los plazos, límites de correcciones y escalamiento se definen en PD-07.",
+      "dependencies": [
+        "PD-07"
+      ],
+      "rfs": [
+        "RF-06.3",
+        "RF-06.4"
+      ],
+      "key": "REV-05",
+      "channel": "web",
+      "nodeId": "72:3104",
+      "sectionId": "72:4390",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3104",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+    },
+    {
+      "id": "WEB-ENT-03",
+      "title": "Confirmar coordinación",
+      "features": [
+        "F16"
+      ],
+      "cu": [
+        "CU-06"
+      ],
+      "role": "Participante",
+      "kind": "dialog",
+      "description": "Revisá el punto y el horario propuestos para la entrega personal.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024 · revisión aprobada"
+        ],
+        [
+          "Punto",
+          "Referencia acordada entre participantes"
+        ],
+        [
+          "Fecha y hora",
+          "Horario elegido y zona horaria explícita"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Registrar coordinación",
+          "ENT-02"
+        ],
+        [
+          "Editar coordinación",
+          "ENT-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La confirmación entre participantes y las modificaciones del acuerdo se rigen por PD-08.",
+      "dependencies": [
+        "PD-08"
+      ],
+      "rfs": [
+        "RF-06.6",
+        "RF-09.1"
+      ],
+      "key": "ENT-03",
+      "channel": "web",
+      "nodeId": "72:3134",
+      "sectionId": "72:4391",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3134",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar actores y reglas de acuerdo de PD-08; dibujar cambio de coordinación y alternativa textual del mapa."
+    },
+    {
+      "id": "WEB-ENT-04",
+      "title": "Recepción registrada",
+      "features": [
+        "F17",
+        "F19"
+      ],
+      "cu": [
+        "CU-06"
+      ],
+      "role": "Participante",
+      "kind": "page",
+      "description": "El pedido muestra el resultado verificado del mecanismo de recepción configurado.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Resultado",
+          "Recepción confirmada por el servidor"
+        ],
+        [
+          "Registro",
+          "Referencia, actor y fecha del cierre"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Ver historial del pedido",
+          "HIS-02"
+        ],
+        [
+          "Volver a mis pedidos",
+          "HIS-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Esta salida se alcanza después de completar el mecanismo acordado en PD-08. Mientras ese mecanismo esté pendiente de definición, la captura permanece bloqueada.",
+      "dependencies": [
+        "PD-08"
+      ],
+      "rfs": [
+        "RF-06.7"
+      ],
+      "key": "ENT-04",
+      "channel": "web",
+      "nodeId": "72:3156",
+      "sectionId": "72:4392",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3156",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Definir mecanismo de PD-08, completar captura y errores del mecanismo elegido; mantener la captura bloqueada mientras falte configuración."
+    },
+    {
+      "id": "WEB-MEM-04",
+      "title": "Mis compras de membresía",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-08",
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Consultá las compras de abono y su estado verificado.",
+      "rows": [
+        [
+          "Compra MBR-024",
+          "Pendiente de verificación · importe y moneda de la compra"
+        ],
+        [
+          "Compra MBR-023",
+          "Aprobada · período de acceso concedido"
+        ]
+      ],
+      "fields": [
+        [
+          "Estado",
+          "Todas las compras",
+          "Filtro por estado verificado.",
+          "select"
+        ]
+      ],
+      "actions": [
+        [
+          "Ver compra pendiente",
+          "MEM-03"
+        ],
+        [
+          "Ver compra aprobada",
+          "MEM-05",
+          "Secondary"
+        ],
+        [
+          "Renovar membresía",
+          "MEM-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La renovación es manual. El detalle conserva la versión del plan y las condiciones aceptadas.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.7",
+        "RF-12.9"
+      ],
+      "key": "MEM-04",
+      "channel": "web",
+      "nodeId": "72:3219",
+      "sectionId": "72:4393",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3219",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-MEM-05",
+      "title": "Membresía acreditada",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "El pago confirmado habilitó el período de acceso correspondiente.",
+      "rows": [
+        [
+          "Compra",
+          "MBR-023"
+        ],
+        [
+          "Pago",
+          "Aprobado y verificado"
+        ],
+        [
+          "Período",
+          "Inicio y vencimiento calculados por el servidor"
+        ],
+        [
+          "Plan",
+          "Versión y condiciones de la compra"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Ver mi membresía",
+          "MEM-01"
+        ],
+        [
+          "Ver mis compras",
+          "MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La acreditación se aplica una sola vez. La renovación conserva los días de acceso existentes.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.6",
+        "RF-12.8",
+        "RF-12.9"
+      ],
+      "key": "MEM-05",
+      "channel": "web",
+      "nodeId": "72:3294",
+      "sectionId": "72:4394",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3294",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-MEM-06",
+      "title": "Pago rechazado",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Consultá el resultado de la compra y elegí cómo continuar.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador de compra"
+        ],
+        [
+          "Estado",
+          "Rechazado según verificación del proveedor"
+        ],
+        [
+          "Acceso",
+          "Se conserva el estado de membresía previamente vigente"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Preparar un nuevo pago",
+          "MEM-02"
+        ],
+        [
+          "Ver mis compras",
+          "MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Un nuevo intento crea o recupera la operación según su clave de idempotencia y el resultado verificado.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.5",
+        "RF-12.6"
+      ],
+      "key": "MEM-06",
+      "channel": "web",
+      "nodeId": "72:3360",
+      "sectionId": "72:4395",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3360",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-MEM-07",
+      "title": "Checkout interrumpido",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Recuperá el estado de la compra antes de iniciar otro pago.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador asociado al checkout"
+        ],
+        [
+          "Resultado",
+          "Interrupción o abandono del recorrido externo"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Consultar compra",
+          "MEM-03"
+        ],
+        [
+          "Volver a mi membresía",
+          "MEM-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El regreso del proveedor inicia la consulta del resultado verificado de la compra.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.5",
+        "RF-12.6"
+      ],
+      "key": "MEM-07",
+      "channel": "web",
+      "nodeId": "72:3423",
+      "sectionId": "72:4396",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3423",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-MEM-08",
+      "title": "Verificación demorada",
+      "features": [
+        "F11",
+        "F24"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "La compra conserva su referencia mientras se recupera el resultado del proveedor.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador de compra pendiente"
+        ],
+        [
+          "Última consulta",
+          "Fecha y hora del intento de verificación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Volver a consultar",
+          "MEM-03"
+        ],
+        [
+          "Ver mis compras",
+          "MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El acceso se concede tras la confirmación válida del pago. La interfaz mantiene disponibles los pedidos previamente aceptados.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.6",
+        "RF-12.7"
+      ],
+      "key": "MEM-08",
+      "channel": "web",
+      "nodeId": "72:3483",
+      "sectionId": "72:4397",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3483",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-ARC-01",
+      "title": "Detalle de archivo privado",
+      "features": [
+        "F23"
+      ],
+      "cu": [
+        "CU-01",
+        "CU-04"
+      ],
+      "role": "Participante autorizado",
+      "kind": "page",
+      "description": "Consultá el archivo dentro del recurso que autoriza su acceso.",
+      "rows": [
+        [
+          "Archivo",
+          "Nombre, tamaño y tipo verificados"
+        ],
+        [
+          "Finalidad",
+          "Solicitud, evidencia o adjunto de conversación"
+        ],
+        [
+          "Estado",
+          "Habilitado para el recurso autorizado"
+        ],
+        [
+          "Acceso",
+          "Permiso y enlace temporal vigentes"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Abrir o descargar archivo",
+          null
+        ],
+        [
+          "Solicitar retiro",
+          "ARC-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El enlace vencido solicita una nueva autorización. El retiro requiere propiedad y política de retención aplicable.",
+      "dependencies": [],
+      "blockedActions": [
+        "Abrir o descargar archivo"
+      ],
+      "rfs": [
+        "RF-10.3"
+      ],
+      "key": "ARC-01",
+      "channel": "web",
+      "nodeId": "72:3543",
+      "sectionId": "72:4398",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3543",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+    },
+    {
+      "id": "WEB-ARC-02",
+      "title": "Retirar archivo",
+      "features": [
+        "F23"
+      ],
+      "cu": [
+        "CU-01",
+        "CU-04"
+      ],
+      "role": "Propietario autorizado",
+      "kind": "dialog",
+      "description": "Revisá el efecto del retiro sobre el recurso vinculado.",
+      "rows": [
+        [
+          "Archivo",
+          "Archivo seleccionado"
+        ],
+        [
+          "Vinculación",
+          "Solicitud, evidencia o conversación autorizada"
+        ],
+        [
+          "Retención",
+          "Condición vigente aplicable al archivo"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar retiro",
+          "ARC-01",
+          "Disabled"
+        ],
+        [
+          "Conservar archivo",
+          "ARC-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La acción se habilita cuando el servidor confirma autorización y condiciones de retención.",
+      "dependencies": [
+        "Política de retiro y retención"
+      ],
+      "rfs": [
+        "RF-10.4"
+      ],
+      "key": "ARC-02",
+      "channel": "web",
+      "nodeId": "72:3609",
+      "sectionId": "72:4399",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3609",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+    },
+    {
+      "id": "WEB-CHAT-02",
+      "title": "Mensaje pendiente de envío",
+      "features": [
+        "F13",
+        "F24"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Participante",
+      "kind": "page",
+      "description": "Conservá el mensaje mientras se recupera la conexión.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Mensaje",
+          "Texto y adjuntos permitidos conservados en el dispositivo"
+        ],
+        [
+          "Estado",
+          "Envío fallido o pendiente de confirmación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Reintentar el mismo mensaje",
+          "CHAT-01"
+        ],
+        [
+          "Volver a la conversación",
+          "CHAT-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El reintento mantiene el identificador del mensaje. La reconexión recupera el historial y descarta duplicados.",
+      "dependencies": [],
+      "rfs": [
+        "RF-05.2",
+        "RF-11.2"
+      ],
+      "key": "CHAT-02",
+      "channel": "web",
+      "nodeId": "72:3631",
+      "sectionId": "72:4400",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3631",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar carga de historial, adjunto rechazado, permiso revocado y reconexión con cursor vencido."
+    },
+    {
+      "id": "WEB-SOL-05",
+      "title": "Cómo se calculó la estimación",
+      "features": [
+        "F06"
+      ],
+      "cu": [
+        "CU-01"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Consultá el rango orientativo y los supuestos de la solicitud vigente.",
+      "rows": [
+        [
+          "Rango e importe",
+          "Mínimo y máximo; moneda indicada por el cálculo"
+        ],
+        [
+          "Método",
+          "Identificador y versión del cálculo"
+        ],
+        [
+          "Entradas",
+          "Archivo, material, cantidad y unidad utilizados"
+        ],
+        [
+          "Supuestos",
+          "Condiciones consideradas por el método"
+        ],
+        [
+          "Versión de solicitud",
+          "Referencia exacta que originó la estimación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Consultar ofertas de makers",
+          "OFE-01"
+        ],
+        [
+          "Volver a la solicitud",
+          "SOL-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Cuando el método o los datos sean insuficientes, se muestra esa condición y se permite continuar con ofertas. El método se define en PD-06.",
+      "dependencies": [
+        "PD-06"
+      ],
+      "rfs": [
+        "RF-02.5"
+      ],
+      "key": "SOL-05",
+      "channel": "web",
+      "nodeId": "72:3694",
+      "sectionId": "72:4401",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3694",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Cerrar método de PD-06 y dibujar rango disponible, datos insuficientes y cálculo invalidado por nueva versión."
+    },
+    {
+      "id": "WEB-HIS-02",
+      "title": "Historial del pedido",
+      "features": [
+        "F12",
+        "F19"
+      ],
+      "cu": [
+        "CU-04",
+        "CU-06"
+      ],
+      "role": "Participante autorizado",
+      "kind": "page",
+      "description": "Consultá los cambios y las referencias del pedido al que tenés acceso.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Evento",
+          "Estado anterior y estado resultante"
+        ],
+        [
+          "Responsable",
+          "Actor autorizado y fecha del cambio"
+        ],
+        [
+          "Detalle",
+          "Motivo y referencia de la operación"
+        ]
+      ],
+      "fields": [
+        [
+          "Período",
+          "Elegir período",
+          "Zona horaria y límites de consulta explícitos.",
+          "select"
+        ]
+      ],
+      "actions": [
+        [
+          "Volver al pedido",
+          "PED-01"
+        ],
+        [
+          "Cargar eventos anteriores",
+          null,
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La consulta respeta los permisos del participante y la política de retención.",
+      "dependencies": [],
+      "blockedActions": [
+        "Cargar eventos anteriores"
+      ],
+      "rfs": [
+        "RF-02.4",
+        "RF-05.3"
+      ],
+      "key": "HIS-02",
+      "channel": "web",
+      "nodeId": "72:3763",
+      "sectionId": "72:4402",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3763",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    },
+    {
+      "id": "WEB-ADM-MEM-02",
+      "title": "Asignar beneficio fundador",
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "cu": [
+        "CU-10"
+      ],
+      "role": "Administración",
+      "kind": "page",
+      "description": "Comprobá la elegibilidad y confirmá la asignación con una razón auditable.",
+      "rows": [
+        [
+          "Programa",
+          "Ventana, cupo y versión vigentes"
+        ],
+        [
+          "Beneficio",
+          "90 días totales según configuración vigente"
+        ],
+        [
+          "Verificación",
+          "Asignación previa y elegibilidad del maker"
+        ]
+      ],
+      "fields": [
+        [
+          "Maker",
+          "Buscar maker autorizado",
+          "Selección del perfil que recibirá el beneficio."
+        ],
+        [
+          "Motivo",
+          "Explicá la asignación",
+          "Se registra actor, motivo y versión del programa.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Confirmar asignación",
+          null,
+          "Disabled"
+        ],
+        [
+          "Consultar auditoría",
+          "ADM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "La asignación requiere elegibilidad confirmada y cupo disponible. La política de asignación tardía se define en PD-10.",
+      "dependencies": [
+        "PD-10"
+      ],
+      "blockedActions": [
+        "Confirmar asignación"
+      ],
+      "rfs": [
+        "RF-12.3",
+        "RF-12.13"
+      ],
+      "key": "ADM-MEM-02",
+      "channel": "web",
+      "nodeId": "72:3842",
+      "sectionId": "72:4403",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3842",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-ADM-MEM-03",
+      "title": "Compras de membresía",
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "cu": [
+        "CU-07",
+        "CU-11"
+      ],
+      "role": "Administración",
+      "kind": "page",
+      "description": "Consultá las compras autorizadas para soporte y conciliación.",
+      "rows": [
+        [
+          "Compra",
+          "Referencia, maker, importe, moneda y estado"
+        ],
+        [
+          "Proveedor",
+          "Operación y entorno correspondientes"
+        ],
+        [
+          "Acceso",
+          "Período concedido y referencia de acreditación"
+        ]
+      ],
+      "fields": [
+        [
+          "Maker o compra",
+          "Buscar referencia",
+          "Acceso limitado a la capacidad administrativa autorizada."
+        ],
+        [
+          "Estado",
+          "Seleccionar estado",
+          "Resultado verificado de la compra.",
+          "select"
+        ]
+      ],
+      "actions": [
+        [
+          "Consultar compra",
+          "ADM-MEM-04"
+        ],
+        [
+          "Volver a administración",
+          "ADM-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.7"
+      ],
+      "key": "ADM-MEM-03",
+      "channel": "web",
+      "nodeId": "72:3916",
+      "sectionId": "72:4404",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3916",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-ADM-MEM-04",
+      "title": "Detalle y conciliación de compra",
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "cu": [
+        "CU-07",
+        "CU-11"
+      ],
+      "role": "Administración",
+      "kind": "page",
+      "description": "Revisá el contexto del pago y el resultado de la última conciliación.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador, maker y versión del plan"
+        ],
+        [
+          "Pago",
+          "Importe y moneda registrados"
+        ],
+        [
+          "Verificación",
+          "Proveedor, cuenta y entorno esperados"
+        ],
+        [
+          "Resultado",
+          "Estado verificado y fecha de consulta"
+        ],
+        [
+          "Acreditación",
+          "Referencia idempotente del período concedido"
+        ]
+      ],
+      "fields": [
+        [
+          "Motivo",
+          "Describí el motivo de la consulta",
+          "Requerido para acciones administrativas sensibles.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Solicitar nueva conciliación",
+          null,
+          "Disabled"
+        ],
+        [
+          "Evaluar devolución",
+          "ADM-MEM-05",
+          "Secondary"
+        ],
+        [
+          "Ver auditoría",
+          "ADM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "La conciliación vuelve a verificar el pago y conserva la acreditación única. La capacidad específica se comprueba antes de ejecutar.",
+      "dependencies": [],
+      "blockedActions": [
+        "Solicitar nueva conciliación"
+      ],
+      "rfs": [
+        "RF-12.6",
+        "RF-12.7",
+        "RF-12.8"
+      ],
+      "key": "ADM-MEM-04",
+      "channel": "web",
+      "nodeId": "72:3990",
+      "sectionId": "72:4405",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3990",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-ADM-MEM-05",
+      "title": "Devolución autorizada del abono",
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "cu": [
+        "CU-07"
+      ],
+      "role": "Administración",
+      "kind": "page",
+      "description": "Prepará la devolución de una compra de membresía que cumpla la política aplicable.",
+      "rows": [
+        [
+          "Compra",
+          "Referencia y operación de membresía"
+        ],
+        [
+          "Disponible",
+          "Saldo y moneda elegibles verificados"
+        ],
+        [
+          "Seguimiento",
+          "Referencia y resultado pendiente o confirmado"
+        ]
+      ],
+      "fields": [
+        [
+          "Importe",
+          "Ingresar importe elegible",
+          "Admite devolución total o parcial cuando la política lo autoriza."
+        ],
+        [
+          "Motivo",
+          "Fundamentá la devolución",
+          "Se conserva junto con actor y operación.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Solicitar devolución",
+          null,
+          "Disabled"
+        ],
+        [
+          "Volver a la compra",
+          "ADM-MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "PD-09 define autorización, responsables y efecto sobre períodos futuros. Los pedidos aceptados conservan sus acciones durante una devolución pendiente.",
+      "dependencies": [
+        "PD-09"
+      ],
+      "blockedActions": [
+        "Solicitar devolución"
+      ],
+      "rfs": [
+        "RF-12.12"
+      ],
+      "key": "ADM-MEM-05",
+      "channel": "web",
+      "nodeId": "72:4062",
+      "sectionId": "72:4406",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4062",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-ADM-MEM-06",
+      "title": "Publicar versión del plan",
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "cu": [
+        "CU-12"
+      ],
+      "role": "Administración",
+      "kind": "dialog",
+      "description": "Revisá los valores antes de publicar una nueva versión del plan.",
+      "rows": [
+        [
+          "Precio y moneda",
+          "Valores validados de la nueva versión"
+        ],
+        [
+          "Prueba general",
+          "Duración configurada"
+        ],
+        [
+          "Fundadores",
+          "Duración total, cupo y ventana configurados"
+        ],
+        [
+          "Auditoría",
+          "Motivo del cambio y responsable"
+        ],
+        [
+          "Compras existentes",
+          "Condiciones de la versión contratada conservadas"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Publicar versión",
+          null,
+          "Disabled"
+        ],
+        [
+          "Volver a la configuración",
+          "ADM-MEM-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "La publicación requiere autorización, validación y coincidencia de la versión consultada.",
+      "dependencies": [],
+      "blockedActions": [
+        "Publicar versión"
+      ],
+      "rfs": [
+        "RF-12.1",
+        "RF-12.13"
+      ],
+      "key": "ADM-MEM-06",
+      "channel": "web",
+      "nodeId": "72:4136",
+      "sectionId": "72:4407",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4136",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "WEB-ADM-03",
+      "title": "Detalle de soporte",
+      "features": [
+        "F20"
+      ],
+      "cu": [
+        "CU-07"
+      ],
+      "role": "Administración",
+      "kind": "page",
+      "description": "Consultá el recurso y prepará una acción dentro de las capacidades habilitadas.",
+      "rows": [
+        [
+          "Caso",
+          "Referencia de soporte"
+        ],
+        [
+          "Recurso",
+          "Pedido, usuario o compra autorizados"
+        ],
+        [
+          "Permisos",
+          "Capacidad específica del operador"
+        ]
+      ],
+      "fields": [
+        [
+          "Acción",
+          "Seleccionar acción autorizada",
+          "La lista depende de permisos y estado vigente.",
+          "select"
+        ],
+        [
+          "Fundamento",
+          "Describí el motivo de intervención",
+          "Se registra recurso, actor y resultado.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Revisar acción",
+          null,
+          "Disabled"
+        ],
+        [
+          "Ver auditoría",
+          "ADM-04",
+          "Secondary"
+        ],
+        [
+          "Volver a soporte",
+          "ADM-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "La confirmación sensible revalida permisos y versión del recurso antes de ejecutar.",
+      "dependencies": [],
+      "blockedActions": [
+        "Revisar acción"
+      ],
+      "rfs": [
+        "RF-07.2"
+      ],
+      "key": "ADM-03",
+      "channel": "web",
+      "nodeId": "72:4164",
+      "sectionId": "72:4408",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4164",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar confirmación y resultado de cada intervención sensible; cerrar permisos finos, devoluciones y conflictos de configuración."
+    },
+    {
+      "id": "WEB-ADM-04",
+      "title": "Auditoría de plan y beneficios",
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "cu": [
+        "CU-07",
+        "CU-10",
+        "CU-12"
+      ],
+      "role": "Administración",
+      "kind": "page",
+      "description": "Consultá cambios de configuración, asignaciones y operaciones autorizadas.",
+      "rows": [
+        [
+          "Evento",
+          "Tipo, recurso y referencia de operación"
+        ],
+        [
+          "Cambio",
+          "Versión anterior y versión resultante"
+        ],
+        [
+          "Responsable",
+          "Operador y motivo registrado"
+        ],
+        [
+          "Fecha",
+          "Fecha y hora con zona horaria explícita"
+        ]
+      ],
+      "fields": [
+        [
+          "Recurso",
+          "Plan, programa, maker o compra",
+          "Consulta acotada por la capacidad autorizada.",
+          "select"
+        ],
+        [
+          "Período",
+          "Elegir período",
+          "Límites y zona horaria explícitos.",
+          "select"
+        ]
+      ],
+      "actions": [
+        [
+          "Volver a administración",
+          "ADM-01"
+        ],
+        [
+          "Cargar eventos anteriores",
+          null,
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web"
+      ],
+      "notice": "",
+      "dependencies": [],
+      "blockedActions": [
+        "Cargar eventos anteriores"
+      ],
+      "rfs": [
+        "RF-12.13"
+      ],
+      "key": "ADM-04",
+      "channel": "web",
+      "nodeId": "72:4242",
+      "sectionId": "72:4409",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4242",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "MOB-AUTH-03",
+      "title": "Cerrar sesión",
+      "features": [
+        "F01"
+      ],
+      "cu": [
+        "CU-13"
+      ],
+      "role": "Usuario",
+      "kind": "dialog",
+      "description": "Se cerrará la sesión de esta cuenta en el dispositivo.",
+      "rows": [
+        [
+          "Cuenta",
+          "lucas@ejemplo.com"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Cerrar sesión",
+          "AUTH-01"
+        ],
+        [
+          "Seguir en la aplicación",
+          "HIS-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "",
+      "dependencies": [],
+      "rfs": [
+        "RF-01.5"
+      ],
+      "key": "AUTH-03",
+      "channel": "mobile",
+      "nodeId": "73:2079",
+      "sectionId": "73:3418",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2079",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar composiciones específicas de cuenta bloqueada, sesión vencida durante un comando y validación por campo."
+    },
+    {
+      "id": "MOB-MKR-05",
+      "title": "Habilitar perfil de maker",
+      "features": [
+        "F03",
+        "F11"
+      ],
+      "cu": [
+        "CU-09"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Revisá las capacidades y el beneficio inicial antes de habilitar el perfil.",
+      "rows": [
+        [
+          "Impresoras",
+          "Capacidades y materiales registrados"
+        ],
+        [
+          "Ubicación",
+          "Referencia confirmada"
+        ],
+        [
+          "Disponibilidad",
+          "Calendario y zona horaria registrados"
+        ],
+        [
+          "Beneficio",
+          "Prueba general: 30 días; fundador asignado: 90 días totales"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar habilitación",
+          "MEM-01"
+        ],
+        [
+          "Completar capacidades",
+          "MKR-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La habilitación recupera el beneficio inicial cuando ya existe una asignación. Los criterios de perfil completo se definen en PD-01.",
+      "dependencies": [
+        "PD-01"
+      ],
+      "rfs": [
+        "RF-01.2",
+        "RF-12.2",
+        "RF-12.4"
+      ],
+      "key": "MKR-05",
+      "channel": "mobile",
+      "nodeId": "73:2093",
+      "sectionId": "73:3419",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2093",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Desglosar edición de impresoras y disponibilidad; cerrar criterios de perfil habilitable de PD-01."
+    },
+    {
+      "id": "MOB-SOL-03",
+      "title": "Revisar y publicar solicitud",
+      "features": [
+        "F05",
+        "F07",
+        "F23"
+      ],
+      "cu": [
+        "CU-01"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Confirmá los parámetros de impresión y la ubicación que se usarán para buscar makers.",
+      "rows": [
+        [
+          "Archivo",
+          "soporte-camara.stl · habilitado"
+        ],
+        [
+          "Cantidad",
+          "1 unidad"
+        ],
+        [
+          "Material",
+          "PLA"
+        ],
+        [
+          "Unidad del modelo",
+          "Milímetros"
+        ],
+        [
+          "Ubicación de referencia",
+          "Referencia elegida por el cliente"
+        ]
+      ],
+      "fields": [
+        [
+          "Ubicación confirmada",
+          "Seleccionar o confirmar referencia",
+          "El permiso de ubicación es opcional; se admite ingreso manual.",
+          "location"
+        ]
+      ],
+      "actions": [
+        [
+          "Publicar solicitud",
+          "SOL-04"
+        ],
+        [
+          "Editar solicitud",
+          "SOL-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Un archivo pendiente de análisis conserva el borrador y mantiene la publicación bloqueada hasta su habilitación.",
+      "dependencies": [],
+      "rfs": [
+        "RF-02.1",
+        "RF-02.2",
+        "RF-02.3",
+        "RF-09.1"
+      ],
+      "key": "SOL-03",
+      "channel": "mobile",
+      "nodeId": "73:2166",
+      "sectionId": "73:3420",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2166",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+    },
+    {
+      "id": "MOB-SOL-04",
+      "title": "Solicitud enviada",
+      "features": [
+        "F05",
+        "F08",
+        "F14"
+      ],
+      "cu": [
+        "CU-01"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Consultá el estado de la ronda de invitaciones y las respuestas recibidas.",
+      "rows": [
+        [
+          "Solicitud",
+          "ATQ-024"
+        ],
+        [
+          "Ronda",
+          "Grupo compatible según radio y política vigentes"
+        ],
+        [
+          "Avisos",
+          "Las invitaciones permanecen disponibles en la bandeja del maker"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Ver solicitud",
+          "SOL-02"
+        ],
+        [
+          "Ver ofertas",
+          "OFE-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Con pocos candidatos, se ofrece ajustar el radio dentro de la política vigente. La interfaz conserva el resultado de la operación ante un reintento.",
+      "dependencies": [],
+      "rfs": [
+        "RF-02.3",
+        "RF-03.1",
+        "RF-07.1"
+      ],
+      "key": "SOL-04",
+      "channel": "mobile",
+      "nodeId": "73:2272",
+      "sectionId": "73:3421",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2272",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+    },
+    {
+      "id": "MOB-MKR-06",
+      "title": "Detalle de invitación",
+      "features": [
+        "F08",
+        "F09",
+        "F23"
+      ],
+      "cu": [
+        "CU-02"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Evaluá la pieza, los parámetros y el plazo de respuesta antes de cotizar.",
+      "rows": [
+        [
+          "Solicitud",
+          "ATQ-024 · versión vigente"
+        ],
+        [
+          "Archivo",
+          "soporte-camara.stl · acceso autorizado"
+        ],
+        [
+          "Parámetros",
+          "PLA · 1 unidad · milímetros"
+        ],
+        [
+          "Vigencia",
+          "Fecha y hora de cierre de la invitación"
+        ],
+        [
+          "Elegibilidad",
+          "Capacidades, disponibilidad y membresía vigentes"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Preparar oferta",
+          "OFE-02"
+        ],
+        [
+          "Rechazar invitación",
+          "MKR-07",
+          "Secondary"
+        ],
+        [
+          "Ver archivo",
+          "ARC-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Una invitación cerrada o un acceso vencido bloquean compromisos nuevos. Los pedidos aceptados conservan sus acciones.",
+      "dependencies": [],
+      "rfs": [
+        "RF-03.2",
+        "RF-04.5",
+        "RF-10.3",
+        "RF-12.10"
+      ],
+      "key": "MKR-06",
+      "channel": "mobile",
+      "nodeId": "73:2334",
+      "sectionId": "73:3422",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2334",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Dibujar ronda con candidatos insuficientes, invitación cerrada y aviso externo fallido; cerrar política versionada de matching."
+    },
+    {
+      "id": "MOB-MKR-07",
+      "title": "Rechazar invitación",
+      "features": [
+        "F09"
+      ],
+      "cu": [
+        "CU-02"
+      ],
+      "role": "Maker",
+      "kind": "dialog",
+      "description": "Confirmá que querés rechazar esta invitación de cotización.",
+      "rows": [
+        [
+          "Solicitud",
+          "ATQ-024"
+        ],
+        [
+          "Acción",
+          "Registrar rechazo de la invitación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar rechazo",
+          "MKR-03"
+        ],
+        [
+          "Volver a la invitación",
+          "MKR-06",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "",
+      "dependencies": [],
+      "rfs": [
+        "RF-04.5"
+      ],
+      "key": "MKR-07",
+      "channel": "mobile",
+      "nodeId": "73:2404",
+      "sectionId": "73:3423",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2404",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+    },
+    {
+      "id": "MOB-OFE-04",
+      "title": "La oferta tiene una nueva versión",
+      "features": [
+        "F09",
+        "F10"
+      ],
+      "cu": [
+        "CU-03"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Revisá las condiciones actualizadas antes de confirmar el pedido.",
+      "rows": [
+        [
+          "Referencia",
+          "Oferta de Taller Sur"
+        ],
+        [
+          "Cambio",
+          "Importe, plazo o condiciones actualizados"
+        ],
+        [
+          "Versión",
+          "Versión vigente informada por el servidor"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Revisar versión vigente",
+          "OFE-03"
+        ],
+        [
+          "Comparar ofertas",
+          "OFE-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La confirmación utiliza la versión exacta que revisó el cliente. Una operación con resultado incierto recupera primero el pedido confirmado.",
+      "dependencies": [],
+      "rfs": [
+        "RF-04.2",
+        "RF-04.3",
+        "RF-04.4"
+      ],
+      "key": "OFE-04",
+      "channel": "mobile",
+      "nodeId": "73:2421",
+      "sectionId": "73:3424",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2421",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+    },
+    {
+      "id": "MOB-PED-02",
+      "title": "Producción del pedido",
+      "features": [
+        "F12",
+        "F15",
+        "F13"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Consultá el avance y las acciones autorizadas para este pedido.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024 · soporte para cámara"
+        ],
+        [
+          "Estado",
+          "Estado vigente y versión del pedido"
+        ],
+        [
+          "Siguiente paso",
+          "Acciones habilitadas por el servidor"
+        ]
+      ],
+      "fields": [
+        [
+          "Acción de producción",
+          "Seleccionar transición permitida",
+          "La lista se obtiene del estado vigente del pedido.",
+          "select"
+        ],
+        [
+          "Motivo",
+          "Describí el motivo cuando la transición lo requiera",
+          "Se incorpora al historial del pedido.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Revisar cambio de estado",
+          "PED-03"
+        ],
+        [
+          "Presentar evidencia",
+          "REV-01",
+          "Secondary"
+        ],
+        [
+          "Abrir conversación",
+          "CHAT-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El acceso de membresía vencido conserva las acciones de este pedido aceptado.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.5",
+        "RF-05.3",
+        "RF-12.10"
+      ],
+      "key": "PED-02",
+      "channel": "mobile",
+      "nodeId": "73:2483",
+      "sectionId": "73:3425",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2483",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    },
+    {
+      "id": "MOB-PED-03",
+      "title": "Confirmar avance de producción",
+      "features": [
+        "F12"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Maker",
+      "kind": "dialog",
+      "description": "Revisá el cambio antes de registrarlo en el historial.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Estado actual",
+          "Versión consultada"
+        ],
+        [
+          "Acción",
+          "Transición permitida seleccionada"
+        ],
+        [
+          "Registro",
+          "Actor, fecha y motivo cuando corresponda"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar avance",
+          "PED-02"
+        ],
+        [
+          "Volver al pedido",
+          "PED-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Un cambio concurrente recupera el estado vigente y solicita revisar la acción.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.5",
+        "RF-05.3"
+      ],
+      "key": "PED-03",
+      "channel": "mobile",
+      "nodeId": "73:2570",
+      "sectionId": "73:3426",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2570",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    },
+    {
+      "id": "MOB-REV-03",
+      "title": "Presentar revisión al cliente",
+      "features": [
+        "F15",
+        "F23"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Maker",
+      "kind": "dialog",
+      "description": "Verificá los archivos y el comentario de la revisión que recibirá el cliente.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Revisión",
+          "Identificador de revisión vigente"
+        ],
+        [
+          "Evidencia",
+          "Fotos o videos habilitados y vinculados al pedido"
+        ],
+        [
+          "Comentario",
+          "Comentario del maker para esta revisión"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Presentar revisión",
+          "PED-02"
+        ],
+        [
+          "Volver a la evidencia",
+          "REV-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La presentación requiere que todos los archivos incluidos estén habilitados.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.1",
+        "RF-06.2",
+        "RF-10.2"
+      ],
+      "key": "REV-03",
+      "channel": "mobile",
+      "nodeId": "73:2595",
+      "sectionId": "73:3427",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2595",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar análisis pendiente por archivo, revisión cerrada y recuperación de una transferencia incompleta."
+    },
+    {
+      "id": "MOB-REV-04",
+      "title": "Confirmar aprobación",
+      "features": [
+        "F22",
+        "F16"
+      ],
+      "cu": [
+        "CU-05"
+      ],
+      "role": "Cliente",
+      "kind": "dialog",
+      "description": "La aprobación corresponde a la revisión que acabás de consultar.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Revisión",
+          "Versión de evidencia revisada"
+        ],
+        [
+          "Siguiente paso",
+          "Coordinar la entrega personal"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Aprobar esta revisión",
+          "ENT-01"
+        ],
+        [
+          "Seguir revisando",
+          "REV-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Una revisión reemplazada requiere consultar la evidencia vigente antes de decidir.",
+      "dependencies": [],
+      "rfs": [
+        "RF-06.3"
+      ],
+      "key": "REV-04",
+      "channel": "mobile",
+      "nodeId": "73:2620",
+      "sectionId": "73:3428",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2620",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+    },
+    {
+      "id": "MOB-REV-05",
+      "title": "Enviar observaciones",
+      "features": [
+        "F22"
+      ],
+      "cu": [
+        "CU-05"
+      ],
+      "role": "Cliente",
+      "kind": "dialog",
+      "description": "Confirmá las observaciones que recibirá el maker sobre esta revisión.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Revisión",
+          "Versión de evidencia revisada"
+        ]
+      ],
+      "fields": [
+        [
+          "Observaciones",
+          "Describí qué requiere revisión",
+          "Validación según la política de correcciones vigente.",
+          "textarea"
+        ]
+      ],
+      "actions": [
+        [
+          "Enviar observaciones",
+          "PED-01"
+        ],
+        [
+          "Volver a la revisión",
+          "REV-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Los plazos, límites de correcciones y escalamiento se definen en PD-07.",
+      "dependencies": [
+        "PD-07"
+      ],
+      "rfs": [
+        "RF-06.3",
+        "RF-06.4"
+      ],
+      "key": "REV-05",
+      "channel": "mobile",
+      "nodeId": "73:2642",
+      "sectionId": "73:3429",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2642",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+    },
+    {
+      "id": "MOB-ENT-03",
+      "title": "Confirmar coordinación",
+      "features": [
+        "F16"
+      ],
+      "cu": [
+        "CU-06"
+      ],
+      "role": "Participante",
+      "kind": "dialog",
+      "description": "Revisá el punto y el horario propuestos para la entrega personal.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024 · revisión aprobada"
+        ],
+        [
+          "Punto",
+          "Referencia acordada entre participantes"
+        ],
+        [
+          "Fecha y hora",
+          "Horario elegido y zona horaria explícita"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Registrar coordinación",
+          "ENT-02"
+        ],
+        [
+          "Editar coordinación",
+          "ENT-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La confirmación entre participantes y las modificaciones del acuerdo se rigen por PD-08.",
+      "dependencies": [
+        "PD-08"
+      ],
+      "rfs": [
+        "RF-06.6",
+        "RF-09.1"
+      ],
+      "key": "ENT-03",
+      "channel": "mobile",
+      "nodeId": "73:2672",
+      "sectionId": "73:3430",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2672",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Cerrar actores y reglas de acuerdo de PD-08; dibujar cambio de coordinación y alternativa textual del mapa."
+    },
+    {
+      "id": "MOB-ENT-04",
+      "title": "Recepción registrada",
+      "features": [
+        "F17",
+        "F19"
+      ],
+      "cu": [
+        "CU-06"
+      ],
+      "role": "Participante",
+      "kind": "page",
+      "description": "El pedido muestra el resultado verificado del mecanismo de recepción configurado.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Resultado",
+          "Recepción confirmada por el servidor"
+        ],
+        [
+          "Registro",
+          "Referencia, actor y fecha del cierre"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Ver historial del pedido",
+          "HIS-02"
+        ],
+        [
+          "Volver a mis pedidos",
+          "HIS-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Esta salida se alcanza después de completar el mecanismo acordado en PD-08. Mientras ese mecanismo esté pendiente de definición, la captura permanece bloqueada.",
+      "dependencies": [
+        "PD-08"
+      ],
+      "rfs": [
+        "RF-06.7"
+      ],
+      "key": "ENT-04",
+      "channel": "mobile",
+      "nodeId": "73:2694",
+      "sectionId": "73:3431",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2694",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Definir mecanismo de PD-08, completar captura y errores del mecanismo elegido; mantener la captura bloqueada mientras falte configuración."
+    },
+    {
+      "id": "MOB-MEM-04",
+      "title": "Mis compras de membresía",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-08",
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Consultá las compras de abono y su estado verificado.",
+      "rows": [
+        [
+          "Compra MBR-024",
+          "Pendiente de verificación · importe y moneda de la compra"
+        ],
+        [
+          "Compra MBR-023",
+          "Aprobada · período de acceso concedido"
+        ]
+      ],
+      "fields": [
+        [
+          "Estado",
+          "Todas las compras",
+          "Filtro por estado verificado.",
+          "select"
+        ]
+      ],
+      "actions": [
+        [
+          "Ver compra pendiente",
+          "MEM-03"
+        ],
+        [
+          "Ver compra aprobada",
+          "MEM-05",
+          "Secondary"
+        ],
+        [
+          "Renovar membresía",
+          "MEM-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La renovación es manual. El detalle conserva la versión del plan y las condiciones aceptadas.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.7",
+        "RF-12.9"
+      ],
+      "key": "MEM-04",
+      "channel": "mobile",
+      "nodeId": "73:2756",
+      "sectionId": "73:3432",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2756",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "MOB-MEM-05",
+      "title": "Membresía acreditada",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "El pago confirmado habilitó el período de acceso correspondiente.",
+      "rows": [
+        [
+          "Compra",
+          "MBR-023"
+        ],
+        [
+          "Pago",
+          "Aprobado y verificado"
+        ],
+        [
+          "Período",
+          "Inicio y vencimiento calculados por el servidor"
+        ],
+        [
+          "Plan",
+          "Versión y condiciones de la compra"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Ver mi membresía",
+          "MEM-01"
+        ],
+        [
+          "Ver mis compras",
+          "MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La acreditación se aplica una sola vez. La renovación conserva los días de acceso existentes.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.6",
+        "RF-12.8",
+        "RF-12.9"
+      ],
+      "key": "MEM-05",
+      "channel": "mobile",
+      "nodeId": "73:2830",
+      "sectionId": "73:3433",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2830",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "MOB-MEM-06",
+      "title": "Pago rechazado",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Consultá el resultado de la compra y elegí cómo continuar.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador de compra"
+        ],
+        [
+          "Estado",
+          "Rechazado según verificación del proveedor"
+        ],
+        [
+          "Acceso",
+          "Se conserva el estado de membresía previamente vigente"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Preparar un nuevo pago",
+          "MEM-02"
+        ],
+        [
+          "Ver mis compras",
+          "MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Un nuevo intento crea o recupera la operación según su clave de idempotencia y el resultado verificado.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.5",
+        "RF-12.6"
+      ],
+      "key": "MEM-06",
+      "channel": "mobile",
+      "nodeId": "73:2895",
+      "sectionId": "73:3434",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2895",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "MOB-MEM-07",
+      "title": "Checkout interrumpido",
+      "features": [
+        "F11"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "Recuperá el estado de la compra antes de iniciar otro pago.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador asociado al checkout"
+        ],
+        [
+          "Resultado",
+          "Interrupción o abandono del recorrido externo"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Consultar compra",
+          "MEM-03"
+        ],
+        [
+          "Volver a mi membresía",
+          "MEM-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El regreso del proveedor inicia la consulta del resultado verificado de la compra.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.5",
+        "RF-12.6"
+      ],
+      "key": "MEM-07",
+      "channel": "mobile",
+      "nodeId": "73:2957",
+      "sectionId": "73:3435",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2957",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "MOB-MEM-08",
+      "title": "Verificación demorada",
+      "features": [
+        "F11",
+        "F24"
+      ],
+      "cu": [
+        "CU-11"
+      ],
+      "role": "Maker",
+      "kind": "page",
+      "description": "La compra conserva su referencia mientras se recupera el resultado del proveedor.",
+      "rows": [
+        [
+          "Compra",
+          "Identificador de compra pendiente"
+        ],
+        [
+          "Última consulta",
+          "Fecha y hora del intento de verificación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Volver a consultar",
+          "MEM-03"
+        ],
+        [
+          "Ver mis compras",
+          "MEM-04",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El acceso se concede tras la confirmación válida del pago. La interfaz mantiene disponibles los pedidos previamente aceptados.",
+      "dependencies": [],
+      "rfs": [
+        "RF-12.6",
+        "RF-12.7"
+      ],
+      "key": "MEM-08",
+      "channel": "mobile",
+      "nodeId": "73:3016",
+      "sectionId": "73:3436",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3016",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+    },
+    {
+      "id": "MOB-ARC-01",
+      "title": "Detalle de archivo privado",
+      "features": [
+        "F23"
+      ],
+      "cu": [
+        "CU-01",
+        "CU-04"
+      ],
+      "role": "Participante autorizado",
+      "kind": "page",
+      "description": "Consultá el archivo dentro del recurso que autoriza su acceso.",
+      "rows": [
+        [
+          "Archivo",
+          "Nombre, tamaño y tipo verificados"
+        ],
+        [
+          "Finalidad",
+          "Solicitud, evidencia o adjunto de conversación"
+        ],
+        [
+          "Estado",
+          "Habilitado para el recurso autorizado"
+        ],
+        [
+          "Acceso",
+          "Permiso y enlace temporal vigentes"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Abrir o descargar archivo",
+          null
+        ],
+        [
+          "Solicitar retiro",
+          "ARC-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El enlace vencido solicita una nueva autorización. El retiro requiere propiedad y política de retención aplicable.",
+      "dependencies": [],
+      "blockedActions": [
+        "Abrir o descargar archivo"
+      ],
+      "rfs": [
+        "RF-10.3"
+      ],
+      "key": "ARC-01",
+      "channel": "mobile",
+      "nodeId": "73:3075",
+      "sectionId": "73:3437",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3075",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+    },
+    {
+      "id": "MOB-ARC-02",
+      "title": "Retirar archivo",
+      "features": [
+        "F23"
+      ],
+      "cu": [
+        "CU-01",
+        "CU-04"
+      ],
+      "role": "Propietario autorizado",
+      "kind": "dialog",
+      "description": "Revisá el efecto del retiro sobre el recurso vinculado.",
+      "rows": [
+        [
+          "Archivo",
+          "Archivo seleccionado"
+        ],
+        [
+          "Vinculación",
+          "Solicitud, evidencia o conversación autorizada"
+        ],
+        [
+          "Retención",
+          "Condición vigente aplicable al archivo"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Confirmar retiro",
+          "ARC-01",
+          "Disabled"
+        ],
+        [
+          "Conservar archivo",
+          "ARC-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La acción se habilita cuando el servidor confirma autorización y condiciones de retención.",
+      "dependencies": [
+        "Política de retiro y retención"
+      ],
+      "rfs": [
+        "RF-10.4"
+      ],
+      "key": "ARC-02",
+      "channel": "mobile",
+      "nodeId": "73:3140",
+      "sectionId": "73:3438",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3140",
+      "designStatus": "Confirmación dibujada",
+      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+    },
+    {
+      "id": "MOB-CHAT-02",
+      "title": "Mensaje pendiente de envío",
+      "features": [
+        "F13",
+        "F24"
+      ],
+      "cu": [
+        "CU-04"
+      ],
+      "role": "Participante",
+      "kind": "page",
+      "description": "Conservá el mensaje mientras se recupera la conexión.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Mensaje",
+          "Texto y adjuntos permitidos conservados en el dispositivo"
+        ],
+        [
+          "Estado",
+          "Envío fallido o pendiente de confirmación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Reintentar el mismo mensaje",
+          "CHAT-01"
+        ],
+        [
+          "Volver a la conversación",
+          "CHAT-01",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "El reintento mantiene el identificador del mensaje. La reconexión recupera el historial y descarta duplicados.",
+      "dependencies": [],
+      "rfs": [
+        "RF-05.2",
+        "RF-11.2"
+      ],
+      "key": "CHAT-02",
+      "channel": "mobile",
+      "nodeId": "73:3162",
+      "sectionId": "73:3439",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3162",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Completar carga de historial, adjunto rechazado, permiso revocado y reconexión con cursor vencido."
+    },
+    {
+      "id": "MOB-SOL-05",
+      "title": "Cómo se calculó la estimación",
+      "features": [
+        "F06"
+      ],
+      "cu": [
+        "CU-01"
+      ],
+      "role": "Cliente",
+      "kind": "page",
+      "description": "Consultá el rango orientativo y los supuestos de la solicitud vigente.",
+      "rows": [
+        [
+          "Rango e importe",
+          "Mínimo y máximo; moneda indicada por el cálculo"
+        ],
+        [
+          "Método",
+          "Identificador y versión del cálculo"
+        ],
+        [
+          "Entradas",
+          "Archivo, material, cantidad y unidad utilizados"
+        ],
+        [
+          "Supuestos",
+          "Condiciones consideradas por el método"
+        ],
+        [
+          "Versión de solicitud",
+          "Referencia exacta que originó la estimación"
+        ]
+      ],
+      "fields": [],
+      "actions": [
+        [
+          "Consultar ofertas de makers",
+          "OFE-01"
+        ],
+        [
+          "Volver a la solicitud",
+          "SOL-02",
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "Cuando el método o los datos sean insuficientes, se muestra esa condición y se permite continuar con ofertas. El método se define en PD-06.",
+      "dependencies": [
+        "PD-06"
+      ],
+      "rfs": [
+        "RF-02.5"
+      ],
+      "key": "SOL-05",
+      "channel": "mobile",
+      "nodeId": "73:3224",
+      "sectionId": "73:3440",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3224",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Cerrar método de PD-06 y dibujar rango disponible, datos insuficientes y cálculo invalidado por nueva versión."
+    },
+    {
+      "id": "MOB-HIS-02",
+      "title": "Historial del pedido",
+      "features": [
+        "F12",
+        "F19"
+      ],
+      "cu": [
+        "CU-04",
+        "CU-06"
+      ],
+      "role": "Participante autorizado",
+      "kind": "page",
+      "description": "Consultá los cambios y las referencias del pedido al que tenés acceso.",
+      "rows": [
+        [
+          "Pedido",
+          "ATQ-024"
+        ],
+        [
+          "Evento",
+          "Estado anterior y estado resultante"
+        ],
+        [
+          "Responsable",
+          "Actor autorizado y fecha del cambio"
+        ],
+        [
+          "Detalle",
+          "Motivo y referencia de la operación"
+        ]
+      ],
+      "fields": [
+        [
+          "Período",
+          "Elegir período",
+          "Zona horaria y límites de consulta explícitos.",
+          "select"
+        ]
+      ],
+      "actions": [
+        [
+          "Volver al pedido",
+          "PED-01"
+        ],
+        [
+          "Cargar eventos anteriores",
+          null,
+          "Secondary"
+        ]
+      ],
+      "channels": [
+        "web",
+        "mobile"
+      ],
+      "notice": "La consulta respeta los permisos del participante y la política de retención.",
+      "dependencies": [],
+      "blockedActions": [
+        "Cargar eventos anteriores"
+      ],
+      "rfs": [
+        "RF-02.4",
+        "RF-05.3"
+      ],
+      "key": "HIS-02",
+      "channel": "mobile",
+      "nodeId": "73:3292",
+      "sectionId": "73:3441",
+      "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3292",
+      "designStatus": "Composición dibujada",
+      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    }
+  ]
+}

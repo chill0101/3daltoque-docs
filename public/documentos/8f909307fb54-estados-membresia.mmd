@@ -1,0 +1,26 @@
+stateDiagram-v2
+  direction TB
+  state "Sin beneficio iniciado" as sin_inicio
+  state "Prueba general" as prueba_general
+  state "Prueba de fundador" as prueba_fundador
+  state "Acceso pago vigente" as pago_vigente
+  state "Vencido" as vencido
+  [*] --> sin_inicio
+  sin_inicio --> prueba_general: Primera habilitación / 30 días configurables
+  sin_inicio --> prueba_fundador: Programa y cupo válidos / 90 días totales configurables
+  prueba_general --> vencido: Fin del intervalo gratuito sin período siguiente
+  prueba_fundador --> vencido: Fin del intervalo gratuito sin período siguiente
+  prueba_general --> pago_vigente: Comienza período pago verificado
+  prueba_fundador --> pago_vigente: Comienza período pago verificado
+  pago_vigente --> pago_vigente: Continúa una renovación concedida
+  pago_vigente --> vencido: Fin del acceso sin período siguiente
+  vencido --> pago_vigente: Compra verificada concede acceso efectivo
+  note right of prueba_fundador
+    Un único beneficio inicial por maker.
+    Cupo y asignación auditados.
+  end note
+  note right of vencido
+    No se aceptan trabajos nuevos.
+    Se pueden terminar los pedidos existentes.
+    No se ejecutan cargos automáticos.
+  end note

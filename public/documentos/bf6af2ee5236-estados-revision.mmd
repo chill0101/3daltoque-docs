@@ -1,0 +1,15 @@
+stateDiagram-v2
+  direction LR
+  state "En preparación" as preparacion
+  state "Pendiente" as pendiente
+  state "Observada" as observada
+  state "Aprobada" as aprobada
+  [*] --> preparacion
+  preparacion --> pendiente: Presentar evidencia habilitada
+  pendiente --> observada: Decisión expresa con observación
+  pendiente --> aprobada: Aprobación expresa del cliente
+  note right of pendiente
+    Se identifica exactamente lo presentado.
+    Una corrección crea una nueva revisión.
+    Recordatorios y silencio no aprueban.
+  end note

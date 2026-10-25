@@ -1,0 +1,23 @@
+sequenceDiagram
+  actor Maker
+  participant API as API FastAPI
+  participant DB as Persistencia
+  participant MP as Mercado Pago Checkout Pro
+  Maker->>API: Comprar o renovar el plan manualmente
+  API->>DB: Conservar plan, importe, moneda y compra idempotente
+  API->>MP: Crear checkout del abono con cuenta propia
+  MP-->>API: Referencia y enlace de pago
+  API-->>Maker: Abrir checkout
+  Maker->>MP: Pagar nuestro servicio
+  MP->>API: Notificación del resultado
+  API->>API: Verificar firma y contexto
+  API->>DB: Persistir notificación válida
+  API-->>MP: Acuse de recepción
+  API->>MP: Consultar recurso y verificar cuenta, entorno e importe
+  MP-->>API: Resultado del pago
+  API->>DB: Transacción: registrar resultado y conceder una vez por compra
+  DB-->>API: Período guardado o estado pendiente
+  Maker->>API: Consultar vigencia
+  API-->>Maker: Fechas y condición real o simulada
+  Note over API,DB: Webhooks repetidos no suman períodos
+  Note over Maker,MP: Renovación manual del abono propio
