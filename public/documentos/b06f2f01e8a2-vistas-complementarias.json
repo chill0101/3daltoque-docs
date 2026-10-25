@@ -1,16 +1,18 @@
 {
-  "version": "1.0.0",
-  "date": "2026-10-23",
+  "version": "2.0",
+  "date": "2026-10-25",
   "source": "RF vigentes, CU-01 a CU-13 y specs F01 a F24",
   "counts": {
-    "features": 24,
-    "rfs": 54,
+    "features": 25,
+    "rfs": 68,
     "baseViews": 55,
     "additionalViews": 55,
     "totalViews": 110,
     "web": 60,
     "mobile": 50,
-    "sharedRecoveryViews": 26
+    "sharedRecoveryViews": 26,
+    "documentedAdditionalViews": 12,
+    "documentedTotalViews": 122
   },
   "features": [
     {
@@ -35,21 +37,54 @@
         "RF-01.4",
         "RF-01.5"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-08",
         "RNF-12",
         "RNF-17"
       ],
-      "cases": "CU-13",
-      "represented": "Registro, acceso y cierre de sesión con confirmación.",
-      "pending": "Completar composiciones específicas de cuenta bloqueada, sesión vencida durante un comando y validación por campo.",
+      "cases": [
+        "CU-13"
+      ],
+      "tables": [
+        "usuarios",
+        "usuario_roles",
+        "sesiones"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/auth/registro"
+        },
+        {
+          "method": "POST",
+          "route": "/auth/sesion"
+        },
+        {
+          "method": "DELETE",
+          "route": "/auth/sesion"
+        }
+      ],
+      "pds": [
+        "PD-01",
+        "PD-12",
+        "PD-13"
+      ],
+      "tests": [
+        "CP-RF-01-1-01",
+        "CP-RF-01-1-02",
+        "CP-RF-01-4-01",
+        "CP-RF-01-4-02",
+        "CP-RF-01-5-01",
+        "CP-RF-01-5-02"
+      ],
       "additionalViews": [
         "WEB-AUTH-03",
         "MOB-AUTH-03"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F02",
@@ -70,7 +105,7 @@
         "RF-01.3",
         "RF-09.1"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-08",
@@ -78,11 +113,37 @@
         "RNF-12",
         "RNF-17"
       ],
-      "cases": "CU-13, CU-01",
-      "represented": "Contacto, ubicación confirmada y alternativa de ingreso manual.",
-      "pending": "Dibujar conflicto de edición del perfil y recuperación del formulario ante pérdida de conexión.",
+      "cases": [
+        "CU-22"
+      ],
+      "tables": [
+        "clientes",
+        "ubicaciones"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/clientes/me"
+        },
+        {
+          "method": "PATCH",
+          "route": "/clientes/me"
+        }
+      ],
+      "pds": [
+        "PD-01",
+        "PD-04",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-01-3-01",
+        "CP-RF-01-3-02",
+        "CP-RF-09-1-01",
+        "CP-RF-09-1-02"
+      ],
       "additionalViews": [],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F03",
@@ -90,7 +151,9 @@
       "file": "f03-gestion-de-perfil-de-maker.md",
       "screens": [
         "WEB-MKR-01",
-        "MOB-MKR-01"
+        "MOB-MKR-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
       ],
       "components": [
         "DS03",
@@ -104,7 +167,7 @@
         "RF-01.2",
         "RF-12.2"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -112,14 +175,60 @@
         "RNF-13",
         "RNF-17"
       ],
-      "cases": "CU-09",
-      "represented": "Capacidades y revisión de habilitación con beneficio inicial.",
-      "pending": "Desglosar edición de impresoras y disponibilidad; cerrar criterios de perfil habilitable de PD-01.",
+      "cases": [
+        "CU-09",
+        "CU-21"
+      ],
+      "tables": [
+        "makers",
+        "impresoras",
+        "materiales",
+        "capacidades_impresora"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/makers/{id}"
+        },
+        {
+          "method": "PATCH",
+          "route": "/makers/me"
+        },
+        {
+          "method": "POST",
+          "route": "/makers/me/impresoras"
+        },
+        {
+          "method": "PATCH",
+          "route": "/makers/me/impresoras/{id}"
+        },
+        {
+          "method": "PUT",
+          "route": "/makers/me/impresoras/{id}/capacidades"
+        },
+        {
+          "method": "POST",
+          "route": "/makers/me/habilitacion"
+        }
+      ],
+      "pds": [
+        "PD-01",
+        "PD-02",
+        "PD-04"
+      ],
+      "tests": [
+        "CP-RF-01-2-01",
+        "CP-RF-01-2-02",
+        "CP-RF-12-2-01",
+        "CP-RF-12-2-02",
+        "CP-MEM-01"
+      ],
       "additionalViews": [
         "WEB-MKR-05",
         "MOB-MKR-05"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F04",
@@ -127,7 +236,9 @@
       "file": "f04-portfolio-del-maker.md",
       "screens": [
         "WEB-MKR-02",
-        "MOB-MKR-02"
+        "MOB-MKR-02",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
       ],
       "components": [
         "DS01",
@@ -136,8 +247,11 @@
         "DS26",
         "DS31"
       ],
-      "rfs": [],
-      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rfs": [
+        "RF-14.1",
+        "RF-14.2"
+      ],
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-08",
@@ -145,11 +259,47 @@
         "RNF-12",
         "RNF-16"
       ],
-      "cases": "Pendiente",
-      "represented": "Portfolio incluido como propuesta complementaria.",
-      "pending": "Definir alcance v1, RF/CU, visibilidad y moderación; completar edición, retiro y consulta pública según esa decisión.",
+      "cases": [
+        "CU-15"
+      ],
+      "tables": [
+        "portfolio_trabajos",
+        "portfolio_archivos",
+        "archivos"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/makers/{id}/portfolio"
+        },
+        {
+          "method": "POST",
+          "route": "/makers/me/portfolio"
+        },
+        {
+          "method": "PATCH",
+          "route": "/makers/me/portfolio/{id}"
+        },
+        {
+          "method": "DELETE",
+          "route": "/makers/me/portfolio/{id}"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-12",
+        "PD-14"
+      ],
+      "tests": [
+        "CP-RF-14-1-01",
+        "CP-RF-14-1-02",
+        "CP-RF-14-2-01",
+        "CP-RF-14-2-02",
+        "CP-X-12"
+      ],
       "additionalViews": [],
-      "closure": "Definición funcional pendiente"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F05",
@@ -172,7 +322,7 @@
         "RF-02.2",
         "RF-02.3"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -180,16 +330,50 @@
         "RNF-12",
         "RNF-16"
       ],
-      "cases": "CU-01",
-      "represented": "Carga, parámetros, revisión con ubicación y resultado del envío.",
-      "pending": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador.",
+      "cases": [
+        "CU-01"
+      ],
+      "tables": [
+        "solicitudes",
+        "solicitud_versiones",
+        "archivos",
+        "analisis_archivos"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/solicitudes"
+        },
+        {
+          "method": "PATCH",
+          "route": "/solicitudes/{id}"
+        },
+        {
+          "method": "POST",
+          "route": "/solicitudes/{id}/enviar"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-04",
+        "PD-05"
+      ],
+      "tests": [
+        "CP-RF-02-1-01",
+        "CP-RF-02-1-02",
+        "CP-RF-02-2-01",
+        "CP-RF-02-2-02",
+        "CP-RF-02-3-01",
+        "CP-RF-02-3-02"
+      ],
       "additionalViews": [
         "WEB-SOL-03",
         "WEB-SOL-04",
         "MOB-SOL-03",
         "MOB-SOL-04"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F06",
@@ -212,21 +396,42 @@
       "rfs": [
         "RF-02.5"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-07",
         "RNF-08",
         "RNF-15",
         "RNF-16"
       ],
-      "cases": "CU-01",
-      "represented": "Detalle de estimación con rango, entradas, método y supuestos.",
-      "pending": "Cerrar método de PD-06 y dibujar rango disponible, datos insuficientes y cálculo invalidado por nueva versión.",
+      "cases": [
+        "CU-01"
+      ],
+      "tables": [
+        "estimaciones",
+        "analisis_archivos",
+        "configuraciones_versiones"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/solicitudes/{id}/estimacion"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-03",
+        "PD-11"
+      ],
+      "tests": [
+        "CP-RF-02-5-01",
+        "CP-RF-02-5-02"
+      ],
       "additionalViews": [
         "WEB-SOL-05",
         "MOB-SOL-05"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F07",
@@ -248,7 +453,7 @@
         "RF-09.2",
         "RF-03.1"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-02",
         "RNF-04",
@@ -256,14 +461,39 @@
         "RNF-15",
         "RNF-17"
       ],
-      "cases": "CU-01",
-      "represented": "Búsqueda, mapa/lista, filtros y referencia confirmada.",
-      "pending": "Completar permiso de ubicación denegado, mapa indisponible y ampliación permitida del radio ante resultados vacíos.",
+      "cases": [
+        "CU-01"
+      ],
+      "tables": [
+        "ubicaciones",
+        "makers",
+        "capacidades_impresora"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/makers"
+        }
+      ],
+      "pds": [
+        "PD-04",
+        "PD-11",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-03-1-01",
+        "CP-RF-03-1-02",
+        "CP-RF-09-1-01",
+        "CP-RF-09-1-02",
+        "CP-RF-09-2-01",
+        "CP-RF-09-2-02"
+      ],
       "additionalViews": [
         "WEB-SOL-03",
         "MOB-SOL-03"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F08",
@@ -285,23 +515,56 @@
         "RF-03.2",
         "RF-12.10"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-02",
         "RNF-03",
         "RNF-05",
         "RNF-06"
       ],
-      "cases": "CU-01, CU-02",
-      "represented": "Ronda de envío y detalle de invitación con elegibilidad.",
-      "pending": "Dibujar ronda con candidatos insuficientes, invitación cerrada y aviso externo fallido; cerrar política versionada de matching.",
+      "cases": [
+        "CU-01",
+        "CU-02"
+      ],
+      "tables": [
+        "rondas_busqueda",
+        "invitaciones_maker",
+        "membresias_maker",
+        "periodos_membresia"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/makers/me/invitaciones"
+        },
+        {
+          "method": "GET",
+          "route": "/invitaciones/{id}"
+        }
+      ],
+      "pds": [
+        "PD-04",
+        "PD-05",
+        "PD-11"
+      ],
+      "tests": [
+        "CP-RF-03-1-01",
+        "CP-RF-03-1-02",
+        "CP-RF-03-2-01",
+        "CP-RF-03-2-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02",
+        "CP-MEM-08",
+        "CP-X-04"
+      ],
       "additionalViews": [
         "WEB-SOL-04",
         "WEB-MKR-06",
         "MOB-SOL-04",
         "MOB-MKR-06"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F09",
@@ -324,18 +587,68 @@
         "RF-04.1",
         "RF-04.2",
         "RF-04.3",
-        "RF-04.5"
+        "RF-04.5",
+        "RF-04.6"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
         "RNF-06",
         "RNF-08"
       ],
-      "cases": "CU-02, CU-03",
-      "represented": "Invitación, rechazo, cotización, comparación y oferta actualizada.",
-      "pending": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05.",
+      "cases": [
+        "CU-02",
+        "CU-03",
+        "CU-25"
+      ],
+      "tables": [
+        "ofertas",
+        "oferta_versiones",
+        "propuestas_cambio_oferta"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/invitaciones/{id}/rechazo"
+        },
+        {
+          "method": "GET",
+          "route": "/solicitudes/{id}/ofertas"
+        },
+        {
+          "method": "POST",
+          "route": "/solicitudes/{id}/ofertas"
+        },
+        {
+          "method": "POST",
+          "route": "/ofertas/{id}/versiones"
+        },
+        {
+          "method": "POST",
+          "route": "/ofertas/{id}/propuestas-cambio"
+        },
+        {
+          "method": "POST",
+          "route": "/propuestas-cambio/{id}/resolucion"
+        }
+      ],
+      "pds": [
+        "PD-05"
+      ],
+      "tests": [
+        "CP-RF-04-1-01",
+        "CP-RF-04-1-02",
+        "CP-RF-04-2-01",
+        "CP-RF-04-2-02",
+        "CP-RF-04-3-01",
+        "CP-RF-04-3-02",
+        "CP-RF-04-5-01",
+        "CP-RF-04-5-02",
+        "CP-RF-04-6-01",
+        "CP-RF-04-6-02",
+        "CP-X-08"
+      ],
       "additionalViews": [
         "WEB-MKR-06",
         "WEB-MKR-07",
@@ -344,7 +657,8 @@
         "MOB-MKR-07",
         "MOB-OFE-04"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F10",
@@ -368,21 +682,52 @@
         "RF-12.10",
         "RF-12.15"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
         "RNF-06",
         "RNF-15"
       ],
-      "cases": "CU-03",
-      "represented": "Resumen de versión, confirmación y revisión de condiciones actualizadas.",
-      "pending": "Dibujar aceptación concurrente y resultado incierto con recuperación del pedido confirmado.",
+      "cases": [
+        "CU-03",
+        "CU-20"
+      ],
+      "tables": [
+        "pedidos",
+        "condiciones_pedido",
+        "solicitudes",
+        "oferta_versiones"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/ofertas/{id}/aceptar"
+        }
+      ],
+      "pds": [
+        "PD-05",
+        "PD-10"
+      ],
+      "tests": [
+        "CP-RF-04-4-01",
+        "CP-RF-04-4-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02",
+        "CP-RF-12-15-01",
+        "CP-RF-12-15-02",
+        "CP-MEM-08",
+        "CP-MEM-12",
+        "CP-X-01",
+        "CP-X-04",
+        "CP-X-08"
+      ],
       "additionalViews": [
         "WEB-OFE-04",
         "MOB-OFE-04"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F11",
@@ -425,7 +770,7 @@
         "RF-12.14",
         "RF-12.15"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -437,9 +782,121 @@
         "RNF-17",
         "RNF-19"
       ],
-      "cases": "CU-08, CU-09, CU-10, CU-11, CU-12",
-      "represented": "Membresía, compras y resultados de pago; formularios administrativos de beneficios y conciliación.",
-      "pending": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10.",
+      "cases": [
+        "CU-08",
+        "CU-09",
+        "CU-10",
+        "CU-11",
+        "CU-12"
+      ],
+      "tables": [
+        "planes_membresia_versiones",
+        "membresias_maker",
+        "compras_membresia",
+        "periodos_membresia",
+        "pagos",
+        "eventos_proveedor"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/planes/membresia"
+        },
+        {
+          "method": "GET",
+          "route": "/makers/me/membresia"
+        },
+        {
+          "method": "GET",
+          "route": "/makers/me/membresia/compras"
+        },
+        {
+          "method": "POST",
+          "route": "/makers/me/membresia/compras"
+        },
+        {
+          "method": "POST",
+          "route": "/compras-membresia/{id}/checkout"
+        },
+        {
+          "method": "GET",
+          "route": "/compras-membresia/{id}"
+        },
+        {
+          "method": "POST",
+          "route": "/webhooks/mercadopago"
+        },
+        {
+          "method": "POST",
+          "route": "/admin/compras-membresia/{id}/conciliacion"
+        },
+        {
+          "method": "POST",
+          "route": "/admin/compras-membresia/{id}/devoluciones"
+        },
+        {
+          "method": "PATCH",
+          "route": "/admin/configuracion/membresia"
+        },
+        {
+          "method": "POST",
+          "route": "/admin/makers/{id}/fundador"
+        }
+      ],
+      "pds": [
+        "PD-01",
+        "PD-09",
+        "PD-10",
+        "PD-15"
+      ],
+      "tests": [
+        "CP-RF-12-1-01",
+        "CP-RF-12-1-02",
+        "CP-RF-12-2-01",
+        "CP-RF-12-2-02",
+        "CP-RF-12-3-01",
+        "CP-RF-12-3-02",
+        "CP-RF-12-4-01",
+        "CP-RF-12-4-02",
+        "CP-RF-12-5-01",
+        "CP-RF-12-5-02",
+        "CP-RF-12-6-01",
+        "CP-RF-12-6-02",
+        "CP-RF-12-7-01",
+        "CP-RF-12-7-02",
+        "CP-RF-12-8-01",
+        "CP-RF-12-8-02",
+        "CP-RF-12-9-01",
+        "CP-RF-12-9-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02",
+        "CP-RF-12-11-01",
+        "CP-RF-12-11-02",
+        "CP-RF-12-12-01",
+        "CP-RF-12-12-02",
+        "CP-RF-12-13-01",
+        "CP-RF-12-13-02",
+        "CP-RF-12-14-01",
+        "CP-RF-12-14-02",
+        "CP-RF-12-15-01",
+        "CP-RF-12-15-02",
+        "CP-MEM-01",
+        "CP-MEM-02",
+        "CP-MEM-03",
+        "CP-MEM-04",
+        "CP-MEM-05",
+        "CP-MEM-06",
+        "CP-MEM-07",
+        "CP-MEM-08",
+        "CP-MEM-09",
+        "CP-MEM-10",
+        "CP-MEM-11",
+        "CP-MEM-12",
+        "CP-X-04",
+        "CP-X-05",
+        "CP-X-10",
+        "CP-X-11"
+      ],
       "additionalViews": [
         "WEB-MKR-05",
         "WEB-MEM-04",
@@ -460,7 +917,8 @@
         "MOB-MEM-07",
         "MOB-MEM-08"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F12",
@@ -485,16 +943,55 @@
         "RF-06.5",
         "RF-12.10"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
         "RNF-06",
         "RNF-08"
       ],
-      "cases": "CU-04",
-      "represented": "Pedido del maker, acción de producción, confirmación e historial.",
-      "pending": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión.",
+      "cases": [
+        "CU-04",
+        "CU-05",
+        "CU-06"
+      ],
+      "tables": [
+        "pedidos",
+        "historial_pedidos",
+        "revisiones_resultado"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/makers/me/cola"
+        },
+        {
+          "method": "GET",
+          "route": "/pedidos/{id}"
+        },
+        {
+          "method": "POST",
+          "route": "/pedidos/{id}/transiciones"
+        }
+      ],
+      "pds": [
+        "PD-04",
+        "PD-05",
+        "PD-07",
+        "PD-08"
+      ],
+      "tests": [
+        "CP-RF-02-4-01",
+        "CP-RF-02-4-02",
+        "CP-RF-05-3-01",
+        "CP-RF-05-3-02",
+        "CP-RF-06-5-01",
+        "CP-RF-06-5-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02",
+        "CP-MEM-08",
+        "CP-X-04"
+      ],
       "additionalViews": [
         "WEB-PED-02",
         "WEB-PED-03",
@@ -503,7 +1000,8 @@
         "MOB-PED-03",
         "MOB-HIS-02"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F13",
@@ -524,9 +1022,10 @@
         "RF-05.1",
         "RF-05.2",
         "RF-11.2",
-        "RF-12.10"
+        "RF-12.10",
+        "RF-05.4"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -536,16 +1035,64 @@
         "RNF-17",
         "RNF-19"
       ],
-      "cases": "CU-04",
-      "represented": "Conversación y recuperación de un mensaje fallido conservando su identificador.",
-      "pending": "Completar carga de historial, adjunto rechazado, permiso revocado y reconexión con cursor vencido.",
+      "cases": [
+        "CU-14",
+        "CU-03",
+        "CU-20"
+      ],
+      "tables": [
+        "conversaciones",
+        "participantes_conversacion",
+        "mensajes",
+        "mensaje_archivos"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/conversaciones"
+        },
+        {
+          "method": "GET",
+          "route": "/pedidos/{id}/conversacion"
+        },
+        {
+          "method": "GET",
+          "route": "/conversaciones/{id}/mensajes"
+        },
+        {
+          "method": "POST",
+          "route": "/conversaciones/{id}/mensajes"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-06",
+        "PD-11",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-05-1-01",
+        "CP-RF-05-1-02",
+        "CP-RF-05-2-01",
+        "CP-RF-05-2-02",
+        "CP-RF-05-4-01",
+        "CP-RF-05-4-02",
+        "CP-RF-11-2-01",
+        "CP-RF-11-2-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02",
+        "CP-MEM-08",
+        "CP-X-04",
+        "CP-X-06"
+      ],
       "additionalViews": [
         "WEB-PED-02",
         "WEB-CHAT-02",
         "MOB-PED-02",
         "MOB-CHAT-02"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F14",
@@ -566,9 +1113,10 @@
         "RF-07.1",
         "RF-07.3",
         "RF-07.4",
-        "RF-12.11"
+        "RF-12.11",
+        "RF-07.5"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-06",
@@ -576,14 +1124,48 @@
         "RNF-15",
         "RNF-16"
       ],
-      "cases": "CU-04, CU-05, CU-08",
-      "represented": "Bandeja y acceso al recurso del evento.",
-      "pending": "Completar leído/pendiente, destino cerrado o sin permiso y preferencias de canales cuando su política esté definida.",
+      "cases": [
+        "CU-23"
+      ],
+      "tables": [
+        "notificaciones",
+        "envios_notificacion",
+        "eventos_salida"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/notificaciones"
+        },
+        {
+          "method": "PATCH",
+          "route": "/notificaciones/{id}"
+        }
+      ],
+      "pds": [
+        "PD-07",
+        "PD-10",
+        "PD-11",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-07-1-01",
+        "CP-RF-07-1-02",
+        "CP-RF-07-3-01",
+        "CP-RF-07-3-02",
+        "CP-RF-07-4-01",
+        "CP-RF-07-4-02",
+        "CP-RF-07-5-01",
+        "CP-RF-07-5-02",
+        "CP-RF-12-11-01",
+        "CP-RF-12-11-02"
+      ],
       "additionalViews": [
         "WEB-SOL-04",
         "MOB-SOL-04"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F15",
@@ -603,7 +1185,7 @@
         "RF-06.1",
         "RF-06.2"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -611,16 +1193,43 @@
         "RNF-11",
         "RNF-16"
       ],
-      "cases": "CU-04",
-      "represented": "Carga de fotos/videos y confirmación de presentación de la revisión.",
-      "pending": "Completar análisis pendiente por archivo, revisión cerrada y recuperación de una transferencia incompleta.",
+      "cases": [
+        "CU-04"
+      ],
+      "tables": [
+        "revisiones_resultado",
+        "evidencias",
+        "archivos"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/pedidos/{id}/evidencias"
+        },
+        {
+          "method": "POST",
+          "route": "/revisiones/{id}/presentar"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-07",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-06-1-01",
+        "CP-RF-06-1-02",
+        "CP-RF-06-2-01",
+        "CP-RF-06-2-02"
+      ],
       "additionalViews": [
         "WEB-PED-02",
         "WEB-REV-03",
         "MOB-PED-02",
         "MOB-REV-03"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F16",
@@ -641,7 +1250,7 @@
         "RF-09.1",
         "RF-09.2"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -649,16 +1258,45 @@
         "RNF-12",
         "RNF-17"
       ],
-      "cases": "CU-06",
-      "represented": "Punto, horario, zona horaria y confirmación del acuerdo.",
-      "pending": "Cerrar actores y reglas de acuerdo de PD-08; dibujar cambio de coordinación y alternativa textual del mapa.",
+      "cases": [
+        "CU-06"
+      ],
+      "tables": [
+        "entregas",
+        "puntos_encuentro",
+        "ubicaciones"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/pedidos/{id}/entrega"
+        },
+        {
+          "method": "POST",
+          "route": "/entregas/{id}/acuerdo"
+        }
+      ],
+      "pds": [
+        "PD-04",
+        "PD-08",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-06-6-01",
+        "CP-RF-06-6-02",
+        "CP-RF-09-1-01",
+        "CP-RF-09-1-02",
+        "CP-RF-09-2-01",
+        "CP-RF-09-2-02"
+      ],
       "additionalViews": [
         "WEB-REV-04",
         "WEB-ENT-03",
         "MOB-REV-04",
         "MOB-ENT-03"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F17",
@@ -677,21 +1315,41 @@
       "rfs": [
         "RF-06.7"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
         "RNF-06",
         "RNF-08"
       ],
-      "cases": "CU-06",
-      "represented": "Resumen de recepción y salida de cierre verificado.",
-      "pending": "Definir mecanismo de PD-08, completar captura y errores del mecanismo elegido; mantener la captura bloqueada mientras falte configuración.",
+      "cases": [
+        "CU-06"
+      ],
+      "tables": [
+        "confirmaciones_entrega",
+        "entregas",
+        "pedidos"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/entregas/{id}/completar"
+        }
+      ],
+      "pds": [
+        "PD-08"
+      ],
+      "tests": [
+        "CP-RF-06-7-01",
+        "CP-RF-06-7-02",
+        "CP-X-07"
+      ],
       "additionalViews": [
         "WEB-ENT-04",
         "MOB-ENT-04"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F18",
@@ -699,7 +1357,9 @@
       "file": "f18-reputacion-bidireccional.md",
       "screens": [
         "WEB-REP-01",
-        "MOB-REP-01"
+        "MOB-REP-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
       ],
       "components": [
         "DS03",
@@ -707,8 +1367,12 @@
         "DS09",
         "DS39"
       ],
-      "rfs": [],
-      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rfs": [
+        "RF-15.1",
+        "RF-15.2",
+        "RF-15.3"
+      ],
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -716,11 +1380,47 @@
         "RNF-08",
         "RNF-12"
       ],
-      "cases": "Pendiente",
-      "represented": "Vista de valoración conservada con captura bloqueada ante escala sin configurar.",
-      "pending": "Definir RF/CU, escala, elegibilidad, unicidad y moderación; completar estados de publicación según esas reglas.",
+      "cases": [
+        "CU-16"
+      ],
+      "tables": [
+        "valoraciones",
+        "valoracion_criterios",
+        "configuraciones_versiones"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/pedidos/{id}/valoraciones"
+        },
+        {
+          "method": "GET",
+          "route": "/makers/{id}/reputacion"
+        },
+        {
+          "method": "GET",
+          "route": "/pedidos/{id}/valoraciones"
+        },
+        {
+          "method": "POST",
+          "route": "/admin/valoraciones/{id}/moderacion"
+        }
+      ],
+      "pds": [
+        "PD-12",
+        "PD-14"
+      ],
+      "tests": [
+        "CP-RF-15-1-01",
+        "CP-RF-15-1-02",
+        "CP-RF-15-2-01",
+        "CP-RF-15-2-02",
+        "CP-RF-15-3-01",
+        "CP-RF-15-3-02"
+      ],
       "additionalViews": [],
-      "closure": "Definición funcional pendiente"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F19",
@@ -739,25 +1439,50 @@
       ],
       "rfs": [
         "RF-02.4",
-        "RF-05.3"
+        "RF-05.3",
+        "RF-16.1"
       ],
-      "stage": "Cobertura parcial; completar la consulta consolidada.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-06",
         "RNF-08",
         "RNF-11"
       ],
-      "cases": "CU-04, CU-06",
-      "represented": "Listado, filtros y consulta del historial de cambios del pedido.",
-      "pending": "Completar paginación/cursor, retención y consulta consolidada; ampliar trazabilidad de origen de F19.",
+      "cases": [
+        "CU-17"
+      ],
+      "tables": [
+        "pedidos",
+        "historial_pedidos",
+        "condiciones_pedido"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/pedidos"
+        }
+      ],
+      "pds": [
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-02-4-01",
+        "CP-RF-02-4-02",
+        "CP-RF-05-3-01",
+        "CP-RF-05-3-02",
+        "CP-RF-16-1-01",
+        "CP-RF-16-1-02",
+        "CP-X-06"
+      ],
       "additionalViews": [
         "WEB-ENT-04",
         "WEB-HIS-02",
         "MOB-ENT-04",
         "MOB-HIS-02"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F20",
@@ -781,18 +1506,78 @@
         "RF-12.3",
         "RF-12.7",
         "RF-12.12",
-        "RF-12.13"
+        "RF-12.13",
+        "RF-13.2",
+        "RF-14.1",
+        "RF-15.3",
+        "RF-17.1"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
         "RNF-06",
         "RNF-13"
       ],
-      "cases": "CU-07, CU-10, CU-12",
-      "represented": "Soporte, plan, beneficios, compras y auditoría con capacidades administrativas.",
-      "pending": "Completar confirmación y resultado de cada intervención sensible; cerrar permisos finos, devoluciones y conflictos de configuración.",
+      "cases": [
+        "CU-07",
+        "CU-10",
+        "CU-12",
+        "CU-18",
+        "CU-19"
+      ],
+      "tables": [
+        "casos_soporte",
+        "auditoria",
+        "configuraciones_versiones"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/admin/casos"
+        },
+        {
+          "method": "POST",
+          "route": "/admin/casos/{id}/intervenciones"
+        },
+        {
+          "method": "POST",
+          "route": "/admin/publicaciones/{tipo}/{id}/moderacion"
+        }
+      ],
+      "pds": [
+        "PD-09",
+        "PD-10",
+        "PD-12",
+        "PD-14"
+      ],
+      "tests": [
+        "CP-RF-07-2-01",
+        "CP-RF-07-2-02",
+        "CP-RF-12-1-01",
+        "CP-RF-12-1-02",
+        "CP-RF-12-3-01",
+        "CP-RF-12-3-02",
+        "CP-RF-12-7-01",
+        "CP-RF-12-7-02",
+        "CP-RF-12-12-01",
+        "CP-RF-12-12-02",
+        "CP-RF-12-13-01",
+        "CP-RF-12-13-02",
+        "CP-RF-13-2-01",
+        "CP-RF-13-2-02",
+        "CP-RF-14-1-01",
+        "CP-RF-14-1-02",
+        "CP-RF-15-3-01",
+        "CP-RF-15-3-02",
+        "CP-RF-17-1-01",
+        "CP-RF-17-1-02",
+        "CP-MEM-02",
+        "CP-MEM-03",
+        "CP-MEM-10",
+        "CP-MEM-11",
+        "CP-X-10"
+      ],
       "additionalViews": [
         "WEB-ADM-MEM-02",
         "WEB-ADM-MEM-03",
@@ -802,7 +1587,8 @@
         "WEB-ADM-03",
         "WEB-ADM-04"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F21",
@@ -818,19 +1604,43 @@
         "DS36",
         "DS40"
       ],
-      "rfs": [],
-      "stage": "Propuesta complementaria; completar RF y CU de origen.",
+      "rfs": [
+        "RF-17.1"
+      ],
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-06",
         "RNF-08",
         "RNF-11"
       ],
-      "cases": "Pendiente",
-      "represented": "Reporte de actividad conservado como propuesta complementaria.",
-      "pending": "Definir RF/CU, fórmulas, fuentes, períodos e indicadores; completar detalle y ausencia de datos según esas definiciones.",
+      "cases": [
+        "CU-18"
+      ],
+      "tables": [
+        "usuarios",
+        "makers",
+        "pedidos",
+        "historial_pedidos",
+        "valoraciones"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/admin/reportes/actividad"
+        }
+      ],
+      "pds": [
+        "PD-13",
+        "PD-14"
+      ],
+      "tests": [
+        "CP-RF-17-1-01",
+        "CP-RF-17-1-02"
+      ],
       "additionalViews": [],
-      "closure": "Definición funcional pendiente"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F22",
@@ -851,23 +1661,44 @@
         "RF-06.3",
         "RF-06.4"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
         "RNF-06",
         "RNF-08"
       ],
-      "cases": "CU-05",
-      "represented": "Evidencia, aprobación expresa y confirmación de observaciones de una revisión exacta.",
-      "pending": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada.",
+      "cases": [
+        "CU-05"
+      ],
+      "tables": [
+        "decisiones_revision",
+        "revisiones_resultado"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/revisiones/{id}/decisiones"
+        }
+      ],
+      "pds": [
+        "PD-07"
+      ],
+      "tests": [
+        "CP-RF-06-3-01",
+        "CP-RF-06-3-02",
+        "CP-RF-06-4-01",
+        "CP-RF-06-4-02",
+        "CP-X-07"
+      ],
       "additionalViews": [
         "WEB-REV-04",
         "WEB-REV-05",
         "MOB-REV-04",
         "MOB-REV-05"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F23",
@@ -894,7 +1725,7 @@
         "RF-10.3",
         "RF-10.4"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-04",
         "RNF-05",
@@ -905,9 +1736,53 @@
         "RNF-16",
         "RNF-19"
       ],
-      "cases": "CU-01, CU-04",
-      "represented": "Transferencia contextual, detalle de archivo y retiro sujeto a autorización/retención.",
-      "pending": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención.",
+      "cases": [
+        "CU-24",
+        "CU-01",
+        "CU-04",
+        "CU-14",
+        "CU-15",
+        "CU-19"
+      ],
+      "tables": [
+        "archivos",
+        "analisis_archivos"
+      ],
+      "api": [
+        {
+          "method": "POST",
+          "route": "/archivos/autorizaciones"
+        },
+        {
+          "method": "POST",
+          "route": "/archivos/{id}/finalizacion"
+        },
+        {
+          "method": "GET",
+          "route": "/archivos/{id}/acceso"
+        },
+        {
+          "method": "DELETE",
+          "route": "/archivos/{id}"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-11",
+        "PD-12"
+      ],
+      "tests": [
+        "CP-RF-10-1-01",
+        "CP-RF-10-1-02",
+        "CP-RF-10-2-01",
+        "CP-RF-10-2-02",
+        "CP-RF-10-3-01",
+        "CP-RF-10-3-02",
+        "CP-RF-10-4-01",
+        "CP-RF-10-4-02",
+        "CP-X-09",
+        "CP-X-12"
+      ],
       "additionalViews": [
         "WEB-SOL-03",
         "WEB-MKR-06",
@@ -920,7 +1795,8 @@
         "MOB-ARC-01",
         "MOB-ARC-02"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     },
     {
       "id": "F24",
@@ -941,7 +1817,7 @@
         "RF-11.1",
         "RF-11.2"
       ],
-      "stage": "Reglas de origen incorporadas; contratos adicionales identificados como propuesta.",
+      "stage": "Cobertura funcional documentada; parámetros operativos y ejecución según su registro.",
       "rnfs": [
         "RNF-01",
         "RNF-03",
@@ -953,757 +1829,1964 @@
         "RNF-18",
         "RNF-19"
       ],
-      "cases": "CU-01 a CU-13",
-      "represented": "Estados de acceso/conexión, conflicto de oferta y recuperación del mensaje/compra.",
-      "pending": "Completar reconciliación de comandos con resultado incierto y estados contextualizados de sesión/cursor vencidos; acordar contratos de transporte.",
+      "cases": [
+        "CU-01",
+        "CU-02",
+        "CU-03",
+        "CU-04",
+        "CU-05",
+        "CU-06",
+        "CU-07",
+        "CU-08",
+        "CU-09",
+        "CU-10",
+        "CU-11",
+        "CU-12",
+        "CU-13",
+        "CU-14",
+        "CU-15",
+        "CU-16",
+        "CU-17",
+        "CU-18",
+        "CU-19",
+        "CU-20",
+        "CU-21",
+        "CU-22",
+        "CU-23",
+        "CU-24",
+        "CU-25"
+      ],
+      "tables": [
+        "eventos_salida",
+        "trabajos",
+        "sesiones"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/eventos"
+        }
+      ],
+      "pds": [
+        "PD-01",
+        "PD-11",
+        "PD-13"
+      ],
+      "tests": [
+        "CP-RF-11-1-01",
+        "CP-RF-11-1-02",
+        "CP-RF-11-2-01",
+        "CP-RF-11-2-02"
+      ],
       "additionalViews": [
         "WEB-MEM-08",
         "WEB-CHAT-02",
         "MOB-MEM-08",
         "MOB-CHAT-02"
       ],
-      "closure": "Estados y decisiones por completar"
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
+    },
+    {
+      "id": "F25",
+      "name": "Catálogo de productos del maker",
+      "file": "f25-catalogo-de-productos-del-maker.md",
+      "screens": [
+        "WEB-CAT-01",
+        "WEB-CAT-02",
+        "WEB-CAT-03",
+        "WEB-CAT-04",
+        "MOB-CAT-01",
+        "MOB-CAT-02",
+        "MOB-CAT-03",
+        "MOB-CAT-04",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "components": [
+        "DS01",
+        "DS03",
+        "DS05",
+        "DS09",
+        "DS10",
+        "DS22",
+        "DS25",
+        "DS26",
+        "DS40",
+        "DS43"
+      ],
+      "rfs": [
+        "RF-13.1",
+        "RF-13.2",
+        "RF-13.3",
+        "RF-13.4"
+      ],
+      "rnfs": [
+        "RNF-04",
+        "RNF-05",
+        "RNF-06",
+        "RNF-08",
+        "RNF-11",
+        "RNF-14",
+        "RNF-16",
+        "RNF-17"
+      ],
+      "cases": [
+        "CU-19",
+        "CU-20"
+      ],
+      "stage": "Pedido directo con condiciones publicadas; flujo compartido de producción, revisión y entrega.",
+      "tables": [
+        "productos_maker",
+        "producto_versiones",
+        "producto_archivos",
+        "solicitudes",
+        "oferta_versiones",
+        "pedidos"
+      ],
+      "api": [
+        {
+          "method": "GET",
+          "route": "/makers/{id}/productos"
+        },
+        {
+          "method": "GET",
+          "route": "/productos/{id}"
+        },
+        {
+          "method": "POST",
+          "route": "/makers/me/productos"
+        },
+        {
+          "method": "PATCH",
+          "route": "/makers/me/productos/{id}"
+        },
+        {
+          "method": "POST",
+          "route": "/makers/me/productos/{id}/publicacion"
+        },
+        {
+          "method": "POST",
+          "route": "/productos/{id}/pedidos"
+        }
+      ],
+      "pds": [
+        "PD-02",
+        "PD-05",
+        "PD-12",
+        "PD-14"
+      ],
+      "tests": [
+        "CP-RF-13-1-01",
+        "CP-RF-13-1-02",
+        "CP-RF-13-2-01",
+        "CP-RF-13-2-02",
+        "CP-RF-13-3-01",
+        "CP-RF-13-3-02",
+        "CP-RF-13-4-01",
+        "CP-RF-13-4-02",
+        "CP-X-02",
+        "CP-X-03",
+        "CP-X-12"
+      ],
+      "additionalViews": [],
+      "closure": "Cobertura funcional documentada; revisión visual pendiente.",
+      "pending": "Revisar el mock y sus estados cuando se retome diseño."
     }
   ],
   "rfCoverage": [
     {
       "id": "RF-01.1",
       "title": "Registrar clientes y makers",
-      "kind": "Interacción de usuario",
-      "views": [
-        "AUTH-02"
-      ],
       "features": [
         "F01"
+      ],
+      "views": [
+        "WEB-AUTH-01",
+        "WEB-AUTH-02",
+        "MOB-AUTH-01",
+        "MOB-AUTH-02"
+      ],
+      "cases": [
+        "CU-13"
+      ],
+      "tests": [
+        "CP-RF-01-1-01",
+        "CP-RF-01-1-02"
       ]
     },
     {
       "id": "RF-01.2",
       "title": "Gestionar capacidades del maker",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MKR-01",
-        "MKR-05"
-      ],
       "features": [
         "F03"
+      ],
+      "views": [
+        "WEB-MKR-01",
+        "MOB-MKR-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-09",
+        "CU-21"
+      ],
+      "tests": [
+        "CP-RF-01-2-01",
+        "CP-RF-01-2-02"
       ]
     },
     {
       "id": "RF-01.3",
       "title": "Gestionar contacto y ubicación del cliente",
-      "kind": "Interacción de usuario",
-      "views": [
-        "CLI-01"
-      ],
       "features": [
         "F02"
+      ],
+      "views": [
+        "WEB-CLI-01",
+        "MOB-CLI-01"
+      ],
+      "cases": [
+        "CU-22"
+      ],
+      "tests": [
+        "CP-RF-01-3-01",
+        "CP-RF-01-3-02"
       ]
     },
     {
       "id": "RF-01.4",
       "title": "Iniciar sesión",
-      "kind": "Interacción de usuario",
-      "views": [
-        "AUTH-01",
-        "SYS-01"
-      ],
       "features": [
         "F01"
+      ],
+      "views": [
+        "WEB-AUTH-01",
+        "WEB-AUTH-02",
+        "MOB-AUTH-01",
+        "MOB-AUTH-02"
+      ],
+      "cases": [
+        "CU-13"
+      ],
+      "tests": [
+        "CP-RF-01-4-01",
+        "CP-RF-01-4-02"
       ]
     },
     {
       "id": "RF-01.5",
       "title": "Cerrar sesión",
-      "kind": "Interacción de usuario",
-      "views": [
-        "AUTH-03"
-      ],
       "features": [
         "F01"
+      ],
+      "views": [
+        "WEB-AUTH-01",
+        "WEB-AUTH-02",
+        "MOB-AUTH-01",
+        "MOB-AUTH-02"
+      ],
+      "cases": [
+        "CU-13"
+      ],
+      "tests": [
+        "CP-RF-01-5-01",
+        "CP-RF-01-5-02"
       ]
     },
     {
       "id": "RF-02.1",
       "title": "Cargar STL y parámetros de impresión",
-      "kind": "Interacción de usuario",
-      "views": [
-        "SOL-01",
-        "SOL-03"
-      ],
       "features": [
         "F05"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "MOB-SOL-01"
+      ],
+      "cases": [
+        "CU-01"
+      ],
+      "tests": [
+        "CP-RF-02-1-01",
+        "CP-RF-02-1-02"
       ]
     },
     {
       "id": "RF-02.2",
       "title": "Validar archivos y límites técnicos",
-      "kind": "Interacción de usuario",
-      "views": [
-        "SOL-01",
-        "ARC-01"
-      ],
       "features": [
         "F05"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "MOB-SOL-01"
+      ],
+      "cases": [
+        "CU-01",
+        "CU-24"
+      ],
+      "tests": [
+        "CP-RF-02-2-01",
+        "CP-RF-02-2-02"
       ]
     },
     {
       "id": "RF-02.3",
       "title": "Crear solicitud de impresión",
-      "kind": "Interacción de usuario",
-      "views": [
-        "SOL-03",
-        "SOL-04"
-      ],
       "features": [
         "F05"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "MOB-SOL-01"
+      ],
+      "cases": [
+        "CU-01"
+      ],
+      "tests": [
+        "CP-RF-02-3-01",
+        "CP-RF-02-3-02"
       ]
     },
     {
       "id": "RF-02.4",
       "title": "Consultar estado y plazos de solicitud",
-      "kind": "Interacción de usuario",
-      "views": [
-        "SOL-02",
-        "PED-01",
-        "HIS-01"
-      ],
       "features": [
         "F12",
         "F19"
+      ],
+      "views": [
+        "WEB-PED-01",
+        "WEB-MKR-04",
+        "MOB-PED-01",
+        "MOB-MKR-04",
+        "WEB-HIS-01",
+        "MOB-HIS-01"
+      ],
+      "cases": [
+        "CU-17"
+      ],
+      "tests": [
+        "CP-RF-02-4-01",
+        "CP-RF-02-4-02"
       ]
     },
     {
       "id": "RF-02.5",
       "title": "Presentar estimación orientativa",
-      "kind": "Interacción de usuario",
-      "views": [
-        "SOL-02",
-        "SOL-05"
-      ],
       "features": [
         "F06"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "WEB-SOL-02",
+        "MOB-SOL-01",
+        "MOB-SOL-02"
+      ],
+      "cases": [
+        "CU-01"
+      ],
+      "tests": [
+        "CP-RF-02-5-01",
+        "CP-RF-02-5-02"
       ]
     },
     {
       "id": "RF-03.1",
       "title": "Enviar solicitud a makers compatibles y cercanos",
-      "kind": "Interacción de usuario",
-      "views": [
-        "BUS-01",
-        "SOL-04"
-      ],
       "features": [
         "F07",
         "F08"
+      ],
+      "views": [
+        "WEB-BUS-01",
+        "MOB-BUS-01",
+        "WEB-MKR-03",
+        "MOB-MKR-03"
+      ],
+      "cases": [
+        "CU-01"
+      ],
+      "tests": [
+        "CP-RF-03-1-01",
+        "CP-RF-03-1-02"
       ]
     },
     {
       "id": "RF-03.2",
       "title": "Consultar solicitudes recibidas por el maker",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MKR-03",
-        "MKR-06"
-      ],
       "features": [
         "F08"
+      ],
+      "views": [
+        "WEB-MKR-03",
+        "MOB-MKR-03"
+      ],
+      "cases": [
+        "CU-02"
+      ],
+      "tests": [
+        "CP-RF-03-2-01",
+        "CP-RF-03-2-02"
       ]
     },
     {
       "id": "RF-04.1",
       "title": "Presentar oferta de precio y plazo",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MKR-06",
-        "OFE-02"
-      ],
       "features": [
         "F09"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "cases": [
+        "CU-02",
+        "CU-25"
+      ],
+      "tests": [
+        "CP-RF-04-1-01",
+        "CP-RF-04-1-02"
       ]
     },
     {
       "id": "RF-04.2",
       "title": "Gestionar vigencia y estado de oferta",
-      "kind": "Interacción de usuario",
-      "views": [
-        "OFE-01",
-        "OFE-04"
-      ],
       "features": [
         "F09"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "cases": [
+        "CU-02",
+        "CU-25"
+      ],
+      "tests": [
+        "CP-RF-04-2-01",
+        "CP-RF-04-2-02"
       ]
     },
     {
       "id": "RF-04.3",
       "title": "Comparar ofertas disponibles",
-      "kind": "Interacción de usuario",
-      "views": [
-        "OFE-01"
-      ],
       "features": [
         "F09"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "cases": [
+        "CU-03"
+      ],
+      "tests": [
+        "CP-RF-04-3-01",
+        "CP-RF-04-3-02"
       ]
     },
     {
       "id": "RF-04.4",
       "title": "Aceptar una sola oferta y confirmar pedido",
-      "kind": "Interacción de usuario",
-      "views": [
-        "OFE-03",
-        "OFE-04"
-      ],
       "features": [
         "F10"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-03",
+        "MOB-OFE-01",
+        "MOB-OFE-03"
+      ],
+      "cases": [
+        "CU-03",
+        "CU-20"
+      ],
+      "tests": [
+        "CP-RF-04-4-01",
+        "CP-RF-04-4-02",
+        "CP-X-01",
+        "CP-X-08"
       ]
     },
     {
       "id": "RF-04.5",
       "title": "Responder o rechazar invitación de cotización",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MKR-06",
-        "MKR-07"
-      ],
       "features": [
         "F09"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "cases": [
+        "CU-02"
+      ],
+      "tests": [
+        "CP-RF-04-5-01",
+        "CP-RF-04-5-02"
+      ]
+    },
+    {
+      "id": "RF-04.6",
+      "title": "Solicitar y resolver una contraoferta",
+      "features": [
+        "F09"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-02",
+        "MOB-OFE-01",
+        "MOB-OFE-02"
+      ],
+      "cases": [
+        "CU-25"
+      ],
+      "tests": [
+        "CP-RF-04-6-01",
+        "CP-RF-04-6-02",
+        "CP-X-08"
       ]
     },
     {
       "id": "RF-05.1",
       "title": "Conversar en el contexto del pedido",
-      "kind": "Interacción de usuario",
-      "views": [
-        "CHAT-01"
-      ],
       "features": [
         "F13"
+      ],
+      "views": [
+        "WEB-CHAT-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-03",
+        "CU-14",
+        "CU-20"
+      ],
+      "tests": [
+        "CP-RF-05-1-01",
+        "CP-RF-05-1-02",
+        "CP-X-04"
       ]
     },
     {
       "id": "RF-05.2",
       "title": "Registrar mensajes y adjuntos autorizados",
-      "kind": "Interacción de usuario",
-      "views": [
-        "CHAT-01",
-        "CHAT-02",
-        "ARC-01"
-      ],
       "features": [
         "F13"
+      ],
+      "views": [
+        "WEB-CHAT-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-14"
+      ],
+      "tests": [
+        "CP-RF-05-2-01",
+        "CP-RF-05-2-02"
       ]
     },
     {
       "id": "RF-05.3",
       "title": "Auditar cambios de estado del pedido",
-      "kind": "Interacción de usuario",
-      "views": [
-        "PED-02",
-        "PED-03",
-        "HIS-02"
-      ],
       "features": [
         "F12",
         "F19"
+      ],
+      "views": [
+        "WEB-PED-01",
+        "WEB-MKR-04",
+        "MOB-PED-01",
+        "MOB-MKR-04",
+        "WEB-HIS-01",
+        "MOB-HIS-01"
+      ],
+      "cases": [
+        "CU-04",
+        "CU-17"
+      ],
+      "tests": [
+        "CP-RF-05-3-01",
+        "CP-RF-05-3-02"
+      ]
+    },
+    {
+      "id": "RF-05.4",
+      "title": "Consultar la bandeja de conversaciones",
+      "features": [
+        "F13"
+      ],
+      "views": [
+        "WEB-CHAT-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-14"
+      ],
+      "tests": [
+        "CP-RF-05-4-01",
+        "CP-RF-05-4-02",
+        "CP-X-06"
       ]
     },
     {
       "id": "RF-06.1",
       "title": "Presentar evidencia de la pieza terminada",
-      "kind": "Interacción de usuario",
-      "views": [
-        "REV-01",
-        "REV-03"
-      ],
       "features": [
         "F15"
+      ],
+      "views": [
+        "WEB-REV-01",
+        "MOB-REV-01"
+      ],
+      "cases": [
+        "CU-04"
+      ],
+      "tests": [
+        "CP-RF-06-1-01",
+        "CP-RF-06-1-02"
       ]
     },
     {
       "id": "RF-06.2",
       "title": "Solicitar revisión del cliente",
-      "kind": "Interacción de usuario",
-      "views": [
-        "REV-03",
-        "PED-01"
-      ],
       "features": [
         "F15"
+      ],
+      "views": [
+        "WEB-REV-01",
+        "MOB-REV-01"
+      ],
+      "cases": [
+        "CU-04"
+      ],
+      "tests": [
+        "CP-RF-06-2-01",
+        "CP-RF-06-2-02"
       ]
     },
     {
       "id": "RF-06.3",
       "title": "Aprobar resultado o registrar observaciones",
-      "kind": "Interacción de usuario",
-      "views": [
-        "REV-02",
-        "REV-04",
-        "REV-05"
-      ],
       "features": [
         "F22"
+      ],
+      "views": [
+        "WEB-REV-02",
+        "MOB-REV-02"
+      ],
+      "cases": [
+        "CU-05"
+      ],
+      "tests": [
+        "CP-RF-06-3-01",
+        "CP-RF-06-3-02"
       ]
     },
     {
       "id": "RF-06.4",
       "title": "Conservar revisión pendiente ante silencio",
-      "kind": "Interacción de usuario",
-      "views": [
-        "REV-02",
-        "PED-01",
-        "NOT-01"
-      ],
       "features": [
         "F22"
+      ],
+      "views": [
+        "WEB-REV-02",
+        "MOB-REV-02"
+      ],
+      "cases": [
+        "CU-05"
+      ],
+      "tests": [
+        "CP-RF-06-4-01",
+        "CP-RF-06-4-02",
+        "CP-X-07"
       ]
     },
     {
       "id": "RF-06.5",
       "title": "Consultar y actualizar avance de producción",
-      "kind": "Interacción de usuario",
-      "views": [
-        "PED-02",
-        "PED-03",
-        "MKR-04"
-      ],
       "features": [
         "F12"
+      ],
+      "views": [
+        "WEB-PED-01",
+        "WEB-MKR-04",
+        "MOB-PED-01",
+        "MOB-MKR-04"
+      ],
+      "cases": [
+        "CU-04"
+      ],
+      "tests": [
+        "CP-RF-06-5-01",
+        "CP-RF-06-5-02"
       ]
     },
     {
       "id": "RF-06.6",
       "title": "Coordinar entrega personal",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ENT-01",
-        "ENT-03"
-      ],
       "features": [
         "F16"
+      ],
+      "views": [
+        "WEB-ENT-01",
+        "MOB-ENT-01"
+      ],
+      "cases": [
+        "CU-06"
+      ],
+      "tests": [
+        "CP-RF-06-6-01",
+        "CP-RF-06-6-02"
       ]
     },
     {
       "id": "RF-06.7",
       "title": "Registrar recepción y completar entrega",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ENT-02",
-        "ENT-04"
-      ],
       "features": [
         "F17"
+      ],
+      "views": [
+        "WEB-ENT-02",
+        "MOB-ENT-02"
+      ],
+      "cases": [
+        "CU-06"
+      ],
+      "tests": [
+        "CP-RF-06-7-01",
+        "CP-RF-06-7-02",
+        "CP-X-07"
       ]
     },
     {
       "id": "RF-07.1",
       "title": "Notificar eventos dentro de la plataforma",
-      "kind": "Interacción de usuario",
-      "views": [
-        "NOT-01"
-      ],
       "features": [
         "F14"
+      ],
+      "views": [
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "cases": [
+        "CU-23"
+      ],
+      "tests": [
+        "CP-RF-07-1-01",
+        "CP-RF-07-1-02"
       ]
     },
     {
       "id": "RF-07.2",
       "title": "Gestionar moderación y soporte",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ADM-01",
-        "ADM-03"
-      ],
       "features": [
         "F20"
+      ],
+      "views": [
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01"
+      ],
+      "cases": [
+        "CU-07"
+      ],
+      "tests": [
+        "CP-RF-07-2-01",
+        "CP-RF-07-2-02"
       ]
     },
     {
       "id": "RF-07.3",
       "title": "Enviar avisos por canales externos habilitados",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "NOT-01",
-        "SYS-01"
-      ],
       "features": [
         "F14"
+      ],
+      "views": [
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "cases": [
+        "CU-23"
+      ],
+      "tests": [
+        "CP-RF-07-3-01",
+        "CP-RF-07-3-02"
       ]
     },
     {
       "id": "RF-07.4",
       "title": "Recordar revisiones pendientes",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "NOT-01",
-        "REV-02"
-      ],
       "features": [
         "F14"
+      ],
+      "views": [
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "cases": [
+        "CU-05",
+        "CU-23"
+      ],
+      "tests": [
+        "CP-RF-07-4-01",
+        "CP-RF-07-4-02"
+      ]
+    },
+    {
+      "id": "RF-07.5",
+      "title": "Consultar y marcar avisos internos",
+      "features": [
+        "F14"
+      ],
+      "views": [
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "cases": [
+        "CU-23"
+      ],
+      "tests": [
+        "CP-RF-07-5-01",
+        "CP-RF-07-5-02"
       ]
     },
     {
       "id": "RF-09.1",
       "title": "Seleccionar y confirmar ubicación de referencia",
-      "kind": "Interacción de usuario",
-      "views": [
-        "CLI-01",
-        "BUS-01",
-        "SOL-03",
-        "ENT-01"
-      ],
       "features": [
         "F02",
         "F07",
         "F16"
+      ],
+      "views": [
+        "WEB-CLI-01",
+        "MOB-CLI-01",
+        "WEB-BUS-01",
+        "MOB-BUS-01",
+        "WEB-ENT-01",
+        "MOB-ENT-01"
+      ],
+      "cases": [
+        "CU-01",
+        "CU-06",
+        "CU-21",
+        "CU-22"
+      ],
+      "tests": [
+        "CP-RF-09-1-01",
+        "CP-RF-09-1-02"
       ]
     },
     {
       "id": "RF-09.2",
       "title": "Visualizar zonas y puntos en mapa",
-      "kind": "Interacción de usuario",
-      "views": [
-        "BUS-01",
-        "ENT-01"
-      ],
       "features": [
         "F07",
         "F16"
+      ],
+      "views": [
+        "WEB-BUS-01",
+        "MOB-BUS-01",
+        "WEB-ENT-01",
+        "MOB-ENT-01"
+      ],
+      "cases": [
+        "CU-06"
+      ],
+      "tests": [
+        "CP-RF-09-2-01",
+        "CP-RF-09-2-02"
       ]
     },
     {
       "id": "RF-10.1",
       "title": "Autorizar transferencia de archivos privados",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "SOL-01",
-        "REV-01",
-        "CHAT-01"
-      ],
       "features": [
         "F23"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "WEB-REV-01",
+        "WEB-CHAT-01",
+        "MOB-SOL-01",
+        "MOB-REV-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-01",
+        "CU-04",
+        "CU-24"
+      ],
+      "tests": [
+        "CP-RF-10-1-01",
+        "CP-RF-10-1-02"
       ]
     },
     {
       "id": "RF-10.2",
       "title": "Completar y habilitar archivo recibido",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "SOL-01",
-        "REV-01",
-        "CHAT-01",
-        "ARC-01"
-      ],
       "features": [
         "F23"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "WEB-REV-01",
+        "WEB-CHAT-01",
+        "MOB-SOL-01",
+        "MOB-REV-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-01",
+        "CU-04",
+        "CU-24"
+      ],
+      "tests": [
+        "CP-RF-10-2-01",
+        "CP-RF-10-2-02"
       ]
     },
     {
       "id": "RF-10.3",
       "title": "Consultar y descargar archivos con permiso",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ARC-01"
-      ],
       "features": [
         "F23"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "WEB-REV-01",
+        "WEB-CHAT-01",
+        "MOB-SOL-01",
+        "MOB-REV-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-01",
+        "CU-04",
+        "CU-24"
+      ],
+      "tests": [
+        "CP-RF-10-3-01",
+        "CP-RF-10-3-02",
+        "CP-X-09",
+        "CP-X-12"
       ]
     },
     {
       "id": "RF-10.4",
       "title": "Aplicar retiro y retención de archivos",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ARC-02"
-      ],
       "features": [
         "F23"
+      ],
+      "views": [
+        "WEB-SOL-01",
+        "WEB-REV-01",
+        "WEB-CHAT-01",
+        "MOB-SOL-01",
+        "MOB-REV-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-24"
+      ],
+      "tests": [
+        "CP-RF-10-4-01",
+        "CP-RF-10-4-02",
+        "CP-X-09"
       ]
     },
     {
       "id": "RF-11.1",
       "title": "Exponer operaciones mediante API común",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "SYS-01"
-      ],
       "features": [
         "F24"
+      ],
+      "views": [
+        "WEB-SYS-01",
+        "MOB-SYS-01"
+      ],
+      "cases": [
+        "CU-01",
+        "CU-02",
+        "CU-03",
+        "CU-04",
+        "CU-05",
+        "CU-06",
+        "CU-07",
+        "CU-08",
+        "CU-09",
+        "CU-10",
+        "CU-11",
+        "CU-12",
+        "CU-13",
+        "CU-14",
+        "CU-15",
+        "CU-16",
+        "CU-17",
+        "CU-18",
+        "CU-19",
+        "CU-20",
+        "CU-21",
+        "CU-22",
+        "CU-23",
+        "CU-24",
+        "CU-25"
+      ],
+      "tests": [
+        "CP-RF-11-1-01",
+        "CP-RF-11-1-02"
       ]
     },
     {
       "id": "RF-11.2",
       "title": "Sincronizar cambios de ofertas, chat y pedidos",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "CHAT-02",
-        "OFE-04",
-        "PED-01"
-      ],
       "features": [
         "F13",
         "F24"
+      ],
+      "views": [
+        "WEB-CHAT-01",
+        "MOB-CHAT-01",
+        "WEB-SYS-01",
+        "MOB-SYS-01"
+      ],
+      "cases": [
+        "CU-14"
+      ],
+      "tests": [
+        "CP-RF-11-2-01",
+        "CP-RF-11-2-02"
       ]
     },
     {
       "id": "RF-12.1",
       "title": "Configurar el único plan de membresía",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ADM-MEM-01",
-        "ADM-MEM-06"
-      ],
       "features": [
         "F11",
         "F20"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-ADM-01"
+      ],
+      "cases": [
+        "CU-12"
+      ],
+      "tests": [
+        "CP-RF-12-1-01",
+        "CP-RF-12-1-02",
+        "CP-MEM-10"
       ]
     },
     {
       "id": "RF-12.2",
       "title": "Iniciar la prueba gratuita general",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MKR-05",
-        "MEM-01"
-      ],
       "features": [
         "F03",
         "F11"
+      ],
+      "views": [
+        "WEB-MKR-01",
+        "MOB-MKR-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08",
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-09"
+      ],
+      "tests": [
+        "CP-RF-12-2-01",
+        "CP-RF-12-2-02",
+        "CP-MEM-01"
       ]
     },
     {
       "id": "RF-12.3",
       "title": "Asignar el programa Makers Fundadores",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ADM-MEM-02",
-        "MEM-01"
-      ],
       "features": [
         "F11",
         "F20"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-ADM-01"
+      ],
+      "cases": [
+        "CU-10"
+      ],
+      "tests": [
+        "CP-RF-12-3-01",
+        "CP-RF-12-3-02",
+        "CP-MEM-02",
+        "CP-MEM-03",
+        "CP-X-10"
       ]
     },
     {
       "id": "RF-12.4",
       "title": "Consultar estado y vencimiento de acceso",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MEM-01"
-      ],
       "features": [
         "F11"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-08",
+        "CU-09"
+      ],
+      "tests": [
+        "CP-RF-12-4-01",
+        "CP-RF-12-4-02"
       ]
     },
     {
       "id": "RF-12.5",
       "title": "Iniciar el pago del abono",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MEM-02"
-      ],
       "features": [
         "F11"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-11"
+      ],
+      "tests": [
+        "CP-RF-12-5-01",
+        "CP-RF-12-5-02",
+        "CP-MEM-04"
       ]
     },
     {
       "id": "RF-12.6",
       "title": "Verificar notificaciones de pago del abono",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "MEM-03",
-        "MEM-05",
-        "MEM-06",
-        "MEM-08"
-      ],
       "features": [
         "F11"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-11"
+      ],
+      "tests": [
+        "CP-RF-12-6-01",
+        "CP-RF-12-6-02",
+        "CP-MEM-05",
+        "CP-MEM-06",
+        "CP-X-05"
       ]
     },
     {
       "id": "RF-12.7",
       "title": "Consultar y conciliar compras de membresía",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MEM-04",
-        "ADM-MEM-03",
-        "ADM-MEM-04"
-      ],
       "features": [
         "F11",
         "F20"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-ADM-01"
+      ],
+      "cases": [
+        "CU-07",
+        "CU-11"
+      ],
+      "tests": [
+        "CP-RF-12-7-01",
+        "CP-RF-12-7-02"
       ]
     },
     {
       "id": "RF-12.8",
       "title": "Conceder acceso por un pago confirmado",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "MEM-05"
-      ],
       "features": [
         "F11"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-11"
+      ],
+      "tests": [
+        "CP-RF-12-8-01",
+        "CP-RF-12-8-02",
+        "CP-MEM-05",
+        "CP-X-05"
       ]
     },
     {
       "id": "RF-12.9",
       "title": "Renovar manualmente la membresía",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MEM-02",
-        "MEM-04",
-        "MEM-05"
-      ],
       "features": [
         "F11"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-11"
+      ],
+      "tests": [
+        "CP-RF-12-9-01",
+        "CP-RF-12-9-02",
+        "CP-MEM-07",
+        "CP-X-11"
       ]
     },
     {
       "id": "RF-12.10",
       "title": "Aplicar vigencia a trabajos nuevos y preservar los activos",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MEM-01",
-        "MKR-03",
-        "PED-02"
-      ],
       "features": [
         "F08",
         "F10",
         "F11",
         "F12",
         "F13"
+      ],
+      "views": [
+        "WEB-MKR-03",
+        "MOB-MKR-03",
+        "WEB-OFE-01",
+        "WEB-OFE-03",
+        "MOB-OFE-01",
+        "MOB-OFE-03",
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-PED-01",
+        "WEB-MKR-04",
+        "MOB-PED-01",
+        "MOB-MKR-04",
+        "WEB-CHAT-01",
+        "MOB-CHAT-01"
+      ],
+      "cases": [
+        "CU-02",
+        "CU-03",
+        "CU-14",
+        "CU-17",
+        "CU-19",
+        "CU-20"
+      ],
+      "tests": [
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02",
+        "CP-MEM-08",
+        "CP-X-04"
       ]
     },
     {
       "id": "RF-12.11",
       "title": "Recordar vencimientos de acceso",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "NOT-01",
-        "MEM-01"
-      ],
       "features": [
         "F11",
         "F14"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-NOT-01",
+        "MOB-NOT-01"
+      ],
+      "cases": [
+        "CU-08",
+        "CU-23"
+      ],
+      "tests": [
+        "CP-RF-12-11-01",
+        "CP-RF-12-11-02"
       ]
     },
     {
       "id": "RF-12.12",
       "title": "Gestionar devoluciones del abono autorizadas",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ADM-MEM-05"
-      ],
       "features": [
         "F11",
         "F20"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-ADM-01"
+      ],
+      "cases": [
+        "CU-07"
+      ],
+      "tests": [
+        "CP-RF-12-12-01",
+        "CP-RF-12-12-02",
+        "CP-MEM-11"
       ]
     },
     {
       "id": "RF-12.13",
       "title": "Auditar cambios del plan y beneficios",
-      "kind": "Interacción de usuario",
-      "views": [
-        "ADM-04",
-        "ADM-MEM-06"
-      ],
       "features": [
         "F11",
         "F20"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03",
+        "WEB-ADM-01"
+      ],
+      "cases": [
+        "CU-10",
+        "CU-12"
+      ],
+      "tests": [
+        "CP-RF-12-13-01",
+        "CP-RF-12-13-02",
+        "CP-MEM-10"
       ]
     },
     {
       "id": "RF-12.14",
       "title": "Separar simulación y cobros reales de membresía",
-      "kind": "Integración con resultado visible",
-      "views": [
-        "MEM-02",
-        "ADM-MEM-04"
-      ],
       "features": [
         "F11"
+      ],
+      "views": [
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-11"
+      ],
+      "tests": [
+        "CP-RF-12-14-01",
+        "CP-RF-12-14-02",
+        "CP-MEM-09"
       ]
     },
     {
       "id": "RF-12.15",
       "title": "Informar el alcance del pago y del programa de fundadores",
-      "kind": "Interacción de usuario",
-      "views": [
-        "MEM-01",
-        "MEM-02",
-        "OFE-03"
-      ],
       "features": [
         "F10",
         "F11"
+      ],
+      "views": [
+        "WEB-OFE-01",
+        "WEB-OFE-03",
+        "MOB-OFE-01",
+        "MOB-OFE-03",
+        "WEB-MEM-01",
+        "WEB-MEM-02",
+        "WEB-MEM-03",
+        "WEB-ADM-MEM-01",
+        "MOB-MEM-01",
+        "MOB-MEM-02",
+        "MOB-MEM-03"
+      ],
+      "cases": [
+        "CU-03",
+        "CU-08",
+        "CU-11",
+        "CU-20"
+      ],
+      "tests": [
+        "CP-RF-12-15-01",
+        "CP-RF-12-15-02",
+        "CP-MEM-12"
+      ]
+    },
+    {
+      "id": "RF-13.1",
+      "title": "Mantener productos del maker",
+      "features": [
+        "F25"
+      ],
+      "views": [
+        "WEB-CAT-01",
+        "WEB-CAT-02",
+        "WEB-CAT-03",
+        "WEB-CAT-04",
+        "MOB-CAT-01",
+        "MOB-CAT-02",
+        "MOB-CAT-03",
+        "MOB-CAT-04",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-19"
+      ],
+      "tests": [
+        "CP-RF-13-1-01",
+        "CP-RF-13-1-02"
+      ]
+    },
+    {
+      "id": "RF-13.2",
+      "title": "Publicar y retirar productos del catálogo",
+      "features": [
+        "F20",
+        "F25"
+      ],
+      "views": [
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01",
+        "WEB-CAT-01",
+        "WEB-CAT-02",
+        "WEB-CAT-03",
+        "WEB-CAT-04",
+        "MOB-CAT-01",
+        "MOB-CAT-02",
+        "MOB-CAT-03",
+        "MOB-CAT-04",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-07",
+        "CU-19"
+      ],
+      "tests": [
+        "CP-RF-13-2-01",
+        "CP-RF-13-2-02"
+      ]
+    },
+    {
+      "id": "RF-13.3",
+      "title": "Consultar el catálogo público del maker",
+      "features": [
+        "F25"
+      ],
+      "views": [
+        "WEB-CAT-01",
+        "WEB-CAT-02",
+        "WEB-CAT-03",
+        "WEB-CAT-04",
+        "MOB-CAT-01",
+        "MOB-CAT-02",
+        "MOB-CAT-03",
+        "MOB-CAT-04",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-19",
+        "CU-20"
+      ],
+      "tests": [
+        "CP-RF-13-3-01",
+        "CP-RF-13-3-02",
+        "CP-X-12"
+      ]
+    },
+    {
+      "id": "RF-13.4",
+      "title": "Confirmar un pedido directo de catálogo",
+      "features": [
+        "F25"
+      ],
+      "views": [
+        "WEB-CAT-01",
+        "WEB-CAT-02",
+        "WEB-CAT-03",
+        "WEB-CAT-04",
+        "MOB-CAT-01",
+        "MOB-CAT-02",
+        "MOB-CAT-03",
+        "MOB-CAT-04",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-20"
+      ],
+      "tests": [
+        "CP-RF-13-4-01",
+        "CP-RF-13-4-02",
+        "CP-X-02",
+        "CP-X-03"
+      ]
+    },
+    {
+      "id": "RF-14.1",
+      "title": "Mantener el portfolio del maker",
+      "features": [
+        "F04",
+        "F20"
+      ],
+      "views": [
+        "WEB-MKR-02",
+        "MOB-MKR-02",
+        "WEB-MKR-08",
+        "MOB-MKR-08",
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01"
+      ],
+      "cases": [
+        "CU-07",
+        "CU-15"
+      ],
+      "tests": [
+        "CP-RF-14-1-01",
+        "CP-RF-14-1-02"
+      ]
+    },
+    {
+      "id": "RF-14.2",
+      "title": "Consultar trabajos publicados del maker",
+      "features": [
+        "F04"
+      ],
+      "views": [
+        "WEB-MKR-02",
+        "MOB-MKR-02",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-15"
+      ],
+      "tests": [
+        "CP-RF-14-2-01",
+        "CP-RF-14-2-02",
+        "CP-X-12"
+      ]
+    },
+    {
+      "id": "RF-15.1",
+      "title": "Valorar a la contraparte de un pedido",
+      "features": [
+        "F18"
+      ],
+      "views": [
+        "WEB-REP-01",
+        "MOB-REP-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-16"
+      ],
+      "tests": [
+        "CP-RF-15-1-01",
+        "CP-RF-15-1-02"
+      ]
+    },
+    {
+      "id": "RF-15.2",
+      "title": "Consultar reputación publicada",
+      "features": [
+        "F18"
+      ],
+      "views": [
+        "WEB-REP-01",
+        "MOB-REP-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08"
+      ],
+      "cases": [
+        "CU-16"
+      ],
+      "tests": [
+        "CP-RF-15-2-01",
+        "CP-RF-15-2-02"
+      ]
+    },
+    {
+      "id": "RF-15.3",
+      "title": "Moderar valoraciones con trazabilidad",
+      "features": [
+        "F18",
+        "F20"
+      ],
+      "views": [
+        "WEB-REP-01",
+        "MOB-REP-01",
+        "WEB-MKR-08",
+        "MOB-MKR-08",
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01"
+      ],
+      "cases": [
+        "CU-07",
+        "CU-16"
+      ],
+      "tests": [
+        "CP-RF-15-3-01",
+        "CP-RF-15-3-02"
+      ]
+    },
+    {
+      "id": "RF-16.1",
+      "title": "Consultar el historial propio de pedidos",
+      "features": [
+        "F19"
+      ],
+      "views": [
+        "WEB-HIS-01",
+        "MOB-HIS-01"
+      ],
+      "cases": [
+        "CU-17"
+      ],
+      "tests": [
+        "CP-RF-16-1-01",
+        "CP-RF-16-1-02",
+        "CP-X-06"
+      ]
+    },
+    {
+      "id": "RF-17.1",
+      "title": "Consultar el reporte de actividad",
+      "features": [
+        "F20",
+        "F21"
+      ],
+      "views": [
+        "WEB-ADM-01",
+        "WEB-ADM-MEM-01",
+        "WEB-ADM-02"
+      ],
+      "cases": [
+        "CU-18"
+      ],
+      "tests": [
+        "CP-RF-17-1-01",
+        "CP-RF-17-1-02"
       ]
     }
   ],
   "caseFlows": [
     {
       "id": "CU-01",
-      "flow": "SOL-01 → SOL-03 → SOL-04 → SOL-02; BUS-01; SOL-05; ARC-01",
-      "condition": "Archivo habilitado, referencia confirmada, recuperación del borrador y ronda insuficiente."
+      "features": [
+        "F05",
+        "F06",
+        "F07",
+        "F08",
+        "F23"
+      ],
+      "flow": "1. Carga STL, unidad, material, color, cantidad, urgencia y descripción. → 2. Autoriza el archivo, verifica su integridad y análisis y devuelve las validaciones. → 3. Corrige los datos, confirma la ubicación y solicita enviar. → 4. Comprueba titularidad, archivo habilitado, parámetros y límites. → 5. Conserva la versión, calcula la estimación orientativa y registra método y supuestos o su causa de indisponibilidad. → 6. Selecciona un grupo limitado por capacidad, material, ubicación y acceso comercial y conserva la ronda. → 7. Registra invitaciones y eventos de aviso de forma duradera. → 8. Consulta la solicitud enviada y su estado.",
+      "condition": "Cliente autenticado y ubicación de referencia disponible.",
+      "post": "Solicitud versionada y enviada a un grupo compatible; estimación calculada o indisponibilidad informada."
     },
     {
       "id": "CU-02",
-      "flow": "MKR-03 → MKR-06 → OFE-02; MKR-06 → MKR-07",
-      "condition": "Invitación vigente, elegibilidad del maker y rechazo confirmado."
+      "features": [
+        "F08",
+        "F09"
+      ],
+      "flow": "1. Consulta sus invitaciones y selecciona una solicitud. → 2. Verifica destinatario, estado y acceso comercial y entrega las especificaciones autorizadas. → 3. Inspecciona el archivo habilitado y define precio total, moneda, plazo, condiciones y vencimiento. → 4. Valida capacidad, versión de solicitud, vigencia y permisos. → 5. Conserva la oferta y su versión inmutable. → 6. Registra el aviso para el cliente y devuelve la referencia de oferta.",
+      "condition": "Invitación del maker para una solicitud vigente.",
+      "post": "Oferta versionada presentada o rechazo registrado."
     },
     {
       "id": "CU-03",
-      "flow": "OFE-01 → OFE-03 → PED-01; OFE-04 → OFE-03",
-      "condition": "Versión exacta, aceptación única, vencimiento y concurrencia."
+      "features": [
+        "F09",
+        "F10",
+        "F13"
+      ],
+      "flow": "1. Consulta las ofertas con precio, plazo, condiciones y vencimiento. → 2. Presenta las versiones vigentes y las condiciones del pago directo entre las partes. → 3. Selecciona una versión y confirma su aceptación con una clave estable. → 4. Comprueba propietario, versión, vigencia, maker habilitado y participantes distintos. → 5. Crea el pedido y sus condiciones, cierra alternativas y habilita su conversación en una transacción. → 6. Registra los avisos posteriores y devuelve el pedido confirmado.",
+      "condition": "Solicitud propia abierta y ofertas disponibles.",
+      "post": "Un pedido confirmado con condiciones conservadas y conversación habilitada."
     },
     {
       "id": "CU-04",
-      "flow": "MKR-04 → PED-02 → PED-03; REV-01 → REV-03; CHAT-01 / CHAT-02; HIS-02",
-      "condition": "Transición autorizada, archivos habilitados y revisión identificada."
+      "features": [
+        "F12",
+        "F15",
+        "F23"
+      ],
+      "flow": "1. Abre su cola y selecciona un pedido. → 2. Entrega sus condiciones y acciones permitidas. → 3. Actualiza el avance mediante una transición autorizada. → 4. Valida versión y transición y conserva el historial. → 5. Carga fotos o videos y presenta una revisión del resultado. → 6. Comprueba archivos, conserva la revisión exacta y registra la solicitud de revisión al cliente. → 7. Consulta el avance y la evidencia autorizada.",
+      "condition": "Maker del pedido autorizado; estados y transición vigentes.",
+      "post": "Avance conservado y revisión con evidencia presentada al cliente."
     },
     {
       "id": "CU-05",
-      "flow": "REV-02 → REV-04 → ENT-01; REV-02 → REV-05",
-      "condition": "Aprobación expresa, observaciones y revisión pendiente ante silencio."
+      "features": [
+        "F22",
+        "F12",
+        "F14"
+      ],
+      "flow": "1. Abre la revisión pendiente del pedido. → 2. Presenta evidencia, referencia y versión de la revisión. → 3. Revisa el resultado y solicita aprobarlo. → 4. Comprueba identidad, revisión actual y estado pendiente. → 5. Conserva la aprobación y su referencia y habilita la coordinación de entrega. → 6. Notifica el resultado al maker.",
+      "condition": "Cliente del pedido; revisión presentada y accesible.",
+      "post": "Decisión expresa sobre la revisión; la aprobación habilita coordinar la entrega."
     },
     {
       "id": "CU-06",
-      "flow": "ENT-01 → ENT-03 → ENT-02 → ENT-04; HIS-02",
-      "condition": "Acuerdo y mecanismo de recepción sujetos a PD-08."
+      "features": [
+        "F16",
+        "F17"
+      ],
+      "flow": "1. Propone un punto neutral y un horario. → 2. Valida ubicación autorizada, revisión aprobada y versión del acuerdo. → 3. Acepta la propuesta de encuentro. → 4. Conserva el acuerdo vigente para ambos participantes. → 5. Después del intercambio confirma expresamente la recepción desde su sesión. → 6. Comprueba cliente, acuerdo y revisión vigentes; registra la recepción idempotente y completa la entrega. → 7. Actualiza el pedido y avisa a las partes.",
+      "condition": "Pedido de los participantes y revisión vigente aprobada.",
+      "post": "Punto y horario acordados; recepción del cliente registrada y pedido completado."
     },
     {
       "id": "CU-07",
-      "flow": "ADM-01 → ADM-03; ADM-MEM-03 → ADM-MEM-04 → ADM-MEM-05; ADM-04",
-      "condition": "Capacidad específica, motivo, confirmación sensible y auditoría."
+      "features": [
+        "F20"
+      ],
+      "flow": "1. Consulta el caso, su recurso y la acción requerida. → 2. Comprueba la capacidad y muestra únicamente datos autorizados. → 3. Registra el motivo y confirma la intervención. → 4. Valida estado y versión y aplica el caso de uso específico. → 5. Conserva actor, motivo, recurso, estado anterior y resultado en auditoría. → 6. Consulta el resultado y su referencia.",
+      "condition": "Identidad administrativa con capacidad específica y recurso identificable.",
+      "post": "Intervención autorizada y auditada o consulta de soporte conservada."
     },
     {
       "id": "CU-08",
-      "flow": "MEM-01 → MEM-04; MEM-01 → MEM-02",
-      "condition": "Estado y vencimiento del acceso; beneficio y renovación manual."
+      "features": [
+        "F11"
+      ],
+      "flow": "1. Abre la membresía propia. → 2. Recupera períodos concedidos, compras y versión de condiciones. → 3. Calcula vigencia con la fecha del servidor. → 4. Presenta prueba o abono, inicio, vencimiento, beneficio y acciones disponibles. → 5. Consulta las condiciones y decide si inicia una compra manual.",
+      "condition": "Maker autenticado.",
+      "post": "Estado, condiciones e intervalos de acceso visibles."
     },
     {
       "id": "CU-09",
-      "flow": "MKR-01 → MKR-05 → MEM-01",
-      "condition": "Perfil completo e inicio único del beneficio inicial."
+      "features": [
+        "F03",
+        "F11"
+      ],
+      "flow": "1. Revisa perfil, capacidades y condiciones del beneficio inicial. → 2. Valida titularidad, datos mínimos y asignación fundadora si existe. → 3. Confirma la habilitación. → 4. Conserva la primera habilitación y concede una única prueba general o fundadora. → 5. Devuelve inicio, vencimiento y condiciones aplicadas.",
+      "condition": "Rol maker, contacto y zona de referencia completos; al menos una impresora activa con capacidad válida.",
+      "post": "Perfil habilitado y único beneficio inicial conservado."
     },
     {
       "id": "CU-10",
-      "flow": "ADM-01 → ADM-MEM-02 → ADM-04",
-      "condition": "Elegibilidad, cupo/ventana y asignación previa; PD-10."
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "flow": "1. Consulta las condiciones del programa y el maker. → 2. Valida permiso, ventana, elegibilidad y ausencia de beneficio previo. → 3. Confirma la asignación con motivo. → 4. Consume el cupo de forma atómica y registra asignación y configuración. → 5. Informa el beneficio y su inicio vinculado a la primera habilitación.",
+      "condition": "Programa habilitado, cupo disponible y maker sin beneficio inicial concedido.",
+      "post": "Asignación fundadora conservada con cupo, autor y versión."
     },
     {
       "id": "CU-11",
-      "flow": "MEM-02 → Checkout Pro → MEM-03; MEM-05 / MEM-06 / MEM-07 / MEM-08; MEM-04",
-      "condition": "Resultado verificado, acreditación única y conservación de días vigentes."
+      "features": [
+        "F11"
+      ],
+      "flow": "1. Consulta y acepta las condiciones de la versión del plan. → 2. Crea una compra idempotente con importe, moneda, duración, modo y entorno propios. → 3. Prepara o recupera el checkout con la cuenta receptora de la plataforma. → 4. Completa la operación en Mercado Pago y vuelve al panel. → 5. Persiste la notificación, consulta el recurso al proveedor y contrasta cuenta, entorno, referencia, importe y moneda. → 6. Conserva el resultado y concede un único período por compra pagada en una transacción. → 7. Consulta el estado verificado y las fechas resultantes.",
+      "condition": "Plan publicado con importe, moneda y duración válidos.",
+      "post": "Compra y resultado conservados; un pago verificado concede un único período."
     },
     {
       "id": "CU-12",
-      "flow": "ADM-MEM-01 → ADM-MEM-06 → ADM-04",
-      "condition": "Nueva versión validada, permiso específico y motivo del cambio."
+      "features": [
+        "F11",
+        "F20"
+      ],
+      "flow": "1. Consulta la versión del plan, beneficios y cupo. → 2. Propone precio, moneda, duración y condiciones con motivo. → 3. Valida importes, rangos, coherencia y versión esperada. → 4. Confirma la publicación de las condiciones. → 5. Conserva una nueva versión y su vigencia y registra auditoría. → 6. Mantiene intactas las compras y períodos ya concedidos.",
+      "condition": "Capacidad administrativa específica y versión vigente identificada.",
+      "post": "Nueva configuración válida y auditada para operaciones futuras."
     },
     {
       "id": "CU-13",
-      "flow": "AUTH-02 → AUTH-01; AUTH-03 → AUTH-01; SYS-01",
-      "condition": "Identidad, rol, permiso sobre recurso y cierre de sesión."
+      "features": [
+        "F01"
+      ],
+      "flow": "1. Elige registro o acceso y completa los datos requeridos. → 2. Valida identificador, credenciales, estado de cuenta y límites. → 3. Crea la identidad y roles públicos solicitados o autentica la cuenta existente. → 4. Entrega las capacidades y la sesión conforme a la política de seguridad. → 5. Abre el recorrido de cliente, maker o administración autorizado.",
+      "condition": "Datos públicos de registro o credenciales de una cuenta existente.",
+      "post": "Identidad y perfiles autorizados; sesión vigente o cierre confirmado."
+    },
+    {
+      "id": "CU-14",
+      "features": [
+        "F13"
+      ],
+      "flow": "1. Consulta su bandeja y selecciona un pedido. → 2. Comprueba pertenencia y recupera la conversación única y su historial paginado. → 3. Escribe texto o selecciona adjuntos habilitados y envía con una clave estable. → 4. Revalida permiso y contenido y persiste el mensaje antes de confirmar. → 5. Registra el aviso y devuelve identidad y fecha del mensaje. → 6. Consulta el historial y recupera cambios al reconectar.",
+      "condition": "Pedido confirmado y usuario participante autorizado.",
+      "post": "Mensaje persistido o resultado recuperable; historial disponible."
+    },
+    {
+      "id": "CU-15",
+      "features": [
+        "F04"
+      ],
+      "flow": "1. Crea un trabajo con título, descripción y medios de presentación. → 2. Comprueba titularidad, archivo habilitado y autorización de publicación. → 3. Publica el trabajo. → 4. Conserva el registro y habilita sus derivados de presentación. → 5. Consulta el portfolio del maker y abre un trabajo. → 6. Entrega únicamente el contenido publicado y autorizado.",
+      "condition": "Para editar: titular autenticado y archivos autorizados. Para consultar: trabajo publicado.",
+      "post": "Trabajo publicado, actualizado o retirado; medios públicos autorizados."
+    },
+    {
+      "id": "CU-16",
+      "features": [
+        "F18"
+      ],
+      "flow": "1. Abre la valoración de su contraparte. → 2. Comprueba pedido completado, identidad y configuración de criterios y escala. → 3. Completa criterios y comentario permitido. → 4. Valida rangos y unicidad y conserva autor, destinatario, pedido y configuración. → 5. Calcula el puntaje global y actualiza el agregado de valoraciones publicadas. → 6. Consulta el resumen y las valoraciones visibles.",
+      "condition": "Recepción confirmada, contraparte distinta y ausencia de valoración previa del autor.",
+      "post": "Valoración conservada y agregado público coherente."
+    },
+    {
+      "id": "CU-17",
+      "features": [
+        "F19"
+      ],
+      "flow": "1. Selecciona rol, estado, período y referencia de búsqueda. → 2. Autoriza el ámbito y aplica orden estable por fecha e identidad. → 3. Devuelve página, cursor y datos mínimos de pedidos personalizados y de catálogo. → 4. Abre un pedido. → 5. Comprueba pertenencia y muestra condiciones, historial, revisión y entrega autorizadas.",
+      "condition": "Identidad de cliente o maker con pedidos propios.",
+      "post": "Listado filtrado y detalle histórico autorizado."
+    },
+    {
+      "id": "CU-18",
+      "features": [
+        "F21"
+      ],
+      "flow": "1. Elige período y zona horaria. → 2. Comprueba permiso y límites y normaliza el intervalo semiabierto. → 3. Consulta altas de usuarios, makers con pedidos, confirmaciones, cancelaciones y valoraciones publicadas. → 4. Calcula conteos y promedio con las definiciones del contrato. → 5. Devuelve indicadores, filtros aplicados, fecha y fuente. → 6. Consulta el resultado.",
+      "condition": "Permiso de reporte e intervalo válido.",
+      "post": "Indicadores con definición, filtros, fecha y fuentes identificadas."
+    },
+    {
+      "id": "CU-19",
+      "features": [
+        "F25"
+      ],
+      "flow": "1. Crea un borrador con configuración fija, precio unitario, moneda, cantidades y plazo. → 2. Adjunta medios autorizados y completa las condiciones. → 3. Valida valores, archivos, titularidad y versión. → 4. Solicita publicar. → 5. Verifica acceso comercial y conserva la versión y su estado público. → 6. Abre el perfil y consulta el catálogo y el detalle del producto.",
+      "condition": "Titular maker; publicación comercial exige perfil y acceso vigentes.",
+      "post": "Producto versionado publicado, pausado o retirado; pedidos históricos intactos."
+    },
+    {
+      "id": "CU-20",
+      "features": [
+        "F25",
+        "F10",
+        "F12",
+        "F13"
+      ],
+      "flow": "1. Abre el producto y elige una cantidad admitida. → 2. Presenta versión, configuración, precio unitario, total calculado, moneda, plazo y condiciones de entrega y pago directo. → 3. Confirma las condiciones con una clave estable. → 4. Recupera primero un resultado de esa clave y contenido o valida publicación actual, cantidad y acceso comercial. → 5. Materializa solicitud de catálogo, oferta de referencia y pedido con sus condiciones en una transacción; habilita la conversación. → 6. Registra avisos y devuelve el pedido confirmado. → 7. Continúan por producción, revisión expresa y entrega del mismo circuito.",
+      "condition": "Cliente autenticado, publicación vigente y maker distinto del cliente.",
+      "post": "Pedido directo confirmado con condiciones publicadas conservadas y conversación habilitada."
+    },
+    {
+      "id": "CU-21",
+      "features": [
+        "F03"
+      ],
+      "flow": "1. Consulta perfil, impresoras, materiales y disponibilidad. → 2. Recupera los recursos propios y las restricciones vigentes. → 3. Edita zona, descripción, impresoras y capacidades. → 4. Valida dimensiones positivas, materiales, titularidad y versión. → 5. Conserva cambios o desactivaciones y utiliza esas capacidades en búsquedas futuras. → 6. Consulta el resultado y su perfil público autorizado.",
+      "condition": "Titular autenticado con rol maker.",
+      "post": "Perfil, impresoras y capacidades actualizados y versionados donde corresponda."
+    },
+    {
+      "id": "CU-22",
+      "features": [
+        "F02"
+      ],
+      "flow": "1. Abre su perfil. → 2. Recupera datos propios y permisos de edición. → 3. Edita contacto y selecciona o ingresa manualmente una ubicación de referencia. → 4. Valida campos, precisión, propiedad y versión. → 5. Conserva la referencia nueva y mantiene las ubicaciones ya utilizadas por acuerdos históricos. → 6. Consulta el perfil actualizado.",
+      "condition": "Cliente titular autenticado.",
+      "post": "Contacto y ubicación autorizados actualizados; referencias históricas conservadas."
+    },
+    {
+      "id": "CU-23",
+      "features": [
+        "F14"
+      ],
+      "flow": "1. Recupera un evento pendiente y determina destinatarios y canales habilitados. → 2. Conserva el aviso interno y prepara el envío externo identificable cuando corresponda. → 3. Abre su bandeja de avisos. → 4. Autoriza destinatario y entrega la página y sus estados de lectura. → 5. Marca un aviso como leído o abre su destino. → 6. Conserva la lectura y revalida el acceso al recurso de destino.",
+      "condition": "Evento persistido o destinatario autenticado.",
+      "post": "Aviso deduplicado y bandeja propia con estado leído conservado."
+    },
+    {
+      "id": "CU-24",
+      "features": [
+        "F23"
+      ],
+      "flow": "1. Selecciona contexto, finalidad y archivo. → 2. Valida permiso y límites y emite una autorización temporal de transferencia. → 3. Transfiere el archivo y solicita finalizar. → 4. Verifica integridad, tipo y análisis y conserva el estado. → 5. Solicita consultar o descargar el archivo permitido. → 6. Revalida recurso y finalidad y emite un acceso temporal o el derivado público autorizado.",
+      "condition": "Actor autorizado para la finalidad y el contexto del archivo.",
+      "post": "Archivo habilitado, consultado o retirado conforme a permisos y conservación."
+    },
+    {
+      "id": "CU-25",
+      "features": [
+        "F09"
+      ],
+      "flow": "1. Selecciona una oferta y propone precio, plazo y observación. → 2. Valida propietario, estado y versión y conserva la propuesta. → 3. Consulta la propuesta y decide aceptarla o rechazarla. → 4. Comprueba que la oferta y solicitud continúen vigentes. → 5. Si el maker acepta, conserva una nueva versión con condiciones y vencimiento; registra la respuesta y su relación. → 6. Consulta la versión resultante y decide contratar mediante CU-03.",
+      "condition": "Solicitud propia abierta y versión identificable de la oferta.",
+      "post": "Propuesta respondida; una aceptación del maker publica una nueva versión para decisión del cliente."
     }
   ],
   "views": [
@@ -5148,6 +7231,158 @@
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3292",
       "designStatus": "Composición dibujada",
       "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+    }
+  ],
+  "vistas_documentadas_pendientes_de_mock": [
+    {
+      "id": "WEB-MKR-08",
+      "name": "Perfil público del maker",
+      "route": "/makers/:id",
+      "role": "Visitante / cliente",
+      "features": [
+        "F03",
+        "F04",
+        "F18",
+        "F25"
+      ],
+      "contract": "Consultar capacidades, zona pública, catálogo fijo, portfolio y reputación; abrir un producto o trabajo publicado.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-CAT-01",
+      "name": "Mis productos",
+      "route": "/maker/productos",
+      "role": "Maker",
+      "features": [
+        "F25"
+      ],
+      "contract": "Listar productos propios por estado; crear, editar, publicar, pausar o retirar según capacidad devuelta.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-CAT-02",
+      "name": "Editor de producto",
+      "route": "/maker/productos/:id/editar",
+      "role": "Maker",
+      "features": [
+        "F25"
+      ],
+      "contract": "Editar configuración fija, precio, moneda, cantidades, plazo, condiciones y archivos; mostrar validación y versión en conflicto.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-CAT-03",
+      "name": "Detalle público del producto",
+      "route": "/productos/:id",
+      "role": "Visitante / cliente",
+      "features": [
+        "F25"
+      ],
+      "contract": "Presentar condiciones publicadas, cantidad admitida y disponibilidad; autenticar al cliente antes de confirmar.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-CAT-04",
+      "name": "Confirmar pedido de producto",
+      "route": "/productos/:id/confirmar",
+      "role": "Cliente",
+      "features": [
+        "F25"
+      ],
+      "contract": "Revisar versión, cantidad, precio unitario, total, moneda, plazo y condiciones; conservar clave ante incertidumbre y abrir pedido confirmado.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-CHAT-00",
+      "name": "Conversaciones de pedidos",
+      "route": "/conversaciones",
+      "role": "Cliente / maker",
+      "features": [
+        "F13"
+      ],
+      "contract": "Bandeja propia paginada con pedido y último mensaje; abrir conversación autorizada, resolver vacío y recuperar conexión.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-MKR-08",
+      "name": "Perfil público del maker",
+      "route": "/makers/:id",
+      "role": "Visitante / cliente",
+      "features": [
+        "F03",
+        "F04",
+        "F18",
+        "F25"
+      ],
+      "contract": "Consultar capacidades, zona pública, catálogo fijo, portfolio y reputación; abrir un producto o trabajo publicado.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-CAT-01",
+      "name": "Mis productos",
+      "route": "/maker/productos",
+      "role": "Maker",
+      "features": [
+        "F25"
+      ],
+      "contract": "Listar productos propios por estado; crear, editar, publicar, pausar o retirar según capacidad devuelta.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-CAT-02",
+      "name": "Editor de producto",
+      "route": "/maker/productos/:id/editar",
+      "role": "Maker",
+      "features": [
+        "F25"
+      ],
+      "contract": "Editar configuración fija, precio, moneda, cantidades, plazo, condiciones y archivos; mostrar validación y versión en conflicto.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-CAT-03",
+      "name": "Detalle público del producto",
+      "route": "/productos/:id",
+      "role": "Visitante / cliente",
+      "features": [
+        "F25"
+      ],
+      "contract": "Presentar condiciones publicadas, cantidad admitida y disponibilidad; autenticar al cliente antes de confirmar.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-CAT-04",
+      "name": "Confirmar pedido de producto",
+      "route": "/productos/:id/confirmar",
+      "role": "Cliente",
+      "features": [
+        "F25"
+      ],
+      "contract": "Revisar versión, cantidad, precio unitario, total, moneda, plazo y condiciones; conservar clave ante incertidumbre y abrir pedido confirmado.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-CHAT-00",
+      "name": "Conversaciones de pedidos",
+      "route": "/conversaciones",
+      "role": "Cliente / maker",
+      "features": [
+        "F13"
+      ],
+      "contract": "Bandeja propia paginada con pedido y último mensaje; abrir conversación autorizada, resolver vacío y recuperar conexión.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
     }
   ]
 }

@@ -1,102 +1,202 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   clientes {
-    UUID usuario_id PK
-    UUID ubicacion_id FK
-  }
-  solicitudes {
-    UUID id PK
-    UUID cliente_id FK
-    Entero version_actual FK
-    EstadoSolicitud estado
+    UUID usuario_id PK, FK "Referencia a usuarios para tiene perfil cliente."
+    UUID ubicacion_id FK "Referencia a ubicaciones para ubica cliente."
   }
   makers {
-    UUID id PK
-    UUID usuario_id FK
-    UUID ubicacion_id FK
-    EstadoPerfil estado
+    UUID id PK "Identificador estable y opaco de Maker."
+    UUID usuario_id FK "Referencia a usuarios para tiene perfil maker."
+    UUID ubicacion_id FK "Referencia a ubicaciones para ubica maker."
+    EstadoPerfil estado "Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas."
+  }
+  productos_maker {
+    UUID id PK, FK "Identificador estable y opaco de ProductoMaker."
+    UUID maker_id FK "Maker titular de la publicación."
+    Entero version_actual FK "Número de la versión de condiciones actual del producto."
+    EstadoPublicacion estado "Borrador, publicado, pausado, retirado o moderado."
+  }
+  producto_versiones {
+    UUID producto_id PK, FK "Publicación a la que pertenece esta versión."
+    Entero numero PK "Número positivo e inmutable dentro del producto."
+    UUID maker_id FK "Titular conservado para verificar pertenencia en referencias compuestas."
+    UUID material_id FK "Material de la configuración publicada."
+  }
+  portfolio_trabajos {
+    UUID id PK "Identificador estable y opaco de TrabajoPortfolio."
+    UUID maker_id FK "Maker autor y titular del trabajo."
+    EstadoPublicacion estado "Borrador, publicado, retirado o moderado."
+  }
+  solicitudes {
+    UUID id PK, FK "Identificador estable y opaco de Solicitud."
+    UUID cliente_id FK "Referencia a clientes para crea solicitud."
+    Entero version_actual FK "Referencia a solicitud_versiones para selecciona versión actual."
+    EstadoSolicitud estado "Estado vigente de Solicitud; sus cambios utilizan las transiciones autoriza"
   }
   ofertas {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID maker_id FK
-    Entero version_actual FK
-    EstadoOferta estado
+    UUID id PK, FK "Identificador estable y opaco de Oferta."
+    UUID solicitud_id FK "Referencia a solicitudes para recibe oferta."
+    UUID maker_id FK "Referencia a makers para presenta oferta."
+    Entero version_actual FK "Referencia a oferta_versiones para selecciona versión actual."
+    EstadoOferta estado "Estado vigente de Oferta; sus cambios utilizan las transiciones autorizadas"
   }
   pedidos {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID oferta_id FK
-    Entero oferta_version_numero FK
-    EstadoPedido estado
-    UUID revision_actual_id FK
+    UUID id PK, FK "Identificador estable y opaco de Pedido."
+    UUID solicitud_id FK "Referencia a ofertas para contrata oferta."
+    UUID oferta_id FK "Referencia a ofertas para contrata oferta."
+    Entero oferta_version_numero FK "Referencia a oferta_versiones para acepta versión."
+    EstadoPedido estado "Estado vigente de Pedido; sus cambios utilizan las transiciones autorizadas"
+    UUID revision_actual_id FK "Referencia a revisiones_resultado para presenta revisión actual."
+    UUID cliente_id FK "Cliente titular, validado contra la solicitud."
   }
   revisiones_resultado {
-    UUID id PK
-    UUID pedido_id FK
-    UUID presentada_por FK
-    EstadoRevision estado
+    UUID id PK "Identificador estable y opaco de RevisionResultado."
+    UUID pedido_id FK "Referencia a pedidos para tiene revisión."
+    UUID presentada_por FK "Referencia a usuarios para presenta resultado."
+    EstadoRevision estado "Estado vigente de RevisionResultado; sus cambios utilizan las transiciones "
   }
   entregas {
-    UUID id PK
-    UUID pedido_id FK
-    UUID revision_aprobada_id FK
-    UUID punto_encuentro_id FK
-    EstadoEntrega estado
+    UUID id PK "Identificador estable y opaco de Entrega."
+    UUID pedido_id FK "Referencia a pedidos para coordina entrega."
+    UUID revision_aprobada_id FK "Referencia a revisiones_resultado para sustenta entrega."
+    UUID punto_encuentro_id FK "Referencia a puntos_encuentro para acuerda lugar."
+    EstadoEntrega estado "Estado vigente de Entrega; sus cambios utilizan las transiciones autorizada"
+    UUID propuesta_por FK "Participante que propone punto y horario."
+    UUID aceptada_por FK "Contraparte que acepta esa versión de la propuesta."
+  }
+  conversaciones {
+    UUID id PK "Identificador estable y opaco de Conversacion."
+    UUID pedido_id FK "Referencia a pedidos para contextualiza chat."
+    Texto estado "Estado vigente de Conversacion; sus cambios utilizan las transiciones autor"
+  }
+  mensajes {
+    UUID id PK "Identificador estable y opaco de Mensaje."
+    UUID conversacion_id FK "Referencia a conversaciones para contiene mensaje."
+    UUID remitente_id FK "Referencia a participantes_conversacion para autoriza autor."
+  }
+  valoraciones {
+    UUID id PK "Identificador estable y opaco de Valoracion."
+    UUID pedido_id FK "Pedido con recepción confirmada que habilita la valoración."
+    UUID autor_id FK "Participante que emite la valoración."
+    UUID destinatario_id FK "Contraparte valorada."
+    UUID configuracion_version_id FK "Configuración de escala y criterios conservada."
+    EstadoValoracion estado "Publicado u oculto por moderación."
   }
   membresias_maker {
-    UUID id PK
-    UUID maker_id FK
-    Booleano es_fundador
-    UUID fundador_configuracion_id FK
-    UUID fundador_asignado_por FK
+    UUID id PK "Identificador estable y opaco de membresias_maker."
+    UUID maker_id FK "Referencia a makers para tiene membresía."
+    UUID fundador_configuracion_id FK "Referencia a configuraciones_versiones para registra programa."
+    UUID fundador_asignado_por FK "Referencia a usuarios para asigna beneficio."
   }
   planes_membresia_versiones {
-    UUID id PK
-    Monto importe
-    Moneda moneda
-    Texto periodo_unidad
-    Entero periodo_cantidad
-    UUID configuracion_version_id FK
-    UUID creado_por FK
+    UUID id PK "Identificador estable y opaco de planes_membresia_versiones."
+    UUID configuracion_version_id FK "Referencia a configuraciones_versiones para aplica configuración."
+    UUID creado_por FK "Referencia a usuarios para publica versión."
   }
   compras_membresia {
-    UUID id PK
-    UUID membresia_id FK
-    UUID plan_version_id FK
-    Monto importe
-    Moneda moneda
-    Texto periodo_unidad
-    Entero periodo_cantidad
-    EstadoCompra estado
+    UUID id PK "Identificador estable y opaco de compras_membresia."
+    UUID membresia_id FK "Referencia a membresias_maker para registra compra."
+    UUID plan_version_id FK "Referencia a planes_membresia_versiones para conserva plan."
+    EstadoCompra estado "Estado vigente de compras_membresia; sus cambios utilizan las transiciones "
   }
   periodos_membresia {
-    UUID id PK
-    UUID membresia_id FK
-    OrigenAcceso origen
-    UUID compra_id FK
-    UUID configuracion_version_id FK
-    FechaHora inicio_en
-    FechaHora fin_en
-    EstadoPeriodo estado
+    UUID id PK "Identificador estable y opaco de periodos_membresia."
+    UUID membresia_id FK "Referencia a membresias_maker para concede acceso."
+    UUID compra_id FK "Referencia a compras_membresia para origina período."
+    UUID configuracion_version_id FK "Referencia a configuraciones_versiones para conserva condiciones."
+    EstadoPeriodo estado "Estado vigente de periodos_membresia; sus cambios utilizan las transiciones"
   }
   pagos {
-    UUID id PK
-    UUID compra_id FK
-    Moneda moneda
-    EstadoPago estado
+    UUID id PK "Identificador estable y opaco de Pago."
+    UUID compra_id FK "Referencia a compras_membresia para tiene obligación de abono."
+    EstadoPago estado "Estado vigente de Pago; sus cambios utilizan las transiciones autorizadas."
   }
-  clientes ||--o{ solicitudes : "cliente_id"
-  solicitudes ||--o{ ofertas : "solicitud_id"
-  makers ||--o{ ofertas : "maker_id"
-  ofertas ||--o{ pedidos : "oferta_id_solicitud_id"
-  solicitudes ||--o| pedidos : "solicitud_id"
-  revisiones_resultado o|--o{ pedidos : "id_revision_actual_id"
-  pedidos ||--o{ revisiones_resultado : "pedido_id"
-  pedidos ||--o| entregas : "pedido_id"
-  revisiones_resultado ||--o{ entregas : "pedido_id_revision_aprobada_id"
-  makers ||--o| membresias_maker : "maker_id"
-  membresias_maker ||--o{ compras_membresia : "membresia_id"
-  planes_membresia_versiones ||--o{ compras_membresia : "plan_version_id"
-  membresias_maker ||--o{ periodos_membresia : "membresia_id"
-  compras_membresia o|--o{ periodos_membresia : "compra_id_membresia_id"
-  compras_membresia ||--o| pagos : "compra_id"
+  usuarios {
+    UUID id PK "Identificador estable y opaco de Usuario."
+    EstadoUsuario estado "Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada"
+  }
+  ubicaciones {
+    UUID id PK "Identificador estable y opaco de Ubicacion."
+    UUID propietario_id FK "Referencia a usuarios para registra ubicación."
+  }
+  materiales {
+    UUID id PK "Identificador estable y opaco de Material."
+  }
+  solicitud_versiones {
+    UUID solicitud_id PK, FK "Referencia a solicitudes para conserva versión."
+    Entero numero PK "Número positivo de versión dentro del recurso."
+    UUID archivo_stl_id FK "Referencia a archivos para aporta STL."
+    UUID material_id FK "Referencia a materiales para requiere material."
+    UUID ubicacion_id FK "Referencia a ubicaciones para orienta búsqueda."
+    UUID producto_id FK "Producto elegido para una solicitud de catálogo."
+    Entero producto_version_numero FK "Versión publicada del producto elegida por el cliente."
+  }
+  oferta_versiones {
+    UUID oferta_id PK, FK "Referencia a ofertas para conserva versión."
+    Entero numero PK "Número positivo de versión dentro del recurso."
+    UUID solicitud_id FK "Referencia a ofertas para conserva versión."
+    Entero solicitud_version_numero FK "Referencia a solicitud_versiones para cotiza especificación."
+    UUID maker_id FK "Referencia a ofertas para conserva versión."
+    UUID invitacion_id FK "Referencia a invitaciones_maker para autoriza cotización."
+    UUID configuracion_contratacion_version_id FK "Versión de las condiciones de contratación conservadas con la oferta."
+    UUID producto_id FK "Publicación de la oferta de catálogo."
+    Entero producto_version_numero FK "Versión de condiciones del catálogo."
+  }
+  puntos_encuentro {
+    UUID id PK "Identificador estable y opaco de PuntoEncuentro."
+    UUID ubicacion_id FK "Referencia a ubicaciones para localiza encuentro."
+    UUID creado_por FK "Referencia a usuarios para propone punto."
+  }
+  participantes_conversacion {
+    UUID conversacion_id PK, FK "Referencia a conversaciones para habilita participante."
+    UUID usuario_id PK, FK "Referencia a usuarios para participa."
+  }
+  configuraciones_versiones {
+    UUID id PK "Identificador estable y opaco de ConfiguracionVersion."
+    UUID creada_por FK "Referencia a usuarios para versiona configuración."
+  }
+  usuarios ||--o| clientes : "tiene perfil cliente"
+  ubicaciones o|--o{ clientes : "ubica cliente"
+  usuarios ||--o| makers : "tiene perfil maker"
+  ubicaciones o|--o{ makers : "ubica maker"
+  makers ||--o{ productos_maker : "publica producto"
+  producto_versiones ||--o| productos_maker : "selecciona versión de producto"
+  productos_maker ||--o{ producto_versiones : "conserva versión de producto"
+  materiales ||--o{ producto_versiones : "ofrece material"
+  makers ||--o{ portfolio_trabajos : "presenta trabajo"
+  clientes ||--o{ solicitudes : "crea solicitud"
+  solicitud_versiones ||--o| solicitudes : "selecciona versión actual"
+  solicitudes ||--o{ ofertas : "recibe oferta"
+  makers ||--o{ ofertas : "presenta oferta"
+  oferta_versiones ||--o| ofertas : "selecciona versión actual"
+  ofertas ||--o| pedidos : "contrata oferta"
+  oferta_versiones ||--o| pedidos : "acepta versión"
+  solicitudes ||--o| pedidos : "confirma pedido"
+  revisiones_resultado o|--o| pedidos : "presenta revisión actual"
+  solicitudes ||--o| pedidos : "conserva titular del pedido"
+  pedidos ||--o{ revisiones_resultado : "tiene revisión"
+  usuarios ||--o{ revisiones_resultado : "presenta resultado"
+  pedidos ||--o| entregas : "coordina entrega"
+  revisiones_resultado ||--o| entregas : "sustenta entrega"
+  puntos_encuentro o|--o{ entregas : "acuerda lugar"
+  usuarios o|--o{ entregas : "propone encuentro"
+  usuarios o|--o{ entregas : "acepta encuentro"
+  pedidos ||--o| conversaciones : "contextualiza chat"
+  conversaciones ||--o{ mensajes : "contiene mensaje"
+  participantes_conversacion ||--o{ mensajes : "autoriza autor"
+  pedidos ||--o{ valoraciones : "habilita valoración"
+  usuarios ||--o{ valoraciones : "emite valoración"
+  usuarios ||--o{ valoraciones : "recibe valoración"
+  configuraciones_versiones ||--o{ valoraciones : "conserva escala y criterios"
+  makers ||--o| membresias_maker : "tiene membresía"
+  configuraciones_versiones o|--o{ membresias_maker : "registra programa"
+  usuarios o|--o{ membresias_maker : "asigna beneficio"
+  configuraciones_versiones ||--o{ planes_membresia_versiones : "aplica configuración"
+  usuarios ||--o{ planes_membresia_versiones : "publica versión"
+  membresias_maker ||--o{ compras_membresia : "registra compra"
+  planes_membresia_versiones ||--o{ compras_membresia : "conserva plan"
+  membresias_maker ||--o{ periodos_membresia : "concede acceso"
+  compras_membresia o|--o| periodos_membresia : "origina período"
+  configuraciones_versiones ||--o{ periodos_membresia : "conserva condiciones"
+  compras_membresia ||--o| pagos : "tiene obligación de abono"

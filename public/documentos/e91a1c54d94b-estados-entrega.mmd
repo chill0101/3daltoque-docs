@@ -1,11 +1,12 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 stateDiagram-v2
   direction LR
   state "Pendiente de coordinar" as pendiente
   state "Coordinada" as coordinada
   state "Completada" as completada
   [*] --> pendiente
-  pendiente --> coordinada: Revisión aprobada y encuentro acordado
-  coordinada --> completada: Recepción autorizada
+  pendiente --> coordinada: Revisión aprobada y contraparte acepta versión de encuentro
+  coordinada --> completada: Cliente autenticado confirma recepción
   completada --> [*]
   note right of coordinada
     Encuentro personal sin custodia de terceros.

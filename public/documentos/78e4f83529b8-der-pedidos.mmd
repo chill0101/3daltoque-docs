@@ -1,107 +1,149 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   pedidos {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID oferta_id FK
-    Entero oferta_version_numero FK
-    EstadoPedido estado
-    UUID revision_actual_id FK
+    UUID id PK, FK "Identificador estable y opaco de Pedido."
+    UUID solicitud_id FK "Referencia a ofertas para contrata oferta."
+    UUID oferta_id FK "Referencia a ofertas para contrata oferta."
+    Entero oferta_version_numero FK "Referencia a oferta_versiones para acepta versión."
+    EstadoPedido estado "Estado vigente de Pedido; sus cambios utilizan las transiciones autorizadas"
+    UUID revision_actual_id FK "Referencia a revisiones_resultado para presenta revisión actual."
+    Texto clave_aceptacion "Identidad estable de la operación o referencia clave aceptacion."
+    FechaHora confirmado_en "Fecha del servidor del evento confirmado en, conservada con zona horaria."
+    FechaHora entrega_estimada_en "Fecha del servidor del evento entrega estimada en, conservada con zona hora"
+    UUID cliente_id FK "Cliente titular, validado contra la solicitud."
+    Texto huella_aceptacion "Huella del contenido para resolver reintentos de una misma intención."
   }
   condiciones_pedido {
-    UUID pedido_id PK
-    Monto precio_pieza
-    Moneda moneda
+    UUID pedido_id PK, FK "Referencia a pedidos para fija condiciones."
+    Monto precio_pieza "Importe decimal conservado con su moneda y el contexto de condiciones_pedid"
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Monto total_cliente_acordado "Valor de total cliente acordado del recurso CondicionesEconomicas, validado"
+    FechaHora fijadas_en "Fecha del servidor del evento fijadas en, conservada con zona horaria."
+    UUID producto_id FK "Producto de origen cuando el pedido procede del catálogo."
+    Entero producto_version_numero FK "Versión de producto aceptada."
+    Entero cantidad_catalogo "Cantidad del producto aceptada."
+    Monto precio_unitario_catalogo "Precio unitario aceptado del producto."
   }
   historial_pedidos {
-    UUID id PK
-    UUID pedido_id FK
-    UUID actor_id FK
+    UUID id PK "Identificador estable y opaco de HistorialPedido."
+    UUID pedido_id FK "Referencia a pedidos para registra transición."
+    UUID actor_id FK "Referencia a usuarios para ejecuta transición."
+    Texto origen_proceso "Valor de origen proceso del recurso HistorialPedido, validado con las regla"
+    EstadoPedido estado_anterior "Valor de estado anterior del recurso HistorialPedido, validado con las regl"
+    EstadoPedido estado_nuevo "Valor de estado nuevo del recurso HistorialPedido, validado con las reglas "
+    Texto motivo "Texto de motivo del recurso, sujeto a sus permisos y límites."
+    Texto clave_operacion "Identidad estable de la operación o referencia clave operacion."
+    FechaHora ocurrido_en "Fecha del servidor del evento ocurrido en, conservada con zona horaria."
   }
   revisiones_resultado {
-    UUID id PK
-    UUID pedido_id FK
-    UUID presentada_por FK
-    EstadoRevision estado
+    UUID id PK "Identificador estable y opaco de RevisionResultado."
+    UUID pedido_id FK "Referencia a pedidos para tiene revisión."
+    Entero numero "Número positivo de versión dentro del recurso."
+    UUID presentada_por FK "Referencia a usuarios para presenta resultado."
+    EstadoRevision estado "Estado vigente de RevisionResultado; sus cambios utilizan las transiciones "
+    Texto comentario_maker "Valor de comentario maker del recurso RevisionResultado, validado con las r"
+    FechaHora presentada_en "Fecha del servidor del evento presentada en, conservada con zona horaria."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   evidencias {
-    UUID id PK
-    UUID revision_id FK
-    UUID archivo_id FK
+    UUID id PK "Identificador estable y opaco de Evidencia."
+    UUID revision_id FK "Referencia a revisiones_resultado para contiene evidencia."
+    UUID archivo_id FK "Referencia a archivos para muestra objeto."
+    Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
+    Entero orden "Valor de orden del recurso Evidencia, validado con las reglas y el tipo ind"
   }
   decisiones_revision {
-    UUID id PK
-    UUID revision_id FK
-    UUID cliente_id FK
+    UUID id PK "Identificador estable y opaco de DecisionRevision."
+    UUID revision_id FK "Referencia a revisiones_resultado para recibe decisión."
+    UUID cliente_id FK "Referencia a clientes para revisa resultado."
+    DecisionRevision decision "Valor de decision del recurso DecisionRevision, validado con las reglas y e"
+    Texto observacion "Valor de observacion del recurso DecisionRevision, validado con las reglas "
+    Texto clave_operacion "Identidad estable de la operación o referencia clave operacion."
+    FechaHora decidida_en "Fecha del servidor del evento decidida en, conservada con zona horaria."
   }
   puntos_encuentro {
-    UUID id PK
-    UUID ubicacion_id FK
-    UUID creado_por FK
+    UUID id PK "Identificador estable y opaco de PuntoEncuentro."
+    UUID ubicacion_id FK "Referencia a ubicaciones para localiza encuentro."
+    UUID creado_por FK "Referencia a usuarios para propone punto."
+    Texto etiqueta "Valor de etiqueta del recurso PuntoEncuentro, validado con las reglas y el "
+    Texto indicaciones "Valor de indicaciones del recurso PuntoEncuentro, validado con las reglas y"
+    Booleano activo "Indicador vigente de activo utilizado en la autorización o selección de Pun"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   entregas {
-    UUID id PK
-    UUID pedido_id FK
-    UUID revision_aprobada_id FK
-    UUID punto_encuentro_id FK
-    EstadoEntrega estado
+    UUID id PK "Identificador estable y opaco de Entrega."
+    UUID pedido_id FK "Referencia a pedidos para coordina entrega."
+    UUID revision_aprobada_id FK "Referencia a revisiones_resultado para sustenta entrega."
+    UUID punto_encuentro_id FK "Referencia a puntos_encuentro para acuerda lugar."
+    EstadoEntrega estado "Estado vigente de Entrega; sus cambios utilizan las transiciones autorizada"
+    FechaHora fecha_hora_acordada "Valor de fecha hora acordada del recurso Entrega, validado con las reglas y"
+    FechaHora acordada_en "Fecha del servidor del evento acordada en, conservada con zona horaria."
+    FechaHora completada_en "Fecha del servidor del evento completada en, conservada con zona horaria."
+    Texto clave_operacion_cierre "Identidad estable de la operación o referencia clave operacion cierre."
+    Entero version "Versión de la propuesta y acuerdo de encuentro."
+    UUID propuesta_por FK "Participante que propone punto y horario."
+    UUID aceptada_por FK "Contraparte que acepta esa versión de la propuesta."
   }
   confirmaciones_entrega {
-    UUID id PK
-    UUID entrega_id FK
-    UUID actor_id FK
+    UUID id PK "Identificador estable y opaco de ConfirmacionRecepcion."
+    UUID entrega_id FK "Referencia a entregas para registra recepción."
+    UUID actor_id FK "Referencia a usuarios para confirma recepción."
+    Texto mecanismo "Valor de mecanismo del recurso ConfirmacionRecepcion, validado con las regl"
+    Texto verificacion_ref "Valor de verificacion ref del recurso ConfirmacionRecepcion, validado con l"
+    Texto resultado "Valor de resultado del recurso ConfirmacionRecepcion, validado con las regl"
+    Texto clave_operacion "Identidad estable de la operación o referencia clave operacion."
+    FechaHora confirmada_en "Fecha del servidor del evento confirmada en, conservada con zona horaria."
   }
   ofertas {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID maker_id FK
-    Entero version_actual FK
+    UUID id PK, FK "Identificador estable y opaco de Oferta."
+    UUID solicitud_id FK "Referencia a solicitudes para recibe oferta."
   }
   oferta_versiones {
-    UUID oferta_id PK
-    Entero numero PK
-    UUID solicitud_id FK
-    Entero solicitud_version_numero FK
-    UUID maker_id FK
-    UUID invitacion_id FK
-    UUID configuracion_financiera_version_id FK
+    UUID oferta_id PK, FK "Referencia a ofertas para conserva versión."
+    Entero numero PK "Número positivo de versión dentro del recurso."
   }
   solicitudes {
-    UUID id PK
-    UUID cliente_id FK
-    Entero version_actual FK
+    UUID id PK, FK "Identificador estable y opaco de Solicitud."
+    UUID cliente_id FK "Referencia a clientes para crea solicitud."
+  }
+  producto_versiones {
+    UUID producto_id PK, FK "Publicación a la que pertenece esta versión."
+    Entero numero PK "Número positivo e inmutable dentro del producto."
   }
   usuarios {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Usuario."
   }
   archivos {
-    UUID id PK
-    UUID propietario_id FK
+    UUID id PK "Identificador estable y opaco de Archivo."
   }
   clientes {
-    UUID usuario_id PK
-    UUID ubicacion_id FK
+    UUID usuario_id PK, FK "Referencia a usuarios para tiene perfil cliente."
   }
   ubicaciones {
-    UUID id PK
-    UUID propietario_id FK
+    UUID id PK "Identificador estable y opaco de Ubicacion."
   }
-  ofertas ||--o{ pedidos : "oferta_id_solicitud_id"
-  oferta_versiones ||--o| pedidos : "oferta_id_oferta_version_numero"
-  solicitudes ||--o| pedidos : "solicitud_id"
-  revisiones_resultado o|--o{ pedidos : "id_revision_actual_id"
-  pedidos ||--o| condiciones_pedido : "pedido_id"
-  pedidos ||--o{ historial_pedidos : "pedido_id"
-  usuarios o|--o{ historial_pedidos : "actor_id"
-  pedidos ||--o{ revisiones_resultado : "pedido_id"
-  usuarios ||--o{ revisiones_resultado : "presentada_por"
-  revisiones_resultado ||--o{ evidencias : "revision_id"
-  archivos ||--o{ evidencias : "archivo_id"
-  revisiones_resultado ||--o{ decisiones_revision : "revision_id"
-  clientes ||--o{ decisiones_revision : "cliente_id"
-  ubicaciones ||--o{ puntos_encuentro : "ubicacion_id"
-  usuarios ||--o{ puntos_encuentro : "creado_por"
-  pedidos ||--o| entregas : "pedido_id"
-  revisiones_resultado ||--o{ entregas : "pedido_id_revision_aprobada_id"
-  puntos_encuentro o|--o{ entregas : "punto_encuentro_id"
-  entregas ||--o{ confirmaciones_entrega : "entrega_id"
-  usuarios ||--o{ confirmaciones_entrega : "actor_id"
+  ofertas ||--o| pedidos : "contrata oferta"
+  oferta_versiones ||--o| pedidos : "acepta versión"
+  solicitudes ||--o| pedidos : "confirma pedido"
+  revisiones_resultado o|--o| pedidos : "presenta revisión actual"
+  solicitudes ||--o| pedidos : "conserva titular del pedido"
+  pedidos ||--o| condiciones_pedido : "fija condiciones"
+  producto_versiones o|--o{ condiciones_pedido : "preserva configuración publicada"
+  pedidos ||--o{ historial_pedidos : "registra transición"
+  usuarios o|--o{ historial_pedidos : "ejecuta transición"
+  pedidos ||--o{ revisiones_resultado : "tiene revisión"
+  usuarios ||--o{ revisiones_resultado : "presenta resultado"
+  revisiones_resultado ||--o{ evidencias : "contiene evidencia"
+  archivos ||--o{ evidencias : "muestra objeto"
+  revisiones_resultado ||--o{ decisiones_revision : "recibe decisión"
+  clientes ||--o{ decisiones_revision : "revisa resultado"
+  ubicaciones ||--o{ puntos_encuentro : "localiza encuentro"
+  usuarios ||--o{ puntos_encuentro : "propone punto"
+  pedidos ||--o| entregas : "coordina entrega"
+  revisiones_resultado ||--o| entregas : "sustenta entrega"
+  puntos_encuentro o|--o{ entregas : "acuerda lugar"
+  usuarios o|--o{ entregas : "propone encuentro"
+  usuarios o|--o{ entregas : "acepta encuentro"
+  entregas ||--o{ confirmaciones_entrega : "registra recepción"
+  usuarios ||--o{ confirmaciones_entrega : "confirma recepción"

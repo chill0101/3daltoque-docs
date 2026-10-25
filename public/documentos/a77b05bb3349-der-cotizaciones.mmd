@@ -1,100 +1,169 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   solicitudes {
-    UUID id PK
-    UUID cliente_id FK
-    Entero version_actual FK
-    EstadoSolicitud estado
+    UUID id PK, FK "Identificador estable y opaco de Solicitud."
+    UUID cliente_id FK "Referencia a clientes para crea solicitud."
+    Entero version_actual FK "Referencia a solicitud_versiones para selecciona versión actual."
+    EstadoSolicitud estado "Estado vigente de Solicitud; sus cambios utilizan las transiciones autoriza"
+    FechaHora expira_en "Fecha del servidor del evento expira en, conservada con zona horaria."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    TipoSolicitud tipo "Personalizada o catálogo; determina archivo, búsqueda y origen del acuerdo."
   }
   solicitud_versiones {
-    UUID solicitud_id PK
-    Entero numero PK
-    UUID archivo_stl_id FK
-    UUID material_id FK
-    UUID ubicacion_id FK
+    UUID solicitud_id PK, FK "Referencia a solicitudes para conserva versión."
+    Entero numero PK "Número positivo de versión dentro del recurso."
+    UUID archivo_stl_id FK "Referencia a archivos para aporta STL."
+    UUID material_id FK "Referencia a materiales para requiere material."
+    UUID ubicacion_id FK "Referencia a ubicaciones para orienta búsqueda."
+    Texto titulo "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
+    Texto color "Valor de color del recurso VersionSolicitud, validado con las reglas y el t"
+    Entero cantidad "Cantidad validada según el contexto y las reglas de solicitud_versiones."
+    Texto unidad_declarada "Valor de unidad declarada del recurso VersionSolicitud, validado con las re"
+    Texto urgencia "Valor de urgencia del recurso VersionSolicitud, validado con las reglas y e"
+    Monto presupuesto_referencia "Valor de presupuesto referencia del recurso VersionSolicitud, validado con "
+    Moneda moneda_referencia "Valor de moneda referencia del recurso VersionSolicitud, validado con las r"
+    FechaHora publicada_en "Fecha del servidor del evento publicada en, conservada con zona horaria."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    UUID producto_id FK "Producto elegido para una solicitud de catálogo."
+    Entero producto_version_numero FK "Versión publicada del producto elegida por el cliente."
   }
   rondas_busqueda {
-    UUID id PK
-    UUID solicitud_id FK
-    Entero solicitud_version_numero FK
-    UUID configuracion_version_id FK
-    EstadoRonda estado
+    UUID id PK "Identificador estable y opaco de RondaBusqueda."
+    UUID solicitud_id FK "Referencia a solicitud_versiones para busca para versión."
+    Entero solicitud_version_numero FK "Referencia a solicitud_versiones para busca para versión."
+    Entero numero "Número positivo de versión dentro del recurso."
+    UUID configuracion_version_id FK "Referencia a configuraciones_versiones para fija reglas búsqueda."
+    Decimal radio_metros "Valor de radio metros del recurso RondaBusqueda, validado con las reglas y "
+    Entero limite_makers "Valor de limite makers del recurso RondaBusqueda, validado con las reglas y"
+    JSON criterios_orden "Valor de criterios orden del recurso RondaBusqueda, validado con las reglas"
+    EstadoRonda estado "Estado vigente de RondaBusqueda; sus cambios utilizan las transiciones auto"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   invitaciones_maker {
-    UUID id PK
-    UUID ronda_id FK
-    UUID solicitud_id FK
-    UUID maker_id FK
-    EstadoInvitacion estado
+    UUID id PK "Identificador estable y opaco de InvitacionMaker."
+    UUID ronda_id FK "Referencia a rondas_busqueda para invita destinatario."
+    UUID solicitud_id FK "Referencia a rondas_busqueda para invita destinatario."
+    UUID maker_id FK "Referencia a makers para recibe invitación."
+    EstadoInvitacion estado "Estado vigente de InvitacionMaker; sus cambios utilizan las transiciones au"
+    Decimal distancia_metros "Valor de distancia metros del recurso InvitacionMaker, validado con las reg"
+    FechaHora respondida_en "Fecha del servidor del evento respondida en, conservada con zona horaria."
+    Texto motivo_rechazo "Valor de motivo rechazo del recurso InvitacionMaker, validado con las regla"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   estimaciones {
-    UUID id PK
-    UUID solicitud_id FK
-    Entero solicitud_version_numero FK
-    UUID analisis_archivo_id FK
-    Moneda moneda
-    EstadoEstimacion estado
+    UUID id PK "Identificador estable y opaco de Estimacion."
+    UUID solicitud_id FK "Referencia a solicitud_versiones para estima referencia."
+    Entero solicitud_version_numero FK "Referencia a solicitud_versiones para estima referencia."
+    UUID analisis_archivo_id FK "Referencia a analisis_archivos para aporta medidas."
+    Texto metodo "Valor de metodo del recurso Estimacion, validado con las reglas y el tipo i"
+    Texto version_metodo "Valor de version metodo del recurso Estimacion, validado con las reglas y e"
+    JSON parametros "Valor de parametros del recurso Estimacion, validado con las reglas y el ti"
+    Monto monto_desde "Importe decimal conservado con su moneda y el contexto de estimaciones."
+    Monto monto_hasta "Importe decimal conservado con su moneda y el contexto de estimaciones."
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    EstadoEstimacion estado "Estado vigente de Estimacion; sus cambios utilizan las transiciones autoriz"
+    JSON advertencias "Valor de advertencias del recurso Estimacion, validado con las reglas y el "
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   ofertas {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID maker_id FK
-    Entero version_actual FK
-    EstadoOferta estado
+    UUID id PK, FK "Identificador estable y opaco de Oferta."
+    UUID solicitud_id FK "Referencia a solicitudes para recibe oferta."
+    UUID maker_id FK "Referencia a makers para presenta oferta."
+    Entero version_actual FK "Referencia a oferta_versiones para selecciona versión actual."
+    EstadoOferta estado "Estado vigente de Oferta; sus cambios utilizan las transiciones autorizadas"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   oferta_versiones {
-    UUID oferta_id PK
-    Entero numero PK
-    UUID solicitud_id FK
-    Entero solicitud_version_numero FK
-    UUID maker_id FK
-    UUID invitacion_id FK
-    UUID configuracion_financiera_version_id FK
-    Moneda moneda
+    UUID oferta_id PK, FK "Referencia a ofertas para conserva versión."
+    Entero numero PK "Número positivo de versión dentro del recurso."
+    UUID solicitud_id FK "Referencia a ofertas para conserva versión."
+    Entero solicitud_version_numero FK "Referencia a solicitud_versiones para cotiza especificación."
+    UUID maker_id FK "Referencia a ofertas para conserva versión."
+    UUID invitacion_id FK "Referencia a invitaciones_maker para autoriza cotización."
+    UUID configuracion_contratacion_version_id FK "Versión de las condiciones de contratación conservadas con la oferta."
+    Monto precio "Importe decimal conservado con su moneda y el contexto de oferta_versiones."
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Decimal plazo_cantidad "Cantidad validada según el contexto y las reglas de oferta_versiones."
+    UnidadPlazo plazo_unidad "Valor de plazo unidad del recurso VersionOferta, validado con las reglas y "
+    FechaHora vence_en "Fecha del servidor del evento vence en, conservada con zona horaria."
+    Texto condiciones "Valor de condiciones del recurso VersionOferta, validado con las reglas y e"
+    Texto observaciones "Texto de observaciones del recurso, sujeto a sus permisos y límites."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    OrigenOferta origen "Cotización de solicitud o condiciones de producto de catálogo."
+    UUID producto_id FK "Publicación de la oferta de catálogo."
+    Entero producto_version_numero FK "Versión de condiciones del catálogo."
+    Monto precio_unitario_catalogo "Importe unitario conservado para el producto."
+    Entero cantidad_catalogo "Cantidad de producto confirmada; positiva cuando el origen es catálogo."
+  }
+  propuestas_cambio_oferta {
+    UUID id PK "Identificador estable y opaco de PropuestaCambioOferta."
+    UUID oferta_id FK "Oferta afectada."
+    Entero version_origen FK "Versión que el cliente consultó al proponer el cambio."
+    UUID cliente_id FK "Cliente propietario de la solicitud."
+    Monto precio_total_propuesto "Importe total propuesto por el cliente."
+    Moneda moneda "Moneda explícita de la propuesta."
+    Decimal plazo_cantidad "Plazo positivo propuesto."
+    UnidadPlazo plazo_unidad "Unidad explícita del plazo."
+    Texto observacion "Descripción del cambio solicitado."
+    EstadoPropuesta estado "Pendiente, aceptada, rechazada, cancelada u obsoleta."
+    Entero version_resultante FK "Nueva versión del maker si la propuesta se acepta."
+    UUID resuelta_por FK "Usuario maker que responde la propuesta."
+    FechaHora creada_en "Fecha de la propuesta."
+    FechaHora resuelta_en "Fecha de la resolución."
   }
   clientes {
-    UUID usuario_id PK
-    UUID ubicacion_id FK
+    UUID usuario_id PK, FK "Referencia a usuarios para tiene perfil cliente."
   }
   archivos {
-    UUID id PK
-    UUID propietario_id FK
+    UUID id PK "Identificador estable y opaco de Archivo."
   }
   materiales {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Material."
   }
   ubicaciones {
-    UUID id PK
-    UUID propietario_id FK
+    UUID id PK "Identificador estable y opaco de Ubicacion."
+  }
+  producto_versiones {
+    UUID producto_id PK, FK "Publicación a la que pertenece esta versión."
+    Entero numero PK "Número positivo e inmutable dentro del producto."
+    UUID maker_id FK "Titular conservado para verificar pertenencia en referencias compuestas."
   }
   configuraciones_versiones {
-    UUID id PK
-    UUID creada_por FK
+    UUID id PK "Identificador estable y opaco de ConfiguracionVersion."
   }
   makers {
-    UUID id PK
-    UUID usuario_id FK
-    UUID ubicacion_id FK
+    UUID id PK "Identificador estable y opaco de Maker."
   }
   analisis_archivos {
-    UUID id PK
-    UUID archivo_id FK
+    UUID id PK "Identificador estable y opaco de AnalisisArchivo."
   }
-  clientes ||--o{ solicitudes : "cliente_id"
-  solicitud_versiones ||--o{ solicitudes : "id_version_actual"
-  solicitudes ||--o{ solicitud_versiones : "solicitud_id"
-  archivos o|--o{ solicitud_versiones : "archivo_stl_id"
-  materiales o|--o{ solicitud_versiones : "material_id"
-  ubicaciones o|--o{ solicitud_versiones : "ubicacion_id"
-  solicitud_versiones ||--o{ rondas_busqueda : "solicitud_id_solicitud_version_numero"
-  configuraciones_versiones ||--o{ rondas_busqueda : "configuracion_version_id"
-  rondas_busqueda ||--o{ invitaciones_maker : "ronda_id_solicitud_id"
-  makers ||--o{ invitaciones_maker : "maker_id"
-  solicitud_versiones ||--o{ estimaciones : "solicitud_id_solicitud_version_numero"
-  analisis_archivos o|--o{ estimaciones : "analisis_archivo_id"
-  solicitudes ||--o{ ofertas : "solicitud_id"
-  makers ||--o{ ofertas : "maker_id"
-  oferta_versiones ||--o{ ofertas : "id_version_actual"
-  ofertas ||--o{ oferta_versiones : "oferta_id_solicitud_id_maker_id"
-  solicitud_versiones ||--o{ oferta_versiones : "solicitud_id_solicitud_version_numero"
-  invitaciones_maker ||--o{ oferta_versiones : "invitacion_id_solicitud_id_maker_id"
-  configuraciones_versiones ||--o{ oferta_versiones : "configuracion_financiera_version_id"
+  usuarios {
+    UUID id PK "Identificador estable y opaco de Usuario."
+  }
+  clientes ||--o{ solicitudes : "crea solicitud"
+  solicitud_versiones ||--o| solicitudes : "selecciona versión actual"
+  solicitudes ||--o{ solicitud_versiones : "conserva versión"
+  archivos o|--o{ solicitud_versiones : "aporta STL"
+  materiales o|--o{ solicitud_versiones : "requiere material"
+  ubicaciones o|--o{ solicitud_versiones : "orienta búsqueda"
+  producto_versiones o|--o{ solicitud_versiones : "elige versión de producto"
+  solicitud_versiones ||--o{ rondas_busqueda : "busca para versión"
+  configuraciones_versiones ||--o{ rondas_busqueda : "fija reglas búsqueda"
+  rondas_busqueda ||--o{ invitaciones_maker : "invita destinatario"
+  makers ||--o{ invitaciones_maker : "recibe invitación"
+  solicitud_versiones ||--o{ estimaciones : "estima referencia"
+  analisis_archivos o|--o{ estimaciones : "aporta medidas"
+  solicitudes ||--o{ ofertas : "recibe oferta"
+  makers ||--o{ ofertas : "presenta oferta"
+  oferta_versiones ||--o| ofertas : "selecciona versión actual"
+  ofertas ||--o{ oferta_versiones : "conserva versión"
+  solicitud_versiones ||--o{ oferta_versiones : "cotiza especificación"
+  invitaciones_maker o|--o{ oferta_versiones : "autoriza cotización"
+  configuraciones_versiones ||--o{ oferta_versiones : "presenta política"
+  producto_versiones o|--o{ oferta_versiones : "conserva condiciones del producto"
+  oferta_versiones ||--o{ propuestas_cambio_oferta : "propone cambio de versión"
+  clientes ||--o{ propuestas_cambio_oferta : "propone cambio"
+  oferta_versiones o|--o| propuestas_cambio_oferta : "genera versión resultante"
+  usuarios o|--o{ propuestas_cambio_oferta : "resuelve propuesta"

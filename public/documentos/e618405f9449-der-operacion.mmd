@@ -1,67 +1,109 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   configuraciones_versiones {
-    UUID id PK
-    UUID creada_por FK
+    UUID id PK "Identificador estable y opaco de ConfiguracionVersion."
+    DominioConfig dominio "Valor de dominio del recurso ConfiguracionVersion, validado con las reglas "
+    Entero numero "Número positivo de versión dentro del recurso."
+    JSON valores "Valor de valores del recurso ConfiguracionVersion, validado con las reglas "
+    UUID creada_por FK "Referencia a usuarios para versiona configuración."
+    Texto motivo "Texto de motivo del recurso, sujeto a sus permisos y límites."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   activaciones_configuracion {
-    UUID id PK
-    UUID configuracion_version_id FK
-    UUID activada_por FK
-    UUID cerrada_por FK
+    UUID id PK "Identificador estable y opaco de ActivacionConfiguracion."
+    UUID configuracion_version_id FK "Referencia a configuraciones_versiones para entra en vigencia."
+    DominioConfig dominio "Valor de dominio del recurso ActivacionConfiguracion, validado con las regl"
+    FechaHora vigente_desde "Valor de vigente desde del recurso ActivacionConfiguracion, validado con la"
+    FechaHora vigente_hasta "Valor de vigente hasta del recurso ActivacionConfiguracion, validado con la"
+    UUID activada_por FK "Referencia a usuarios para activa versión."
+    UUID cerrada_por FK "Referencia a usuarios para cierra vigencia."
   }
   eventos_salida {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de EventoDominio."
+    Texto tipo "Valor de tipo del recurso EventoDominio, validado con las reglas y el tipo "
+    Entero version_contrato "Valor de version contrato del recurso EventoDominio, validado con las regla"
+    Texto entidad_tipo "Valor de entidad tipo del recurso EventoDominio, validado con las reglas y "
+    UUID entidad_id "Valor de entidad id del recurso EventoDominio, validado con las reglas y el"
+    Texto version_entidad "Valor de version entidad del recurso EventoDominio, validado con las reglas"
+    Texto correlacion_id "Valor de correlacion id del recurso EventoDominio, validado con las reglas "
+    Texto clave_evento "Identidad estable de la operación o referencia clave evento."
+    JSON payload_minimo "Valor de payload minimo del recurso EventoDominio, validado con las reglas "
+    FechaHora ocurrido_en "Fecha del servidor del evento ocurrido en, conservada con zona horaria."
+    EstadoTrabajo estado_publicacion "Valor de estado publicacion del recurso EventoDominio, validado con las reg"
   }
   trabajos {
-    UUID id PK
-    UUID evento_salida_id FK
-    EstadoTrabajo estado
+    UUID id PK "Identificador estable y opaco de Trabajo."
+    UUID evento_salida_id FK "Referencia a eventos_salida para programa trabajo."
+    Texto tipo "Valor de tipo del recurso Trabajo, validado con las reglas y el tipo indica"
+    Texto clave_deduplicacion "Identidad estable de la operación o referencia clave deduplicacion."
+    JSON payload "Valor de payload del recurso Trabajo, validado con las reglas y el tipo ind"
+    EstadoTrabajo estado "Estado vigente de Trabajo; sus cambios utilizan las transiciones autorizada"
+    Entero intentos "Valor de intentos del recurso Trabajo, validado con las reglas y el tipo in"
+    FechaHora proxima_ejecucion_en "Fecha del servidor del evento proxima ejecucion en, conservada con zona hor"
+    FechaHora reservado_hasta "Valor de reservado hasta del recurso Trabajo, validado con las reglas y el "
+    Texto reservado_por "Valor de reservado por del recurso Trabajo, validado con las reglas y el ti"
+    Texto ultimo_error "Valor de ultimo error del recurso Trabajo, validado con las reglas y el tip"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   auditoria {
-    UUID id PK
-    UUID actor_usuario_id FK
+    UUID id PK "Identificador estable y opaco de RegistroAuditoria."
+    UUID actor_usuario_id FK "Referencia a usuarios para audita acción."
+    Texto origen_proceso "Valor de origen proceso del recurso RegistroAuditoria, validado con las reg"
+    Texto entidad_tipo "Valor de entidad tipo del recurso RegistroAuditoria, validado con las regla"
+    UUID entidad_id "Valor de entidad id del recurso RegistroAuditoria, validado con las reglas "
+    Texto accion "Valor de accion del recurso RegistroAuditoria, validado con las reglas y el"
+    Texto resultado "Valor de resultado del recurso RegistroAuditoria, validado con las reglas y"
+    Texto motivo "Texto de motivo del recurso, sujeto a sus permisos y límites."
+    Texto correlacion_id "Valor de correlacion id del recurso RegistroAuditoria, validado con las reg"
+    JSON datos_pertinentes "Valor de datos pertinentes del recurso RegistroAuditoria, validado con las "
+    FechaHora ocurrido_en "Fecha del servidor del evento ocurrido en, conservada con zona horaria."
   }
   casos_soporte {
-    UUID id PK
-    UUID reportado_por FK
-    UUID pedido_id FK
-    UUID solicitud_id FK
-    UUID pago_id FK
-    UUID asignado_a FK
-    EstadoCaso estado
+    UUID id PK "Identificador estable y opaco de CasoSoporte."
+    UUID reportado_por FK "Referencia a usuarios para reporta caso."
+    UUID pedido_id FK "Referencia a pedidos para involucra pedido."
+    UUID solicitud_id FK "Referencia a solicitudes para involucra solicitud."
+    UUID pago_id FK "Referencia a pagos para involucra pago."
+    UUID asignado_a FK "Referencia a usuarios para atiende caso."
+    Texto tipo "Valor de tipo del recurso CasoSoporte, validado con las reglas y el tipo in"
+    Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
+    EstadoCaso estado "Estado vigente de CasoSoporte; sus cambios utilizan las transiciones autori"
+    Texto resolucion "Valor de resolucion del recurso CasoSoporte, validado con las reglas y el t"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    FechaHora cerrado_en "Fecha del servidor del evento cerrado en, conservada con zona horaria."
   }
   aceptaciones_condiciones {
-    UUID id PK
-    UUID usuario_id FK
+    UUID id PK "Identificador estable y opaco de AceptacionCondiciones."
+    UUID usuario_id FK "Referencia a usuarios para acepta condiciones."
+    Texto documento_tipo "Valor de documento tipo del recurso AceptacionCondiciones, validado con las"
+    Texto documento_version "Valor de documento version del recurso AceptacionCondiciones, validado con "
+    Texto documento_hash "Valor de documento hash del recurso AceptacionCondiciones, validado con las"
+    Texto referencia_documento "Valor de referencia documento del recurso AceptacionCondiciones, validado c"
+    Texto finalidad "Valor de finalidad del recurso AceptacionCondiciones, validado con las regl"
+    FechaHora aceptada_en "Fecha del servidor del evento aceptada en, conservada con zona horaria."
   }
   usuarios {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Usuario."
   }
   pedidos {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID oferta_id FK
-    Entero oferta_version_numero FK
-    UUID revision_actual_id FK
+    UUID id PK, FK "Identificador estable y opaco de Pedido."
   }
   solicitudes {
-    UUID id PK
-    UUID cliente_id FK
-    Entero version_actual FK
+    UUID id PK, FK "Identificador estable y opaco de Solicitud."
   }
   pagos {
-    UUID id PK
-    UUID compra_id FK
+    UUID id PK "Identificador estable y opaco de Pago."
   }
-  usuarios ||--o{ configuraciones_versiones : "creada_por"
-  configuraciones_versiones ||--o{ activaciones_configuracion : "configuracion_version_id"
-  usuarios ||--o{ activaciones_configuracion : "activada_por"
-  usuarios o|--o{ activaciones_configuracion : "cerrada_por"
-  eventos_salida o|--o{ trabajos : "evento_salida_id"
-  usuarios o|--o{ auditoria : "actor_usuario_id"
-  usuarios ||--o{ casos_soporte : "reportado_por"
-  pedidos o|--o{ casos_soporte : "pedido_id"
-  solicitudes o|--o{ casos_soporte : "solicitud_id"
-  pagos o|--o{ casos_soporte : "pago_id"
-  usuarios o|--o{ casos_soporte : "asignado_a"
-  usuarios ||--o{ aceptaciones_condiciones : "usuario_id"
+  usuarios ||--o{ configuraciones_versiones : "versiona configuración"
+  configuraciones_versiones ||--o{ activaciones_configuracion : "entra en vigencia"
+  usuarios ||--o{ activaciones_configuracion : "activa versión"
+  usuarios o|--o{ activaciones_configuracion : "cierra vigencia"
+  eventos_salida o|--o{ trabajos : "programa trabajo"
+  usuarios o|--o{ auditoria : "audita acción"
+  usuarios ||--o{ casos_soporte : "reporta caso"
+  pedidos o|--o{ casos_soporte : "involucra pedido"
+  solicitudes o|--o{ casos_soporte : "involucra solicitud"
+  pagos o|--o{ casos_soporte : "involucra pago"
+  usuarios o|--o{ casos_soporte : "atiende caso"
+  usuarios ||--o{ aceptaciones_condiciones : "acepta condiciones"

@@ -4,9 +4,7 @@ title: "Casos de uso y aceptación"
 
 # Casos de uso y aceptación
 
-Versión 2.0-borrador. Fecha: 14 de octubre de 2026. Especificación de trabajo; revisión de fichas y trazabilidad académica pendientes.
-
-La autorización combina identidad, permisos por recurso y vigencia comercial según RF-12.10. Mercado Pago procesa el abono del maker a la plataforma. El cliente elige la oferta de impresión y acuerda su pago directamente con el maker.
+El catálogo conserva CU-01 a CU-13 y amplía la cobertura hasta CU-25. Cada especificación utiliza la plantilla de la materia y se mantiene en un documento propio, con actores, referencias, precondiciones, postcondiciones y flujos numerados.
 
 ## Diagrama de casos de uso
 
@@ -14,201 +12,186 @@ La autorización combina identidad, permisos por recurso y vigencia comercial se
 
 [Abrir SVG](/3daltoque-docs/documentos/56672ecacb3e-casos-de-uso.svg) · [Fuente editable](/3daltoque-docs/documentos/c14d6068439c-casos-de-uso.puml)
 
+## Índice de especificaciones
+
+| ID | Caso de uso | Actores | Funcionalidades |
+| --- | --- | --- | --- |
+| CU-01 | [Publicar solicitud](/3daltoque-docs/analisis/casos/cu-01-publicar-solicitud/) | Cliente, Sistema | F05, F06, F07, F08, F23 |
+| CU-02 | [Recibir y responder ofertas](/3daltoque-docs/analisis/casos/cu-02-recibir-y-responder-ofertas/) | Maker, Sistema | F08, F09 |
+| CU-03 | [Elegir oferta](/3daltoque-docs/analisis/casos/cu-03-elegir-oferta/) | Cliente, Sistema | F09, F10, F13 |
+| CU-04 | [Producción y evidencia](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/) | Maker, Cliente, Sistema | F12, F15, F23 |
+| CU-05 | [Revisión y aprobación](/3daltoque-docs/analisis/casos/cu-05-revision-y-aprobacion/) | Cliente, Maker, Sistema | F22, F12, F14 |
+| CU-06 | [Entrega personal](/3daltoque-docs/analisis/casos/cu-06-entrega-personal/) | Cliente, Maker, Sistema | F16, F17 |
+| CU-07 | [Administración operativa](/3daltoque-docs/analisis/casos/cu-07-administracion-operativa/) | Administración, Sistema | F20 |
+| CU-08 | [Consultar membresía](/3daltoque-docs/analisis/casos/cu-08-consultar-membresia/) | Maker, Sistema | F11 |
+| CU-09 | [Habilitar perfil e iniciar prueba](/3daltoque-docs/analisis/casos/cu-09-habilitar-perfil-e-iniciar-prueba/) | Maker, Sistema | F03, F11 |
+| CU-10 | [Asignar beneficio fundador](/3daltoque-docs/analisis/casos/cu-10-asignar-beneficio-fundador/) | Administración, Sistema | F11, F20 |
+| CU-11 | [Pagar o renovar abono](/3daltoque-docs/analisis/casos/cu-11-pagar-o-renovar-abono/) | Maker, Mercado Pago, Sistema | F11 |
+| CU-12 | [Gestionar plan y promociones](/3daltoque-docs/analisis/casos/cu-12-gestionar-plan-y-promociones/) | Administración, Sistema | F11, F20 |
+| CU-13 | [Registrarse y acceder](/3daltoque-docs/analisis/casos/cu-13-registrarse-y-acceder/) | Cliente, Maker, Administración, Sistema | F01 |
+| CU-14 | [Conversar en un pedido](/3daltoque-docs/analisis/casos/cu-14-conversar-en-un-pedido/) | Cliente, Maker, Sistema | F13 |
+| CU-15 | [Mantener y consultar portfolio](/3daltoque-docs/analisis/casos/cu-15-mantener-y-consultar-portfolio/) | Maker, Visitante, Administración, Sistema | F04 |
+| CU-16 | [Valorar y consultar reputación](/3daltoque-docs/analisis/casos/cu-16-valorar-y-consultar-reputacion/) | Cliente, Maker, Administración, Sistema | F18 |
+| CU-17 | [Consultar historial de pedidos](/3daltoque-docs/analisis/casos/cu-17-consultar-historial-de-pedidos/) | Cliente, Maker, Sistema | F19 |
+| CU-18 | [Consultar reporte de actividad](/3daltoque-docs/analisis/casos/cu-18-consultar-reporte-de-actividad/) | Administración, Sistema | F21 |
+| CU-19 | [Mantener catálogo de productos](/3daltoque-docs/analisis/casos/cu-19-mantener-catalogo-de-productos/) | Maker, Visitante, Administración, Sistema | F25 |
+| CU-20 | [Pedir un producto del maker](/3daltoque-docs/analisis/casos/cu-20-pedir-un-producto-del-maker/) | Cliente, Sistema | F25, F10, F12, F13 |
+| CU-21 | [Gestionar capacidades del maker](/3daltoque-docs/analisis/casos/cu-21-gestionar-capacidades-del-maker/) | Maker, Sistema | F03 |
+| CU-22 | [Gestionar perfil de cliente](/3daltoque-docs/analisis/casos/cu-22-gestionar-perfil-de-cliente/) | Cliente, Sistema | F02 |
+| CU-23 | [Recibir y consultar notificaciones](/3daltoque-docs/analisis/casos/cu-23-recibir-y-consultar-notificaciones/) | Cliente, Maker, Sistema | F14 |
+| CU-24 | [Gestionar archivos autorizados](/3daltoque-docs/analisis/casos/cu-24-gestionar-archivos-autorizados/) | Cliente, Maker, Sistema | F23 |
+| CU-25 | [Negociar condiciones de una oferta](/3daltoque-docs/analisis/casos/cu-25-negociar-condiciones-de-una-oferta/) | Cliente, Maker, Sistema | F09 |
+
 ## CU-01 Publicar solicitud
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-01 Publicar solicitud |
-| Actor principal | Cliente |
-| Objetivo | Solicitar una impresión con un archivo y condiciones comprensibles. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Cliente autenticado y archivo habilitado. |
-| Flujo principal | El cliente confirma especificaciones; el sistema conserva la solicitud e invita a un grupo reducido de makers compatibles y habilitados. |
-| Alternativas y errores | Datos incompletos, archivo rechazado, ubicación no válida o ausencia de makers elegibles. |
-| Postcondiciones | Solicitud conservada e invitaciones trazables. El pedido se confirma mediante CU-03. |
-| Requisitos relacionados | RF-02.1, RF-02.2, RF-02.3, RF-03.1, RF-12.10 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Solicitud versionada y enviada a un grupo compatible; estimación calculada o indisponibilidad informada.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-01-publicar-solicitud/).
 
 ## CU-02 Recibir y responder ofertas
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-02 Recibir y responder ofertas |
-| Actor principal | Maker |
-| Objetivo | Cotizar un trabajo compatible. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Invitación válida y habilitación aplicable para trabajos nuevos. |
-| Flujo principal | El maker consulta la solicitud y publica una oferta con precio, plazo, versión y vigencia; puede rechazar la invitación. |
-| Alternativas y errores | Oferta inválida, invitación cerrada o acceso vencido; política de ofertas al vencer pendiente en PD-05. |
-| Postcondiciones | Oferta versionada o respuesta de rechazo conservada. |
-| Requisitos relacionados | RF-03.2, RF-04.1, RF-04.2, RF-04.5, RF-12.10 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Oferta versionada presentada o rechazo registrado.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-02-recibir-y-responder-ofertas/).
 
 ## CU-03 Elegir oferta
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-03 Elegir oferta |
-| Actor principal | Cliente |
-| Objetivo | Confirmar un único acuerdo de impresión. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Solicitud abierta, versión vigente y maker elegible para el nuevo acuerdo. |
-| Flujo principal | El cliente compara condiciones y acepta una versión; el sistema confirma el pedido y cierra alternativas en una transacción. |
-| Alternativas y errores | Cambio de versión, oferta vencida, selección concurrente o habilitación no válida. |
-| Postcondiciones | Un único pedido por solicitud con precio y condiciones conservados; el pago de la impresión se acuerda fuera de nuestra pasarela. |
-| Requisitos relacionados | RF-04.3, RF-04.4, RF-12.10, RF-12.15 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Un pedido confirmado con condiciones conservadas y conversación habilitada.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-03-elegir-oferta/).
 
 ## CU-04 Producción y evidencia
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-04 Producción y evidencia |
-| Actor principal | Maker del pedido |
-| Objetivo | Fabricar la pieza y presentar su resultado. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Pedido confirmado y actor autorizado; no exige renovar la membresía para terminarlo. |
-| Flujo principal | El maker actualiza avance y presenta evidencia habilitada en una revisión identificable. |
-| Alternativas y errores | Archivo no habilitado, revisión no válida o actor ajeno. |
-| Postcondiciones | Revisión presentada e historial conservado. |
-| Requisitos relacionados | RF-06.1, RF-06.2, RF-06.5, RF-12.10 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Avance conservado y revisión con evidencia presentada al cliente.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/).
 
 ## CU-05 Revisión y aprobación
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-05 Revisión y aprobación |
-| Actor principal | Cliente del pedido |
-| Objetivo | Decidir sobre el resultado concreto presentado. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Revisión vigente con evidencia consultable. |
-| Flujo principal | El cliente aprueba expresamente o registra observaciones; el sistema conserva la decisión y su referencia. |
-| Alternativas y errores | Silencio mantiene pendiente; correcciones y reclamos requieren la política aplicable. |
-| Postcondiciones | La aprobación expresa de la revisión vigente habilita la coordinación de entrega. |
-| Requisitos relacionados | RF-06.3, RF-06.4, RF-12.15 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Decisión expresa sobre la revisión; la aprobación habilita coordinar la entrega.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-05-revision-y-aprobacion/).
 
 ## CU-06 Entrega personal
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-06 Entrega personal |
-| Actor principal | Cliente y maker del pedido |
-| Objetivo | Acordar el encuentro y registrar recepción. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Revisión vigente aprobada y participantes autorizados. |
-| Flujo principal | Las partes acuerdan punto y horario y registran recepción según mecanismo acordado. |
-| Alternativas y errores | Cambio de encuentro o incidente; no hay custodia por comercios ni cierre por silencio. |
-| Postcondiciones | Recepción registrada y pedido finalizado conforme a la política. |
-| Requisitos relacionados | RF-06.6, RF-06.7, RF-12.10 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Punto y horario acordados; recepción del cliente registrada y pedido completado.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-06-entrega-personal/).
 
 ## CU-07 Administración operativa
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-07 Administración operativa |
-| Actor principal | Administración autorizada |
-| Objetivo | Gestionar soporte con trazabilidad y permisos limitados. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Permiso específico y caso pertinente. |
-| Flujo principal | Administración consulta el caso y registra la acción habilitada y su motivo. |
-| Alternativas y errores | Permiso insuficiente o política de intervención todavía no definida. |
-| Postcondiciones | Acción registrada con actor, motivo, recurso y permiso aplicado. Las operaciones financieras disponibles corresponden al abono de membresía. |
-| Requisitos relacionados | RF-07.2, RNF-04, RNF-06 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Intervención autorizada y auditada o consulta de soporte conservada.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-07-administracion-operativa/).
 
 ## CU-08 Consultar membresía
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-08 Consultar membresía |
-| Actor principal | Maker |
-| Objetivo | Conocer beneficios, vencimiento y condiciones del abono. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Maker autenticado. |
-| Flujo principal | El sistema muestra la prueba o período pago efectivo, programa fundador y renovación manual. |
-| Alternativas y errores | Sin beneficio iniciado, acceso vencido o compra todavía pendiente. |
-| Postcondiciones | Estado comprensible calculado con fechas del servidor. |
-| Requisitos relacionados | RF-12.4, RF-12.11, RF-12.15 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Estado, condiciones e intervalos de acceso visibles.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-08-consultar-membresia/).
 
 ## CU-09 Habilitar perfil e iniciar prueba
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-09 Habilitar perfil e iniciar prueba |
-| Actor principal | Maker; actor de habilitación según PD-01 |
-| Objetivo | Iniciar un único período gratuito cuando el perfil puede recibir solicitudes. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Perfil cumple el criterio de habilitación; no se consumió el beneficio inicial. |
-| Flujo principal | Se registra la primera habilitación y se concede la prueba general o el beneficio fundador aplicable, nunca ambos acumulados. |
-| Alternativas y errores | Perfil incompleto, habilitación repetida o beneficio no elegible. |
-| Postcondiciones | Inicio, fin, modo y configuración del período conservados sin pedir tarjeta. |
-| Requisitos relacionados | RF-12.2, RF-12.3 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Perfil habilitado y único beneficio inicial conservado.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-09-habilitar-perfil-e-iniciar-prueba/).
 
 ## CU-10 Asignar beneficio fundador
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-10 Asignar beneficio fundador |
-| Actor principal | Administración autorizada |
-| Objetivo | Incluir al maker en el grupo inicial con cupo limitado. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Programa habilitado, cupo disponible y condiciones aplicables. |
-| Flujo principal | Administración asigna el beneficio de forma atómica y auditada. |
-| Alternativas y errores | Cupo agotado, maker ya inscrito o asignación posterior que requiere una política todavía no acordada. |
-| Postcondiciones | Inscripción, cupo utilizado y condiciones del beneficio inicial de 90 días totales identificables. |
-| Requisitos relacionados | RF-12.3, RF-12.13, RF-12.15 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Asignación fundadora conservada con cupo, autor y versión.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-10-asignar-beneficio-fundador/).
 
 ## CU-11 Pagar o renovar abono
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-11 Pagar o renovar abono |
-| Actor principal | Maker; Mercado Pago como sistema externo |
-| Objetivo | Comprar explícitamente un período del servicio propio. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Plan publicado, importe y condiciones visibles, maker autenticado. |
-| Flujo principal | Se conserva una compra idempotente y se abre Checkout Pro; tras verificar el resultado al proveedor, se concede una única vez el período aplicable. |
-| Alternativas y errores | Pago rechazado, abandono, timeout, webhook repetido o contexto incorrecto; no se concede por retorno de navegador. |
-| Postcondiciones | Compra y período trazables; renovación manual y sin cobro de impresiones. |
-| Requisitos relacionados | RF-12.5, RF-12.6, RF-12.7, RF-12.8, RF-12.9, RF-12.14 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Compra y resultado conservados; un pago verificado concede un único período.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-11-pagar-o-renovar-abono/).
 
 ## CU-12 Gestionar plan y promociones
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-12 Gestionar plan y promociones |
-| Actor principal | Administración autorizada |
-| Objetivo | Configurar precio, duraciones y cupo sin cambiar código. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Permiso y versión vigente conocidos. |
-| Flujo principal | Administración publica una configuración validada y conserva el motivo y la versión. |
-| Alternativas y errores | Valor inválido, conflicto de versión o intento de modificar condiciones históricas. |
-| Postcondiciones | Nueva configuración para operaciones futuras, sin reescribir compras o beneficios. |
-| Requisitos relacionados | RF-12.1, RF-12.13, RNF-13 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Nueva configuración válida y auditada para operaciones futuras.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-12-gestionar-plan-y-promociones/).
 
 ## CU-13 Registrarse y acceder
 
-| Campo | Contenido |
-| --- | --- |
-| Identificador y nombre | CU-13 Registrarse y acceder |
-| Actor principal | Cliente, maker y administración |
-| Objetivo | Acceder con identidad y permisos adecuados. |
-| Disparador | Acción del actor o evento autorizado descrito en el flujo |
-| Precondiciones | Credenciales o datos de registro según flujo aplicable. |
-| Flujo principal | El sistema registra o autentica la identidad y aplica permisos por recurso. |
-| Alternativas y errores | Credenciales inválidas, identidad bloqueada o datos incompletos. |
-| Postcondiciones | Sesión y permisos autorizados; registrarse no inicia por sí solo la prueba. |
-| Requisitos relacionados | RF-01.1, RF-01.4, RF-01.5, RNF-04 |
-| Pruebas relacionadas | [Catálogo de pruebas](planificacion/05-pruebas-y-trazabilidad.md); completar los IDs de CP y su cobertura. |
+Identidad y perfiles autorizados; sesión vigente o cierre confirmado.
 
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-13-registrarse-y-acceder/).
 
+## CU-14 Conversar en un pedido
 
+Mensaje persistido o resultado recuperable; historial disponible.
 
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-14-conversar-en-un-pedido/).
+
+## CU-15 Mantener y consultar portfolio
+
+Trabajo publicado, actualizado o retirado; medios públicos autorizados.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-15-mantener-y-consultar-portfolio/).
+
+## CU-16 Valorar y consultar reputación
+
+Valoración conservada y agregado público coherente.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-16-valorar-y-consultar-reputacion/).
+
+## CU-17 Consultar historial de pedidos
+
+Listado filtrado y detalle histórico autorizado.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-17-consultar-historial-de-pedidos/).
+
+## CU-18 Consultar reporte de actividad
+
+Indicadores con definición, filtros, fecha y fuentes identificadas.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-18-consultar-reporte-de-actividad/).
+
+## CU-19 Mantener catálogo de productos
+
+Producto versionado publicado, pausado o retirado; pedidos históricos intactos.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-19-mantener-catalogo-de-productos/).
+
+## CU-20 Pedir un producto del maker
+
+Pedido directo confirmado con condiciones publicadas conservadas y conversación habilitada.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-20-pedir-un-producto-del-maker/).
+
+## CU-21 Gestionar capacidades del maker
+
+Perfil, impresoras y capacidades actualizados y versionados donde corresponda.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-21-gestionar-capacidades-del-maker/).
+
+## CU-22 Gestionar perfil de cliente
+
+Contacto y ubicación autorizados actualizados; referencias históricas conservadas.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-22-gestionar-perfil-de-cliente/).
+
+## CU-23 Recibir y consultar notificaciones
+
+Aviso deduplicado y bandeja propia con estado leído conservado.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-23-recibir-y-consultar-notificaciones/).
+
+## CU-24 Gestionar archivos autorizados
+
+Archivo habilitado, consultado o retirado conforme a permisos y conservación.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-24-gestionar-archivos-autorizados/).
+
+## CU-25 Negociar condiciones de una oferta
+
+Propuesta respondida; una aceptación del maker publica una nueva versión para decisión del cliente.
+
+[Especificación completa](/3daltoque-docs/analisis/casos/cu-25-negociar-condiciones-de-una-oferta/).
+
+## Aceptación y trazabilidad
+
+Los escenarios se relacionan con los 68 RF y con los [casos de prueba](/3daltoque-docs/analisis/pruebas-y-trazabilidad/). La conversación de pedido se desarrolla en CU-14 y la confirmación directa de productos en CU-20.

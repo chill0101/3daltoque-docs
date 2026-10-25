@@ -1,64 +1,78 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   conversaciones {
-    UUID id PK
-    UUID pedido_id FK
-    UUID invitacion_id FK
-    Texto estado
+    UUID id PK "Identificador estable y opaco de Conversacion."
+    UUID pedido_id FK "Referencia a pedidos para contextualiza chat."
+    Texto estado "Estado vigente de Conversacion; sus cambios utilizan las transiciones autor"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   participantes_conversacion {
-    UUID conversacion_id PK
-    UUID usuario_id PK
+    UUID conversacion_id PK, FK "Referencia a conversaciones para habilita participante."
+    UUID usuario_id PK, FK "Referencia a usuarios para participa."
+    Texto tipo_participacion "Valor de tipo participacion del recurso ParticipanteConversacion, validado "
+    Booleano puede_enviar "Valor de puede enviar del recurso ParticipanteConversacion, validado con la"
+    Booleano activo "Indicador vigente de activo utilizado en la autorización o selección de Par"
+    FechaHora autorizado_en "Fecha del servidor del evento autorizado en, conservada con zona horaria."
   }
   mensajes {
-    UUID id PK
-    UUID conversacion_id FK
-    UUID remitente_id FK
+    UUID id PK "Identificador estable y opaco de Mensaje."
+    UUID conversacion_id FK "Referencia a conversaciones para contiene mensaje."
+    UUID remitente_id FK "Referencia a participantes_conversacion para autoriza autor."
+    Texto clave_cliente "Identidad estable de la operación o referencia clave cliente."
+    Texto texto "Valor de texto del recurso Mensaje, validado con las reglas y el tipo indic"
+    FechaHora enviado_en "Fecha del servidor del evento enviado en, conservada con zona horaria."
   }
   mensaje_archivos {
-    UUID mensaje_id PK
-    UUID archivo_id PK
+    UUID mensaje_id PK, FK "Referencia a mensajes para adjunta referencia."
+    UUID archivo_id PK, FK "Referencia a archivos para aporta adjunto."
   }
   notificaciones {
-    UUID id PK
-    UUID evento_salida_id FK
-    UUID destinatario_id FK
+    UUID id PK "Identificador estable y opaco de Notificacion."
+    UUID evento_salida_id FK "Referencia a eventos_salida para origina aviso."
+    UUID destinatario_id FK "Referencia a usuarios para recibe aviso."
+    Texto tipo_aviso "Valor de tipo aviso del recurso Notificacion, validado con las reglas y el "
+    Texto titulo "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto texto "Valor de texto del recurso Notificacion, validado con las reglas y el tipo "
+    Texto recurso_tipo "Valor de recurso tipo del recurso Notificacion, validado con las reglas y e"
+    UUID recurso_id "Valor de recurso id del recurso Notificacion, validado con las reglas y el "
+    FechaHora leida_en "Fecha del servidor del evento leida en, conservada con zona horaria."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   envios_notificacion {
-    UUID id PK
-    UUID notificacion_id FK
-    EstadoEnvio estado
+    UUID id PK "Identificador estable y opaco de EnvioNotificacion."
+    UUID notificacion_id FK "Referencia a notificaciones para se distribuye."
+    Texto canal "Valor de canal del recurso EnvioNotificacion, validado con las reglas y el "
+    Texto destino_ref "Valor de destino ref del recurso EnvioNotificacion, validado con las reglas"
+    Texto proveedor "Valor de proveedor del recurso EnvioNotificacion, validado con las reglas y"
+    Texto plantilla_version "Valor de plantilla version del recurso EnvioNotificacion, validado con las "
+    Texto referencia_externa "Valor de referencia externa del recurso EnvioNotificacion, validado con las"
+    EstadoEnvio estado "Estado vigente de EnvioNotificacion; sus cambios utilizan las transiciones "
+    Entero intentos "Valor de intentos del recurso EnvioNotificacion, validado con las reglas y "
+    FechaHora proximo_intento_en "Fecha del servidor del evento proximo intento en, conservada con zona horar"
+    FechaHora aceptado_en "Fecha del servidor del evento aceptado en, conservada con zona horaria."
+    FechaHora entregado_en "Fecha del servidor del evento entregado en, conservada con zona horaria."
+    Texto ultimo_error "Valor de ultimo error del recurso EnvioNotificacion, validado con las regla"
   }
   pedidos {
-    UUID id PK
-    UUID solicitud_id FK
-    UUID oferta_id FK
-    Entero oferta_version_numero FK
-    UUID revision_actual_id FK
-  }
-  invitaciones_maker {
-    UUID id PK
-    UUID ronda_id FK
-    UUID solicitud_id FK
-    UUID maker_id FK
+    UUID id PK, FK "Identificador estable y opaco de Pedido."
   }
   usuarios {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Usuario."
   }
   archivos {
-    UUID id PK
-    UUID propietario_id FK
+    UUID id PK "Identificador estable y opaco de Archivo."
   }
   eventos_salida {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de EventoDominio."
   }
-  pedidos o|--o| conversaciones : "pedido_id"
-  invitaciones_maker o|--o| conversaciones : "invitacion_id"
-  conversaciones ||--o{ participantes_conversacion : "conversacion_id"
-  usuarios ||--o{ participantes_conversacion : "usuario_id"
-  conversaciones ||--o{ mensajes : "conversacion_id"
-  participantes_conversacion ||--o{ mensajes : "conversacion_id_remitente_id"
-  mensajes ||--o{ mensaje_archivos : "mensaje_id"
-  archivos ||--o{ mensaje_archivos : "archivo_id"
-  eventos_salida ||--o{ notificaciones : "evento_salida_id"
-  usuarios ||--o{ notificaciones : "destinatario_id"
-  notificaciones ||--o{ envios_notificacion : "notificacion_id"
+  pedidos ||--o| conversaciones : "contextualiza chat"
+  conversaciones ||--o{ participantes_conversacion : "habilita participante"
+  usuarios ||--o{ participantes_conversacion : "participa"
+  conversaciones ||--o{ mensajes : "contiene mensaje"
+  participantes_conversacion ||--o{ mensajes : "autoriza autor"
+  mensajes ||--o{ mensaje_archivos : "adjunta referencia"
+  archivos ||--o{ mensaje_archivos : "aporta adjunto"
+  eventos_salida ||--o{ notificaciones : "origina aviso"
+  usuarios ||--o{ notificaciones : "recibe aviso"
+  notificaciones ||--o{ envios_notificacion : "se distribuye"
