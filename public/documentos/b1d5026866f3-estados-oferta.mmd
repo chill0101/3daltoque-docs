@@ -1,3 +1,4 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 stateDiagram-v2
   direction TB
   state "Activa" as activa
@@ -13,5 +14,5 @@ stateDiagram-v2
   activa --> cerrada: Se confirma otra oferta
   note right of activa
     La vigencia de oferta y el acceso del maker son condiciones distintas.
-    La política de ofertas al vencer la membresía requiere PD-05.
+    El acuerdo nuevo requiere acceso comercial vigente.
   end note

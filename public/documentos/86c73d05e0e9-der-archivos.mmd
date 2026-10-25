@@ -1,16 +1,41 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   archivos {
-    UUID id PK
-    UUID propietario_id FK
-    EstadoArchivo estado
+    UUID id PK "Identificador estable y opaco de Archivo."
+    UUID propietario_id FK "Referencia a usuarios para posee archivo."
+    FinalidadArchivo finalidad "Valor de finalidad del recurso Archivo, validado con las reglas y el tipo i"
+    Texto nombre_original "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto mime_declarado "Valor de mime declarado del recurso Archivo, validado con las reglas y el t"
+    Texto mime_detectado "Valor de mime detectado del recurso Archivo, validado con las reglas y el t"
+    Entero tamano_bytes "Valor de tamano bytes del recurso Archivo, validado con las reglas y el tip"
+    Texto checksum "Valor de checksum del recurso Archivo, validado con las reglas y el tipo in"
+    Texto proveedor_almacenamiento "Valor de proveedor almacenamiento del recurso Archivo, validado con las reg"
+    Texto storage_key "Valor de storage key del recurso Archivo, validado con las reglas y el tipo"
+    Texto version_objeto "Valor de version objeto del recurso Archivo, validado con las reglas y el t"
+    EstadoArchivo estado "Estado vigente de Archivo; sus cambios utilizan las transiciones autorizada"
+    FechaHora autorizacion_expira_en "Fecha del servidor del evento autorizacion expira en, conservada con zona h"
+    FechaHora retirar_despues_de "Valor de retirar despues de del recurso Archivo, validado con las reglas y "
+    FechaHora retirado_en "Fecha del servidor del evento retirado en, conservada con zona horaria."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   analisis_archivos {
-    UUID id PK
-    UUID archivo_id FK
-    EstadoAnalisis estado
+    UUID id PK "Identificador estable y opaco de AnalisisArchivo."
+    UUID archivo_id FK "Referencia a archivos para tiene análisis."
+    Texto analizador "Valor de analizador del recurso AnalisisArchivo, validado con las reglas y "
+    Texto version_analizador "Valor de version analizador del recurso AnalisisArchivo, validado con las r"
+    EstadoAnalisis estado "Estado vigente de AnalisisArchivo; sus cambios utilizan las transiciones au"
+    Texto unidad_declarada "Valor de unidad declarada del recurso AnalisisArchivo, validado con las reg"
+    Decimal dimension_x_mm "Valor de dimension x mm del recurso AnalisisArchivo, validado con las regla"
+    Decimal dimension_y_mm "Valor de dimension y mm del recurso AnalisisArchivo, validado con las regla"
+    Decimal dimension_z_mm "Valor de dimension z mm del recurso AnalisisArchivo, validado con las regla"
+    Decimal volumen_geometrico_mm3 "Valor de volumen geometrico mm3 del recurso AnalisisArchivo, validado con l"
+    JSON advertencias "Valor de advertencias del recurso AnalisisArchivo, validado con las reglas "
+    Texto motivo_error "Valor de motivo error del recurso AnalisisArchivo, validado con las reglas "
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   usuarios {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Usuario."
   }
-  usuarios ||--o{ archivos : "propietario_id"
-  archivos ||--o{ analisis_archivos : "archivo_id"
+  usuarios ||--o{ archivos : "posee archivo"
+  archivos ||--o{ analisis_archivos : "tiene análisis"

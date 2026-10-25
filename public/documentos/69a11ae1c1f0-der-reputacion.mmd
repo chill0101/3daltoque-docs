@@ -1,0 +1,35 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
+erDiagram
+  direction TB
+  valoraciones {
+    UUID id PK "Identificador estable y opaco de Valoracion."
+    UUID pedido_id FK "Pedido con recepción confirmada que habilita la valoración."
+    UUID autor_id FK "Participante que emite la valoración."
+    UUID destinatario_id FK "Contraparte valorada."
+    Rol rol_autor "Rol de cliente o maker utilizado en el pedido."
+    UUID configuracion_version_id FK "Configuración de escala y criterios conservada."
+    Decimal puntaje_global "Promedio de los criterios aplicables; se conserva la precisión y se redonde"
+    Texto comentario "Comentario dentro de límites y reglas de contenido."
+    EstadoValoracion estado "Publicado u oculto por moderación."
+    Texto clave_operacion "Identidad estable de la publicación."
+    FechaHora creado_en "Fecha de emisión conservada por el servidor."
+  }
+  valoracion_criterios {
+    UUID valoracion_id PK, FK "Valoración a la que pertenece el criterio."
+    Texto criterio_codigo PK "Código presente en la configuración conservada de la valoración."
+    Decimal puntaje "Valor dentro de la escala definida para ese criterio."
+  }
+  pedidos {
+    UUID id PK, FK "Identificador estable y opaco de Pedido."
+  }
+  usuarios {
+    UUID id PK "Identificador estable y opaco de Usuario."
+  }
+  configuraciones_versiones {
+    UUID id PK "Identificador estable y opaco de ConfiguracionVersion."
+  }
+  pedidos ||--o{ valoraciones : "habilita valoración"
+  usuarios ||--o{ valoraciones : "emite valoración"
+  usuarios ||--o{ valoraciones : "recibe valoración"
+  configuraciones_versiones ||--o{ valoraciones : "conserva escala y criterios"
+  valoraciones ||--o{ valoracion_criterios : "desglosa criterio"

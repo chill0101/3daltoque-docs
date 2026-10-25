@@ -1,0 +1,15 @@
+* text=auto
+*.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+*.json text eol=lf
+*.svg text eol=lf
+*.mmd text eol=lf
+*.puml text eol=lf
+*.mjs text eol=lf
+*.css text eol=lf
+*.png -text
+*.jpg -text
+*.pdf -text
+.gitattributes text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.html text eol=lf

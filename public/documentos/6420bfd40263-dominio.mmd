@@ -1,38 +1,91 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 classDiagram
-  class Maker
+  direction TB
+  class Usuario
   class Cliente
+  class Maker
+  class Impresora
+  class Material
+  class CapacidadImpresora
+  class TrabajoPortfolio
+  class ProductoMaker
+  class VersionProducto
+  class Archivo
   class Solicitud
   class VersionSolicitud
+  class InvitacionMaker
+  class Estimacion
   class Oferta
   class VersionOferta
+  class PropuestaCambioOferta
   class Pedido
   class CondicionesPedido
   class RevisionResultado
   class Evidencia
   class DecisionRevision
   class Entrega
+  class PuntoEncuentro
+  class ConfirmacionEntrega
+  class Conversacion
+  class ParticipanteConversacion
+  class Mensaje
+  class Notificacion
+  class Valoracion
+  class PuntajeCriterio
   class MembresiaMaker
   class PlanVersion
   class CompraMembresia
   class PeriodoAcceso
   class PagoAbono
   class IntentoPago
-  Cliente "1" --> "0..*" Solicitud : crea
-  Solicitud "1" *-- "1..*" VersionSolicitud
-  Solicitud "1" --> "0..*" Oferta
-  Maker "1" --> "0..*" Oferta
-  Oferta "1" *-- "1..*" VersionOferta
-  Solicitud "1" --> "0..1" Pedido : acuerdo único
-  VersionOferta "1" --> "0..1" Pedido : versión aceptada
-  Pedido "1" *-- "1" CondicionesPedido : precio pactado externo
-  Pedido "1" --> "0..*" RevisionResultado
-  RevisionResultado "1" --> "0..*" Evidencia
-  RevisionResultado "1" --> "0..*" DecisionRevision
-  Pedido "1" --> "0..1" Entrega
-  Maker "1" --> "0..1" MembresiaMaker
-  MembresiaMaker "1" --> "0..*" CompraMembresia
-  PlanVersion "1" --> "0..*" CompraMembresia : condiciones conservadas
-  MembresiaMaker "1" --> "0..*" PeriodoAcceso
-  CompraMembresia "0..1" --> "0..1" PeriodoAcceso : origen del acceso pago
-  CompraMembresia "1" --> "0..1" PagoAbono
-  PagoAbono "1" --> "0..*" IntentoPago
+  class CasoSoporte
+  class ReporteActividad
+  Usuario --> Cliente : posee perfil
+  Usuario --> Maker : posee perfil
+  Maker --> Impresora : registra
+  Impresora --> CapacidadImpresora : declara
+  Material --> CapacidadImpresora : clasifica
+  Maker --> TrabajoPortfolio : presenta
+  Maker --> ProductoMaker : publica
+  ProductoMaker --> VersionProducto : conserva condiciones
+  TrabajoPortfolio --> Archivo : presenta medio autorizado
+  VersionProducto --> Archivo : presenta medio autorizado
+  Cliente --> Solicitud : crea
+  Solicitud --> VersionSolicitud : conserva
+  VersionSolicitud --> VersionProducto : origen de catálogo opcional
+  Solicitud --> InvitacionMaker : dirige búsqueda personalizada
+  Solicitud --> Estimacion : referencia orientativa
+  Maker --> Oferta : emite
+  Solicitud --> Oferta : recibe
+  Oferta --> VersionOferta : conserva
+  VersionOferta --> PropuestaCambioOferta : recibe propuesta del cliente
+  PropuestaCambioOferta --> VersionOferta : origina versión del maker
+  Solicitud --> Pedido : confirma acuerdo único
+  VersionOferta --> Pedido : condiciones aceptadas
+  VersionProducto --> Pedido : origen de pedido directo
+  Pedido --> CondicionesPedido : conserva
+  Pedido --> RevisionResultado : presenta
+  RevisionResultado --> Evidencia : incluye
+  RevisionResultado --> DecisionRevision : registra
+  Pedido --> Entrega : coordina
+  Entrega --> PuntoEncuentro : utiliza
+  Entrega --> ConfirmacionEntrega : recibe del cliente
+  Pedido --> Conversacion : habilita al confirmar
+  Conversacion --> ParticipanteConversacion : autoriza
+  Usuario --> ParticipanteConversacion : participa
+  Conversacion --> Mensaje : conserva
+  Mensaje --> Archivo : adjunta autorizado
+  Usuario --> Notificacion : recibe
+  Pedido --> Valoracion : habilita al completar
+  Usuario --> Valoracion : emite y recibe
+  Valoracion --> PuntajeCriterio : desglosa
+  Maker --> MembresiaMaker : gestiona
+  PlanVersion --> CompraMembresia : conserva condiciones
+  MembresiaMaker --> CompraMembresia : registra
+  MembresiaMaker --> PeriodoAcceso : concede
+  CompraMembresia --> PeriodoAcceso : origina acceso pago
+  CompraMembresia --> PagoAbono : registra cobro
+  PagoAbono --> IntentoPago : conserva
+  CasoSoporte --> Pedido : interviene con permiso
+  ReporteActividad --> Pedido : consulta proyección
+  ReporteActividad --> Valoracion : consulta agregado

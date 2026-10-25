@@ -1,15 +1,16 @@
 ---
-title: "Requerimientos no funcionales"
-description: "Documentación de análisis y diseño de 3DAltoque."
+title: "Requerimientos no funcionales de 3DAltoque"
 ---
+
+# Requerimientos no funcionales de 3DAltoque
 
 > Actualización del 14 de octubre de 2026: ADR-002 cambia la integración financiera a cobro de membresías. La vigencia se calcula con el reloj del servidor y vencer no bloquea pedidos activos.
 
-Versión: 2.0-borrador. Fecha: 14 de octubre de 2026.
+Versión: 2.1. Fecha: 25 de octubre de 2026.
 
-Cada ficha reproduce los 11 campos de la plantilla de requerimiento de la materia. Los vínculos posteriores permiten relacionar el requisito con integraciones, otros requisitos y decisiones de negocio. Los CU relacionados son referencias del catálogo actual; el catálogo de casos de uso amplía identidad y membresías; su revisión con la plantilla y los flujos de pantalla sigue pendiente.
+Cada ficha reproduce los 11 campos de la plantilla de requerimiento de la materia, Template de Requerimiento.docx. Los vínculos posteriores permiten relacionar el requisito con integraciones, otros requisitos y decisiones de negocio. Los CU relacionados se desarrollan en fichas individuales con referencias, precondiciones, postcondiciones y flujos normales y alternativos.
 
-La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión del equipo. Un criterio definido sobre una política abierta se comprueba con esa política una vez acordada; su aplicación requiere la política acordada. El [índice del catálogo](/3daltoque-docs/analisis/requisitos/) registra esas decisiones y las condiciones de medición. El campo Autor identifica al equipo responsable de la ficha.
+La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión del equipo. Un criterio definido sobre una política abierta se comprueba con esa política una vez acordada; la política acordada determina los datos y condiciones de comprobación. El [índice del catálogo](/3daltoque-docs/analisis/requisitos/) registra esas decisiones y las condiciones de medición. El campo Autor identifica al equipo del proyecto y registra la preparación asistida.
 
 ## Índice de fichas
 
@@ -45,7 +46,7 @@ Las metas numéricas de disponibilidad, rendimiento, tamaño de vista y recupera
 | ID requerimiento | RNF-01 |
 | Nombre | Disponibilidad del servicio |
 | Propósito | Permitir utilizar el recorrido acordado durante la evaluación académica. |
-| Descripción | El servicio debe sostener la disponibilidad del recorrido base en el entorno de demostración. Se propone inicialmente una disponibilidad de al menos 99% durante una ventana continua de 24 horas, medida cada minuto sobre una operación de lectura representativa con sus dependencias necesarias. Ventana, hosting y objetivo requieren PD-13. La medición registra las fallas de proveedores y las funciones afectadas. |
+| Descripción | El servicio debe sostener la disponibilidad del recorrido base en el entorno de demostración. Se propone inicialmente una disponibilidad de al menos 99% durante una ventana continua de 24 horas, medida cada minuto sobre una operación de lectura representativa con sus dependencias necesarias. Ventana, hosting y objetivo requieren PD-13. Las fallas de proveedores se registran por función y no se ocultan en la medición. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -56,7 +57,7 @@ Las metas numéricas de disponibilidad, rendimiento, tamaño de vista y recupera
 
 Requisitos/CU relacionados: [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15).
 
-Integraciones: INT-01, INT-03, INT-05.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -68,7 +69,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | ID requerimiento | RNF-02 |
 | Nombre | Rendimiento de búsqueda |
 | Propósito | Obtener resultados de makers dentro de un tiempo comprobable. |
-| Descripción | Se propone que la búsqueda con ubicaciones ya registradas alcance p95 de tiempo de respuesta de hasta 2 segundos y menos de 1% de errores técnicos bajo el perfil PERF-01. Las llamadas externas de geocodificación se miden por separado y muestran su estado mientras se resuelven. El objetivo es una propuesta para el piloto, pendiente de PD-13; no fija la cantidad real de usuarios o makers admitidos. |
+| Descripción | Se propone que la búsqueda con ubicaciones ya registradas alcance p95 de tiempo de respuesta de hasta 2 segundos y menos de 1% de errores técnicos bajo el perfil PERF-01. Las llamadas externas de geocodificación se miden por separado y muestran su estado mientras se resuelven. PD-13 debe acordar el objetivo y PERF-01 debe identificar el volumen y la concurrencia utilizados para medirlo. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -79,7 +80,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-03.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-2), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
-Integraciones: INT-02, INT-05.
+Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -102,7 +103,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11
 
 Requisitos/CU relacionados: [RNF-02](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-02), [RNF-18](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-18).
 
-Integraciones: INT-02, INT-05.
+Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -125,7 +126,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-13
 
 Requisitos/CU relacionados: [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), [RF-12.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-6), [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3).
 
-Integraciones: INT-01, INT-02, INT-03, INT-05, INT-06.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-06](/3daltoque-docs/analisis/requisitos/#pd-06), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -148,7 +149,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-06
 
 Requisitos/CU relacionados: [RF-04.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-4), [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RF-06.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-7).
 
-Integraciones: INT-05, INT-06.
+Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-07](/3daltoque-docs/analisis/requisitos/#pd-07), [PD-08](/3daltoque-docs/analisis/requisitos/#pd-08).
 
@@ -171,7 +172,7 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-07
 
 Requisitos/CU relacionados: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1).
 
-Integraciones: INT-01, INT-03, INT-04, INT-05.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14](/3daltoque-docs/analisis/requisitos/#pd-14).
 
@@ -194,7 +195,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14
 
 Requisitos/CU relacionados: [RNF-01](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-01), [RNF-02](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-02), [RNF-15](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15).
 
-Integraciones: INT-01, INT-02, INT-03, INT-04, INT-05, INT-06.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -213,11 +214,11 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Los flujos web críticos se recorren por teclado y los errores se relacionan con el campo o acción afectados.<br>2. Las mediciones de contraste de los textos incluidos cumplen los umbrales aprobados; cada estado o error combina texto, indicadores y color.<br>3. Antes de aceptar/pagar el usuario identifica precio acordado, estimación y modo real/simulado; la revisión requiere una acción explícita. |
+| Criterio de éxito | 1. Los flujos web críticos se recorren por teclado y los errores se relacionan con el campo o acción afectados.<br>2. Las mediciones de contraste de los textos incluidos cumplen los umbrales aprobados; estado o error no se comunican únicamente por color.<br>3. Antes de aceptar/pagar el usuario identifica precio acordado, estimación y modo real/simulado; la revisión requiere una acción explícita. |
 
 Requisitos/CU relacionados: [RF-04.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-3), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17).
 
-Integraciones: INT-02, INT-05.
+Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -229,7 +230,7 @@ Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 | ID requerimiento | RNF-09 |
 | Nombre | Integridad financiera del abono |
 | Propósito | Mantener importes, estados y referencias coherentes. |
-| Descripción | Los importes de compras de membresía utilizan precisión decimal y condiciones conservadas por compra. Se verifica proveedor, cuenta receptora propia, entorno, importe, moneda y referencia antes de conceder acceso. Cada compra pagada concede como máximo un período; los eventos repetidos recuperan el resultado ya registrado. El registro financiero corresponde a los abonos cobrados por la plataforma. |
+| Descripción | Los importes de compras de membresía utilizan precisión decimal y condiciones conservadas por compra. Se verifica proveedor, cuenta receptora propia, entorno, importe, moneda y referencia antes de conceder acceso. Cada compra pagada concede como máximo un período y los eventos repetidos no añaden meses. No se modelan saldos de impresiones ni netos de makers. |
 | Historial | 2026-10-14: actualización de alcance por ADR-002; pagos exclusivos del abono de makers. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
@@ -240,7 +241,7 @@ Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
 Requisitos/CU relacionados: [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-6), [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-12.12](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-12).
 
-Integraciones: INT-01.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10](/3daltoque-docs/analisis/requisitos/#pd-10).
 
@@ -263,7 +264,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10
 
 Requisitos/CU relacionados: [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14), [RNF-09](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-09), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
-Integraciones: INT-01, INT-05.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-15](/3daltoque-docs/analisis/requisitos/#pd-15).
 
@@ -286,7 +287,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-15
 
 Requisitos/CU relacionados: [RF-10.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-4), [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-19](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-19).
 
-Integraciones: INT-02, INT-03, INT-04.
+Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -309,7 +310,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13
 
 Requisitos/CU relacionados: [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 
-Integraciones: INT-01, INT-02, INT-03, INT-04.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12).
 
@@ -332,7 +333,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 
 Requisitos/CU relacionados: [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06).
 
-Integraciones: INT-01, INT-05.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10](/3daltoque-docs/analisis/requisitos/#pd-10), [PD-15](/3daltoque-docs/analisis/requisitos/#pd-15).
 
@@ -355,7 +356,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10
 
 Requisitos/CU relacionados: [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1), [RNF-10](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-10), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17).
 
-Integraciones: INT-01, INT-03, INT-04, INT-05, INT-06.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11).
 
@@ -367,18 +368,18 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-09
 | ID requerimiento | RNF-15 |
 | Nombre | Tolerancia a fallas de integraciones |
 | Propósito | Conservar acuerdos y ofrecer recuperación controlada. |
-| Descripción | Las llamadas a proveedores deben tener tiempo máximo y tratamiento de errores/reintentos definidos por operación. Las tareas persistidas deben poder recuperarse después de interrupciones. Los archivos quedan disponibles al completarse su transferencia y validación. Los acuerdos permanecen vigentes durante la recuperación de un aviso fallido. Las operaciones financieras inciertas se concilian antes de repetir el cobro. Valores y políticas de reintento requieren PD-11 y PD-13. |
+| Descripción | Las llamadas a proveedores deben tener tiempo máximo y tratamiento de errores/reintentos definidos por operación. Las tareas persistidas deben poder recuperarse después de interrupciones. No se habilitan archivos incompletos ni se deshacen acuerdos por un aviso fallido. Las operaciones financieras inciertas se concilian antes de repetir el cobro. Valores y políticas de reintento requieren PD-11 y PD-13. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Una respuesta ausente termina conforme al timeout definido, registra el problema y permite el tratamiento de recuperación acordado.<br>2. Interrumpir y restablecer un worker conserva tareas y evita duplicar efectos de negocio.<br>3. Las fallas de pago, mapa, archivo y aviso se identifican con su estado y motivo. |
+| Criterio de éxito | 1. Una respuesta ausente termina conforme al timeout definido, registra el problema y permite el tratamiento de recuperación acordado.<br>2. Interrumpir y restablecer un worker conserva tareas y evita duplicar efectos de negocio.<br>3. Fallas de pago, mapa, archivo y aviso producen estados diferenciados; no se muestran como éxito o como ausencia normal de resultados. |
 
 Requisitos/CU relacionados: [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
-Integraciones: INT-01, INT-02, INT-03, INT-04, INT-06.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -390,7 +391,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 | ID requerimiento | RNF-16 |
 | Nombre | Límites de uso y recursos |
 | Propósito | Controlar cargas y consumo de servicios. |
-| Descripción | Se deben definir y aplicar límites de peticiones, tamaño/tipo de archivos, análisis y uso de proveedores por entorno. Los límites, cuotas, presupuesto y umbrales se documentan con unidades y responsables. El consumo real de servicios se mide, se identifican excedentes y se generan alertas. Los límites automáticos de consumo dependen de las funciones y condiciones del proveedor. |
+| Descripción | Se deben definir y aplicar límites de peticiones, tamaño/tipo de archivos, análisis y uso de proveedores por entorno. Los límites, cuotas, presupuesto y umbrales se documentan con unidades y responsables. El consumo real de servicios se mide y se identifican excedentes. Se documentan por proveedor las alertas, los límites disponibles y el responsable de actuar ante cada umbral. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -401,7 +402,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 
 Requisitos/CU relacionados: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-10.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-1), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
-Integraciones: INT-02, INT-03, INT-04, INT-05.
+Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -413,7 +414,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11
 | ID requerimiento | RNF-17 |
 | Nombre | Compatibilidad de los canales |
 | Propósito | Mantener el recorrido utilizable en las plataformas aprobadas. |
-| Descripción | Los canales implementados deben conservar las mismas reglas de negocio y funcionar en una matriz de navegadores/dispositivos acordada. Para web se propone revisar formularios y listas críticas entre 320 y 1440 píxeles CSS, con controles accesibles y contenido legible; vistas espaciales/tablas que requieran desplazamiento se documentan. La implementación native mobile depende del alcance acordado, mientras su prototipo permanece como entregable solicitado. |
+| Descripción | Los canales implementados deben conservar las mismas reglas de negocio y funcionar en una matriz de navegadores/dispositivos acordada. Para web se propone revisar formularios y listas críticas entre 320 y 1440 píxeles CSS, con controles accesibles y contenido legible; vistas espaciales/tablas que requieran desplazamiento se documentan. La entrega funcional comprende los recorridos de cliente y maker en Web y React Native mediante la misma API. El panel administrativo se utiliza en Web. Las vistas de Figma conservan su función de referencia visual. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -424,7 +425,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11
 
 Requisitos/CU relacionados: [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
-Integraciones: INT-02, INT-05, INT-06.
+Integraciones: [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/), [INT-06](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -447,7 +448,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RNF-03](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-03), [RNF-10](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-10), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
-Integraciones: INT-01, INT-02, INT-03, INT-04, INT-05.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-02](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/), [INT-04](/3daltoque-docs/diseno/integraciones/), [INT-05](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
@@ -470,15 +471,19 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 
 Requisitos/CU relacionados: [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-10.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-4), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 
-Integraciones: INT-01, INT-03.
+Integraciones: [INT-01](/3daltoque-docs/diseno/integraciones/), [INT-03](/3daltoque-docs/diseno/integraciones/).
 
 Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 
 ## Referencias de accesibilidad
 
-RNF-08 incorpora criterios de contraste y teclado al plan de accesibilidad. La evaluación de conformidad WCAG requiere definir su nivel y alcance y cubrir los criterios correspondientes.
+RNF-08 propone incorporar los criterios de contraste y teclado como parte de las verificaciones de accesibilidad. Registrar por pantalla los criterios evaluados, el método aplicado y los resultados obtenidos.
 
 - [W3C, criterio 1.4.3 de contraste mínimo](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
 - [W3C, criterio 2.1.1 de teclado](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html).
 
 Las referencias fueron consultadas el 10 de octubre de 2026; los objetivos del proyecto requieren la revisión de PD-13.
+
+## Aplicación a la ampliación funcional
+
+Los 19 RNF se aplican también al catálogo, portfolio, reputación, historial y reportes. La compra de producto conserva decimales, moneda, versión e idempotencia; el chat exige pedido confirmado; el contenido público utiliza derivados autorizados y conserva privados los originales. La [trazabilidad funcional](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) relaciona los escenarios de control con los requisitos.

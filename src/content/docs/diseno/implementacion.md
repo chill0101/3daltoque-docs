@@ -4,11 +4,11 @@ title: "Arquitectura de implementación"
 
 # Arquitectura de implementación
 
-Versión 2.0-borrador. Fecha: 14 de octubre de 2026.
+Versión 3.0. Fecha: 25 de octubre de 2026.
 
 ## Enfoque adoptado
 
-Backend FastAPI y Python en un monolito modular con separación hexagonal simple. Web y mobile comparten la API y las reglas; la inclusión de la app nativa en la primera implementación sigue pendiente.
+Backend FastAPI y Python en un monolito modular con separación hexagonal simple. Web y React Native comparten la API y los recorridos de cliente y maker; administración utiliza Web.
 
 El módulo comercial cobra el servicio de membresía mediante Checkout Pro y concede períodos temporales de acceso, conforme a ADR-002 y RF-12.1 a RF-12.15.
 
@@ -18,7 +18,7 @@ El módulo comercial cobra el servicio de membresía mediante Checkout Pro y con
 
 [Abrir SVG](/3daltoque-docs/documentos/44ac08b2bfc6-componentes.svg) · [Fuente editable](/3daltoque-docs/documentos/410048d78c61-componentes.mmd)
 
-El monolito se organiza en módulos de identidad, archivos, solicitudes/ofertas, pedidos/revisión, entregas, conversaciones, membresías/cobros, notificaciones y administración. Estos límites reúnen reglas relacionadas y permiten coordinar las operaciones que comparten una transacción.
+El monolito se organiza en identidad/perfiles, archivos, catálogo/portfolio, solicitudes/ofertas/negociación, pedidos/revisión, entregas, conversaciones, reputación, membresías/cobros, notificaciones, historial/reportes y administración. Estos límites reúnen reglas relacionadas y permiten coordinar las operaciones que comparten una transacción.
 
 ## Núcleo, puertos y adaptadores
 
@@ -78,3 +78,7 @@ Backend conserva dominio, aplicación, adaptadores, API, worker y migraciones se
 7. Avisos, administración, límites, respaldos y pruebas documentadas.
 
 
+
+## Cobertura de catálogo y comunicación
+
+El pedido directo del catálogo conserva una versión publicada, cantidad y precio del servidor y utiliza la misma frontera de confirmación y seguimiento del pedido personalizado. El chat se habilita al confirmar el pedido y autoriza a sus participantes. Portfolio, reputación e indicadores tienen servicios y persistencia identificados en [clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) y [modelo lógico](/3daltoque-docs/modelado/modelo-logico/).

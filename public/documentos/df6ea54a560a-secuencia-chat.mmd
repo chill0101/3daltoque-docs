@@ -1,0 +1,19 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
+sequenceDiagram
+  participant P as Participante del pedido
+  participant A as API FastAPI
+  participant D as Persistencia
+  participant N as Avisos
+  P->>A: Abrir conversación de pedido confirmado
+  A->>D: Autorizar participante y recuperar historial
+  D-->>A: Conversación única y cursor
+  A-->>P: Mensajes autorizados
+  P->>A: Enviar contenido y clave estable
+  A->>D: Validar y conservar una vez
+  D-->>A: Mensaje y evento persistidos
+  A-->>P: ID y fecha de envío
+  A->>N: Procesar evento de aviso
+  P->>A: Reintentar misma clave y contenido
+  A->>D: Recuperar mensaje existente
+  D-->>A: Mensaje existente
+  A-->>P: Mismo resultado

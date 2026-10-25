@@ -1,0 +1,75 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
+erDiagram
+  direction TB
+  productos_maker {
+    UUID id PK, FK "Identificador estable y opaco de ProductoMaker."
+    UUID maker_id FK "Maker titular de la publicación."
+    Entero version_actual FK "Número de la versión de condiciones actual del producto."
+    EstadoPublicacion estado "Borrador, publicado, pausado, retirado o moderado."
+    FechaHora creado_en "Fecha del servidor al crear la publicación."
+    FechaHora actualizado_en "Fecha del último cambio de estado o versión."
+  }
+  producto_versiones {
+    UUID producto_id PK, FK "Publicación a la que pertenece esta versión."
+    Entero numero PK "Número positivo e inmutable dentro del producto."
+    UUID maker_id FK "Titular conservado para verificar pertenencia en referencias compuestas."
+    Texto titulo "Nombre público del producto."
+    Texto descripcion "Descripción de la pieza y configuración ofrecida."
+    UUID material_id FK "Material de la configuración publicada."
+    Texto color "Color de la configuración publicada."
+    Decimal dimension_x_mm "Ancho de la pieza en milímetros."
+    Decimal dimension_y_mm "Profundidad de la pieza en milímetros."
+    Decimal dimension_z_mm "Altura de la pieza en milímetros."
+    Monto precio_unitario "Importe unitario publicado, calculado y validado en el backend."
+    Moneda moneda "Moneda explícita de los importes publicados."
+    Entero cantidad_minima "Mínimo entero positivo por pedido."
+    Entero cantidad_maxima "Máximo configurado; NULL identifica ausencia de un máximo propio dentro de "
+    Decimal plazo_cantidad "Duración de preparación publicada, positiva."
+    UnidadPlazo plazo_unidad "Unidad temporal explícita de la preparación."
+    Texto condiciones "Condiciones de fabricación, entrega y pago directo aceptables por el client"
+    FechaHora creado_en "Fecha de conservación de la versión."
+  }
+  producto_archivos {
+    UUID producto_id PK, FK "Producto de la versión asociada."
+    Entero producto_version_numero PK, FK "Versión que conserva la referencia de archivo."
+    UUID archivo_id PK, FK "Archivo habilitado para la finalidad declarada."
+    Texto rol "Presentación pública derivada o recurso de fabricación privado."
+    Entero orden "Posición no negativa de presentación."
+  }
+  portfolio_trabajos {
+    UUID id PK "Identificador estable y opaco de TrabajoPortfolio."
+    UUID maker_id FK "Maker autor y titular del trabajo."
+    Texto titulo "Título del trabajo."
+    Texto descripcion "Descripción del trabajo publicado."
+    Entero version "Versión para controlar ediciones concurrentes."
+    EstadoPublicacion estado "Borrador, publicado, retirado o moderado."
+    FechaHora publicado_en "Fecha de primera publicación autorizada."
+    FechaHora creado_en "Fecha de creación del registro."
+    FechaHora actualizado_en "Fecha del último cambio autorizado."
+  }
+  portfolio_archivos {
+    UUID trabajo_id PK, FK "Trabajo al que pertenece el medio."
+    UUID archivo_id PK, FK "Archivo habilitado y autorizado para presentación."
+    Entero orden "Posición no negativa dentro del trabajo."
+    Booleano activo "Indica si el medio participa en la presentación vigente."
+    FechaHora creado_en "Fecha de incorporación."
+    FechaHora retirado_en "Fecha de retiro lógico de la presentación."
+  }
+  makers {
+    UUID id PK "Identificador estable y opaco de Maker."
+  }
+  materiales {
+    UUID id PK "Identificador estable y opaco de Material."
+  }
+  archivos {
+    UUID id PK "Identificador estable y opaco de Archivo."
+  }
+  makers ||--o{ productos_maker : "publica producto"
+  producto_versiones ||--o| productos_maker : "selecciona versión de producto"
+  productos_maker ||--o{ producto_versiones : "conserva versión de producto"
+  materiales ||--o{ producto_versiones : "ofrece material"
+  producto_versiones ||--o{ producto_archivos : "muestra archivo de versión"
+  archivos ||--o{ producto_archivos : "aporta medio autorizado"
+  makers ||--o{ portfolio_trabajos : "presenta trabajo"
+  portfolio_trabajos ||--o{ portfolio_archivos : "incluye medio"
+  archivos ||--o{ portfolio_archivos : "presenta archivo autorizado"

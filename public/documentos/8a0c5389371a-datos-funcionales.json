@@ -1,0 +1,86 @@
+{
+  "fecha_de_referencia": "2026-10-25T12:00:00Z",
+  "finalidad": "Datos sintéticos para preparar y ejecutar los casos del plan funcional.",
+  "usuarios": {
+    "U-C1": {
+      "id": "11111111-1111-4111-8111-111111111111",
+      "rol": "cliente",
+      "correo": "cliente1@example.test"
+    },
+    "U-C2": {
+      "id": "33333333-3333-4333-8333-333333333333",
+      "rol": "cliente",
+      "correo": "cliente2@example.test"
+    },
+    "M-M1": {
+      "id": "22222222-2222-4222-8222-222222222222",
+      "rol": "maker",
+      "correo": "maker1@example.test"
+    },
+    "M-M2": {
+      "id": "55555555-5555-4555-8555-555555555555",
+      "rol": "maker",
+      "correo": "maker2@example.test"
+    },
+    "A-A1": {
+      "id": "44444444-4444-4444-8444-444444444444",
+      "rol": "administracion",
+      "correo": "admin@example.test"
+    }
+  },
+  "producto": {
+    "id": "66666666-6666-4666-8666-666666666666",
+    "referencia": "P-P1",
+    "version": 1,
+    "material": "PLA",
+    "color": "Cian",
+    "dimensiones_mm": [
+      20,
+      20,
+      20
+    ],
+    "precio_unitario_de_prueba": "1000.00",
+    "moneda": "ARS",
+    "cantidad_minima": 1,
+    "cantidad_maxima": 5,
+    "plazo_cantidad": "3",
+    "plazo_unidad": "dias_corridos",
+    "estado": "publicado"
+  },
+  "plan_de_prueba": {
+    "importe": "10000.00",
+    "moneda": "ARS",
+    "prueba_dias": 30,
+    "fundador_dias": 90,
+    "cupo_fundador": 1
+  },
+  "valoracion_de_prueba": {
+    "escala_minima": 1,
+    "escala_maxima": 5,
+    "criterios_maker": [
+      "calidad",
+      "cumplimiento",
+      "comunicacion"
+    ],
+    "criterios_cliente": [
+      "claridad",
+      "responsabilidad"
+    ]
+  },
+  "archivos": [
+    {
+      "nombre": "cubo-20mm.stl",
+      "unidad": "mm",
+      "triangulos": 12,
+      "volumen_mm3": 8000,
+      "resultado": "válido"
+    },
+    {
+      "nombre": "cubo-abierto.stl",
+      "unidad": "mm",
+      "triangulos": 11,
+      "resultado": "análisis geométrico rechazado o insuficiente"
+    }
+  ],
+  "observacion": "Importes, cupo y escala son fixtures del plan; las condiciones de producción se registran en su configuración aprobada."
+}

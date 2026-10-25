@@ -19,7 +19,7 @@ hero:
 
 Encontrar quién imprima una pieza no debería requerir coordinar archivos, cotizaciones y seguimiento en canales separados. 3DAltoque propone reunir ese recorrido: **solicitud, ofertas, acuerdo, producción y recepción**.
 
-La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar makers con las capacidades necesarias para realizar el trabajo, no elegir automáticamente al más próximo.
+La búsqueda aplica primero los requisitos de capacidad y material y luego considera ubicación y disponibilidad. Este orden permite comparar makers técnicamente compatibles, según RF-03.1.
 
 ## Explorá el proyecto
 
@@ -37,8 +37,8 @@ La cercanía ayuda, pero la compatibilidad manda. El objetivo es encontrar maker
 - Una solicitud confirmada genera un único pedido, con las condiciones exactas de la oferta aceptada.
 - El maker presenta evidencia del resultado y el cliente la aprueba expresamente antes de coordinar la entrega.
 - Cada aprobación queda vinculada a la evidencia presentada por el maker.
-- Los pagos y la comisión configurable forman parte del producto.
-- La simulación, cuando se utilice, debe estar identificada y no presentarse como una integración real.
+- El maker paga una membresía mensual prepaga mediante Checkout Pro y la renueva manualmente, según ADR-002.
+- La simulación utiliza un entorno identificado y separado de los cobros productivos.
 
 ## Un proyecto en construcción
 
