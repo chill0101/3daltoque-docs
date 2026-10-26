@@ -135,24 +135,210 @@ end note
 
 ```mermaid
 classDiagram
-  class Maker
-  class Cliente
-  class Solicitud
-  class VersionSolicitud
-  class Oferta
-  class VersionOferta
-  class Pedido
-  class CondicionesPedido
-  class RevisionResultado
-  class Evidencia
-  class DecisionRevision
-  class Entrega
-  class MembresiaMaker
-  class PlanVersion
-  class CompraMembresia
-  class PeriodoAcceso
-  class PagoAbono
-  class IntentoPago
+  class Cliente {
+    +UUID id
+    +UUID usuarioId
+    +String nombreVisible
+    +String telefonoContacto
+    +ZonaReferencia ubicacionReferencia
+    +DateTime creadoEn
+    +crearSolicitud(datos, archivoId) Solicitud
+    +aceptarOferta(ofertaId, versionNro) Pedido
+    +revisarEvidencia(revisionId, decision, motivo) DecisionRevision
+    +confirmarRecepcion(entregaId) void
+  }
+
+  class Maker {
+    +UUID id
+    +UUID usuarioId
+    +String nombreTaller
+    +ZonaOperativa ubicacionAproximada
+    +List~String~ tecnologias
+    +List~String~ materiales
+    +Dimensiones3D volumenMaximoMm
+    +EstadoDisponibilidad disponibilidad
+    +Boolean insigniaFundador
+    +DateTime primeraHabilitacionEn
+    +habilitarPerfilInicial() MembresiaMaker
+    +esCompatibleCon(VersionSolicitud) Boolean
+    +emitirOferta(solicitudId, condiciones) Oferta
+  }
+
+  class Solicitud {
+    +UUID id
+    +UUID clienteId
+    +EstadoSolicitud estado
+    +Int versionActual
+    +DateTime publicadaEn
+    +DateTime expiraEn
+    +publicarVersion(parametros, archivoId) VersionSolicitud
+    +confirmarConOferta(VersionOferta) Pedido
+    +cancelar(motivo) void
+  }
+
+  class VersionSolicitud {
+    +UUID id
+    +UUID solicitudId
+    +Int numeroVersion
+    +UUID archivoStlId
+    +String descripcionUso
+    +String materialRequerido
+    +Dimensiones3D dimensionesMm
+    +Int cantidadUnidades
+    +ZonaReferencia zonaBusqueda
+    +RangoOrientativo estimacionNoVinculante
+  }
+
+  class Oferta {
+    +UUID id
+    +UUID solicitudId
+    +UUID makerId
+    +EstadoOferta estado
+    +Int versionVigente
+    +DateTime creadaEn
+    +publicarNuevaVersion(importe, plazoDias, alcance, validez) VersionOferta
+    +marcarAceptada() void
+    +cerrarPorCompetencia() void
+  }
+
+  class VersionOferta {
+    +UUID id
+    +UUID ofertaId
+    +Int numeroVersion
+    +Decimal importeTotal
+    +String moneda
+    +Int plazoEntregaDias
+    +String materialOfrecido
+    +String alcanceYCondiciones
+    +DateTime validaHasta
+    +estaVigente(DateTime relojServidor) Boolean
+  }
+
+  class Pedido {
+    +UUID id
+    +UUID solicitudId
+    +UUID clienteId
+    +UUID makerId
+    +EstadoPedido estado
+    +DateTime confirmadoEn
+    +DateTime actualizadoEn
+    +iniciarProduccion() void
+    +abrirRevisionConEvidencia(archivos, nota) RevisionResultado
+    +registrarAprobacionExpresa(revisionId) void
+    +registrarObservacion(revisionId, motivo) void
+    +habilitarEntrega() Entrega
+  }
+
+  class CondicionesPedido {
+    +UUID pedidoId
+    +UUID versionOfertaAceptadaId
+    +Decimal precioPactadoExterno
+    +String moneda
+    +Int plazoAcordadoDias
+    +String materialAcordado
+    +String modalidadPagoDirecto
+  }
+
+  class RevisionResultado {
+    +UUID id
+    +UUID pedidoId
+    +Int numeroCiclo
+    +EstadoRevision estado
+    +DateTime solicitadaEn
+    +requiereDecisionExpresa() Boolean
+  }
+
+  class Evidencia {
+    +UUID id
+    +UUID revisionId
+    +UUID archivoPrivadoId
+    +TipoEvidencia tipo
+    +String comentarioMaker
+    +DateTime subidaEn
+  }
+
+  class DecisionRevision {
+    +UUID id
+    +UUID revisionId
+    +UUID clienteId
+    +TipoDecision decision
+    +String observaciones
+    +DateTime registradaEn
+  }
+
+  class Entrega {
+    +UUID id
+    +UUID pedidoId
+    +EstadoEntrega estado
+    +String puntoEncuentroNeutral
+    +DateTime fechaHoraAcordada
+    +DateTime recepcionConfirmadaEn
+    +acordarEncuentro(lugar, fechaHora) void
+    +confirmarRecepcion(actorId) void
+  }
+
+  class MembresiaMaker {
+    +UUID id
+    +UUID makerId
+    +EstadoMembresia estado
+    +TipoBeneficioInicial beneficioInicial
+    +DateTime vigenteHasta
+    +iniciarPruebaUnica(esFundador, relojServidor) PeriodoAcceso
+    +tieneAccesoParaNuevosTrabajos(relojServidor) Boolean
+    +extenderPorCompraConfirmada(CompraMembresia) PeriodoAcceso
+  }
+
+  class PlanVersion {
+    +UUID id
+    +String codigoPlan
+    +Int numeroVersion
+    +Decimal importeMensual
+    +String moneda
+    +Int duracionDias
+    +Int diasPruebaGeneral
+    +Int diasBeneficioFundador
+    +Boolean activo
+  }
+
+  class CompraMembresia {
+    +UUID id
+    +UUID membresiaId
+    +UUID planVersionId
+    +Decimal importeFijado
+    +String moneda
+    +ModoCobro modo
+    +EstadoCompraMembresia estado
+    +String idempotencyKey
+    +marcarPagadaYConcederPeriodo() PeriodoAcceso
+  }
+
+  class PeriodoAcceso {
+    +UUID id
+    +UUID membresiaId
+    +UUID compraOrigenId
+    +OrigenPeriodo origen
+    +DateTime iniciaEn
+    +DateTime venceEn
+  }
+
+  class PagoAbono {
+    +UUID id
+    +UUID compraId
+    +String referenciaExternaProveedor
+    +EstadoPagoAbono estado
+    +Decimal importeVerificado
+    +Boolean esSimulado
+    +DateTime verificadoEn
+  }
+
+  class IntentoPago {
+    +UUID id
+    +UUID pagoAbonoId
+    +String providerEventId
+    +String estadoReportado
+    +DateTime recibidoEn
+  }
+
   Cliente "1" --> "0..*" Solicitud : crea
   Solicitud "1" *-- "1..*" VersionSolicitud
   Solicitud "1" --> "0..*" Oferta
@@ -162,8 +348,8 @@ classDiagram
   VersionOferta "1" --> "0..1" Pedido : versión aceptada
   Pedido "1" *-- "1" CondicionesPedido : precio pactado externo
   Pedido "1" --> "0..*" RevisionResultado
-  RevisionResultado "1" --> "0..*" Evidencia
-  RevisionResultado "1" --> "0..*" DecisionRevision
+  RevisionResultado "1" --> "1..*" Evidencia
+  RevisionResultado "1" --> "0..1" DecisionRevision
   Pedido "1" --> "0..1" Entrega
   Maker "1" --> "0..1" MembresiaMaker
   MembresiaMaker "1" --> "0..*" CompraMembresia
@@ -172,7 +358,6 @@ classDiagram
   CompraMembresia "0..1" --> "0..1" PeriodoAcceso : origen del acceso pago
   CompraMembresia "1" --> "0..1" PagoAbono
   PagoAbono "1" --> "0..*" IntentoPago
-
 ```
 
 </div>
