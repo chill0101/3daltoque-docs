@@ -14,6 +14,27 @@ El catálogo conserva CU-01 a CU-13 y amplía la cobertura hasta CU-25. Cada esp
 
 ### Relaciones `<<include>>` y `<<extend>>` del modelo
 
+```mermaid
+flowchart LR
+  subgraph Archivos["Inclusión obligatoria de archivos (<<include>>)"]
+    CU01["CU-01 Publicar solicitud"] -. "<<include>>" .-> CU24["CU-24 Gestionar archivos autorizados"]
+    CU04["CU-04 Producción y evidencia"] -. "<<include>>" .-> CU24
+    CU15["CU-15 Mantener y consultar portfolio"] -. "<<include>>" .-> CU24
+    CU19["CU-19 Mantener catálogo de productos"] -. "<<include>>" .-> CU24
+  end
+
+  subgraph Extensiones["Extensiones condicionales (<<extend>>)"]
+    CU25["CU-25 Negociar condiciones de oferta"] -. "<<extend>>" .-> CU02["CU-02 Recibir y responder ofertas"]
+    CU25 -. "<<extend>>" .-> CU03["CU-03 Elegir oferta"]
+    CU14["CU-14 Conversar en un pedido"] -. "<<extend>>" .-> CU03
+    CU14 -. "<<extend>>" .-> CU04b["CU-04 Producción y evidencia"]
+    CU14 -. "<<extend>>" .-> CU05["CU-05 Revisión y aprobación"]
+    CU14 -. "<<extend>>" .-> CU06["CU-06 Entrega personal"]
+    CU14 -. "<<extend>>" .-> CU20["CU-20 Pedir un producto del maker"]
+    CU16["CU-16 Valorar y consultar reputación"] -. "<<extend>>" .-> CU06
+  end
+```
+
 | Relación UML | Caso de uso base | Caso de uso relacionado | Semántica en el dominio de 3DAltoque |
 | --- | --- | --- | --- |
 | `<<include>>` | [CU-01 Publicar solicitud](/3daltoque-docs/analisis/casos/cu-01-publicar-solicitud/), [CU-04 Producción y evidencia](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/), [CU-15 Portfolio](/3daltoque-docs/analisis/casos/cu-15-mantener-y-consultar-portfolio/), [CU-19 Catálogo](/3daltoque-docs/analisis/casos/cu-19-mantener-catalogo-de-productos/) | [CU-24 Gestionar archivos autorizados](/3daltoque-docs/analisis/casos/cu-24-gestionar-archivos-autorizados/) | Toda carga de archivo `.STL` o medio visual exige validar tipo, tamaño, integridad y permisos mediante `CU-24`. |
