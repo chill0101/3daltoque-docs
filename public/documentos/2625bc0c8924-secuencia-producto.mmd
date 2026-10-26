@@ -1,0 +1,20 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
+sequenceDiagram
+  participant C as Cliente
+  participant A as API FastAPI
+  participant D as Persistencia
+  participant M as Maker
+  C->>A: Consultar producto publicado
+  A-->>C: Versión, precio unitario y condiciones
+  C->>A: Confirmar versión, cantidad y clave estable
+  A->>D: Recuperar resultado de clave o validar versión y acceso
+  alt Condiciones vigentes
+    A->>D: Transacción de solicitud, oferta, pedido, condiciones y conversación
+    D-->>A: Pedido único y evento persistido
+    A-->>C: Pedido confirmado
+    A-->>M: Aviso del pedido
+  else Versión modificada o acceso restringido
+    A-->>C: Conflicto y condiciones actuales
+  end
+  Note over C,M: Pago de impresión directo entre las partes
+  Note over C,M: Producción, revisión expresa y recepción del cliente

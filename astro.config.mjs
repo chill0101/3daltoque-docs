@@ -102,6 +102,10 @@ export default defineConfig({
           ]
         },
         {
+          "label": "Decisiones del proyecto",
+          "items": [{ "autogenerate": { "directory": "decisiones" } }]
+        },
+        {
           "label": "Plan de trabajo",
           "items": [
             {

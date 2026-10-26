@@ -1,0 +1,14 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
+stateDiagram-v2
+  [*] --> Borrador
+  Borrador --> Publicado: Condiciones válidas y acceso comercial
+  Publicado --> Pausado: Maker pausa
+  Pausado --> Publicado: Maker habilitado confirma
+  Publicado --> Retirado: Maker retira
+  Pausado --> Retirado: Maker retira
+  Publicado --> Moderado: Administración con motivo
+  Moderado --> Pausado: Restitución autorizada
+  note right of Publicado
+    Las condiciones conservan versión.
+    El pedido confirma una versión vigente.
+  end note

@@ -1,79 +1,93 @@
 @startuml
 left to right direction
-skinparam packageStyle rectangle
-
 actor Cliente
 actor Maker
-actor Administrador
-actor "Mercado Pago\n(abono)" as MercadoPago
-actor "Servicio de Mapas" as Mapas
-actor "Almacenamiento\nde Archivos" as Storage
-
+actor Visitante
+actor Administración as Admin
+actor "Mercado Pago" as MP
 rectangle "3DAltoque" {
-  usecase "CU-01\nPublicar solicitud" as CU01
-  usecase "CU-02\nRecibir y responder ofertas" as CU02
-  usecase "CU-03\nElegir oferta" as CU03
-  usecase "CU-04\nProducción y evidencia" as CU04
-  usecase "CU-05\nRevisión y aprobación" as CU05
-  usecase "CU-06\nEntrega personal" as CU06
-  usecase "CU-07\nAdministración operativa" as CU07
-  usecase "CU-08\nConsultar membresía" as CU08
-  usecase "CU-09\nHabilitar perfil e iniciar prueba" as CU09
-  usecase "CU-10\nAsignar beneficio fundador" as CU10
-  usecase "CU-11\nPagar o renovar abono" as CU11
-  usecase "CU-12\nGestionar plan y promociones" as CU12
-  usecase "CU-13\nRegistrarse y acceder" as CU13
-
-  usecase "CU-INC-01\nCargar y validar archivo privado" as INC01
-  usecase "CU-INC-02\nEjecutar matching compatible" as INC02
-  usecase "CU-INC-03\nVerificar notificación de pago" as INC03
-  usecase "CU-EXT-01\nCalcular estimación orientativa" as EXT01
-  usecase "CU-EXT-02\nConversar en el pedido" as EXT02
-  usecase "CU-EXT-03\nRegistrar observaciones" as EXT03
+  usecase "CU-01 Publicar solicitud" as CU01
+  usecase "CU-02 Recibir y responder ofertas" as CU02
+  usecase "CU-03 Elegir oferta" as CU03
+  usecase "CU-04 Producción y evidencia" as CU04
+  usecase "CU-05 Revisión y aprobación" as CU05
+  usecase "CU-06 Entrega personal" as CU06
+  usecase "CU-07 Administración operativa" as CU07
+  usecase "CU-08 Consultar membresía" as CU08
+  usecase "CU-09 Habilitar perfil e iniciar prueba" as CU09
+  usecase "CU-10 Asignar beneficio fundador" as CU10
+  usecase "CU-11 Pagar o renovar abono" as CU11
+  usecase "CU-12 Gestionar plan y promociones" as CU12
+  usecase "CU-13 Registrarse y acceder" as CU13
+  usecase "CU-14 Conversar en un pedido" as CU14
+  usecase "CU-15 Mantener y consultar portfolio" as CU15
+  usecase "CU-16 Valorar y consultar reputación" as CU16
+  usecase "CU-17 Consultar historial de pedidos" as CU17
+  usecase "CU-18 Consultar reporte de actividad" as CU18
+  usecase "CU-19 Mantener catálogo de productos" as CU19
+  usecase "CU-20 Pedir un producto del maker" as CU20
+  usecase "CU-21 Gestionar capacidades del maker" as CU21
+  usecase "CU-22 Gestionar perfil de cliente" as CU22
+  usecase "CU-23 Recibir y consultar notificaciones" as CU23
+  usecase "CU-24 Gestionar archivos autorizados" as CU24
+  usecase "CU-25 Negociar condiciones de una oferta" as CU25
 }
-
-' Asociaciones con actores primarios
 Cliente -- CU01
 Maker -- CU02
 Cliente -- CU03
 Maker -- CU04
+Cliente -- CU04
 Cliente -- CU05
+Maker -- CU05
 Cliente -- CU06
 Maker -- CU06
-Administrador -- CU07
+Admin -- CU07
 Maker -- CU08
 Maker -- CU09
-Administrador -- CU09
-Administrador -- CU10
+Admin -- CU10
 Maker -- CU11
-Administrador -- CU12
+MP -- CU11
+Admin -- CU12
 Cliente -- CU13
 Maker -- CU13
-Administrador -- CU13
+Admin -- CU13
+Cliente -- CU14
+Maker -- CU14
+Maker -- CU15
+Visitante -- CU15
+Admin -- CU15
+Cliente -- CU16
+Maker -- CU16
+Admin -- CU16
+Cliente -- CU17
+Maker -- CU17
+Admin -- CU18
+Maker -- CU19
+Visitante -- CU19
+Admin -- CU19
+Cliente -- CU20
+Maker -- CU21
+Cliente -- CU22
+Cliente -- CU23
+Maker -- CU23
+Cliente -- CU24
+Maker -- CU24
+Cliente -- CU25
+Maker -- CU25
 
-' Relaciones <<include>> y <<extend>>
-CU01 ..> INC01 : <<include>>
-CU01 ..> INC02 : <<include>>
-EXT01 ..> CU01 : <<extend>>
+' Relaciones UML <<include>> y <<extend>> entre CU-01..CU-25
+CU01 ..> CU24 : <<include>>
+CU04 ..> CU24 : <<include>>
+CU15 ..> CU24 : <<include>>
+CU19 ..> CU24 : <<include>>
 
-CU04 ..> INC01 : <<include>>
-EXT02 ..> CU04 : <<extend>>
-EXT02 ..> CU05 : <<extend>>
-EXT02 ..> CU06 : <<extend>>
-EXT03 ..> CU05 : <<extend>>
+CU14 ..> CU03 : <<extend>>
+CU14 ..> CU04 : <<extend>>
+CU14 ..> CU05 : <<extend>>
+CU14 ..> CU06 : <<extend>>
+CU14 ..> CU20 : <<extend>>
 
-CU11 ..> INC03 : <<include>>
-
-' Asociaciones con sistemas externos
-INC01 -- Storage
-INC02 -- Mapas
-CU06 -- Mapas
-CU09 -- Mapas
-CU11 -- MercadoPago
-INC03 -- MercadoPago
-
-note bottom of CU11
-La plataforma cobra solo su abono mensual.
-El cliente paga la impresión al maker por fuera.
-end note
+CU25 ..> CU02 : <<extend>>
+CU25 ..> CU03 : <<extend>>
+CU16 ..> CU06 : <<extend>>
 @enduml

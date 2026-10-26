@@ -1,65 +1,90 @@
 ---
-title: "Modelo comercial, prueba y fundadores"
-description: "Definición del modelo comercial de membresía mensual prepaga para makers (ADR-002), prueba gratuita inicial y programa Makers Fundadores."
+title: "Membresía prepaga y Makers Fundadores"
 ---
 
-Versión 2.0-borrador. Decisión de alcance adoptada el 14 de octubre de 2026 (`ADR-002`).
+# Membresía prepaga y Makers Fundadores
 
-## 1. Modelo elegido para la primera versión
+Versión 2.0-borrador. Decisión de alcance adoptada el 14 de octubre de 2026.
 
-**3DAltoque** conecta clientes con makers y cobra al maker un **abono mensual prepago** por el uso del servicio comercial de la plataforma. Existe un único plan inicial y cada renovación es **manual** mediante **Mercado Pago Checkout Pro** (no se utiliza débito recurrente automático).
+## Modelo elegido para la primera versión
 
-El cliente paga la impresión directamente al maker por el medio que acuerden entre las partes. La plataforma **no recibe, retiene, reparte, liquida ni garantiza ese dinero**, ni cobra comisiones por pedido ni registra deuda de comisiones del maker.
+3DAltoque conecta clientes con makers y cobra al maker un abono mensual prepago por el uso del servicio. Hay un único plan inicial y la renovación es manual mediante Mercado Pago Checkout Pro. No se utiliza débito recurrente.
 
-La integración de pagos forma parte del proyecto para cobrar el servicio de **3DAltoque** al maker mediante una cuenta receptora propia de la plataforma. No se requieren *split payments*, vinculación OAuth de cuentas de vendedores, *payouts*, billetera propia ni custodia de fondos de impresiones.
+El cliente paga la impresión directamente al maker por el medio acordado entre las partes. Los ingresos de 3DAltoque corresponden al abono del maker, de acuerdo con ADR-002.
 
----
+La integración de pagos cobra el servicio de 3DAltoque al maker mediante Checkout Pro con la cuenta receptora de la plataforma. Esta decisión concentra el desarrollo financiero en compras de membresía, confirmación de pagos y períodos de acceso.
 
-## 2. Prueba gratuita general (`30 días`)
+## Prueba general
 
-La base inicial es de **30 días gratuitos**, configurables, contados desde la **primera habilitación del perfil maker** para recibir solicitudes ([CU-09](/3daltoque-docs/analisis/casos-de-uso/#cu-09), [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2)). Registrarse como usuario no consume por sí solo el beneficio hasta habilitar el perfil técnico.
+La base inicial es de 30 días gratuitos, configurables, desde la primera habilitación del perfil para recibir solicitudes. Registrarse no consume por sí solo el beneficio.
 
-No se solicita tarjeta para comenzar la prueba, no se crea una autorización de débito automático y no se ejecuta ningún cobro al finalizar el período gratuito. El sistema informa de forma transparente la fecha de inicio, la fecha de vencimiento y el importe vigente del plan para cuando el maker decida abonar manualmente.
+No se pide tarjeta para comenzar, no se crea una autorización de débito y no se cobra automáticamente al finalizar. Se informa el inicio, el vencimiento y el precio posterior antes de pagar. El importe definitivo y el criterio de habilitación del perfil siguen pendientes.
 
----
+## Makers Fundadores
 
-## 3. Programa `Makers Fundadores` (`90 días` totales no acumulables)
+El programa reconoce a los primeros makers del piloto, con un cupo limitado y condiciones visibles. La asignación inicial es manual y auditada; administración controla la elegibilidad, el cupo disponible y las condiciones aplicadas.
 
-El programa reconoce a la camada inicial de makers del lanzamiento con un cupo limitado y condiciones visibles ([CU-10](/3daltoque-docs/analisis/casos-de-uso/#cu-10), [RF-12.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-3)). La asignación es administrativa y auditada ([RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13)).
+Cada maker recibe un único beneficio inicial: la prueba general de 30 días o el beneficio fundador de 90 días totales. La duración es configurable y el sistema conserva la fecha original de concesión.
 
-- **Beneficio inicial único:** Otorga **90 días gratuitos totales en lugar de los 30 días generales**.
-- **No acumulación:** Nunca se suman `30 + 90 = 120 días`, no se reinicia el plazo al editar el perfil y no otorga gratuidad vitalicia.
-- **Alcance transparente ([RF-12.15](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-15)):** Permite lucir la insignia de *Maker Fundador* y participar en rondas tempranas de feedback, pero **no garantiza pedidos, prioridad artificial sobre la compatibilidad técnica, mejores calificaciones ni participación societaria**.
+El programa comprende el período gratuito, un distintivo de pertenencia y la participación en el feedback del producto. Los pedidos dependen de la aceptación de una oferta por parte del cliente. Las condiciones del abono se publican con su versión y vigencia.
 
----
+Duración, cupo, ventana y habilitación del programa son configurables. El cupo concreto y las reglas para asignar el beneficio a un maker cuya prueba ya empezó deben definirse antes de abrir el programa.
 
-## 4. Abono mensual y renovación manual
+## Abono y renovación manual
 
-El maker consulta en todo momento la versión vigente del plan, su importe, moneda, duración y condiciones antes de iniciar una compra ([CU-08](/3daltoque-docs/analisis/casos-de-uso/#cu-08), [CU-11](/3daltoque-docs/analisis/casos-de-uso/#cu-11)). El backend fija el importe a partir de la versión activa del plan y genera la preferencia en **Mercado Pago Checkout Pro** hacia la cuenta receptora de **3DAltoque**.
+El maker ve la versión del plan, el importe, la moneda, la duración y las condiciones antes de iniciar una compra. El backend conserva esos datos y crea el checkout con nuestra cuenta receptora.
 
-- **Verificación servidor a servidor ([CU-INC-03](/3daltoque-docs/analisis/casos-de-uso/#cu-inc-03)):** Regresar desde la pantalla del navegador no activa el acceso. El backend verifica la notificación autenticada contra la API del proveedor y concede **como máximo un período** por compra pagada ([RF-12.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-6), [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8)).
-- **Renovación anticipada o al vencimiento:** Cuando el maker renueva antes de que venza su período en curso, el nuevo período se adiciona a continuación de la fecha de vencimiento vigente sin perder días remanentes ([RF-12.9](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-9)).
+Volver del checkout no activa acceso. Se verifica el resultado con el proveedor y se concede un único período por compra pagada. Un webhook repetido no suma otro mes.
 
----
+La propuesta para renovar anticipadamente es agregar el período adquirido al final del acceso vigente, sin perder días de prueba o abono. La unidad mensual, las reglas de calendario y las renovaciones tardías se cierran en PD-10.
 
-## 5. Regla de continuidad operativa al vencer (`RF-12.10`)
+## Qué pasa al vencer
 
-El vencimiento de la membresía limita únicamente **nuevos compromisos comerciales** (recibir nuevas solicitudes compatibles o emitir nuevas ofertas), pero **jamás perjudica acuerdos ya confirmados**:
+Al vencer el acceso comercial se restringen los compromisos nuevos y se mantiene la operativa de los pedidos aceptados, según RF-12.10. El maker conserva lo necesario para terminar pedidos ya aceptados: comunicación, producción, evidencia, revisión, coordinación y recepción.
 
-- El maker conserva acceso pleno a sus pedidos activos para conversar con el cliente, actualizar hitos de producción, presentar evidencia fotográfica, atender observaciones y coordinar la entrega personal hasta completar la recepción ([RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10)).
-- La guarda de vigencia consulta siempre el reloj del servidor (`ServerClockPort`), sin depender de la ejecución del worker de recordatorios.
+La selección de candidatos y la aceptación de trabajos nuevos consultan habilitación en el servidor. La vigencia se determina mediante la fecha del servidor y los períodos concedidos, de forma independiente del envío de recordatorios.
 
----
+La confirmación de un acuerdo nuevo, incluidas ofertas previas y productos publicados, exige acceso comercial vigente. Los pedidos confirmados conservan su operativa al vencer la membresía, según RF-12.10.
 
-## 6. Resumen de parámetros del modelo comercial
+## Parámetros iniciales y pendientes
 
-| Parámetro comercial | Definición adoptada en v2.0 (`ADR-002`) |
+| Parámetro | Base vigente |
 | --- | --- |
-| **Cantidad de planes** | Un único plan mensual configurable ([RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1)) |
-| **Modalidad de cobro** | Prepago con renovación manual por iniciativa del maker ([RF-12.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-5), [RF-12.9](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-9)) |
-| **Prueba gratuita general** | `30 días` corridos desde la primera habilitación del perfil ([RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2)) |
-| **Beneficio Makers Fundadores** | `90 días` corridos totales (reemplaza los 30 días, no acumulable) con cupo auditado ([RF-12.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-3)) |
-| **Comisión por pedido de impresión** | `0%` (fuera de alcance; retirados `RF-08.1` a `RF-08.9`) |
-| **Pago del trabajo de impresión** | Directo entre Cliente y Maker por fuera de 3DAltoque ([RF-12.15](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-15)) |
-| **Pasarela de cobro del abono** | Mercado Pago Checkout Pro hacia cuenta propia de 3DAltoque + Simulador identificado para demo ([RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14)) |
-| **Inmutabilidad histórica** | Los cambios de precio del plan rigen para compras futuras y no alteran períodos ya pagados ([RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13), [RNF-13](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-13)) |
+| Cantidad de planes | Uno |
+| Forma de cobro | Prepago; renovación manual |
+| Prueba general | 30 días como valor inicial configurable |
+| Beneficio fundador | 90 días totales como valor inicial configurable |
+| Inicio gratuito | Primera habilitación del perfil para recibir solicitudes |
+| Cupo fundador | Limitado; cantidad concreta pendiente |
+| Precio y moneda del abono | Pendientes; deben ser visibles antes de comprar |
+| Período pago | Mensual; regla exacta de calendario pendiente |
+| Comisión por impresión | Fuera de v1 |
+| Cobro cliente a maker | Directo entre las partes, fuera del procesamiento de 3DAltoque |
+| Renovación automática, prorrateos y varios niveles | Fuera de v1 |
+
+Los parámetros no cambian retroactivamente compras o beneficios ya concedidos. Cualquier excepción comercial requiere permiso y auditoría.
+
+## Sostenibilidad y comunicación
+
+La viabilidad del abono se evalúa con demanda observada, valor para makers, disposición a pagar y conversión de prueba. El precio debe contemplar costos del proveedor de cobro, infraestructura y soporte.
+
+El uso de archivos, análisis, almacenamiento y servicios externos tendrá límites configurables. La operación debe documentar las alertas, los límites de consumo disponibles y las acciones ante excedentes para cada proveedor.
+
+## Devoluciones y alcance de la protección
+
+Se debe definir la política aplicable a devoluciones del abono y su efecto sobre acceso futuro. La política debe precisar motivos, responsables, importes y tratamiento de los períodos de acceso, según PD-09.
+
+La aprobación del resultado sigue siendo expresa antes de la entrega y el silencio nunca aprueba. La revisión corresponde al resultado físico de un pedido cuyo pago se acuerda directamente entre cliente y maker.
+
+## Integración prevista y fuentes
+
+Checkout Pro se usa para cobrar el abono del maker. 3DAltoque registra internamente las compras y los períodos de acceso. Cada renovación exige una compra iniciada expresamente por el maker.
+
+- [Checkout Pro](https://www.mercadopago.com.ar/developers/es/docs/checkout-pro-preferences/overview).
+- [Notificaciones y verificación del proveedor](https://www.mercadopago.com.ar/developers/es/docs/your-integrations/notifications/webhooks).
+
+La simulación queda como contingencia académica identificada y separada por entorno; nunca habilita acceso comercial real por un resultado ficticio.
+
+## Productos del maker
+
+El catálogo utiliza configuración y precio publicados para confirmar pedidos directos. El pago de cada pieza se acuerda directamente entre cliente y maker. La plataforma conserva sus condiciones y continúa cobrando exclusivamente su abono, conforme a [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/).

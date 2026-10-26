@@ -1,34 +1,58 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 flowchart LR
-  WEB["Cliente web"]
-  MOBILE["Cliente mobile: alcance inicial pendiente"]
-  API["FastAPI / monolito modular"]
-  AUTH["Identidad y permisos"]
-  MARKET["Solicitudes, makers y ofertas"]
-  ORDERS["Pedidos, evidencia y entrega"]
-  MEMBERS["Membresía, prueba y fundadores"]
-  BILLING["Cobro del abono y períodos de acceso"]
-  ADMIN["Administración y auditoría"]
-  DB[("PostgreSQL propuesto")]
-  FILES[("Archivos privados")]
-  MP["Mercado Pago Checkout Pro: solo abonos"]
+  WEB["Cliente Web"]
+  MOBILE["Cliente React Native"]
+  API["FastAPI · monolito modular"]
+  DB[("PostgreSQL")]
+  FILES[("Archivos privados y derivados autorizados")]
+  MP["Mercado Pago Checkout Pro · abono del maker"]
   MAPS["Mapas y geocodificación"]
-  NOTIFY["Notificaciones y recordatorios"]
+  AUTH["Identidad y permisos"]
+  PROFILE["Perfiles, impresoras y capacidades"]
+  CAT["Catálogo y portfolio del maker"]
+  MARKET["Solicitudes, estimación, ofertas y negociación"]
+  ORDERS["Pedidos, revisión y entrega"]
+  CHAT["Conversaciones de pedidos y mensajes"]
+  REPUTATION["Reputación y moderación"]
+  MEMBERS["Membresía, prueba y fundadores"]
+  BILLING["Cobro del abono y períodos"]
+  REPORTS["Historial e indicadores"]
+  ADMIN["Soporte y auditoría"]
+  NOTIFY["Avisos y recordatorios"]
   WEB --> API
   MOBILE --> API
   API --> AUTH
-  API --> MARKET
-  API --> ORDERS
-  API --> MEMBERS
-  MEMBERS --> BILLING
-  API --> ADMIN
   AUTH --> DB
+  API --> PROFILE
+  PROFILE --> DB
+  API --> CAT
+  CAT --> DB
+  API --> MARKET
   MARKET --> DB
+  API --> ORDERS
   ORDERS --> DB
+  API --> CHAT
+  CHAT --> DB
+  API --> REPUTATION
+  REPUTATION --> DB
+  API --> MEMBERS
   MEMBERS --> DB
+  API --> BILLING
   BILLING --> DB
+  API --> REPORTS
+  REPORTS --> DB
+  API --> ADMIN
   ADMIN --> DB
-  API --> FILES
-  BILLING --> MP
-  MARKET --> MAPS
-  MARKET -.->|"Habilitación para trabajos nuevos"| MEMBERS
   API --> NOTIFY
+  NOTIFY --> DB
+  CAT --> FILES
+  ORDERS --> FILES
+  CHAT --> FILES
+  MARKET --> MAPS
+  BILLING --> MP
+  MEMBERS --> BILLING
+  CAT -.-> MEMBERS
+  MARKET -.-> MEMBERS
+  ORDERS --> CHAT
+  REPUTATION --> ORDERS
+  REPORTS --> REPUTATION

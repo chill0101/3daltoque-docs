@@ -1,107 +1,166 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   cuentas_pago {
-    UUID id PK
-    Texto estado
+    UUID id PK "Identificador estable y opaco de CuentaPago."
+    Texto proveedor "Valor de proveedor del recurso CuentaPago, validado con las reglas y el tip"
+    AmbienteProveedor ambiente_proveedor "Valor de ambiente proveedor del recurso CuentaPago, validado con las reglas"
+    Texto cuenta_externa_id "Valor de cuenta externa id del recurso CuentaPago, validado con las reglas "
+    Texto credenciales_ref "Valor de credenciales ref del recurso CuentaPago, validado con las reglas y"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    Texto estado "Estado vigente de CuentaPago; sus cambios utilizan las transiciones autoriz"
   }
   pagos {
-    UUID id PK
-    UUID compra_id FK
-    Moneda moneda
-    EstadoPago estado
+    UUID id PK "Identificador estable y opaco de Pago."
+    UUID compra_id FK "Referencia a compras_membresia para tiene obligación de abono."
+    ModoPago modo "Valor de modo del recurso Pago, validado con las reglas y el tipo indicados"
+    Texto entorno_aplicacion "Valor de entorno aplicacion del recurso Pago, validado con las reglas y el "
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Monto importe_debido "Importe decimal conservado con su moneda y el contexto de pagos."
+    EstadoPago estado "Estado vigente de Pago; sus cambios utilizan las transiciones autorizadas."
+    EstadoConciliacion conciliacion_estado "Valor de conciliacion estado del recurso Pago, validado con las reglas y el"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    FechaHora actualizado_en "Fecha del servidor del evento actualizado en, conservada con zona horaria."
   }
   intentos_pago {
-    UUID id PK
-    UUID pago_id FK
-    UUID cuenta_pago_id FK
-    Moneda moneda
-    EstadoIntento estado
+    UUID id PK "Identificador estable y opaco de IntentoPago."
+    UUID pago_id FK "Referencia a pagos para incluye intento."
+    UUID cuenta_pago_id FK "Referencia a cuentas_pago para utiliza cuenta."
+    Texto proveedor "Valor de proveedor del recurso IntentoPago, validado con las reglas y el ti"
+    AmbienteProveedor ambiente_proveedor "Valor de ambiente proveedor del recurso IntentoPago, validado con las regla"
+    ModoPago modo "Valor de modo del recurso IntentoPago, validado con las reglas y el tipo in"
+    Texto clave_operacion "Identidad estable de la operación o referencia clave operacion."
+    Texto referencia_negocio "Valor de referencia negocio del recurso IntentoPago, validado con las regla"
+    Texto referencia_checkout "Valor de referencia checkout del recurso IntentoPago, validado con las regl"
+    Monto importe_solicitado "Importe decimal conservado con su moneda y el contexto de intentos_pago."
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    EstadoIntento estado "Estado vigente de IntentoPago; sus cambios utilizan las transiciones autori"
+    Texto ultimo_error "Valor de ultimo error del recurso IntentoPago, validado con las reglas y el"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    FechaHora actualizado_en "Fecha del servidor del evento actualizado en, conservada con zona horaria."
   }
   operaciones_pago {
-    UUID id PK
-    UUID intento_id FK
-    UUID cuenta_pago_id FK
-    Moneda moneda
+    UUID id PK "Identificador estable y opaco de OperacionFinanciera."
+    UUID intento_id FK "Referencia a intentos_pago para produce operación."
+    UUID cuenta_pago_id FK "Referencia a cuentas_pago para contextualiza recurso."
+    Texto proveedor "Valor de proveedor del recurso OperacionFinanciera, validado con las reglas"
+    AmbienteProveedor ambiente_proveedor "Valor de ambiente proveedor del recurso OperacionFinanciera, validado con l"
+    Texto tipo_recurso "Valor de tipo recurso del recurso OperacionFinanciera, validado con las reg"
+    Texto recurso_externo_id "Valor de recurso externo id del recurso OperacionFinanciera, validado con l"
+    TipoOperacion tipo_operacion "Valor de tipo operacion del recurso OperacionFinanciera, validado con las r"
+    Texto estado_proveedor "Valor de estado proveedor del recurso OperacionFinanciera, validado con las"
+    Texto estado_local "Valor de estado local del recurso OperacionFinanciera, validado con las reg"
+    Monto importe_bruto "Importe decimal conservado con su moneda y el contexto de operaciones_pago."
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Monto costo_proveedor_real "Valor de costo proveedor real del recurso OperacionFinanciera, validado con"
+    FechaHora ocurrida_en "Fecha del servidor del evento ocurrida en, conservada con zona horaria."
+    FechaHora verificada_en "Fecha del servidor del evento verificada en, conservada con zona horaria."
   }
   eventos_proveedor {
-    UUID id PK
-    UUID cuenta_pago_id FK
-    UUID operacion_pago_id FK
+    UUID id PK "Identificador estable y opaco de EventoProveedor."
+    UUID cuenta_pago_id FK "Referencia a cuentas_pago para recibe evento."
+    Texto evento_externo_id "Valor de evento externo id del recurso EventoProveedor, validado con las re"
+    Texto tipo_evento "Valor de tipo evento del recurso EventoProveedor, validado con las reglas y"
+    Texto recurso_externo_id "Valor de recurso externo id del recurso EventoProveedor, validado con las r"
+    UUID operacion_pago_id FK "Referencia a operaciones_pago para actualiza recurso."
+    EstadoTrabajo estado_procesamiento "Valor de estado procesamiento del recurso EventoProveedor, validado con las"
+    JSON payload_minimo "Valor de payload minimo del recurso EventoProveedor, validado con las regla"
+    FechaHora recibido_en "Fecha del servidor del evento recibido en, conservada con zona horaria."
+    FechaHora procesado_en "Fecha del servidor del evento procesado en, conservada con zona horaria."
+    Texto error_procesamiento "Valor de error procesamiento del recurso EventoProveedor, validado con las "
   }
   reembolsos {
-    UUID id PK
-    UUID pago_id FK
-    UUID operacion_cobro_id FK
-    UUID operacion_resultado_id FK
-    UUID solicitado_por FK
-    Moneda moneda
-    EstadoReembolso estado
+    UUID id PK "Identificador estable y opaco de Reembolso."
+    UUID pago_id FK "Referencia a pagos para registra devolución."
+    UUID operacion_cobro_id FK "Referencia a operaciones_pago para origina devolución."
+    UUID operacion_resultado_id FK "Referencia a operaciones_pago para confirma resultado."
+    UUID solicitado_por FK "Referencia a usuarios para solicita devolución."
+    Monto monto "Importe decimal conservado con su moneda y el contexto de reembolsos."
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Texto motivo "Texto de motivo del recurso, sujeto a sus permisos y límites."
+    Texto clave_operacion "Identidad estable de la operación o referencia clave operacion."
+    EstadoReembolso estado "Estado vigente de Reembolso; sus cambios utilizan las transiciones autoriza"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   planes_membresia_versiones {
-    UUID id PK
-    Monto importe
-    Moneda moneda
-    Texto periodo_unidad
-    Entero periodo_cantidad
-    UUID configuracion_version_id FK
-    UUID creado_por FK
+    UUID id PK "Identificador estable y opaco de planes_membresia_versiones."
+    Texto codigo_plan "Un único plan comercial en v1."
+    Entero numero "Número positivo de versión dentro del recurso."
+    Monto importe "Importe decimal conservado con su moneda y el contexto de planes_membresia_"
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Texto periodo_unidad "Valor de periodo unidad del recurso planes_membresia_versiones, validado co"
+    Entero periodo_cantidad "Cantidad validada según el contexto y las reglas de planes_membresia_versio"
+    JSON condiciones "Valor de condiciones del recurso planes_membresia_versiones, validado con l"
+    UUID configuracion_version_id FK "Referencia a configuraciones_versiones para aplica configuración."
+    UUID creado_por FK "Referencia a usuarios para publica versión."
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   membresias_maker {
-    UUID id PK
-    UUID maker_id FK
-    Booleano es_fundador
-    UUID fundador_configuracion_id FK
-    UUID fundador_asignado_por FK
+    UUID id PK "Identificador estable y opaco de membresias_maker."
+    UUID maker_id FK "Referencia a makers para tiene membresía."
+    FechaHora habilitado_inicial_en "Fecha de la primera habilitación del maker para recibir solicitudes; inicia"
+    Booleano es_fundador "Valor de es fundador del recurso membresias_maker, validado con las reglas "
+    UUID fundador_configuracion_id FK "Referencia a configuraciones_versiones para registra programa."
+    UUID fundador_asignado_por FK "Referencia a usuarios para asigna beneficio."
+    FechaHora fundador_asignado_en "Fecha del servidor del evento fundador asignado en, conservada con zona hor"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   compras_membresia {
-    UUID id PK
-    UUID membresia_id FK
-    UUID plan_version_id FK
-    Monto importe
-    Moneda moneda
-    Texto periodo_unidad
-    Entero periodo_cantidad
-    EstadoCompra estado
+    UUID id PK "Identificador estable y opaco de compras_membresia."
+    UUID membresia_id FK "Referencia a membresias_maker para registra compra."
+    UUID plan_version_id FK "Referencia a planes_membresia_versiones para conserva plan."
+    Monto importe "Importe decimal conservado con su moneda y el contexto de compras_membresia"
+    Moneda moneda "Código explícito de la moneda del importe conservado."
+    Texto periodo_unidad "Valor de periodo unidad del recurso compras_membresia, validado con las reg"
+    Entero periodo_cantidad "Cantidad validada según el contexto y las reglas de compras_membresia."
+    JSON condiciones_aceptadas "Valor de condiciones aceptadas del recurso compras_membresia, validado con "
+    Texto clave_operacion "Identidad estable de la operación o referencia clave operacion."
+    ModoPago modo "Valor de modo del recurso compras_membresia, validado con las reglas y el t"
+    Texto entorno_aplicacion "Valor de entorno aplicacion del recurso compras_membresia, validado con las"
+    EstadoCompra estado "Estado vigente de compras_membresia; sus cambios utilizan las transiciones "
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   periodos_membresia {
-    UUID id PK
-    UUID membresia_id FK
-    OrigenAcceso origen
-    UUID compra_id FK
-    UUID configuracion_version_id FK
-    FechaHora inicio_en
-    FechaHora fin_en
-    EstadoPeriodo estado
+    UUID id PK "Identificador estable y opaco de periodos_membresia."
+    UUID membresia_id FK "Referencia a membresias_maker para concede acceso."
+    OrigenAcceso origen "Valor de origen del recurso periodos_membresia, validado con las reglas y e"
+    Texto clave_origen "Identidad estable de la operación o referencia clave origen."
+    UUID compra_id FK "Referencia a compras_membresia para origina período."
+    UUID configuracion_version_id FK "Referencia a configuraciones_versiones para conserva condiciones."
+    FechaHora inicio_en "Fecha del servidor del evento inicio en, conservada con zona horaria."
+    FechaHora fin_en "Fecha del servidor del evento fin en, conservada con zona horaria."
+    ModoPago modo "Valor de modo del recurso periodos_membresia, validado con las reglas y el "
+    Texto entorno_aplicacion "Valor de entorno aplicacion del recurso periodos_membresia, validado con la"
+    EstadoPeriodo estado "Estado vigente de periodos_membresia; sus cambios utilizan las transiciones"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   usuarios {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Usuario."
   }
   configuraciones_versiones {
-    UUID id PK
-    UUID creada_por FK
+    UUID id PK "Identificador estable y opaco de ConfiguracionVersion."
   }
   makers {
-    UUID id PK
-    UUID usuario_id FK
-    UUID ubicacion_id FK
+    UUID id PK "Identificador estable y opaco de Maker."
   }
-  compras_membresia ||--o| pagos : "compra_id"
-  pagos ||--o{ intentos_pago : "pago_id"
-  cuentas_pago o|--o{ intentos_pago : "cuenta_pago_id"
-  intentos_pago ||--o{ operaciones_pago : "intento_id"
-  cuentas_pago o|--o{ operaciones_pago : "cuenta_pago_id"
-  cuentas_pago ||--o{ eventos_proveedor : "cuenta_pago_id"
-  operaciones_pago o|--o{ eventos_proveedor : "operacion_pago_id"
-  pagos ||--o{ reembolsos : "pago_id"
-  operaciones_pago ||--o{ reembolsos : "operacion_cobro_id"
-  operaciones_pago o|--o{ reembolsos : "operacion_resultado_id"
-  usuarios ||--o{ reembolsos : "solicitado_por"
-  configuraciones_versiones ||--o{ planes_membresia_versiones : "configuracion_version_id"
-  usuarios ||--o{ planes_membresia_versiones : "creado_por"
-  makers ||--o| membresias_maker : "maker_id"
-  configuraciones_versiones o|--o{ membresias_maker : "fundador_configuracion_id"
-  usuarios o|--o{ membresias_maker : "fundador_asignado_por"
-  membresias_maker ||--o{ compras_membresia : "membresia_id"
-  planes_membresia_versiones ||--o{ compras_membresia : "plan_version_id"
-  membresias_maker ||--o{ periodos_membresia : "membresia_id"
-  compras_membresia o|--o{ periodos_membresia : "compra_id_membresia_id"
-  configuraciones_versiones ||--o{ periodos_membresia : "configuracion_version_id"
+  compras_membresia ||--o| pagos : "tiene obligación de abono"
+  pagos ||--o{ intentos_pago : "incluye intento"
+  cuentas_pago o|--o{ intentos_pago : "utiliza cuenta"
+  intentos_pago ||--o{ operaciones_pago : "produce operación"
+  cuentas_pago o|--o{ operaciones_pago : "contextualiza recurso"
+  cuentas_pago ||--o{ eventos_proveedor : "recibe evento"
+  operaciones_pago o|--o{ eventos_proveedor : "actualiza recurso"
+  pagos ||--o{ reembolsos : "registra devolución"
+  operaciones_pago ||--o{ reembolsos : "origina devolución"
+  operaciones_pago o|--o{ reembolsos : "confirma resultado"
+  usuarios ||--o{ reembolsos : "solicita devolución"
+  configuraciones_versiones ||--o{ planes_membresia_versiones : "aplica configuración"
+  usuarios ||--o{ planes_membresia_versiones : "publica versión"
+  makers ||--o| membresias_maker : "tiene membresía"
+  configuraciones_versiones o|--o{ membresias_maker : "registra programa"
+  usuarios o|--o{ membresias_maker : "asigna beneficio"
+  membresias_maker ||--o{ compras_membresia : "registra compra"
+  planes_membresia_versiones ||--o{ compras_membresia : "conserva plan"
+  membresias_maker ||--o{ periodos_membresia : "concede acceso"
+  compras_membresia o|--o| periodos_membresia : "origina período"
+  configuraciones_versiones ||--o{ periodos_membresia : "conserva condiciones"

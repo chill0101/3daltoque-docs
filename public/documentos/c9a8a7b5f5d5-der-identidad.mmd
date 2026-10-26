@@ -1,53 +1,99 @@
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 erDiagram
+  direction TB
   usuarios {
-    UUID id PK
-    EstadoUsuario estado
+    UUID id PK "Identificador estable y opaco de Usuario."
+    Texto email "Valor de email del recurso Usuario, validado con las reglas y el tipo indic"
+    Texto email_normalizado "Valor de email normalizado del recurso Usuario, validado con las reglas y e"
+    Texto password_hash "Valor de password hash del recurso Usuario, validado con las reglas y el ti"
+    Texto nombre "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto apellido "Valor de apellido del recurso Usuario, validado con las reglas y el tipo in"
+    Texto telefono "Valor de telefono del recurso Usuario, validado con las reglas y el tipo in"
+    EstadoUsuario estado "Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
+    FechaHora actualizado_en "Fecha del servidor del evento actualizado en, conservada con zona horaria."
   }
   usuario_roles {
-    UUID usuario_id PK
-    Rol rol PK
-    UUID otorgado_por FK
+    UUID usuario_id PK, FK "Referencia a usuarios para posee rol."
+    Rol rol PK "Valor de rol del recurso RolUsuario, validado con las reglas y el tipo indi"
+    UUID otorgado_por FK "Referencia a usuarios para autoriza."
+    FechaHora otorgado_en "Fecha del servidor del evento otorgado en, conservada con zona horaria."
+    FechaHora revocado_en "Fecha del servidor del evento revocado en, conservada con zona horaria."
   }
   clientes {
-    UUID usuario_id PK
-    UUID ubicacion_id FK
+    UUID usuario_id PK, FK "Referencia a usuarios para tiene perfil cliente."
+    UUID ubicacion_id FK "Referencia a ubicaciones para ubica cliente."
+    Booleano perfil_completo "Valor de perfil completo del recurso PerfilCliente, validado con las reglas"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   makers {
-    UUID id PK
-    UUID usuario_id FK
-    UUID ubicacion_id FK
-    EstadoPerfil estado
+    UUID id PK "Identificador estable y opaco de Maker."
+    UUID usuario_id FK "Referencia a usuarios para tiene perfil maker."
+    UUID ubicacion_id FK "Referencia a ubicaciones para ubica maker."
+    Texto nombre_publico "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
+    Booleano disponible "Indicador vigente de disponible utilizado en la autorización o selección de"
+    EstadoPerfil estado "Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas."
+    JSON horario_disponibilidad "Valor de horario disponibilidad del recurso Maker, validado con las reglas "
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   sesiones {
-    UUID id PK
-    UUID usuario_id FK
+    UUID id PK "Identificador estable y opaco de Sesion."
+    UUID usuario_id FK "Referencia a usuarios para inicia sesión."
+    Texto token_renovacion_hash "Valor de token renovacion hash del recurso Sesion, validado con las reglas "
+    FechaHora expira_en "Fecha del servidor del evento expira en, conservada con zona horaria."
+    FechaHora revocada_en "Fecha del servidor del evento revocada en, conservada con zona horaria."
+    Texto cliente_tipo "Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   ubicaciones {
-    UUID id PK
-    UUID propietario_id FK
-    OrigenUbicacion origen
+    UUID id PK "Identificador estable y opaco de Ubicacion."
+    UUID propietario_id FK "Referencia a usuarios para registra ubicación."
+    Coordenada latitud "Valor de latitud del recurso Ubicacion, validado con las reglas y el tipo i"
+    Coordenada longitud "Valor de longitud del recurso Ubicacion, validado con las reglas y el tipo "
+    Texto zona_publica "Valor de zona publica del recurso Ubicacion, validado con las reglas y el t"
+    Texto precision_publica "Valor de precision publica del recurso Ubicacion, validado con las reglas y"
+    OrigenUbicacion origen "Valor de origen del recurso Ubicacion, validado con las reglas y el tipo in"
+    Texto proveedor "Valor de proveedor del recurso Ubicacion, validado con las reglas y el tipo"
+    Texto referencia_externa "Valor de referencia externa del recurso Ubicacion, validado con las reglas "
+    FechaHora confirmada_en "Fecha del servidor del evento confirmada en, conservada con zona horaria."
+    FechaHora valida_hasta "Valor de valida hasta del recurso Ubicacion, validado con las reglas y el t"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   impresoras {
-    UUID id PK
-    UUID maker_id FK
-    EstadoRecurso estado
+    UUID id PK "Identificador estable y opaco de Impresora."
+    UUID maker_id FK "Referencia a makers para declara impresora."
+    Texto nombre "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto tecnologia "Valor de tecnologia del recurso Impresora, validado con las reglas y el tip"
+    Decimal dimension_x_mm "Valor de dimension x mm del recurso Impresora, validado con las reglas y el"
+    Decimal dimension_y_mm "Valor de dimension y mm del recurso Impresora, validado con las reglas y el"
+    Decimal dimension_z_mm "Valor de dimension z mm del recurso Impresora, validado con las reglas y el"
+    EstadoRecurso estado "Estado vigente de Impresora; sus cambios utilizan las transiciones autoriza"
+    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   materiales {
-    UUID id PK
+    UUID id PK "Identificador estable y opaco de Material."
+    Texto codigo "Valor de codigo del recurso Material, validado con las reglas y el tipo ind"
+    Texto nombre "Nombre descriptivo del recurso según su finalidad y visibilidad."
+    Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
+    Booleano activo "Indicador vigente de activo utilizado en la autorización o selección de Mat"
   }
   capacidades_impresora {
-    UUID id PK
-    UUID impresora_id FK
-    UUID material_id FK
+    UUID id PK "Identificador estable y opaco de CapacidadImpresora."
+    UUID impresora_id FK "Referencia a impresoras para admite capacidad."
+    UUID material_id FK "Referencia a materiales para usa material."
+    Texto color "Valor de color del recurso CapacidadImpresora, validado con las reglas y el"
+    Booleano disponible "Indicador vigente de disponible utilizado en la autorización o selección de"
+    Texto observaciones "Texto de observaciones del recurso, sujeto a sus permisos y límites."
   }
-  usuarios ||--o{ usuario_roles : "usuario_id"
-  usuarios o|--o{ usuario_roles : "otorgado_por"
-  usuarios ||--o| clientes : "usuario_id"
-  ubicaciones o|--o{ clientes : "ubicacion_id"
-  usuarios ||--o| makers : "usuario_id"
-  ubicaciones o|--o{ makers : "ubicacion_id"
-  usuarios ||--o{ sesiones : "usuario_id"
-  usuarios ||--o{ ubicaciones : "propietario_id"
-  makers ||--o{ impresoras : "maker_id"
-  impresoras ||--o{ capacidades_impresora : "impresora_id"
-  materiales ||--o{ capacidades_impresora : "material_id"
+  usuarios ||--o{ usuario_roles : "posee rol"
+  usuarios o|--o{ usuario_roles : "autoriza"
+  usuarios ||--o| clientes : "tiene perfil cliente"
+  ubicaciones o|--o{ clientes : "ubica cliente"
+  usuarios ||--o| makers : "tiene perfil maker"
+  ubicaciones o|--o{ makers : "ubica maker"
+  usuarios ||--o{ sesiones : "inicia sesión"
+  usuarios ||--o{ ubicaciones : "registra ubicación"
+  makers ||--o{ impresoras : "declara impresora"
+  impresoras ||--o{ capacidades_impresora : "admite capacidad"
+  materiales ||--o{ capacidades_impresora : "usa material"

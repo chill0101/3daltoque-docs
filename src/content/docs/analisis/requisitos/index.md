@@ -1,26 +1,27 @@
 ---
-title: "Requisitos: guía de lectura"
-description: "Documentación de análisis y diseño de 3DAltoque."
+title: "Requerimientos de 3DAltoque"
 ---
 
-Versión 2.0-borrador. Decisión de alcance adoptada el 14 de octubre de 2026; revisión académica pendiente.
+# Requerimientos de 3DAltoque
 
-## Modelo elegido para la primera versión
+Versión 3.0. Fecha: 25 de octubre de 2026.
 
-3DAltoque conecta clientes con makers y cobra al maker un abono mensual prepago por el uso del servicio. Hay un único plan inicial y cada renovación requiere una compra iniciada por el maker mediante Mercado Pago Checkout Pro.
+## Alcance vigente
 
-El cliente paga la impresión directamente al maker, por el medio que acuerden. La plataforma no recibe, retiene, reparte, liquida ni garantiza ese dinero. No cobra comisiones por pedido ni registra deuda de comisiones del maker.
+3DAltoque conecta clientes con makers y cobra al maker un abono mensual prepago por el uso del servicio. Hay un único plan inicial y la renovación es manual mediante Mercado Pago Checkout Pro. No se utiliza débito recurrente.
 
-La integración de pagos permite cobrar el servicio de 3DAltoque al maker mediante una cuenta receptora propia de la plataforma. El pago de la impresión se acuerda y gestiona directamente entre cliente y maker.
+El cliente paga la impresión directamente al maker por el medio acordado entre las partes. Los ingresos de 3DAltoque corresponden al abono del maker, de acuerdo con ADR-002.
+
+La integración de pagos cobra el servicio de 3DAltoque al maker mediante Checkout Pro con la cuenta receptora de la plataforma. Esta decisión concentra el desarrollo financiero en compras de membresía, confirmación de pagos y períodos de acceso.
 
 ## Catálogo vigente
 
-54 requisitos funcionales y 19 no funcionales con las once filas de la plantilla de la materia. RF-08.1 a RF-08.9 quedan archivados con sus identificadores originales como antecedentes del cambio comercial. Su versión anterior queda preservada en el antecedente del cambio comercial.
+68 requisitos funcionales y 19 no funcionales con las once filas de la plantilla de la materia. RF-08.1 a RF-08.9 se retiran del alcance vigente; no se reutilizan sus identificadores. Su versión anterior queda preservada en el antecedente del cambio comercial.
 
 - [Fichas funcionales](/3daltoque-docs/analisis/requisitos/funcionales/).
 - [Fichas no funcionales](/3daltoque-docs/analisis/requisitos/no-funcionales/).
-- Modelo comercial.
-- ADR-002.
+- [Modelo comercial](/3daltoque-docs/proyecto/modelo-comercial/).
+- [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/).
 
 | ID | Nombre |
 | --- | --- |
@@ -41,9 +42,11 @@ La integración de pagos permite cobrar el servicio de 3DAltoque al maker median
 | RF-04.3 | [Comparar ofertas disponibles](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-3) |
 | RF-04.4 | [Aceptar una sola oferta y confirmar pedido](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-4) |
 | RF-04.5 | [Responder o rechazar invitación de cotización](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-5) |
+| RF-04.6 | [Solicitar y resolver una contraoferta](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-6) |
 | RF-05.1 | [Conversar en el contexto del pedido](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-1) |
 | RF-05.2 | [Registrar mensajes y adjuntos autorizados](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2) |
 | RF-05.3 | [Auditar cambios de estado del pedido](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3) |
+| RF-05.4 | [Consultar la bandeja de conversaciones](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-4) |
 | RF-06.1 | [Presentar evidencia de la pieza terminada](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1) |
 | RF-06.2 | [Solicitar revisión del cliente](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-2) |
 | RF-06.3 | [Aprobar resultado o registrar observaciones](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3) |
@@ -55,6 +58,7 @@ La integración de pagos permite cobrar el servicio de 3DAltoque al maker median
 | RF-07.2 | [Gestionar moderación y soporte](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-2) |
 | RF-07.3 | [Enviar avisos por canales externos habilitados](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-3) |
 | RF-07.4 | [Recordar revisiones pendientes](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4) |
+| RF-07.5 | [Consultar y marcar avisos internos](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-5) |
 | RF-09.1 | [Seleccionar y confirmar ubicación de referencia](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1) |
 | RF-09.2 | [Visualizar zonas y puntos en mapa](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2) |
 | RF-10.1 | [Autorizar transferencia de archivos privados](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-1) |
@@ -78,96 +82,166 @@ La integración de pagos permite cobrar el servicio de 3DAltoque al maker median
 | RF-12.13 | [Auditar cambios del plan y beneficios](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13) |
 | RF-12.14 | [Separar simulación y cobros reales de membresía](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14) |
 | RF-12.15 | [Informar el alcance del pago y del programa de fundadores](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-15) |
+| RF-13.1 | [Mantener productos del maker](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-1) |
+| RF-13.2 | [Publicar y retirar productos del catálogo](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-2) |
+| RF-13.3 | [Consultar el catálogo público del maker](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-3) |
+| RF-13.4 | [Confirmar un pedido directo de catálogo](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-4) |
+| RF-14.1 | [Mantener el portfolio del maker](/3daltoque-docs/analisis/requisitos/funcionales/#rf-14-1) |
+| RF-14.2 | [Consultar trabajos publicados del maker](/3daltoque-docs/analisis/requisitos/funcionales/#rf-14-2) |
+| RF-15.1 | [Valorar a la contraparte de un pedido](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-1) |
+| RF-15.2 | [Consultar reputación publicada](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-2) |
+| RF-15.3 | [Moderar valoraciones con trazabilidad](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-3) |
+| RF-16.1 | [Consultar el historial propio de pedidos](/3daltoque-docs/analisis/requisitos/funcionales/#rf-16-1) |
+| RF-17.1 | [Consultar el reporte de actividad](/3daltoque-docs/analisis/requisitos/funcionales/#rf-17-1) |
+
+
+### Requerimientos no funcionales
+
+| ID | Nombre |
+| --- | --- |
+| RNF-01 | [Disponibilidad del servicio](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-01) |
+| RNF-02 | [Rendimiento de búsqueda](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-02) |
+| RNF-03 | [Escalabilidad por módulos y parámetros](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-03) |
+| RNF-04 | [Seguridad de acceso y datos privados](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04) |
+| RNF-05 | [Consistencia de operaciones críticas](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05) |
+| RNF-06 | [Trazabilidad de decisiones y cambios](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06) |
+| RNF-07 | [Observabilidad del sistema e integraciones](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07) |
+| RNF-08 | [Accesibilidad y comprensión de los flujos](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08) |
+| RNF-09 | [Integridad financiera del abono](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-09) |
+| RNF-10 | [Compatibilidad de pago real y simulado](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-10) |
+| RNF-11 | [Retención y borrado de datos personales](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11) |
+| RNF-12 | [Condiciones de uso, datos y proveedores](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-12) |
+| RNF-13 | [Configurabilidad del plan y promociones](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-13) |
+| RNF-14 | [Interoperabilidad y contrato de API](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14) |
+| RNF-15 | [Tolerancia a fallas de integraciones](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-15) |
+| RNF-16 | [Límites de uso y recursos](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-16) |
+| RNF-17 | [Compatibilidad de los canales](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17) |
+| RNF-18 | [Mantenibilidad y reproducción del entorno](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-18) |
+| RNF-19 | [Respaldo y recuperación](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-19) |
 
 ## Requisitos retirados
 
 | IDs | Situación |
 | --- | --- |
-| RF-08.1 a RF-08.9 | Antecedente del modelo comercial, conservado para trazabilidad |
+| RF-08.1 a RF-08.9 | Modelo anterior de cobro y comisión por impresión; Retirado por ADR-002; versión conservada en el historial del cambio comercial |
 
 ## Decisiones que condicionan el cierre
 
 <a id="pd-01"></a>
 ### PD-01 Identidad y habilitación
 
-Roles coexistentes, criterios de perfil completo y primera habilitación del maker. La prueba comienza con la primera habilitación del perfil maker.
+La identidad conserva roles públicos cliente/maker; administración se asigna por un procedimiento autorizado. Habilitar maker exige contacto, zona y capacidad productiva válidos y concede una única prueba.
+
+Parámetros: Política de credenciales, verificación de contacto y plazos de sesión.
 
 <a id="pd-02"></a>
-### PD-02 Archivos de entrada
+### PD-02 Archivos y parámetros
 
-Material, unidades, formatos, límites y finalidad de archivos.
+La solicitud personalizada utiliza STL y unidad declarada; los archivos se habilitan por finalidad e integridad. El catálogo toma configuración de su versión publicada.
+
+Parámetros: Formatos, cuotas, límites de tamaño y presupuestos de análisis.
 
 <a id="pd-03"></a>
 ### PD-03 Estimación orientativa
 
-Método, supuestos, límites y advertencias cuando se implemente.
+El sistema calcula una referencia automática con método y configuración identificados; entradas insuficientes producen indisponibilidad explicada y permiten cotización de makers.
+
+Parámetros: Método técnico y coeficientes de cálculo versionados antes de habilitar su resultado monetario.
 
 <a id="pd-04"></a>
 ### PD-04 Búsqueda y ubicación
 
-Radio, grupo, ampliación, orden, precisión pública y ubicación manual.
+Se filtra por capacidad, material y acceso; luego ubicación y disponibilidad. Los grupos son limitados y la zona pública protege el domicilio. La cola utiliza confirmación e identidad como orden estable.
+
+Parámetros: Radio, tamaño de grupo, ampliación y precisión publicada.
 
 <a id="pd-05"></a>
-### PD-05 Solicitudes, ofertas y vigencia comercial
+### PD-05 Solicitudes, ofertas y catálogo
 
-Cambios tras envío, renovación y ofertas previas a un vencimiento de membresía. Los pedidos ya aceptados conservan su continuidad al vencer la membresía.
+Las condiciones conservan versiones; el cliente propone cambios y el maker publica otra versión al aceptarlos. Un pedido directo confirma precio publicado. El acceso vencido impide acuerdos nuevos y conserva los existentes.
+
+Parámetros: Vigencias y límites configurables de edición antes de contratar.
 
 <a id="pd-06"></a>
 ### PD-06 Conversaciones y visibilidad
 
-Participantes, chat previo al pedido y acceso administrativo autorizado.
+La conversación se habilita desde el pedido confirmado. Cliente y maker participan; una consulta administrativa exige capacidad, motivo y auditoría.
+
+Parámetros: Límites de mensajes y adjuntos, conservación y mecanismo de actualización.
 
 <a id="pd-07"></a>
-### PD-07 Revisión de piezas y reclamos
+### PD-07 Revisión y soporte
 
-Correcciones, observaciones, escalamiento y cancelación del trabajo; sin devolución de fondos de impresiones por nuestra pasarela.
+El cliente decide sobre la revisión vigente; las observaciones se conservan y las correcciones crean una revisión nueva. El silencio mantiene pendiente la aprobación.
+
+Parámetros: Plazos de recordatorio, escalamiento e intervenciones sensibles permitidas en cada estado.
 
 <a id="pd-08"></a>
 ### PD-08 Entrega y recepción
 
-Encuentro personal, mecanismo de recepción y tratamiento de incidentes.
+Cliente y maker acuerdan punto y horario; un cambio requiere otra aceptación. La recepción se completa con confirmación autenticada del cliente sobre revisión y acuerdo vigentes.
+
+Parámetros: Límites de reprogramación y tratamiento operativo de incidentes.
 
 <a id="pd-09"></a>
 ### PD-09 Cobro y devolución del abono
 
-Checkout Pro para nuestro servicio y renovación manual adoptados. Pendientes: configuración de cuentas, vencimientos de checkout y política de devoluciones de membresía. La cuenta de la plataforma recibe el importe de su propio servicio.
+Checkout Pro cobra el servicio de membresía con la cuenta de la plataforma. La verificación precede a la concesión de acceso. Las devoluciones del abono son autorizadas y conciliadas.
+
+Parámetros: Cuenta por entorno y política concreta de devolución y efecto sobre períodos futuros.
 
 <a id="pd-10"></a>
-### PD-10 Parámetros del plan y fundadores
+### PD-10 Plan y fundadores
 
-Un plan, 30 días generales y 90 totales para fundadores como base configurable. Pendientes: importe, moneda, cupo, ventana, calendario mensual y beneficios asignados después del inicio.
+Un plan prepago de renovación manual. La primera habilitación concede 30 días generales o 90 totales para fundadores como valores configurables. La asignación fundadora inicial conserva cupo y beneficio único.
+
+Parámetros: Precio, moneda, cupo, ventana, regla de calendario y tratamiento de asignaciones posteriores al beneficio inicial.
 
 <a id="pd-11"></a>
 ### PD-11 Servicios y canales
 
-Mapas, archivos, avisos y transporte de actualizaciones en vivo.
+Web y React Native comparten FastAPI. Mapas, archivos, avisos y recuperación de eventos utilizan puertos; los proveedores se seleccionan según sus contratos.
+
+Parámetros: Hosting, proveedores, autenticación y transporte de actualizaciones.
 
 <a id="pd-12"></a>
-### PD-12 Datos y conservación
+### PD-12 Privacidad y conservación
 
-Permisos, retención, borrado, respaldos, términos y privacidad.
+Los recursos se autorizan por contexto. Catálogo y portfolio muestran derivados aprobados; los originales y datos privados permanecen restringidos. Las referencias históricas se conservan.
+
+Parámetros: Períodos de retención y anonimización, respaldo y condiciones de uso.
 
 <a id="pd-13"></a>
-### PD-13 Calidad y presupuesto
+### PD-13 Calidad y recursos
 
-Objetivos medibles, límites de recursos, recuperación y costos de infraestructura.
+Los RNF utilizan perfil de carga, pruebas de permisos, concurrencia, accesibilidad y recuperación. Los límites se validan en backend.
+
+Parámetros: Valores de presupuesto, objetivos medibles y capacidad del piloto.
 
 <a id="pd-14"></a>
-### PD-14 Soporte y administración
+### PD-14 Administración y reputación
 
-Permisos, acceso privado, moderación y acciones auditadas.
+Las capacidades administrativas separan soporte, moderación y reportes. La valoración exige pedido completado, contraparte y unicidad; criterios y escala se conservan por configuración.
+
+Parámetros: Escala y criterios publicados y límites de contenido y moderación.
 
 <a id="pd-15"></a>
 ### PD-15 Simulación
 
-Entornos y permisos; los pagos simulados conceden acceso exclusivamente dentro del entorno de demostración.
+Los cobros simulados utilizan modo y entorno identificados y separados de las operaciones productivas.
+
+Parámetros: Permisos y cuentas de demostración por entorno.
 
 ## Revisión pendiente
 
-Las prioridades y las metas numéricas de calidad siguen como propuestas. La planificación vincula cada requisito con sus casos de uso, elementos de diseño y casos de prueba. El seguimiento registra el estado y las evidencias de cada checkpoint.
-
+La [revisión funcional completa](/3daltoque-docs/planificacion/revision-funcional/) registra la cobertura de funcionalidades, requisitos, casos, datos y pruebas. Los valores operativos se gestionan en [el registro PD](/3daltoque-docs/planificacion/parametros/).
 
 <a id="perfil-de-medicion"></a>
+
 ## Perfil de medición
 
-PERF-01 debe fijar entorno, volumen de datos, mezcla de operaciones, concurrencia, duración y herramientas antes de ejecutar. Las metas del catálogo RNF establecen los objetivos de rendimiento, disponibilidad y recuperación. Cada ejecución registra los resultados obtenidos bajo las condiciones acordadas. Referenciar la versión de cada RNF en el informe de ejecución y registrar las exclusiones autorizadas.
+PERF-01 debe fijar entorno, volumen de datos, mezcla de operaciones, concurrencia, duración y herramientas antes de ejecutar. Las metas propuestas se revisan con PD-13. Cada informe de ejecución debe identificar la versión del RNF, el resultado medido y las exclusiones autorizadas.
+
+## Cobertura funcional ampliada
+
+Las funcionalidades F01 a F25 se relacionan con 68 RF y 25 casos de uso. [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/) conserva la decisión de pedido directo de catálogo y conversación desde el pedido confirmado. El [catálogo funcional](/3daltoque-docs/proyecto/funcionalidades/) y la [matriz](/3daltoque-docs/specs/02-matriz-de-cobertura/) mantienen la correspondencia con datos, contratos y pruebas.

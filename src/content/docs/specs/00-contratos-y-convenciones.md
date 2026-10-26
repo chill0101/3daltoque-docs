@@ -1,47 +1,104 @@
 ---
-title: "Contratos y convenciones compartidas (Web, Mobile y API)"
-description: "Convenciones de estados visuales, manejo de errores, privacidad geográfica, formatos de fecha/moneda e idempotencia compartidas entre Web, Mobile y Backend."
+title: "Convenciones y contratos compartidos"
 ---
 
-Versión: 2.0-borrador. Fecha: 25 de octubre de 2026.
+# Convenciones y contratos compartidos
 
-Este documento complementa el **Entregable #14 (Diseño de las Interfaces entre Sistemas)** y los prototipos [Web y Mobile](/3daltoque-docs/specs/01-navegacion-y-pantallas/), fijando las convenciones compartidas que aseguran paridad funcional entre **Next.js (Web)**, **React Native / Expo (Mobile)** y **FastAPI (Backend)**.
+Fecha: 25 de octubre de 2026. Versión: 2.0.
 
----
+## Fuente y alcance de decisión
 
-## 1. Estados obligatorios de interfaz en cada vista
+Las reglas funcionales se fundamentan en el catálogo F01 a F25, los RF/RNF, ADR-002 y [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/). Las rutas ya listadas en API se identifican como catálogo. Las ampliaciones de rutas, DTO, capacidades y organización visual constituyen propuestas de implementación de este paquete. Cada PD conserva la decisión comercial o de operación que debe acordarse.
 
-Toda pantalla o panel interactivo del inventario (`WEB-01..32` y `MOB-01..30`) contempla seis estados base más dos estados transaccionales específicos del dominio de **3DAltoque**:
+## Representaciones
 
-| Estado de vista | Comportamiento requerido en Web y Mobile |
+| Elemento | Contrato propuesto |
 | --- | --- |
-| **1. Carga (`Loading`)** | Indicador visual (`skeleton` o `spinner`) con bloqueo del botón de envío para evitar dobles clics accidentales. |
-| **2. Contenido (`Ready`)** | Renderizado de los datos vigentes recibidos de `/api/v1`, mostrando versión y fecha de actualización cuando aplique. |
-| **3. Vacío (`Empty`)** | Mensaje claro de ausencia de registros (ej. *"Todavía no recibiste ofertas para esta solicitud"*) acompañado de la acción siguiente recomendada. |
-| **4. Error de validación (`Validation Error`)** | Marcado por campo junto al control afectado sin borrar los valores ya ingresados por el usuario ([CP-004](/3daltoque-docs/planificacion/pruebas/#cp-004)). |
-| **5. Sin permiso / Membresía vencida (`Forbidden`)** | Explicación contextual diferenciando falta de rol (`403`) de vencimiento del abono comercial (`MEMBERSHIP_EXPIRED`), con acceso directo a renovar membresía ([CP-009](/3daltoque-docs/planificacion/pruebas/#cp-009)). |
-| **6. Recuperación ante falla técnica (`Retry / Fallback`)** | Reintento seguro con la misma `Idempotency-Key` o degradación controlada (ej. selección manual de zona si el mapa externo no responde). |
-| **7. Pendiente de verificación externa (`Pending Verification`)** | Exclusivo de pagos de abono (`CU-11`) y subida de archivos (`CU-INC-01`): informa que el retorno del navegador no confirma el pago hasta que el servidor verifique la notificación de Mercado Pago ([CP-023](/3daltoque-docs/planificacion/pruebas/#cp-023)). |
-| **8. Conflicto de versión o concurrencia (`Conflict 409`)** | Cuando una oferta cambió de versión o venció antes de aceptarse, refresca los datos en pantalla y solicita nueva confirmación explícita ([CP-011](/3daltoque-docs/planificacion/pruebas/#cp-011), [CP-012](/3daltoque-docs/planificacion/pruebas/#cp-012)). |
+| Prefijo | /api/v1 |
+| Identidades | UUID opaco; propiedad y pertenencia se verifican en servidor. |
+| Importes | Cadena decimal y moneda separada; cálculo y redondeo en servidor. La interfaz conserva la precisión del contrato. |
+| Fechas | ISO 8601 en UTC; zona horaria identificada al presentar horarios de encuentro. |
+| Vigencia | Intervalos de acceso [inicio, fin); fecha efectiva del servidor. |
+| Versiones | Entero o referencia versionada identificada en cada recurso; version_esperada en mutaciones concurrentes. |
+| Listas | items y next_cursor opaco; filtros normalizados y orden estable. |
+| Capacidades | Acciones permitidas derivadas por servidor de identidad, recurso, estado y vigencia aplicable. |
+| Claves de operación | Identidad estable para el mismo intento lógico; nueva intención utiliza otra clave. |
+| Correlación | request_id y referencia del recurso; excluir secretos y datos personales innecesarios. |
 
----
+La elección de cookie o token, recuperación de sesión y política de revocación se resuelve en PD-01. La capa de acceso encapsula esa decisión para los clientes.
 
-## 2. Convenciones de datos, moneda, tiempo y privacidad
+## Éxito y error
 
-| Aspecto | Convención adoptada |
+Las respuestas de éxito identifican el recurso, su versión, estado y acciones permitidas cuando corresponda. Las operaciones aceptadas para procesamiento devuelven su referencia y una forma de consultar el resultado.
+
+Se propone application/problem+json, con type, title, status, detail e instance, y extensiones code, request_id y errors. Los errores de campo utilizan field y message. Los textos sirven a la persona; code permite decidir el comportamiento del cliente. El formato se fundamenta en [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457).
+
+| HTTP propuesto | code de aplicación | Tratamiento de interfaz |
+| --- | --- | --- |
+| 401 | authentication_required | Recuperar autenticación y preservar una intención de navegación segura. |
+| 403 | action_forbidden | Mostrar la condición de acceso y mantener acciones permitidas. |
+| 404 | resource_unavailable | Mensaje seguro según política de visibilidad. |
+| 409 | version_conflict | Consultar versión actual y pedir revisar los cambios. |
+| 409 | offer_expired / request_closed | Recuperar alternativas disponibles. |
+| 409 | founder_capacity_exhausted | Conservar el formulario y mostrar el estado del programa. |
+| 409 | membership_required | Ofrecer renovación y mantener pedidos existentes. |
+| 422 | validation_failed | Relacionar errores con campos y enfocar el resumen. |
+| 429 | usage_limit_reached | Mostrar la ventana o acción de recuperación informada por servidor. |
+| 502/503 | integration_unavailable | Conservar el recurso local y mostrar recuperación. |
+| 202 | operation_pending | Consultar resultado antes de repetir una operación sensible. |
+
+Un timeout de transporte representa incertidumbre del cliente. Para aceptación de oferta, pedido de producto, compra de abono, devolución y cierre se consulta la operación existente antes de reenviar. Se propone transportar la clave mediante Idempotency-Key y relacionarla con clave_operacion en persistencia. La clave se acota a actor, operación, recurso y payload normalizado. Una repetición con contenido distinto debe producir un conflicto identificable. Retención y ventana de deduplicación quedan sujetas a la política de operación.
+
+## Consistencia y eventos
+
+- Aceptación y cierre de alternativas se conservan en la misma transacción del pedido.
+- La asignación fundadora comprueba cupo y conserva inscripción y autor.
+- Una compra concede como máximo un período; las renovaciones serializan el cálculo del intervalo.
+- Mensajes y avisos se conservan antes de anunciar confirmación de su registro.
+- El evento de salida acompaña la transacción de negocio; consumidores deduplican por su identidad.
+- Los webhooks del abono se conservan y verifican con el recurso del proveedor antes de aplicar efectos.
+- Las decisiones sobre evidencia referencian revisión y archivos exactos.
+- El vencimiento de membresía conserva la operativa de pedidos confirmados.
+
+Los nombres de eventos existentes se mantienen en [API y eventos](/3daltoque-docs/diseno/api-eventos/). Los nuevos contratos deben registrar nombre, versión, recurso, correlación, payload mínimo y consumidores.
+
+## Estados de interfaz compartidos
+
+| Estado | Representación y recuperación |
 | --- | --- |
-| **Identificadores de recursos** | `UUID v4` en rutas y payloads JSON; nunca exponer secuencias enteras autoincrementales en URLs públicas. |
-| **Fechas y reloj de autoridad** | Transporte en `ISO-8601 UTC` (`2026-10-25T21:15:00Z`) y visualización localizada en `America/Argentina/Buenos_Aires` (`UTC-3`). Toda expiración de ofertas y membresías se evalúa exclusivamente con el reloj del servidor. |
-| **Importes monetarios** | Tipo `DECIMAL(12,2)` serializado como string numérico exacto (`"17000.00"`) acompañado del código `ISO-4217` (`"ARS"`), evitando errores de punto flotante. |
-| **Privacidad geográfica (`RF-09.2`, `RNF-04`)** | Ningún endpoint consumido por clientes expone la dirección exacta ni las coordenadas precisas del domicilio del maker. Solo se transmiten `zone_label`, `approx_distance_km` y `public_centroid` ([CP-020](/3daltoque-docs/planificacion/pruebas/#cp-020)). |
-| **Archivos privados (`RF-10.1..10.3`)** | Las vistas nunca construyen URLs estáticas a archivos `.STL` ni a fotos de evidencia; solicitan siempre una URL pre-firmada efímera verificada por permiso de recurso ([CP-014](/3daltoque-docs/planificacion/pruebas/#cp-014)). |
-| **Idempotencia de comandos críticos** | Las operaciones `POST` de creación de solicitud, aceptación de oferta, presentación de evidencia y creación de compra de abono envían la cabecera `Idempotency-Key`. |
+| Carga inicial | Skeleton o progreso con nombre accesible; conservar estructura. |
+| Vacío | Explicar el recurso ausente y ofrecer la acción relevante. |
+| Error de campo | Mensaje junto al control y enlace desde ErrorSummary. |
+| Error recuperable | Alert con acción de reintento segura. |
+| Sin permiso | Mensaje contextual y acciones autorizadas; backend aplica la restricción. |
+| Conflicto | Mostrar datos actuales y solicitar revisión antes de confirmar. |
+| Sin conexión | Indicar la interrupción y conservar únicamente información permitida. |
+| Pendiente externo | Estado explícito con consulta del resultado persistido. |
+| Éxito | Confirmación referida al recurso y su estado. |
+| Información desactualizada | Recuperar versión; el servidor valida nuevamente la mutación. |
 
----
+## Condiciones de seguridad y accesibilidad
 
-## 3. Avisos contractuales obligatorios en la interfaz (`RF-02.5`, `RF-06.4`, `RF-12.15`)
+Verificar propiedad y permisos en cada lectura, escritura, descarga y suscripción. Las credenciales del proveedor permanecen en servidor. La ruta de retorno del checkout utiliza una referencia de compra autorizada.
 
-1. **Carácter orientativo de la estimación inicial (`WEB-03`, `MOB-03`):** Debe mostrarse explícitamente que el rango calculado al cargar el archivo es una referencia orientativa no vinculante y que el precio final lo fija cada maker en su oferta.
-2. **Pago de la impresión directo entre Cliente y Maker (`WEB-06`, `MOB-05`):** Antes de confirmar una oferta, la interfaz informa que 3DAltoque no procesa, retiene ni garantiza el dinero del pedido de impresión.
-3. **No aprobación por silencio (`WEB-08`, `MOB-07`, `WEB-15`, `MOB-14`):** Se informa tanto al cliente como al maker que la falta de respuesta ante una evidencia pendiente envía recordatorios, pero jamás aprueba automáticamente la pieza ni habilita la entrega.
-4. **Alcance del abono y de Makers Fundadores (`WEB-18..20`, `MOB-17..19`):** Se informa que la membresía otorga acceso operativo para recibir nuevas solicitudes y cotizar (30 días generales o 90 días totales para fundadores, con renovación manual posterior), sin garantizar un volumen mínimo de ventas ni alterar la continuidad de pedidos ya aceptados.
+Formularios con etiqueta visible, ayuda y errores asociados; foco visible; navegación por teclado y lector de pantalla; mensajes de estado identificables. Los componentes se describen en [el design system](/3daltoque-docs/design-system/).
+
+## Convenciones de aceptación
+
+AC-Fxx-nn identifica condiciones de aceptación de esta spec. Los CP mantienen sus identificadores en el plan de pruebas y deben relacionarse con estas condiciones. Cada caso de ejecución agrega versión, ambiente, fecha, datos y evidencia.
+
+Las reglas de catálogo, portfolio, reputación, historial y reportes cuentan con RF, CU y modelo de datos. Los valores operativos pendientes se concentran en [PD-01 a PD-15](/3daltoque-docs/planificacion/parametros/).
+
+## Dos orígenes del pedido
+
+La aceptación de una oferta personalizada y la confirmación directa de un producto crean el mismo agregado de pedido. El pedido conserva cliente, maker, origen, versión de condiciones, cantidades, importes, moneda y plazo. La ruta de producto utiliza la configuración publicada por su maker. La transacción conserva solicitud y oferta de referencia, pedido, condiciones, conversación y eventos.
+
+La clave de confirmación pertenece al cliente y a la intención normalizada. Una repetición con el mismo cuerpo recupera el resultado original antes de verificar nuevamente una publicación que pudo cambiar después del acuerdo. Reutilizar la clave con otra cantidad o producto produce conflicto. Una intención nueva valida la versión actual, la publicación y el acceso comercial del maker.
+
+## Comunicación y acceso comercial
+
+La conversación única pertenece a un pedido confirmado. La bandeja, el historial, los envíos, los adjuntos y las actualizaciones comprueban la participación actual. El vencimiento comercial impide nuevos acuerdos y mantiene la finalización de pedidos, mensajes y evidencias existentes. Los archivos públicos de catálogo y portfolio utilizan derivados autorizados; originales, STL y evidencia privada conservan sus controles de acceso.
+
+## Lecturas públicas y cálculos
+
+El perfil público integra capacidades, zona autorizada, catálogo, portfolio y reputación publicada. Los valores monetarios y los agregados se calculan en el servidor. El reporte devuelve intervalo, zona horaria y versión de fórmula. Los filtros de historial y reporte tienen orden y paginación estables. La API común cubre las 25 funcionalidades en [su catálogo de operaciones](/3daltoque-docs/diseno/api-eventos/).

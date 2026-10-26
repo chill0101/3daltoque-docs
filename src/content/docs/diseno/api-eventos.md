@@ -1,136 +1,135 @@
 ---
-title: "Contratos de API y eventos de dominio"
-description: "Entregable #14 Diseño de las Interfaces entre Sistemas: endpoints REST propuestos (/api/v1), payloads JSON, códigos de estado, idempotencia y eventos de dominio."
+title: "Contratos propuestos de API y eventos"
 ---
 
-Versión: 2.0-borrador. Fecha: 25 de octubre de 2026. Prefijo común propuesto: `/api/v1`.
+# Contratos de API y eventos
 
-Este documento forma parte del **Entregable #14 (Diseño de las Interfaces entre Sistemas)** y define el contrato de comunicación entre los clientes **Web (`Next.js`)** y **Mobile (`React Native / Expo`)** y el backend **FastAPI**, así como los eventos internos de dominio y el contrato de webhooks con Mercado Pago.
+Versión 3.0. Fecha: 25 de octubre de 2026. Prefijo común `/api/v1`. Los contratos funcionales se consolidan en OpenAPI durante la implementación.
 
----
+## Representación y autorización
 
-## 1. Endpoints REST del flujo operativo de impresión (`/api/v1`)
+Los importes utilizan cadenas decimales y moneda explícita; las fechas identifican su zona y se conservan en UTC. Las colecciones utilizan cursores opacos y un orden estable. Cada operación comprueba identidad, rol, recurso, versión y capacidades. Los recursos públicos exponen únicamente los datos y derivados autorizados.
 
-| Operación | Método y Ruta | Actor / Permiso | Códigos HTTP | Regla de negocio / Condición |
-| --- | --- | --- | --- | --- |
-| **Registrar cuenta** | `POST /api/v1/auth/register` | Público | `201`, `409`, `422` | Registra usuario, rol inicial (`CLIENTE`/`MAKER`) y aceptación de términos (`RF-01.1`). |
-| **Iniciar sesión** | `POST /api/v1/auth/login` | Público (con rate limit) | `200`, `401`, `429` | Devuelve par `access_token` + `refresh_token` (`RF-01.4`). |
-| **Cerrar sesión** | `POST /api/v1/auth/logout` | Autenticado | `204`, `401` | Revoca la sesión actual en `user_sessions` (`RF-01.5`). |
-| **Autorizar carga de archivo privado** | `POST /api/v1/archivos/intencion-carga` | `Cliente` / `Maker` | `201`, `400`, `413` | Valida extensión (`.STL`, `.OBJ`, `.3MF`, `.JPG`, `.PNG`, `.MP4`) y límite de tamaño antes de emitir URL pre-firmada (`RF-02.2`, `RF-10.1`). |
-| **Confirmar archivo subido** | `POST /api/v1/archivos/{id}/confirmar` | Propietario del archivo | `200`, `404`, `422` | Verifica integridad del objeto en S3/MinIO y habilita su asociación (`RF-10.2`). |
-| **Crear solicitud de impresión** | `POST /api/v1/solicitudes` | `Cliente` | `201`, `422` | Requiere archivo confirmado y ubicación de referencia; calcula estimación orientativa y dispara matching (`CU-01`). |
-| **Consultar candidatos / estado de solicitud** | `GET /api/v1/solicitudes/{id}` | `Cliente` propietario / `Maker` invitado | `200`, `403`, `404` | Devuelve versión vigente, estado, estimación orientativa y resumen de compatibilidad (`RF-02.4`, `RF-02.5`). |
-| **Listar solicitudes compatibles** | `GET /api/v1/makers/me/solicitudes` | `Maker` con membresía vigente | `200`, `403` | Filtra por capacidad técnica, radio y membresía activa (`RF-03.2`, `RF-12.10`). |
-| **Publicar oferta** | `POST /api/v1/solicitudes/{id}/ofertas` | `Maker` compatible con membresía vigente | `201`, `403`, `409` | Exige `MakerMembershipGuard` activo según reloj del servidor (`CU-02`, `RF-04.1`). |
-| **Publicar nueva versión de oferta** | `POST /api/v1/ofertas/{id}/versiones` | `Maker` autor de la oferta | `201`, `403`, `409` | Conserva versiones previas y actualiza precio, plazo y validez (`RF-04.2`). |
-| **Comparar ofertas de una solicitud** | `GET /api/v1/solicitudes/{id}/ofertas` | `Cliente` propietario | `200`, `403` | Lista ofertas con distancia aproximada, plazo, importe y fecha de expiración (`RF-04.3`). |
-| **Aceptar oferta y confirmar pedido** | `POST /api/v1/ofertas/{id}/aceptar` | `Cliente` propietario (`Idempotency-Key`) | `201`, `409`, `422` | Transacción atómica: verifica `expected_version`, crea un único `Pedido` y cierra ofertas competidoras (`CU-03`, `RF-04.4`). |
-| **Consultar detalle del pedido** | `GET /api/v1/pedidos/{id}` | `Cliente` o `Maker` del pedido / `Admin` | `200`, `403`, `404` | **No exige membresía vigente** para pedidos ya confirmados (`RF-12.10`). |
-| **Actualizar avance de producción** | `PATCH /api/v1/pedidos/{id}/avance` | `Maker` del pedido | `200`, `403`, `409` | Registra hito en `production_updates` y audita transición (`CU-04`, `RF-06.5`). |
-| **Presentar evidencia de pieza terminada** | `POST /api/v1/pedidos/{id}/evidencias` | `Maker` del pedido | `201`, `403`, `409` | Vincula fotos/videos privados al ciclo de revisión y pasa el pedido a `EN_REVISION` (`CU-04`, `RF-06.1`, `RF-06.2`). |
-| **Revisar resultado (Aprobar u Observar)** | `POST /api/v1/pedidos/{id}/revisiones/{revId}/decision` | `Cliente` del pedido | `200`, `403`, `409` | Decisión expresa vinculada a `revId` (`APPROVE` o `OBSERVE` con motivo). El silencio nunca aprueba (`CU-05`, `RF-06.3`, `RF-06.4`). |
-| **Coordinar entrega personal** | `POST /api/v1/pedidos/{id}/entrega` | `Cliente` o `Maker` del pedido | `200`, `403`, `409` | Bloqueado con `409 Conflict` si no existe revisión en estado `APROBADA` (`CU-06`, `RF-06.6`). |
-| **Confirmar recepción y cerrar entrega** | `POST /api/v1/entregas/{id}/completar` | `Cliente` del pedido | `200`, `403`, `409` | Marca la entrega `COMPLETADA` y el pedido `ENTREGADO` (`CU-06`, `RF-06.7`). |
-| **Enviar mensaje en el pedido** | `POST /api/v1/conversaciones/{id}/mensajes` | `Cliente` o `Maker` del pedido | `201`, `403`, `422` | Persiste mensaje y adjuntos privados autorizados (`CU-EXT-02`, `RF-05.1`, `RF-05.2`). |
+Las mutaciones sensibles conservan una clave estable y la huella del contenido. El mismo contenido recupera el resultado; otro contenido con la misma clave produce conflicto. La guía común está en [contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/).
 
----
+## Operaciones por funcionalidad
 
-## 2. Endpoints REST de Membresías, Makers Fundadores y Administración (`ADR-002`)
+| Funcionalidad | Método y ruta | Operación | Entrada | Salida | Guarda |
+| --- | --- | --- | --- | --- | --- |
+| F01 | POST `/auth/registro` | Registrar identidad | identificador, secreto, perfiles públicos y aceptación de condiciones | identidad, perfiles y siguiente acción | Datos válidos; el registro público asigna únicamente cliente y maker. |
+| F01 | POST `/auth/sesion` | Iniciar sesión | credenciales y tipo de cliente | identidad, capacidades y expiración | Cuenta habilitada y protección frente a intentos inválidos. |
+| F01 | DELETE `/auth/sesion` | Cerrar sesión | sesión vigente | resultado de cierre | Retira o revoca la autorización conforme a la política. |
+| F02 | GET `/clientes/me` | Consultar perfil propio | sesión | datos propios y versión | Cliente titular. |
+| F02 | PATCH `/clientes/me` | Actualizar perfil | contacto, referencia de ubicación y versión | perfil y versión nueva | Titularidad, formato y concurrencia. |
+| F03 | GET `/makers/{id}` | Consultar perfil público | maker_id | zona pública, capacidades, catálogo, portfolio y reputación | Contenido público vigente y precisión autorizada. |
+| F03 | PATCH `/makers/me` | Actualizar perfil productivo | descripción, zona, disponibilidad y versión | perfil y capacidades | Maker titular. |
+| F03 | POST `/makers/me/impresoras` | Registrar impresora | nombre, tecnología, dimensiones y estado | impresora_id | Dimensiones positivas y titularidad. |
+| F03 | PATCH `/makers/me/impresoras/{id}` | Actualizar o desactivar impresora | dimensiones, estado y versión | impresora actualizada | Conserva referencias históricas. |
+| F03 | PUT `/makers/me/impresoras/{id}/capacidades` | Mantener materiales y colores | capacidades y disponibilidad | capacidades válidas | Impresora propia y materiales habilitados. |
+| F03 | POST `/makers/me/habilitacion` | Habilitar perfil | confirmación y clave de operación | perfil, beneficio inicial y fechas | Datos mínimos y concesión inicial única. |
+| F04 | GET `/makers/{id}/portfolio` | Consultar trabajos publicados | cursor | trabajos y medios autorizados | Publicados y visibles. |
+| F04 | POST `/makers/me/portfolio` | Crear trabajo | título, descripción y archivos autorizados | trabajo_id y versión | Maker titular. |
+| F04 | PATCH `/makers/me/portfolio/{id}` | Editar o publicar trabajo | contenido, estado y versión | trabajo actualizado | Titularidad y autorización de medios. |
+| F04 | DELETE `/makers/me/portfolio/{id}` | Retirar trabajo | versión | retiro lógico | Conservación de referencias y auditoría. |
+| F05 | POST `/solicitudes` | Crear borrador personalizado | STL, unidad, material, color, cantidad, urgencia, descripción y ubicación | solicitud_id, versión y estado | Cliente titular y límites. |
+| F05 | PATCH `/solicitudes/{id}` | Actualizar borrador o crear versión | campos y versión esperada | versión actualizada | Reglas de edición antes de contratación. |
+| F05 | POST `/solicitudes/{id}/enviar` | Enviar solicitud | versión y clave de operación | solicitud enviada y ronda | Archivo habilitado y especificaciones completas. |
+| F06 | GET `/solicitudes/{id}/estimacion` | Consultar estimación automática | versión de solicitud | importe o rango, moneda, método, entradas y estado | Cliente titular; motivo explícito si no está disponible. |
+| F07 | GET `/makers` | Consultar candidatos | referencia geográfica, material, capacidad y cursor | candidatos y precisión de zona | Política de búsqueda y privacidad. |
+| F08 | GET `/makers/me/invitaciones` | Consultar invitaciones propias | estado y cursor | invitaciones autorizadas | Maker destinatario. |
+| F08 | GET `/invitaciones/{id}` | Consultar solicitud invitada | invitacion_id | especificaciones y capacidades de acción | Maker invitado; archivos autorizados. |
+| F09 | POST `/invitaciones/{id}/rechazo` | Rechazar invitación | motivo opcional y clave de operación | estado de invitación | Destinatario y estado vigente. |
+| F09 | GET `/solicitudes/{id}/ofertas` | Comparar ofertas | filtros y cursor | versiones, condiciones y vencimientos | Cliente titular. |
+| F09 | POST `/solicitudes/{id}/ofertas` | Presentar oferta | versión de solicitud, precio total, moneda, plazo, condiciones y vigencia | oferta_id y versión | Maker invitado y habilitado. |
+| F09 | POST `/ofertas/{id}/versiones` | Publicar versión de oferta | versión esperada y condiciones nuevas | versión publicada | Maker titular; conserva las anteriores. |
+| F09 | POST `/ofertas/{id}/propuestas-cambio` | Proponer contraoferta | versión, precio total, moneda, plazo y observación | propuesta_id y estado | Cliente titular y oferta vigente. |
+| F09 | POST `/propuestas-cambio/{id}/resolucion` | Resolver contraoferta | decisión y versión esperada | respuesta y versión resultante | Maker titular; crea versión si acepta. |
+| F10 | POST `/ofertas/{id}/aceptar` | Confirmar oferta | versión y clave estable | pedido_id y condiciones | Aceptación atómica, identidad y vigencia. |
+| F11 | GET `/planes/membresia` | Consultar plan | modo y entorno | condiciones publicadas | Un único plan inicial. |
+| F11 | GET `/makers/me/membresia` | Consultar acceso propio | sesión | beneficio, períodos y vencimiento | Maker titular. |
+| F11 | GET `/makers/me/membresia/compras` | Consultar compras propias | cursor | compras autorizadas | Maker titular. |
+| F11 | POST `/makers/me/membresia/compras` | Crear compra del abono | versión de plan y clave estable | compra_id y condiciones conservadas | Backend determina importe, moneda y duración. |
+| F11 | POST `/compras-membresia/{id}/checkout` | Preparar o recuperar checkout | compra_id y clave estable | referencia y enlace del proveedor | Compra propia; resultado incierto se concilia. |
+| F11 | GET `/compras-membresia/{id}` | Consultar compra verificada | compra_id | estado y períodos concedidos | Titular o administración con capacidad. |
+| F11 | POST `/webhooks/mercadopago` | Recibir notificación | firma, contexto y referencia externa | recepción duradera | Validación del proveedor y consulta de su recurso. |
+| F11 | POST `/admin/compras-membresia/{id}/conciliacion` | Conciliar compra | motivo y referencia | resultado verificado | Capacidad administrativa y auditoría. |
+| F11 | POST `/admin/compras-membresia/{id}/devoluciones` | Solicitar devolución de abono | motivo, importe autorizado y clave estable | operación y estado | Política PD-09 y resultado conciliado. |
+| F11 | PATCH `/admin/configuracion/membresia` | Versionar plan y beneficios | parámetros, versión y motivo | configuración nueva | Permiso específico; conserva operaciones anteriores. |
+| F11 | POST `/admin/makers/{id}/fundador` | Asignar fundador | configuración y motivo | asignación y cupo | Elegibilidad y consumo atómico de cupo. |
+| F12 | GET `/makers/me/cola` | Consultar cola propia | estado y cursor | pedidos y acciones permitidas | Orden estable por confirmación e identidad. |
+| F12 | GET `/pedidos/{id}` | Consultar pedido | pedido_id | condiciones, historial, revisión y entrega | Participante autorizado. |
+| F12 | POST `/pedidos/{id}/transiciones` | Actualizar avance | estado destino, versión, motivo y clave estable | estado e historial | Transición y actor permitidos. |
+| F13 | GET `/conversaciones` | Consultar bandeja propia | cursor | conversaciones de pedidos confirmados | Participante de cada pedido. |
+| F13 | GET `/pedidos/{id}/conversacion` | Abrir conversación del pedido | pedido_id | conversación y capacidades | Pedido confirmado y participante autorizado. |
+| F13 | GET `/conversaciones/{id}/mensajes` | Recuperar mensajes | cursor | mensajes y cursor siguiente | Revalida participación y conservación. |
+| F13 | POST `/conversaciones/{id}/mensajes` | Enviar mensaje | clave_cliente, texto y archivo_ids | mensaje_id y fecha | Persistencia antes de confirmar y deduplicación. |
+| F14 | GET `/notificaciones` | Consultar avisos | cursor y filtro leído | avisos propios y cursor | Destinatario autenticado. |
+| F14 | PATCH `/notificaciones/{id}` | Marcar aviso leído | leido y versión | estado leído | Aviso del destinatario. |
+| F15 | POST `/pedidos/{id}/evidencias` | Preparar revisión | archivo_ids y observación | revision_id y estado | Maker del pedido y archivos habilitados. |
+| F15 | POST `/revisiones/{id}/presentar` | Presentar revisión | versión y clave estable | revisión pendiente y aviso | Maker titular y evidencia completa. |
+| F16 | POST `/pedidos/{id}/entrega` | Proponer encuentro | punto, horario y versión | entrega y propuesta | Revisión aprobada y participante. |
+| F16 | POST `/entregas/{id}/acuerdo` | Aceptar propuesta de encuentro | versión y clave estable | acuerdo vigente | Contraparte de quien propuso. |
+| F17 | POST `/entregas/{id}/completar` | Confirmar recepción | versión y clave estable | recepción y pedido completado | Cliente titular y revisión/acuerdo vigentes. |
+| F18 | POST `/pedidos/{id}/valoraciones` | Valorar contraparte | configuración, criterios, comentario y clave estable | valoracion_id y puntaje | Pedido completado y unicidad por autor. |
+| F18 | GET `/makers/{id}/reputacion` | Consultar reputación pública | cursor | cantidad, escala, promedio y valoraciones visibles | Agregado de valoraciones publicadas. |
+| F18 | GET `/pedidos/{id}/valoraciones` | Consultar valoraciones del pedido | pedido_id | valoraciones autorizadas | Participantes o soporte con capacidad. |
+| F18 | POST `/admin/valoraciones/{id}/moderacion` | Moderar valoración | ocultar o restituir, versión y motivo | visibilidad y auditoría | Capacidad específica. |
+| F19 | GET `/pedidos` | Consultar historial propio | rol, estado, origen, desde, hasta, referencia y cursor | pedidos propios y cursor | Ámbito autorizado y orden estable. |
+| F20 | GET `/admin/casos` | Consultar soporte | filtros y cursor | casos autorizados | Capacidad administrativa. |
+| F20 | POST `/admin/casos/{id}/intervenciones` | Intervenir recurso | acción, recurso, versión, motivo y clave estable | resultado y auditoría | Permiso específico y validación del caso de uso. |
+| F20 | POST `/admin/publicaciones/{tipo}/{id}/moderacion` | Moderar publicación | acción, versión y motivo | estado público y auditoría | Catálogo o portfolio; permiso específico. |
+| F21 | GET `/admin/reportes/actividad` | Consultar indicadores | desde inclusivo, hasta exclusivo y zona horaria | indicadores, filtros, fecha y fuentes | Capacidad administrativa y período válido. |
+| F22 | POST `/revisiones/{id}/decisiones` | Aprobar o registrar observaciones | versión, decisión, comentario y clave estable | decisión y estado del pedido | Cliente titular y revisión actual pendiente. |
+| F23 | POST `/archivos/autorizaciones` | Autorizar transferencia | contexto, finalidad, nombre, tipo y tamaño declarado | archivo_id y autorización temporal | Permiso sobre recurso y cuotas. |
+| F23 | POST `/archivos/{id}/finalizacion` | Completar transferencia | integridad y referencia de objeto | estado de validación | Propietario o actor autorizado del recurso. |
+| F23 | GET `/archivos/{id}/acceso` | Obtener acceso autorizado | archivo_id y contexto | acceso temporal o derivado autorizado | Finalidad, permisos y estado del archivo. |
+| F23 | DELETE `/archivos/{id}` | Solicitar retiro | motivo y versión | retiro lógico o condición de conservación | Propiedad y política de referencias. |
+| F24 | GET `/eventos` | Recuperar cambios autorizados | cursor y ámbitos permitidos | eventos identificados y cursor | Reautorización por recurso y recuperación tras reconexión. |
+| F25 | GET `/makers/{id}/productos` | Consultar catálogo público | cursor | productos publicados y condiciones actuales | Visibilidad pública autorizada. |
+| F25 | GET `/productos/{id}` | Consultar producto | producto_id | versión, configuración, precio y disponibilidad de pedido | Publicación visible y medios derivados. |
+| F25 | POST `/makers/me/productos` | Crear borrador de producto | configuración, precio, moneda, cantidades, plazo y condiciones | producto_id y versión | Maker titular y campos válidos. |
+| F25 | PATCH `/makers/me/productos/{id}` | Editar condiciones de producto | versión esperada y condiciones | versión actualizada | Conserva versiones publicadas anteriores. |
+| F25 | POST `/makers/me/productos/{id}/publicacion` | Publicar, pausar o retirar | acción y versión | estado de publicación | Acceso comercial para admitir pedidos nuevos. |
+| F25 | POST `/productos/{id}/pedidos` | Confirmar pedido directo | versión, cantidad y clave estable | pedido y condiciones conservadas | Precio del servidor, versión vigente e idempotencia. |
 
-| Operación | Método y Ruta | Actor / Permiso | Códigos HTTP | Regla de negocio / Condición |
-| --- | --- | --- | --- | --- |
-| **Consultar plan de membresía vigente** | `GET /api/v1/planes/membresia` | Público / `Maker` | `200` | Devuelve importe mensual, moneda, duración (`30d`), condiciones de prueba y cupo fundador (`RF-12.1`, `RF-12.15`). |
-| **Habilitar perfil maker e iniciar prueba** | `POST /api/v1/makers/me/habilitar` | `Maker` | `200`, `422` | En la 1ra habilitación activa la prueba única (`30 días` generales o `90 días` si es Fundador) sin pedir tarjeta (`CU-09`, `RF-12.2`). |
-| **Consultar estado de membresía propia** | `GET /api/v1/makers/me/membresia` | `Maker` | `200` | Devuelve estado (`TRIAL`, `ACTIVE`, `EXPIRING_SOON`, `EXPIRED`), fecha de vencimiento y beneficio aplicado (`CU-08`, `RF-12.4`). |
-| **Crear orden de compra de abono** | `POST /api/v1/makers/me/membresia/compras` | `Maker` (`Idempotency-Key`) | `201`, `409` | Congela versión del plan, importe y moneda en `membership_checkout_orders` (`CU-11`, `RF-12.5`). |
-| **Iniciar preferencia Checkout Pro** | `POST /api/v1/compras-membresia/{id}/checkout` | `Maker` propietario | `200`, `403`, `502` | Crea preferencia en Mercado Pago con cuenta receptora propia de 3DAltoque y devuelve `checkout_url` (`CU-11`, `RF-12.5`). |
-| **Recibir notificación de Mercado Pago** | `POST /api/v1/webhooks/mercadopago` | Mercado Pago (`x-signature` HMAC) | `200`, `401` | Verifica firma, persiste evento idempotente, consulta pago en API del proveedor y concede a lo sumo 1 período (`CU-INC-03`, `RF-12.6`, `RF-12.8`). |
-| **Configurar plan y promociones** | `PATCH /api/v1/admin/configuracion/membresia` | `Administrador` | `200`, `403`, `422` | Publica nueva `PlanVersion` auditada sin afectar períodos ya pagados (`CU-12`, `RF-12.1`, `RF-12.13`). |
-| **Asignar beneficio Maker Fundador** | `POST /api/v1/admin/makers/{id}/fundador` | `Administrador` | `200`, `403`, `409` | Consume cupo atómicamente, aplica `90 días` totales no acumulables y registra auditoría (`CU-10`, `RF-12.3`, `RF-12.13`). |
-| **Conciliar compra o autorizar devolución** | `POST /api/v1/admin/compras-membresia/{id}/conciliar` | `Administrador` | `200`, `403`, `409` | Consulta estado real en el proveedor y audita la resolución (`CU-12`, `RF-12.7`, `RF-12.12`). |
+## Pedidos personalizados y de catálogo
 
----
+La aceptación de una oferta y la confirmación de un producto aplican la misma unicidad por solicitud y conservan sus condiciones. El producto de catálogo utiliza una versión publicada y un precio unitario del servidor. Su confirmación materializa el acuerdo en una transacción y habilita la conversación desde el pedido confirmado.
 
-## 3. Ejemplos de Payloads JSON y Manejo Estándar de Errores
+## Membresía y conciliación
 
-### 3.1 Ejemplo de solicitud y respuesta: Aceptación atómica de oferta (`POST /api/v1/ofertas/{id}/aceptar`)
+La compra del abono conserva plan, importe, moneda, duración, modo y entorno. La notificación se persiste y se verifica con el recurso del proveedor antes de conceder un período. Dos compras distintas se conservan; un mismo evento se deduplica. Las renovaciones serializan los intervalos y conservan el acceso vigente según la configuración contratada.
 
-**Request (`Headers` + `Body`):**
-```http
-POST /api/v1/ofertas/9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d/aceptar HTTP/1.1
-Authorization: Bearer <jwt_token>
-Idempotency-Key: accept-req101-of01-v2
-Content-Type: application/json
+## Eventos de negocio
 
-{
-  "expected_version": 2,
-  "confirm_external_payment_terms": true
-}
-```
+| Evento | Recurso y uso |
+| --- | --- |
+| PerfilMakerHabilitado | Perfil y único beneficio inicial. |
+| FundadorAsignado | Asignación autorizada y cupo. |
+| SolicitudEnviada | Solicitud personalizada y ronda de candidatos. |
+| OfertaVersionPublicada | Condiciones y vigencia de la oferta. |
+| PropuestaCambioOfertaResuelta | Contraoferta y versión resultante. |
+| ProductoPublicado / ProductoRetirado | Versión y disponibilidad pública. |
+| PedidoConfirmado | Acuerdo único y habilitación de conversación. |
+| MensajeCreado | Mensaje persistido y aviso a la contraparte. |
+| EvidenciaPresentada / RevisionRegistrada | Revisión y decisión expresa. |
+| EntregaConfirmada | Recepción del cliente y cierre. |
+| ValoracionPublicada / ValoracionModerada | Reputación y agregado autorizado. |
+| CompraMembresiaCreada / PagoAbonoVerificado | Cobro propio y resultado verificado. |
+| PeriodoMembresiaConcedido / AccesoMakerVencido | Acceso comercial y avisos. |
 
-**Response (`201 Created`):**
-```json
-{
-  "order_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-  "request_id": "1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed",
-  "accepted_offer_id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-  "accepted_offer_version": 2,
-  "status": "CONFIRMADO",
-  "snapshot": {
-    "agreed_price": "17000.00",
-    "currency": "ARS",
-    "delivery_days": 2,
-    "material": "PETG Negro",
-    "payment_modality": "DIRECT_CLIENT_TO_MAKER"
-  },
-  "closed_competing_offers_count": 1,
-  "confirmed_at": "2026-10-25T21:15:00Z"
-}
-```
+Cada evento conserva ID, versión, fecha, recurso y correlación. El hecho de negocio y su evento de salida se persisten juntos; el envío externo se recupera por trabajo idempotente.
 
-### 3.2 Estructura uniforme de errores (`RFC 9457 / Problem Details`)
+## Errores funcionales
 
-Todas las respuestas de error (`4xx` y `5xx`) siguen un contrato JSON consistente para Web y Mobile:
+| Código | Tratamiento |
+| --- | --- |
+| VALIDACION | Campos, formato, cantidades, escala o condiciones incompletas. |
+| SIN_PERMISO | Identidad o autorización insuficientes; protección del recurso. |
+| VERSION_MODIFICADA | Recuperar condiciones actuales antes de confirmar. |
+| RECURSO_CERRADO | Solicitud, oferta, publicación o revisión fuera de su estado permitido. |
+| ACCESO_COMERCIAL_VENCIDO | Restricción de trabajos nuevos y continuidad de pedidos existentes. |
+| OPERACION_EN_CONFLICTO | Clave reutilizada con otro contenido o resultado concurrente. |
+| RESULTADO_EXTERNO_PENDIENTE | Consultar o conciliar la operación identificada. |
 
-```json
-{
-  "type": "https://chill0101.github.io/3daltoque-docs/errores/offer-version-mismatch",
-  "title": "La versión de la oferta fue actualizada",
-  "status": 409,
-  "code": "OFFER_VERSION_MISMATCH",
-  "detail": "La oferta seleccionada tiene una nueva versión vigente (v2). Revisá las condiciones actualizadas antes de confirmar.",
-  "correlation_id": "req-88412a9c-0012"
-}
-```
-
-### 3.3 Catálogo de códigos de error de dominio (`403` / `409` / `422`)
-
-| Código de error (`code`) | HTTP | Significado y acción en cliente Web / Mobile |
-| --- | --- | --- |
-| `OFFER_EXPIRED` | `409` | La oferta superó su fecha de validez (`valida_hasta`). Refrescar listado de ofertas. |
-| `OFFER_VERSION_MISMATCH` | `409` | El maker actualizó la oferta mientras el cliente la veía. Mostrar la nueva versión antes de aceptar. |
-| `REQUEST_ALREADY_CONFIRMED` | `409` | La solicitud ya tiene un pedido confirmado (prevención de doble aceptación concurrente). |
-| `EVIDENCE_APPROVAL_REQUIRED` | `409` | Intento de coordinar o cerrar entrega sin una revisión con estado `APROBADA`. |
-| `MEMBERSHIP_EXPIRED` | `403` | Maker intenta ofertar en un trabajo nuevo con membresía vencida. Redirigir a renovación de abono (`CU-11`). |
-| `FOUNDER_QUOTA_EXHAUSTED` | `409` | El cupo configurado para el programa `Makers Fundadores` ya fue alcanzado. |
-| `SIMULATION_NOT_ALLOWED` | `403` | Intento de invocar el adaptador de cobro simulado fuera del entorno de demostración. |
-
----
-
-## 4. Catálogo de Eventos Internos de Dominio (Patrón Outbox)
-
-Cada evento se persiste en la tabla `outbox_events` dentro de la misma transacción SQL que modifica el agregado de dominio, garantizando entrega *at-least-once* hacia el módulo de notificaciones y auditoría:
-
-| Evento de Dominio | Agregado Emisor | Consumidores Internos | Efecto Operativo |
-| --- | --- | --- | --- |
-| `PerfilMakerHabilitado` | `Maker` / `MembresiaMaker` | `ModuloMembresias`, `AuditService` | Inicia por única vez el período gratuito (`30d` general o `90d` fundador). |
-| `FundadorAsignado` | `MembresiaMaker` | `ModuloNotificaciones`, `AuditService` | Registra consumo de cupo, aplica beneficio de `90 días` totales y notifica al maker. |
-| `CompraMembresiaCreada` | `CompraMembresia` | `AuditService` | Deja trazabilidad del intento de compra con importe y versión del plan congelados. |
-| `PagoAbonoVerificado` | `PagoAbono` | `ModuloMembresias`, `ModuloNotificaciones` | Concede de forma idempotente un único `PeriodoAcceso` y envía comprobante in-app/email. |
-| `AccesoMakerVencido` | `Scheduler` / `MembresiaMaker` | `ModuloNotificaciones` | Emite aviso de vencimiento; la guarda real actúa siempre por reloj del servidor. |
-| `SolicitudPublicada` | `Solicitud` | `ModuloMatching`, `ModuloNotificaciones` | Ejecuta el filtrado geoespacial/técnico y notifica a los makers compatibles con membresía activa. |
-| `OfertaVersionPublicada` | `Oferta` | `ModuloNotificaciones` | Avisa al cliente que recibió una nueva oferta o una actualización de condiciones. |
-| `PedidoConfirmado` | `Pedido` | `ModuloNotificaciones`, `ModuloComunicacion` | Habilita el hilo de conversación del pedido y avisa al maker ganador y a los no seleccionados. |
-| `EvidenciaPresentada` | `RevisionResultado` | `ModuloNotificaciones`, `Scheduler` | Notifica al cliente para que revise la pieza y programa recordatorio en caso de silencio (`RF-07.4`). |
-| `RevisionRegistrada` | `RevisionResultado` | `ModuloPedidos`, `ModuloNotificaciones` | Si es `APROBADA`, habilita la entrega personal (`CU-06`); si es `OBSERVADA`, reabre el ajuste (`CU-04`). |
-| `EntregaConfirmada` | `Entrega` | `ModuloPedidos`, `AuditService` | Marca el pedido como `ENTREGADO` y cierra el ciclo operativo. |
+Las respuestas y salidas por funcionalidad están en [las specs](/3daltoque-docs/specs/).
