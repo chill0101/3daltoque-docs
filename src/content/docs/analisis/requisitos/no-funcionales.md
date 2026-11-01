@@ -36,7 +36,7 @@ La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión d
 
 ## Condiciones de medición
 
-Las metas numéricas de disponibilidad, rendimiento, tamaño de vista y recuperación se presentan como propuestas para el piloto. El perfil PERF-01 y los valores a revisar están en el [catálogo](/3daltoque-docs/analisis/requisitos/#perfil-de-medicion). Antes de ejecutar se acuerdan entorno, dataset, carga, herramientas y umbrales; el resultado se registra con versión y evidencia.
+El [perfil PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) define la referencia de aceptación del piloto: entorno, dataset, carga, herramientas, umbrales y evidencia. Cada ficha conserva sus criterios y cada ejecución identifica la configuración y versión evaluadas.
 
 <a id="rnf-01"></a>
 ### RNF-01 Disponibilidad del servicio

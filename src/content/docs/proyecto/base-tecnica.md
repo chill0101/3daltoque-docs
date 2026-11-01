@@ -11,7 +11,7 @@ Actualización: 14 de octubre de 2026. Selección técnica y decisiones de despl
 | Backend | FastAPI y Python confirmados |
 | Arquitectura | Monolito modular con separación hexagonal simple |
 | Web | React; framework de aplicación por cerrar |
-| Mobile | React Native; alcance de implementación pendiente |
+| Mobile | React Native; recorridos cliente y maker sobre la API compartida |
 | Persistencia | PostgreSQL/PostGIS y SQLAlchemy/Alembic como propuestas |
 | Archivos | Almacenamiento privado; proveedor y límites pendientes |
 | Cobros propios | Checkout Pro para abonos del maker; renovación manual |
@@ -26,3 +26,7 @@ Antes de implementar se fijan versiones, secretos por entorno, migraciones, pres
 ## Canales funcionales
 
 Web y React Native utilizan la misma API FastAPI. Los contratos y permisos se mantienen en las specs; los proveedores de mapas, almacenamiento y notificaciones y el hosting de API y workers se seleccionan durante la implementación. La referencia geográfica OpenStreetMap de la ficha requiere concretar proveedor de mapas y geocodificación y sus límites.
+
+## Operación y verificación
+
+[Manual de instalación](/3daltoque-docs/manuales/instalacion/), [seguridad y operación](/3daltoque-docs/diseno/seguridad/), [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) y [PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) fijan preparación, configuración y controles. Los proveedores y precios de producción se registran con la selección del entorno.

@@ -1,7 +1,7 @@
 {
-  "version": "2.0",
-  "date": "2026-10-25",
-  "source": "RF vigentes, CU-01 a CU-13 y specs F01 a F24",
+  "version": "2.1",
+  "date": "2026-11-01",
+  "source": "RF vigentes, CU-01 a CU-25 y specs F01 a F25",
   "counts": {
     "features": 25,
     "rfs": 68,
@@ -12,7 +12,9 @@
     "mobile": 50,
     "sharedRecoveryViews": 26,
     "documentedAdditionalViews": 12,
-    "documentedTotalViews": 122
+    "documentedTotalViews": 122,
+    "localPrototypeViews": 12,
+    "visualReferenceViews": 122
   },
   "features": [
     {
@@ -7233,7 +7235,8 @@
       "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
     }
   ],
-  "vistas_documentadas_pendientes_de_mock": [
+  "vistas_documentadas_pendientes_de_mock": [],
+  "vistas_documentadas_adicionales": [
     {
       "id": "WEB-MKR-08",
       "name": "Perfil público del maker",
@@ -7247,7 +7250,10 @@
       ],
       "contract": "Consultar capacidades, zona pública, catálogo fijo, portfolio y reputación; abrir un producto o trabajo publicado.",
       "channel": "web",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "WEB-MKR-08",
+      "preview_source": "docs/prototipos/capturas/web-mkr-08.png"
     },
     {
       "id": "WEB-CAT-01",
@@ -7259,7 +7265,10 @@
       ],
       "contract": "Listar productos propios por estado; crear, editar, publicar, pausar o retirar según capacidad devuelta.",
       "channel": "web",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "WEB-CAT-01",
+      "preview_source": "docs/prototipos/capturas/web-cat-01.png"
     },
     {
       "id": "WEB-CAT-02",
@@ -7271,7 +7280,10 @@
       ],
       "contract": "Editar configuración fija, precio, moneda, cantidades, plazo, condiciones y archivos; mostrar validación y versión en conflicto.",
       "channel": "web",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "WEB-CAT-02",
+      "preview_source": "docs/prototipos/capturas/web-cat-02.png"
     },
     {
       "id": "WEB-CAT-03",
@@ -7283,7 +7295,10 @@
       ],
       "contract": "Presentar condiciones publicadas, cantidad admitida y disponibilidad; autenticar al cliente antes de confirmar.",
       "channel": "web",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "WEB-CAT-03",
+      "preview_source": "docs/prototipos/capturas/web-cat-03.png"
     },
     {
       "id": "WEB-CAT-04",
@@ -7295,7 +7310,10 @@
       ],
       "contract": "Revisar versión, cantidad, precio unitario, total, moneda, plazo y condiciones; conservar clave ante incertidumbre y abrir pedido confirmado.",
       "channel": "web",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "WEB-CAT-04",
+      "preview_source": "docs/prototipos/capturas/web-cat-04.png"
     },
     {
       "id": "WEB-CHAT-00",
@@ -7307,7 +7325,10 @@
       ],
       "contract": "Bandeja propia paginada con pedido y último mensaje; abrir conversación autorizada, resolver vacío y recuperar conexión.",
       "channel": "web",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "WEB-CHAT-00",
+      "preview_source": "docs/prototipos/capturas/web-chat-00.png"
     },
     {
       "id": "MOB-MKR-08",
@@ -7322,7 +7343,10 @@
       ],
       "contract": "Consultar capacidades, zona pública, catálogo fijo, portfolio y reputación; abrir un producto o trabajo publicado.",
       "channel": "mobile",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "MOB-MKR-08",
+      "preview_source": "docs/prototipos/capturas/mob-mkr-08.png"
     },
     {
       "id": "MOB-CAT-01",
@@ -7334,7 +7358,10 @@
       ],
       "contract": "Listar productos propios por estado; crear, editar, publicar, pausar o retirar según capacidad devuelta.",
       "channel": "mobile",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "MOB-CAT-01",
+      "preview_source": "docs/prototipos/capturas/mob-cat-01.png"
     },
     {
       "id": "MOB-CAT-02",
@@ -7346,7 +7373,10 @@
       ],
       "contract": "Editar configuración fija, precio, moneda, cantidades, plazo, condiciones y archivos; mostrar validación y versión en conflicto.",
       "channel": "mobile",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "MOB-CAT-02",
+      "preview_source": "docs/prototipos/capturas/mob-cat-02.png"
     },
     {
       "id": "MOB-CAT-03",
@@ -7358,7 +7388,10 @@
       ],
       "contract": "Presentar condiciones publicadas, cantidad admitida y disponibilidad; autenticar al cliente antes de confirmar.",
       "channel": "mobile",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "MOB-CAT-03",
+      "preview_source": "docs/prototipos/capturas/mob-cat-03.png"
     },
     {
       "id": "MOB-CAT-04",
@@ -7370,7 +7403,10 @@
       ],
       "contract": "Revisar versión, cantidad, precio unitario, total, moneda, plazo y condiciones; conservar clave ante incertidumbre y abrir pedido confirmado.",
       "channel": "mobile",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "MOB-CAT-04",
+      "preview_source": "docs/prototipos/capturas/mob-cat-04.png"
     },
     {
       "id": "MOB-CHAT-00",
@@ -7382,7 +7418,10 @@
       ],
       "contract": "Bandeja propia paginada con pedido y último mensaje; abrir conversación autorizada, resolver vacío y recuperar conexión.",
       "channel": "mobile",
-      "designStatus": "Contrato funcional documentado; mock pendiente"
+      "designStatus": "Prototipo HTML navegable y captura disponibles",
+      "prototype_source": "docs/prototipos/catalogo-y-chat.html",
+      "prototype_fragment": "MOB-CHAT-00",
+      "preview_source": "docs/prototipos/capturas/mob-chat-00.png"
     }
   ]
 }

@@ -59,37 +59,77 @@ Además del [catálogo completo de 160 escenarios planificados](/3daltoque-docs/
 
 <a id="pnf-001"></a>
 ### PNF-001 — Monitoreo de disponibilidad continua en ventana de evaluación (`RNF-01`, `RNF-07`)
+- **Precondiciones:** Servicio accesible y release registrado; sonda externa independiente.
+- **Datos y entorno:** 1.440 sondas cada 60 s, 24 h, reloj y límites de recursos conservados.
+- **Procedimiento reproducible:** Iniciar sonda; registrar cada estado y duración; inyectar caída de PostgreSQL durante una ventana registrada; restaurar servicio y calcular proporción de respuestas válidas.
+- **Criterio de aceptación:** Al menos 99% de sondas satisfactorias; liveness permanece separada de readiness.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Meta propuesta (`PERF-01`):** `>= 99%` en ventana continua de 24 h con sondas cada 60 s sobre `/health/ready`.
 - **Resultado esperado:** El healthcheck comprueba conectividad real a PostgreSQL y dependencias críticas; una caída de base de datos devuelve `503 Service Unavailable` y nunca un éxito ficticio.
 
 <a id="pnf-002"></a>
 ### PNF-002 — Rendimiento de búsqueda geoespacial y filtrado de makers compatibles (`RNF-02`, `RNF-03`)
+- **Precondiciones:** Dataset de PERF-01 e índices de migración aplicados; caché y proveedores identificados.
+- **Datos y entorno:** 50 y 200 makers; diez usuarios concurrentes; tres series de quince minutos tras calentamiento.
+- **Procedimiento reproducible:** Ejecutar búsqueda por capacidad y distancia; contrastar candidatos con un resultado de referencia; medir p95 y errores; repetir sin modificar recursos.
+- **Criterio de aceptación:** p95 hasta 2 s y menos de 1% de errores técnicos; candidatos correctos en ambas escalas.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Meta propuesta (`PERF-01`):** `p95 <= 2.0 s` y `< 1%` de errores técnicos con dataset de `200 makers`.
 - **Resultado esperado:** Filtrado exacto por capacidad técnica, distancia y membresía vigente dentro del umbral de latencia.
 
 <a id="pnf-003"></a>
 ### PNF-003 — Degradación controlada ante indisponibilidad de proveedores externos (`RNF-15`, `RNF-07`)
+- **Precondiciones:** Pedido y compra de prueba identificados; adaptadores con inyección de fallas.
+- **Datos y entorno:** INT-01..INT-04; timeout, 503 externo y respuesta incierta; reintentos con la misma clave.
+- **Procedimiento reproducible:** Provocar cada falla; inspeccionar estado local y eventos_salida; recuperar proveedor; procesar trabajo pendiente; verificar unicidad de efectos.
+- **Criterio de aceptación:** Hecho local conservado; reintento acotado; un efecto externo por intención; alternativa manual o lista de ubicación disponible.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Procedimiento:** Inyección de fallas/timeouts en adaptadores `INT-01` a `INT-04`.
-- **Resultado esperado:** El hecho de negocio local y el evento en `outbox_eventos` se preservan; la falla externa queda registrada para reintento o alternativa manual sin corromper estados.
+- **Resultado esperado:** El hecho de negocio local y el evento en `eventos_salida` se preservan; la falla externa queda registrada para reintento o alternativa manual sin corromper estados.
 
 <a id="pnf-004"></a>
 ### PNF-004 — Cumplimiento de contrato OpenAPI y paridad funcional Web/Mobile (`RNF-14`, `RNF-17`, `RF-11.1`, `RF-11.2`)
+- **Precondiciones:** Mismo release de API, Web y Mobile; usuarios y recursos equivalentes.
+- **Datos y entorno:** Respuestas positivas y negativas de las 75 operaciones funcionales; recurso compartido entre canales.
+- **Procedimiento reproducible:** Validar solicitudes y respuestas contra el contrato; mutar desde Web y consultar desde Mobile; invertir canales; revocar sesión y repetir.
+- **Criterio de aceptación:** Conformidad de esquema de todas las muestras y permisos/estado equivalentes por recurso.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Resultado esperado:** `100%` de respuestas conformes al esquema de la API común y sincronización consistente de estados entre Web y Mobile.
 
 <a id="pnf-005"></a>
 ### PNF-005 — Protección contra abuso de tasa (*rate limiting*) y payloads fuera de límite (`RNF-16`, `RNF-04`)
+- **Precondiciones:** Límites del fixture publicados y cuentas de prueba aisladas.
+- **Datos y entorno:** Payload en máximo y máximo+1; cinco fallos/minuto y sexto intento; listado con 100 y 101 elementos solicitados.
+- **Procedimiento reproducible:** Ejecutar cada frontera; inspeccionar código y Retry-After; repetir consulta válida con otro usuario; comprobar ausencia de escrituras parciales.
+- **Criterio de aceptación:** 413 para payload excesivo, 422 para valor fuera de rango y 429 al superar tasa; otros usuarios conservan operación válida.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Resultado esperado:** Respuesta controlada `429 Too Many Requests` o `413 Content Too Large` sin degradar el servicio para otros usuarios autenticados.
 
 <a id="pnf-006"></a>
 ### PNF-006 — Accesibilidad, claridad de estados y advertencias comerciales en UI (`RNF-08`, `RNF-12`, `RF-12.15`)
+- **Precondiciones:** Pantallas críticas disponibles en ambos temas; navegador y dispositivo registrados.
+- **Datos y entorno:** Alta, solicitud, oferta, pedido, chat, revisión y abono; teclado, lector de pantalla y herramienta de contraste.
+- **Procedimiento reproducible:** Recorrer por teclado; verificar orden/foco y nombre accesible; provocar errores; medir contraste de textos y controles; comprobar avisos de precio y revisión.
+- **Criterio de aceptación:** Foco visible y operación completa; textos cumplen umbrales de PERF-01; errores identificados por texto y asociados al control.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Resultado esperado:** Comprensión sin ambigüedad de estados, carácter orientativo de la estimación inicial, pago directo del pedido al maker y regla de no aprobación por silencio.
 
 <a id="pnf-007"></a>
 ### PNF-007 — Retención, retiro de archivos privados y borrado/anonimización de datos personales (`RNF-11`, `RF-10.4`)
+- **Precondiciones:** Archivo privado autorizado, URL temporal emitida y política de conservación identificada.
+- **Datos y entorno:** Titular, participante autorizado y tercero; URL antes/después de TTL; retiro y solicitud de anonimización.
+- **Procedimiento reproducible:** Consultar con cada identidad; retirar archivo; repetir descarga y superar TTL con reloj controlado; ejecutar política de anonimización; revisar auditoría.
+- **Criterio de aceptación:** Nuevos accesos revocados; enlaces vencidos rechazados; datos personales tratados según política y referencias de auditoría conservadas.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Resultado esperado:** Revocación efectiva de acceso a archivos retirados/vencidos y preservación exclusiva de registros de auditoría requeridos.
 
 <a id="pnf-008"></a>
 ### PNF-008 — Reproducción limpia del entorno y restauración de backup de base de datos (`RNF-18`, `RNF-19`)
+- **Precondiciones:** Release, configuración, migraciones y manifiesto de respaldo disponibles en entorno aislado.
+- **Datos y entorno:** 58 tablas; base y objetos de fixture; copia con hashes y hora; RPO 24 h y RTO 60 min.
+- **Procedimiento reproducible:** Preparar entorno limpio; aplicar migraciones; cargar fixture; generar respaldo; restaurar base y objetos en destino separado; verificar filas, FK, hashes y permisos.
+- **Criterio de aceptación:** Arranque reproducible; restauración consistente dentro de objetivos; reporte conserva tiempos y objetos verificados.
+- **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
 - **Resultado esperado:** Levante reproducible con las 58 tablas del modelo lógico y restauración íntegra de `pg_dump` verificada por conteo de filas y claves foráneas.
 
 ---
@@ -98,13 +138,21 @@ Además del [catálogo completo de 160 escenarios planificados](/3daltoque-docs/
 
 <a id="cp-001"></a>
 ### CP-001 — Registro exitoso de nuevo usuario y asignación de rol inicial (`CU-13` · `RF-01.1`, `RF-01.3`, `RNF-12`)
+- **Datos de prueba:** Correo nuevo cliente.demo01@test.3daltoque.local; rol CLIENTE; acepta_terminos=true. Fixture específico CP-001 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** partición de equivalencia.
+- **Correspondencia con cobertura:** `CP-RF-01-1-01`, `CP-RF-01-1-02`, `CP-RF-01-3-01`, `CP-RF-01-3-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Precondiciones:** Servicio de identidad disponible; el correo `cliente.demo01@test.3daltoque.local` no está registrado en `usuarios`.
-- **Datos de entrada:** `nombre: "Lucía Gómez"`, `email: "cliente.demo01@test.3daltoque.local"`, `password: "Demo3D!2026"`, `rol: "CLIENTE"`, `zona: "Caballito, CABA"`, `acepta_terminos: true`.
+- **Datos de entrada:** `nombre: "Lucía Gómez"`, `email: "cliente.demo01@test.3daltoque.local"`, `password: "Demo3D!2026"`, `perfil_solicitado: "cliente"`, `zona: "Caballito, CABA"`, `condiciones_version_id: UUID de la versión publicada`.
 - **Pasos:** 1) Abrir `WEB-AUTH-02` / `MOB-AUTH-02`. 2) Elegir rol `Cliente`. 3) Completar datos y aceptar términos. 4) Enviar registro (`POST /auth/registro`).
 - **Resultado esperado:** `201 Created`; usuario creado en `usuarios` y `usuario_roles`, términos registrados e ingreso autenticado. (`Estado: Planificado`).
 
 <a id="cp-002"></a>
 ### CP-002 — Inicio de sesión con credenciales inválidas y control de bloqueo (`CU-13` · `RF-01.4`, `RNF-04`, `RNF-16`)
+- **Datos de prueba:** Cinco contraseñas incorrectas y un sexto intento dentro de la ventana; repetir desde Web y Mobile. Fixture específico CP-002 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** valor límite.
+- **Correspondencia con cobertura:** `CP-RF-01-4-01`, `CP-RF-01-4-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Precondiciones:** Cuenta activa existente.
 - **Datos de entrada:** Correo válido + contraseña incorrecta repetida por encima del umbral permitido.
 - **Pasos:** 1) Enviar credenciales inválidas en `WEB-AUTH-01`. 2) Repetir en ráfaga superando el límite por ventana.
@@ -112,6 +160,10 @@ Además del [catálogo completo de 160 escenarios planificados](/3daltoque-docs/
 
 <a id="cp-003"></a>
 ### CP-003 — Publicación de solicitud válida con archivo STL y ubicación aproximada (`CU-01`, `CU-24` · `RF-02.1`, `RF-02.3`, `RF-09.1`, `RF-10.1`, `RF-10.2`)
+- **Datos de prueba:** STL válido de 4,2 MB, PETG, cantidad 2 y ubicación Almagro; conservar hash y unidad mm. Fixture específico CP-003 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** recorrido de CU.
+- **Correspondencia con cobertura:** `CP-RF-02-1-01`, `CP-RF-02-1-02`, `CP-RF-02-3-01`, `CP-RF-02-3-02`, `CP-RF-09-1-01`, `CP-RF-09-1-02`, `CP-RF-10-1-01`, `CP-RF-10-1-02`, `CP-RF-10-2-01`, `CP-RF-10-2-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Precondiciones:** Cliente autenticado y almacenamiento privado (`INT-03`) disponible.
 - **Datos de entrada:** `soporte_sensor_v2.stl` (`4.2 MB`), `material: "PETG"`, `cantidad: 2`, `ubicacion: "Almagro, CABA"`.
 - **Pasos:** 1) Autorizar y subir `soporte_sensor_v2.stl`. 2) Completar parámetros técnicos y confirmar ubicación en `WEB-SOL-01` / `MOB-SOL-01`. 3) Confirmar envío de la solicitud.
@@ -119,132 +171,263 @@ Además del [catálogo completo de 160 escenarios planificados](/3daltoque-docs/
 
 <a id="cp-004"></a>
 ### CP-004 — Rechazo de publicación de solicitud con campos obligatorios faltantes (`CU-01` · `RF-02.3`, `RNF-08`)
+- **Precondiciones:** U-C1 autenticado; formulario de solicitud abierto.
+- **Datos de prueba:** Descripción vacía, cantidad 0 y ubicación ausente; luego corregir uno por vez. Fixture específico CP-004 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** partición de equivalencia.
+- **Correspondencia con cobertura:** `CP-RF-02-3-01`, `CP-RF-02-3-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Datos de entrada:** Descripción vacía, cantidad `0` y sin ubicación confirmada.
 - **Pasos:** 1) Intentar enviar el formulario incompleto en `WEB-SOL-01`.
 - **Resultado esperado:** Rechazo `422` detallando los campos faltantes, conservando el borrador sin crear registros parciales. (`Estado: Planificado`).
 
 <a id="cp-005"></a>
 ### CP-005 — Rechazo de carga de archivo por formato no permitido o exceso de tamaño (`CU-01`, `CU-24` · `RF-02.2`, `RF-10.1`, `RNF-16`)
+- **Precondiciones:** Sesión de cliente activa; cuota del fixture de 20 MiB por STL.
+- **Datos de prueba:** Ejecutable con extensión .stl y archivo de 250 MB; probar también límite exacto de 20 MiB. Fixture específico CP-005 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** valores límite.
+- **Correspondencia con cobertura:** `CP-RF-02-2-01`, `CP-RF-02-2-02`, `CP-RF-10-1-01`, `CP-RF-10-1-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Datos de entrada:** Ejecutable renombrado a `.stl` y archivo de `250 MB` que excede la cuota máxima.
 - **Pasos:** 1) Solicitar autorización de carga o validación sobre ambos archivos.
 - **Resultado esperado:** Rechazo antes de habilitar el archivo; no se asocia a la solicitud ni queda accesible. (`Estado: Planificado`).
 
 <a id="cp-006"></a>
 ### CP-006 — Cálculo de estimación orientativa marcada como no vinculante (`CU-01` · `RF-02.5`, `RNF-08`)
+- **Precondiciones:** STL habilitado y configuración de estimación identificada; tarifa del fixture definida.
+- **Datos de prueba:** Volumen de 28,5 cm³, PLA y cantidad 2; registrar versión de fórmula y coeficientes. Fixture específico CP-006 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** tabla de decisión.
+- **Correspondencia con cobertura:** `CP-RF-02-5-01`, `CP-RF-02-5-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Datos de entrada:** Pieza `.STL` válida de `28.5 cm3`, material `PLA`, cantidad `2`.
 - **Pasos:** 1) Consultar la estimación generada en `WEB-SOL-01` / `WEB-SOL-02`.
 - **Resultado esperado:** Se informa rango orientativo, método y supuestos, advirtiendo expresamente que no es una cotización final vinculante. (`Estado: Planificado`).
 
 <a id="cp-007"></a>
 ### CP-007 — Matching de solicitud hacia makers compatibles con membresía vigente (`CU-01`, `CU-02` · `RF-03.1`, `RF-03.2`, `RF-12.10`)
+- **Datos de prueba:** A=compatible/activo; B=compatible/fundador; C=material incompatible; D=compatible/vencido; radio 10 km. Fixture específico CP-007 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** tabla de decisión.
+- **Correspondencia con cobertura:** `CP-RF-03-1-01`, `CP-RF-03-1-02`, `CP-RF-03-2-01`, `CP-RF-03-2-02`, `CP-RF-12-10-01`, `CP-RF-12-10-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Precondiciones:** `Maker A` (compatible + membresía activa), `Maker B` (compatible + Fundador en prueba), `Maker C` (material incompatible) y `Maker D` (compatible pero membresía vencida).
 - **Pasos:** 1) Publicar solicitud en radio de búsqueda. 2) Consultar invitaciones generadas.
 - **Resultado esperado:** Solo `Maker A` y `Maker B` reciben la invitación; `Maker C` se excluye por capacidad y `Maker D` por membresía vencida (`RF-12.10`). (`Estado: Planificado`).
 
 <a id="cp-008"></a>
 ### CP-008 — Emisión y actualización versionada de oferta por maker elegible (`CU-02`, `CU-25` · `RF-04.1`, `RF-04.2`, `RF-04.5`, `RF-04.6`)
+- **Precondiciones:** M-M1 invitado, elegible y solicitud abierta; moneda ARS.
+- **Datos de prueba:** v1=18500.00 y tres días; v2=17000.00 y dos días; claves de operación distintas. Fixture específico CP-008 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** transición de estados.
+- **Correspondencia con cobertura:** `CP-RF-04-1-01`, `CP-RF-04-1-02`, `CP-RF-04-2-01`, `CP-RF-04-2-02`, `CP-RF-04-5-01`, `CP-RF-04-5-02`, `CP-RF-04-6-01`, `CP-RF-04-6-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Datos de entrada:** Oferta v1 (`$18.500 ARS`, `3 días`) y actualización a Oferta v2 (`$17.000 ARS`, `2 días`).
 - **Pasos:** 1) Emitir Oferta v1 desde `WEB-OFE-01`. 2) Publicar nueva versión v2 antes de que el cliente acepte.
 - **Resultado esperado:** Se registra `oferta_versiones` v2 como única vigente conservando v1 en el historial auditable. (`Estado: Planificado`).
 
 <a id="cp-009"></a>
 ### CP-009 — Bloqueo de emisión de oferta para maker no invitado o con membresía vencida (`CU-02`, `CU-08` · `RF-04.1`, `RF-12.4`, `RF-12.10`)
-- **Pasos:** 1) Intentar publicar oferta con cuenta cuya membresía venció según el reloj del servidor.
-- **Resultado esperado:** Operación rechazada (`403 Forbidden`); no se persiste la oferta y se dirige a renovar abono (`CU-11`). (`Estado: Planificado`).
+- **Precondiciones:** Dos makers: M-M2 sin invitación y otro invitado con acceso vencido; solicitud vigente.
+- **Datos de prueba:** Primero cuenta sin invitación con acceso vigente; después cuenta invitada vencida; mismo cuerpo válido de oferta. Fixture específico CP-009 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** tabla de decisión.
+- **Correspondencia con cobertura:** `CP-RF-04-1-01`, `CP-RF-04-1-02`, `CP-RF-12-4-01`, `CP-RF-12-4-02`, `CP-RF-12-10-01`, `CP-RF-12-10-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
+- **Pasos:** 1) Intentar publicar con M-M2, que tiene acceso vigente y carece de invitación. 2) Repetir con el maker invitado cuyo acceso venció según el reloj del servidor. 3) Consultar ofertas después de cada intento.
+- **Resultado esperado:** Maker sin invitación: `403 Forbidden`. Maker con acceso vencido: `409 membership_required`; conserva la invitación y ofrece renovar por CU-11. Ambos intentos mantienen las ofertas existentes. (`Estado: Planificado`).
 
 <a id="cp-010"></a>
 ### CP-010 — Aceptación de oferta vigente, creación de pedido único y cierre de competidoras (`CU-03` · `RF-04.3`, `RF-04.4`, `RF-05.3`, `RF-12.15`)
+- **Datos de prueba:** OF-01 v2 vigente y OF-02 v1 vigente; aceptar OF-01 con clave CP010-A. Fixture específico CP-010 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** transacción e invariantes.
+- **Correspondencia con cobertura:** `CP-RF-04-3-01`, `CP-RF-04-3-02`, `CP-RF-04-4-01`, `CP-RF-04-4-02`, `CP-RF-05-3-01`, `CP-RF-05-3-02`, `CP-RF-12-15-01`, `CP-RF-12-15-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Precondiciones:** Solicitud abierta con dos ofertas vigentes (`OF-01` v2 y `OF-02` v1).
-- **Pasos:** 1) Comparar ofertas en `WEB-OFE-02`. 2) Confirmar la versión vigente de `OF-01` en `WEB-PED-01`.
+- **Pasos:** 1) Comparar ofertas en `WEB-OFE-02`. 2) Confirmar la versión vigente de `OF-01` en `WEB-OFE-03`.
 - **Resultado esperado:** En una sola transacción atómica se crea un único registro en `pedidos` con condiciones congeladas, `OF-01` pasa a `ACEPTADA`, `OF-02` se cierra y se habilita la conversación del pedido (`CU-14`). (`Estado: Planificado`).
 
 <a id="cp-011"></a>
 ### CP-011 — Rechazo al intentar aceptar una oferta vencida o cuya versión fue reemplazada (`CU-03` · `RF-04.2`, `RF-04.4`)
+- **Precondiciones:** Solicitud propia abierta; oferta v1 sustituida por v2 y una segunda oferta vencida.
+- **Datos de prueba:** Aceptar v1; luego oferta vencida; consultar pedidos antes y después de cada intento. Fixture específico CP-011 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** versión y vigencia.
+- **Correspondencia con cobertura:** `CP-RF-04-2-01`, `CP-RF-04-2-02`, `CP-RF-04-4-01`, `CP-RF-04-4-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Intentar aceptar `OF-01` indicando `version = 1` cuando la vigente es `version = 2`, o una oferta cuya validez ya expiró.
 - **Resultado esperado:** Rechazo `409 Conflict` sin crear pedido; se presentan las condiciones actualizadas. (`Estado: Planificado`).
 
 <a id="cp-012"></a>
 ### CP-012 — Control de concurrencia ante dos intentos simultáneos de aceptación sobre la misma solicitud (`CU-03` · `RF-04.4`, `RNF-05`)
+- **Precondiciones:** Solicitud con dos ofertas vigentes y conexiones de cliente autenticadas.
+- **Datos de prueba:** Dos claves diferentes sobre la misma solicitud; repetir con una clave común y cuerpo idéntico. Fixture específico CP-012 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** concurrencia.
+- **Correspondencia con cobertura:** `CP-RF-04-4-01`, `CP-RF-04-4-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Disparar dos peticiones paralelas de aceptación sobre la misma solicitud abierta.
 - **Resultado esperado:** Como máximo se confirma un único pedido; la petición concurrente recibe conflicto o el resultado idempotente si corresponde a la misma clave. (`Estado: Planificado`).
 
 <a id="cp-013"></a>
 ### CP-013 — Avance de producción, carga de evidencia privada y paso a revisión (`CU-04`, `CU-24` · `RF-06.1`, `RF-06.2`, `RF-06.5`, `RF-10.2`)
+- **Precondiciones:** Pedido P-01 confirmado con M-M1; fotos autorizadas privadas; sesión maker activa.
+- **Datos de prueba:** P-01, versión vigente y dos fotografías válidas; clave de envío CP013-A. Fixture específico CP-013 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** transición de estados.
+- **Correspondencia con cobertura:** `CP-RF-06-1-01`, `CP-RF-06-1-02`, `CP-RF-06-2-01`, `CP-RF-06-2-02`, `CP-RF-06-5-01`, `CP-RF-06-5-02`, `CP-RF-10-2-01`, `CP-RF-10-2-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) El maker actualiza el pedido a `EN_PRODUCCION`. 2) Sube fotos privadas de la pieza terminada y presenta la revisión (`WEB-PED-03`).
 - **Resultado esperado:** Evidencia privada vinculada a `revisiones_resultado`; pedido pasa a `EN_REVISION` y se notifica al cliente. (`Estado: Planificado`).
 
 <a id="cp-014"></a>
 ### CP-014 — Conversación contextual del pedido y bloqueo de acceso a terceros no participantes (`CU-14`, `CU-24` · `RF-05.1`, `RF-05.2`, `RF-10.3`, `RNF-04`)
+- **Precondiciones:** P-01 confirmado entre U-C1 y M-M1; U-C2 ajeno al pedido; archivo privado habilitado.
+- **Datos de prueba:** Mensaje CP014-A y adjunto privado; consultas con U-C1, M-M1 y U-C2. Fixture específico CP-014 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** autorización por recurso.
+- **Correspondencia con cobertura:** `CP-RF-05-1-01`, `CP-RF-05-1-02`, `CP-RF-05-2-01`, `CP-RF-05-2-02`, `CP-RF-10-3-01`, `CP-RF-10-3-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Cliente y maker intercambian mensajes y adjuntos en el pedido. 2) Un tercer usuario intenta leer la conversación o descargar la evidencia/STL.
 - **Resultado esperado:** Mensajes persistidos para los participantes; acceso denegado (`403/404`) para terceros sin revelar contenido. (`Estado: Planificado`).
 
 <a id="cp-015"></a>
 ### CP-015 — Aprobación expresa de la evidencia por el cliente y habilitación de entrega (`CU-05` · `RF-06.3`, `RF-05.3`)
+- **Precondiciones:** P-01 EN_REVISION con revisión R-01 vigente y evidencia consultable por U-C1.
+- **Datos de prueba:** U-C1 aprueba R-01 con versión_esperada vigente; repetir la intención original. Fixture específico CP-015 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** transición de estados.
+- **Correspondencia con cobertura:** `CP-RF-06-3-01`, `CP-RF-06-3-02`, `CP-RF-05-3-01`, `CP-RF-05-3-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) El cliente inspecciona la evidencia vigente en `WEB-REV-01` / `MOB-REV-01` y confirma `"Aprobar resultado"`.
 - **Resultado esperado:** `decisiones_revision` registra `APROBADA` referenciando la revisión exacta y se desbloquea la coordinación de entrega (`CU-06`). (`Estado: Planificado`).
 
 <a id="cp-016"></a>
 ### CP-016 — Bloqueo de coordinación de entrega cuando la evidencia aún no fue aprobada (`CU-05`, `CU-06` · `RF-06.3`, `RF-06.6`, `RNF-05`)
+- **Precondiciones:** P-01 con revisión pendiente y P-02 con revisión observada; actores participantes.
+- **Datos de prueba:** Coordinar y confirmar recepción sobre ambos pedidos sin aprobación; comparar estado previo. Fixture específico CP-016 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** tabla de decisión.
+- **Correspondencia con cobertura:** `CP-RF-06-3-01`, `CP-RF-06-3-02`, `CP-RF-06-6-01`, `CP-RF-06-6-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Intentar coordinar o completar la entrega de un pedido cuya revisión está pendiente u observada.
 - **Resultado esperado:** Rechazo `409 Conflict`; la entrega permanece bloqueada hasta contar con aprobación expresa. (`Estado: Planificado`).
 
 <a id="cp-017"></a>
 ### CP-017 — Registro de observaciones sobre la evidencia y nuevo ciclo de revisión (`CU-05` · `RF-06.3`, `RF-05.3`)
+- **Precondiciones:** P-01 en revisión R-01; U-C1 titular; observación con motivo.
+- **Datos de prueba:** Motivo: corregir rebaba; luego evidencia R-02 vinculada al mismo pedido. Fixture específico CP-017 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** transición de estados.
+- **Correspondencia con cobertura:** `CP-RF-06-3-01`, `CP-RF-06-3-02`, `CP-RF-05-3-01`, `CP-RF-05-3-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) El cliente registra observaciones detalladas sobre la evidencia presentada.
 - **Resultado esperado:** La revisión queda `OBSERVADA` conservando el motivo e historial, y habilita al maker a presentar una nueva revisión corregida (`n + 1`). (`Estado: Planificado`).
 
 <a id="cp-018"></a>
 ### CP-018 — Silencio del cliente ante revisión pendiente: envío de recordatorio sin aprobación automática (`CU-05`, `CU-23` · `RF-06.4`, `RF-07.4`)
+- **Precondiciones:** R-01 pendiente; recordatorio a las 24 h en la configuración de prueba; reloj controlable.
+- **Datos de prueba:** Instantes t0, t0+24 h y t0+48 h; ejecutar dos veces el mismo ciclo de recordatorio. Fixture específico CP-018 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** tiempo y deduplicación.
+- **Correspondencia con cobertura:** `CP-RF-06-4-01`, `CP-RF-06-4-02`, `CP-RF-07-4-01`, `CP-RF-07-4-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Avanzar el reloj de prueba sobre una revisión sin respuesta del cliente y ejecutar el proceso de recordatorios.
 - **Resultado esperado:** Se genera recordatorio al cliente, pero la revisión **jamás** pasa a `APROBADA` automáticamente por silencio (`RF-06.4`). (`Estado: Planificado`).
 
 <a id="cp-019"></a>
 ### CP-019 — Coordinación de entrega personal en punto de encuentro y confirmación de recepción (`CU-06` · `RF-06.6`, `RF-06.7`)
+- **Precondiciones:** P-01 con revisión aprobada; propuesta de punto neutral y participantes autenticados.
+- **Datos de prueba:** Encuentro E-01 v1; aceptación de la contraparte; recepción de U-C1; reenvío idéntico. Fixture específico CP-019 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** recorrido de CU.
+- **Correspondencia con cobertura:** `CP-RF-06-6-01`, `CP-RF-06-6-02`, `CP-RF-06-7-01`, `CP-RF-06-7-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Proponer y aceptar punto de encuentro neutral y horario en `WEB-ENT-01`. 2) Confirmar la recepción con la identidad del cliente en `WEB-ENT-02`.
 - **Resultado esperado:** Acuerdo de entrega conservado; recepción única registrada, pedido finalizado y valoración (`CU-16`) habilitada. (`Estado: Planificado`).
 
 <a id="cp-020"></a>
 ### CP-020 — Preservación de privacidad del domicilio exacto del maker en mapas y búsquedas (`CU-01`, `CU-06`, `CU-21` · `RF-09.1`, `RF-09.2`, `RNF-04`)
+- **Precondiciones:** M-M1 con domicilio privado y zona pública distintos; U-C1 habilitado para consultas.
+- **Datos de prueba:** Inspeccionar cuerpos de búsqueda, perfil, ofertas y encuentro; usar coordenadas privadas reconocibles del fixture. Fixture específico CP-020 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** protección de datos.
+- **Correspondencia con cobertura:** `CP-RF-09-1-01`, `CP-RF-09-1-02`, `CP-RF-09-2-01`, `CP-RF-09-2-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Consultar endpoints de búsqueda, ofertas y entrega con una cuenta de cliente.
 - **Resultado esperado:** Solo se exponen zona aproximada, distancia y puntos autorizados; el domicilio privado del maker nunca se expone. (`Estado: Planificado`).
 
 <a id="cp-021"></a>
 ### CP-021 — Primera habilitación del perfil maker e inicio de prueba gratuita general de 30 días (`CU-09`, `CU-08` · `RF-01.2`, `RF-12.2`, `RF-12.4`)
+- **Precondiciones:** M-M1 sin primera habilitación ni períodos previos; datos productivos válidos.
+- **Datos de prueba:** Prueba de 30 días configurada; completar perfil y editarlo dos veces después de habilitar. Fixture específico CP-021 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** unicidad temporal.
+- **Correspondencia con cobertura:** `CP-RF-01-2-01`, `CP-RF-01-2-02`, `CP-RF-12-2-01`, `CP-RF-12-2-02`, `CP-RF-12-4-01`, `CP-RF-12-4-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Completar capacidades e impresoras en `WEB-MKR-01` y solicitar primera habilitación. 2) Editar el perfil posteriormente.
 - **Resultado esperado:** Se concede por única vez el período gratuito inicial (`30 días` generales) sin pedir tarjeta; ediciones posteriores no reinician ni duplican el beneficio. (`Estado: Planificado`).
 
 <a id="cp-022"></a>
 ### CP-022 — Asignación administrativa del beneficio `Makers Fundadores` (`90 días` totales no acumulables) (`CU-10` · `RF-12.3`, `RF-12.13`, `RF-12.15`)
+- **Precondiciones:** A-A1 con capacidad de asignación; dos makers elegibles; una plaza disponible.
+- **Datos de prueba:** Beneficio 90 días totales; dos solicitudes simultáneas; motivo de asignación y reloj t0. Fixture específico CP-022 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** concurrencia y límites.
+- **Correspondencia con cobertura:** `CP-RF-12-3-01`, `CP-RF-12-3-02`, `CP-RF-12-13-01`, `CP-RF-12-13-02`, `CP-RF-12-15-01`, `CP-RF-12-15-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Administración asigna plaza de fundador con motivo en `WEB-ADM-MEM-01`. 2) Probar también intento concurrente cuando queda 1 sola plaza en el cupo.
 - **Resultado esperado:** El beneficio fundador otorga `90 días` totales (reemplazando los 30 días, sin sumar 120), audita la asignación y respeta estrictamente el cupo máximo. (`Estado: Planificado`).
 
 <a id="cp-023"></a>
 ### CP-023 — Pago manual de abono mensual por Checkout Pro y activación tras verificación del servidor (`CU-11` · `RF-12.5` a `RF-12.9`)
+- **Precondiciones:** M-M1 con compra de abono creada; credenciales y cuentas exclusivas del entorno de prueba.
+- **Datos de prueba:** Compra CP023-A de 10000.00 ARS; retorno del navegador y recurso externo aprobado correspondiente. Fixture específico CP-023 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** integración.
+- **Correspondencia con cobertura:** `CP-RF-12-5-01`, `CP-RF-12-5-02`, `CP-RF-12-6-01`, `CP-RF-12-6-02`, `CP-RF-12-7-01`, `CP-RF-12-7-02`, `CP-RF-12-8-01`, `CP-RF-12-8-02`, `CP-RF-12-9-01`, `CP-RF-12-9-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Crear compra de abono e iniciar Checkout Pro (`WEB-MEM-02`). 2) Regresar por navegador antes del webhook. 3) Procesar notificación verificada contra Mercado Pago.
 - **Resultado esperado:** El retorno del navegador no activa el acceso; recién tras verificar el pago `approved` servidor a servidor se concede un único `PeriodoAcceso`. (`Estado: Planificado`).
 
 <a id="cp-024"></a>
 ### CP-024 — Idempotencia ante webhook de pago repetido y rechazo de webhook inválido (`CU-11` · `RF-12.6`, `RF-12.8`, `RNF-09`)
+- **Precondiciones:** Compra CP023-A ya concedida; evento externo conservado; verificador de firma configurado.
+- **Datos de prueba:** Mismo evento dos veces; otra notificación con firma alterada; compra y períodos antes/después. Fixture específico CP-024 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** idempotencia y seguridad.
+- **Correspondencia con cobertura:** `CP-RF-12-6-01`, `CP-RF-12-6-02`, `CP-RF-12-8-01`, `CP-RF-12-8-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Enviar nuevamente el mismo evento webhook de un pago ya acreditado. 2) Enviar un webhook con firma inválida.
 - **Resultado esperado:** El evento repetido no suma otro período ni duplica registros; el webhook inválido es rechazado sin efectos. (`Estado: Planificado`).
 
 <a id="cp-025"></a>
 ### CP-025 — Continuidad operativa de pedidos activos cuando vence la membresía del maker (`CU-08`, `CU-04`, `CU-06`, `CU-14` · `RF-12.10`)
+- **Precondiciones:** P-01 confirmado antes de vencer; reloj posterior al fin del acceso de M-M1.
+- **Datos de prueba:** Intentar oferta nueva; después mensaje, evidencia y entrega del pedido existente. Fixture específico CP-025 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** tabla de decisión.
+- **Correspondencia con cobertura:** `CP-RF-12-10-01`, `CP-RF-12-10-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Con la membresía del maker ya `VENCIDA`, intentar ofertar en una solicitud nueva. 2) Con la misma cuenta, conversar, subir evidencia y coordinar entrega en un pedido que ya estaba confirmado antes del vencimiento.
 - **Resultado esperado:** Se bloquean nuevas ofertas, pero el pedido confirmado previo conserva toda su operatoria hasta completarse (`RF-12.10`). (`Estado: Planificado`).
 
 <a id="cp-026"></a>
 ### CP-026 — Actualización administrativa del plan de membresía sin afectar períodos ya concedidos (`CU-12` · `RF-12.1`, `RF-12.12`, `RF-12.13`, `RNF-13`)
+- **Precondiciones:** A-A1 con permiso de plan; una compra pendiente y un período vigente con versión anterior.
+- **Datos de prueba:** Plan v1=10000.00 ARS; plan v2=12000.00 ARS; motivo y fecha de activación posteriores. Fixture específico CP-026 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** versionado.
+- **Correspondencia con cobertura:** `CP-RF-12-1-01`, `CP-RF-12-1-02`, `CP-RF-12-12-01`, `CP-RF-12-12-02`, `CP-RF-12-13-01`, `CP-RF-12-13-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Publicar una nueva versión del plan con nuevo importe y motivo en `WEB-ADM-MEM-01`.
 - **Resultado esperado:** Las compras futuras usan la nueva versión; las compras y períodos en curso conservan sus condiciones originales inalteradas. (`Estado: Planificado`).
 
 <a id="cp-027"></a>
 ### CP-027 — Separación estricta entre cobro simulado (`demo`) y cobro real de membresía (`CU-11` · `RF-12.14`, `RNF-10`)
+- **Precondiciones:** Entorno demo con simulador permitido y entorno comercial con simulador deshabilitado.
+- **Datos de prueba:** Mismo resultado simulado en ambos entornos; comprobar modo y referencia de compra. Fixture específico CP-027 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** segregación de entornos.
+- **Correspondencia con cobertura:** `CP-RF-12-14-01`, `CP-RF-12-14-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Ejecutar compra en modo simulado en entorno demo. 2) Intentar usar simulación en entorno no permitido.
 - **Resultado esperado:** En demo se etiqueta visiblemente como simulado y se separa de pagos reales; fuera del entorno demo la simulación es rechazada. (`Estado: Planificado`).
 
 <a id="cp-028"></a>
 ### CP-028 — Moderación administrativa, catálogo directo y reputación post-entrega (`CU-07`, `CU-16`, `CU-19`, `CU-20` · `RF-07.2`, `RF-13.1..13.4`, `RF-15.1..15.3`, `RNF-06`)
+- **Precondiciones:** P-P1 publicado y M-M1 elegible; U-C1 distinto del maker; recepción posterior confirmada.
+- **Datos de prueba:** Producto v1, cantidad 2, precio 1000.00 ARS; valoración 4/5; moderación con motivo por A-A1. Fixture específico CP-028 en el registro adjunto.
+- **Prioridad:** Alta. **Técnica:** recorrido y auditoría.
+- **Correspondencia con cobertura:** `CP-RF-13-1-01`, `CP-RF-13-1-02`, `CP-RF-13-2-01`, `CP-RF-13-2-02`, `CP-RF-13-3-01`, `CP-RF-13-3-02`, `CP-RF-13-4-01`, `CP-RF-13-4-02`, `CP-RF-15-1-01`, `CP-RF-15-1-02`, `CP-RF-15-2-01`, `CP-RF-15-2-02`, `CP-RF-15-3-01`, `CP-RF-15-3-02`, `CP-RF-07-2-01`, `CP-RF-07-2-02`.
+- **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Pasos:** 1) Confirmar pedido directo de producto publicado vigente (`CU-20`). 2) Emitir valoración una vez entregado el pedido (`CU-16`). 3) Ejecutar moderación administrativa con motivo (`CU-07`).
 - **Resultado esperado:** El pedido directo congela condiciones de la versión publicada; solo pedidos entregados admiten una valoración por parte; toda moderación exige permiso y queda auditada. (`Estado: Planificado`).
 
+
+## Datos y correspondencia de las fichas
+
+El [registro de fixtures y correspondencias](/3daltoque-docs/documentos/92aa0408f516-casos-detallados.json) conserva cada CP detallado, su preparación y sus datos. Los 28 CP detallan recorridos y variantes del catálogo de 160 escenarios. Las relaciones conservan sus identificadores; la ejecución registra los resultados por caso y por variante.
+
+## Perfil de aceptación
+
+[PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) define entorno, datos, carga, límites, umbrales y registro de resultados para estos ensayos.

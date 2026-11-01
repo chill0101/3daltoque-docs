@@ -116,3 +116,15 @@ Los cobros simulados utilizan modo y entorno identificados y separados de las op
 Parámetros de implementación: Permisos y cuentas de demostración por entorno.
 
 Cada parámetro conserva valor, fecha, responsable, fundamento y versión. Las configuraciones se comprueban antes de habilitar la operación que las requiere.
+
+## Referencias operativas documentadas
+
+| Parámetro | Definición de referencia | Registro de aplicación |
+| --- | --- | --- |
+| PD-01 Sesión | Sesiones opacas revocables; cookie protegida Web y Bearer Mobile. | Seguridad y release de identidad. |
+| PD-02 Límites | Perfil de archivos, mensajes y listas de PERF-01. | Configuración versionada del entorno. |
+| PD-06 Actualización | Consulta autorizada de eventos por cursor y recuperación de intención. | Contratos operativos INT-05. |
+| PD-11 Interfaces | 75 operaciones funcionales y dos técnicas en OpenAPI. | Versión del contrato y release de ambos clientes. |
+| PD-13 Calidad | PERF-01 define carga, objetivos, evidencia y recuperación. | Informe de ejecución y configuración utilizada. |
+
+[Seguridad](/3daltoque-docs/diseno/seguridad/), [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) y [PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) conservan estas definiciones. Los valores comerciales y credenciales se registran por entorno con su responsable, fecha y versión.

@@ -50,3 +50,7 @@ El [catálogo de pruebas y trazabilidad](/3daltoque-docs/analisis/pruebas-y-traz
 ## Salidas e incidencias
 
 El resultado conserva la referencia del recurso, estado y fecha del servidor. Las alternativas mantienen los datos recuperables y ofrecen la acción de salida especificada en el paso correspondiente.
+
+## Punto de extensión EP-03
+
+Antes del paso 3, el cliente puede elegir proponer un ajuste. La condición activa CU-25 y conserva abierta la solicitud. La respuesta del maker produce una nueva versión o mantiene la oferta anterior; el recorrido vuelve al paso 1. La contratación requiere una aceptación expresa de la versión vigente.

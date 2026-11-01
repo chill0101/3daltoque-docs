@@ -8,39 +8,47 @@ El catálogo conserva CU-01 a CU-13 y amplía la cobertura hasta CU-25. Cada esp
 
 ## Diagrama de casos de uso
 
+Las tres vistas agrupan los 25 casos de uso por recorrido. CU-24 se comparte como comportamiento de archivos.
+
+### Solicitudes, catálogo y ofertas
+
+![Casos de uso: Solicitudes, catálogo y ofertas](/3daltoque-docs/documentos/faaeb3ec3d60-casos-de-uso-contratacion.svg)
+
+[Fuente editable](/3daltoque-docs/documentos/492c6efbb67c-casos-de-uso-contratacion.puml)
+
+### Pedido, conversación y entrega
+
+![Casos de uso: Pedido, conversación y entrega](/3daltoque-docs/documentos/689b074cd951-casos-de-uso-seguimiento.svg)
+
+[Fuente editable](/3daltoque-docs/documentos/acbd0b761f0b-casos-de-uso-seguimiento.puml)
+
+### Membresías y administración
+
+![Casos de uso: Membresías y administración](/3daltoque-docs/documentos/abe27d3c9fa0-casos-de-uso-membresias.svg)
+
+[Fuente editable](/3daltoque-docs/documentos/b1dda7ac76fb-casos-de-uso-membresias.puml)
+
+<details class="doc-accordion">
+<summary>Diagrama general: todos los actores y casos de uso</summary>
+
 ![Casos de uso y actores](/3daltoque-docs/documentos/56672ecacb3e-casos-de-uso.svg)
 
 [Abrir SVG](/3daltoque-docs/documentos/56672ecacb3e-casos-de-uso.svg) · [Fuente editable](/3daltoque-docs/documentos/c14d6068439c-casos-de-uso.puml)
 
-### Relaciones `<<include>>` y `<<extend>>` del modelo
 
-```mermaid
-flowchart LR
-  subgraph Archivos["Inclusión obligatoria de archivos (<<include>>)"]
-    CU01["CU-01 Publicar solicitud"] -. "<<include>>" .-> CU24["CU-24 Gestionar archivos autorizados"]
-    CU04["CU-04 Producción y evidencia"] -. "<<include>>" .-> CU24
-    CU15["CU-15 Mantener y consultar portfolio"] -. "<<include>>" .-> CU24
-    CU19["CU-19 Mantener catálogo de productos"] -. "<<include>>" .-> CU24
-  end
+</details>
 
-  subgraph Extensiones["Extensiones condicionales (<<extend>>)"]
-    CU25["CU-25 Negociar condiciones de oferta"] -. "<<extend>>" .-> CU02["CU-02 Recibir y responder ofertas"]
-    CU25 -. "<<extend>>" .-> CU03["CU-03 Elegir oferta"]
-    CU14["CU-14 Conversar en un pedido"] -. "<<extend>>" .-> CU03
-    CU14 -. "<<extend>>" .-> CU04b["CU-04 Producción y evidencia"]
-    CU14 -. "<<extend>>" .-> CU05["CU-05 Revisión y aprobación"]
-    CU14 -. "<<extend>>" .-> CU06["CU-06 Entrega personal"]
-    CU14 -. "<<extend>>" .-> CU20["CU-20 Pedir un producto del maker"]
-    CU16["CU-16 Valorar y consultar reputación"] -. "<<extend>>" .-> CU06
-  end
-```
+### Relaciones entre casos de uso
 
-| Relación UML | Caso de uso base | Caso de uso relacionado | Semántica en el dominio de 3DAltoque |
+| Relación | Base | Caso relacionado | Punto del flujo y condición |
 | --- | --- | --- | --- |
-| `<<include>>` | [CU-01 Publicar solicitud](/3daltoque-docs/analisis/casos/cu-01-publicar-solicitud/), [CU-04 Producción y evidencia](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/), [CU-15 Portfolio](/3daltoque-docs/analisis/casos/cu-15-mantener-y-consultar-portfolio/), [CU-19 Catálogo](/3daltoque-docs/analisis/casos/cu-19-mantener-catalogo-de-productos/) | [CU-24 Gestionar archivos autorizados](/3daltoque-docs/analisis/casos/cu-24-gestionar-archivos-autorizados/) | Toda carga de archivo `.STL` o medio visual exige validar tipo, tamaño, integridad y permisos mediante `CU-24`. |
-| `<<extend>>` | [CU-02 Recibir y responder ofertas](/3daltoque-docs/analisis/casos/cu-02-recibir-y-responder-ofertas/), [CU-03 Elegir oferta](/3daltoque-docs/analisis/casos/cu-03-elegir-oferta/) | [CU-25 Negociar condiciones de una oferta](/3daltoque-docs/analisis/casos/cu-25-negociar-condiciones-de-una-oferta/) | Opcionalmente, antes de aceptar una versión, cliente y maker pueden proponer ajustes que publican una nueva `VersionOferta`. |
-| `<<extend>>` | [CU-03](/3daltoque-docs/analisis/casos/cu-03-elegir-oferta/), [CU-04](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/), [CU-05](/3daltoque-docs/analisis/casos/cu-05-revision-y-aprobacion/), [CU-06](/3daltoque-docs/analisis/casos/cu-06-entrega-personal/), [CU-20](/3daltoque-docs/analisis/casos/cu-20-pedir-un-producto-del-maker/) | [CU-14 Conversar en un pedido](/3daltoque-docs/analisis/casos/cu-14-conversar-en-un-pedido/) | Una vez confirmado el pedido, las partes pueden intercambiar mensajes y adjuntos contextuales en cualquier etapa operativa. |
-| `<<extend>>` | [CU-06 Entrega personal](/3daltoque-docs/analisis/casos/cu-06-entrega-personal/) | [CU-16 Valorar y consultar reputación](/3daltoque-docs/analisis/casos/cu-16-valorar-y-consultar-reputacion/) | Una vez confirmada la recepción de la pieza en `CU-06`, se habilita la valoración bidireccional del pedido completado. |
+| include | CU-01 Publicar solicitud | CU-24 Gestionar archivos autorizados | Pasos 2 y 4: la publicación exige autorizar y validar el STL de la solicitud. |
+| include | CU-04 Producción y evidencia | CU-24 Gestionar archivos autorizados | Presentación de evidencia: los medios se habilitan con su finalidad, integridad y pertenencia. |
+| extend | CU-03 Elegir oferta | CU-25 Negociar condiciones | EP-03, antes del paso 3: el cliente elige proponer un cambio. Al responder el maker, el cliente vuelve a consultar las condiciones y decide sobre la versión vigente. |
+
+CU-15 y CU-19 aplican los controles de CU-24 al adjuntar medios durante el mantenimiento de publicaciones. Sus consultas públicas conservan el flujo propio de cada ficha.
+
+CU-14 utiliza como precondición el pedido confirmado por CU-03 o CU-20 y permanece disponible durante su seguimiento. CU-16 requiere la recepción de CU-06. Estas dependencias se expresan en las precondiciones de sus fichas y en los diagramas de estados.
 
 ## Índice de especificaciones
 

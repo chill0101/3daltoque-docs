@@ -45,3 +45,7 @@ Las 25 specs definen el comportamiento de Web y Mobile, sus permisos, datos, API
 - [Inventario visual y contratos de vistas](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/).
 - [Revisión funcional completa](/3daltoque-docs/planificacion/revision-funcional/).
 - [Casos de prueba y trazabilidad](/3daltoque-docs/analisis/pruebas-y-trazabilidad/).
+
+## Referencias visuales complementarias
+
+[Doce vistas Web y Mobile de catálogo y conversaciones](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con prototipo navegable, capturas y recuperación de estados. Las 110 composiciones de Figma conservan sus enlaces originales.

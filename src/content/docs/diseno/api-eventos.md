@@ -133,3 +133,19 @@ Cada evento conserva ID, versión, fecha, recurso y correlación. El hecho de ne
 | RESULTADO_EXTERNO_PENDIENTE | Consultar o conciliar la operación identificada. |
 
 Las respuestas y salidas por funcionalidad están en [las specs](/3daltoque-docs/specs/).
+
+## Contrato intercambiable
+
+[OpenAPI 3.1](/3daltoque-docs/documentos/e37598f41824-openapi.json) contiene las 75 operaciones funcionales y dos controles técnicos. Los [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) completan autenticación, tiempos, recuperación y versionado de las seis integraciones.
+
+## Correspondencia de errores de dominio y HTTP
+
+| Condición | HTTP y code | Recuperación |
+| --- | --- | --- |
+| VALIDACION | 422 validation_failed | Corregir los campos indicados. |
+| SIN_PERMISO | 401 authentication_required, 403 action_forbidden o 404 resource_unavailable según el contexto | Recuperar sesión o utilizar una acción autorizada. |
+| VERSION_MODIFICADA | 409 version_conflict | Consultar la versión vigente. |
+| RECURSO_CERRADO | 409 request_closed u offer_expired | Recuperar alternativas válidas. |
+| ACCESO_COMERCIAL_VENCIDO | 409 membership_required | Renovar para acuerdos nuevos; continuar los existentes. |
+| OPERACION_EN_CONFLICTO | 409 idempotency_conflict | Consultar la intención original y su contenido. |
+| RESULTADO_EXTERNO_PENDIENTE | Recurso consultable con 200/202; una falla temporal puede devolver 503 integration_unavailable | Consultar o conciliar la misma compra. |

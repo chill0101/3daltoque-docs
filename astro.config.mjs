@@ -8,6 +8,7 @@ export default defineConfig({
   output: 'static',
   integrations: [
     starlight({
+      head: [{ tag: "script", attrs: { type: "module" }, content: "const normalizeTitle = value => value.normalize('NFC').replace(/[·•—–]/g, ' ').replace(/\\s+/g, ' ').trim(); const hideDuplicateTitle = () => { const pageTitle = document.querySelector('h1#_top'); const sourceTitle = document.querySelector('.sl-markdown-content > .sl-heading-wrapper:first-child h1, .sl-markdown-content > h1:first-child'); if (pageTitle && sourceTitle && normalizeTitle(pageTitle.textContent) === normalizeTitle(sourceTitle.textContent)) { const target = sourceTitle.closest('.sl-heading-wrapper') || sourceTitle; target.hidden = true; target.style.display = 'none'; } }; hideDuplicateTitle(); document.addEventListener('astro:page-load', hideDuplicateTitle);" }],
       title: '3DAltoque',
       description: 'Documentación del proyecto: impresión 3D, makers cercanos y acuerdos claros.',
       logo: { src: './src/assets/marca.svg', alt: '', replacesTitle: false },
@@ -114,7 +115,9 @@ export default defineConfig({
               }
             }
           ]
-        }
+        },
+        { label: "Manuales", items: [{ autogenerate: { directory: "manuales" } }] },
+        { label: "Presentación", items: [{ autogenerate: { directory: "presentacion" } }] }
       ],
     }),
   ],
