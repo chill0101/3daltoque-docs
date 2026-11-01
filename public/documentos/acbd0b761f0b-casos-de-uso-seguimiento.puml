@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam shadowing false
+skinparam usecaseBackgroundColor #F0F9FF
+skinparam usecaseBorderColor #0A4A70
+skinparam ArrowColor #174C70
+skinparam actorBorderColor #0B2038
+skinparam packageBorderColor #00BBD9
+actor Cliente
+actor Maker
+actor Administración as Admin
+rectangle "3DAltoque · Pedido, conversación y entrega" {
+  usecase "CU-04 Producción y evidencia" as CU04
+  usecase "CU-05 Revisión y aprobación" as CU05
+  usecase "CU-06 Entrega personal" as CU06
+  usecase "CU-14 Conversar en un pedido" as CU14
+  usecase "CU-16 Valorar y consultar reputación" as CU16
+  usecase "CU-17 Consultar historial de pedidos" as CU17
+  usecase "CU-23 Recibir y consultar notificaciones" as CU23
+  usecase "CU-24 Gestionar archivos autorizados" as CU24
+}
+Maker -- CU04
+Cliente -- CU04
+Cliente -- CU05
+Maker -- CU05
+Cliente -- CU06
+Maker -- CU06
+Cliente -- CU14
+Maker -- CU14
+Cliente -- CU16
+Maker -- CU16
+Admin -- CU16
+Cliente -- CU17
+Maker -- CU17
+Cliente -- CU23
+Maker -- CU23
+Cliente -- CU24
+Maker -- CU24
+
+' Inclusiones obligatorias y extensión con punto identificado
+CU04 ..> CU24 : <<include>>
+@enduml

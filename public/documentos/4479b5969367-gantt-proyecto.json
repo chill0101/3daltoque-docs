@@ -1,0 +1,117 @@
+{
+  "fecha": "2026-11-01",
+  "inicio": "2026-11-02",
+  "semanas": 17,
+  "naturaleza": "Estimación interna de trabajo; fechas académicas sujetas a su comunicación oficial",
+  "tareas": [
+    {
+      "id": "W01",
+      "nombre": "Revisión documental y contratos",
+      "semanaInicio": 1,
+      "duracionSemanas": 2,
+      "dependencias": []
+    },
+    {
+      "id": "W02",
+      "nombre": "Entorno, persistencia y despliegue",
+      "semanaInicio": 1,
+      "duracionSemanas": 2,
+      "dependencias": []
+    },
+    {
+      "id": "W03",
+      "nombre": "Identidad, perfiles y capacidades",
+      "semanaInicio": 3,
+      "duracionSemanas": 2,
+      "dependencias": [
+        "W01",
+        "W02"
+      ]
+    },
+    {
+      "id": "W04",
+      "nombre": "Archivos, solicitud y matching",
+      "semanaInicio": 5,
+      "duracionSemanas": 2,
+      "dependencias": [
+        "W03"
+      ]
+    },
+    {
+      "id": "W05",
+      "nombre": "Ofertas y aceptación",
+      "semanaInicio": 7,
+      "duracionSemanas": 2,
+      "dependencias": [
+        "W04"
+      ]
+    },
+    {
+      "id": "W06",
+      "nombre": "Catálogo y pedido directo",
+      "semanaInicio": 5,
+      "duracionSemanas": 3,
+      "dependencias": [
+        "W03"
+      ]
+    },
+    {
+      "id": "W07",
+      "nombre": "Membresías y cobros",
+      "semanaInicio": 5,
+      "duracionSemanas": 3,
+      "dependencias": [
+        "W03"
+      ]
+    },
+    {
+      "id": "W08",
+      "nombre": "Chat, revisión y entrega",
+      "semanaInicio": 9,
+      "duracionSemanas": 3,
+      "dependencias": [
+        "W05",
+        "W06"
+      ]
+    },
+    {
+      "id": "W09",
+      "nombre": "Paridad Mobile",
+      "semanaInicio": 9,
+      "duracionSemanas": 4,
+      "dependencias": [
+        "W05",
+        "W06"
+      ]
+    },
+    {
+      "id": "W10",
+      "nombre": "Integración y ensayos",
+      "semanaInicio": 13,
+      "duracionSemanas": 2,
+      "dependencias": [
+        "W07",
+        "W08",
+        "W09"
+      ]
+    },
+    {
+      "id": "W11",
+      "nombre": "Manuales, demo y entrega",
+      "semanaInicio": 15,
+      "duracionSemanas": 2,
+      "dependencias": [
+        "W10"
+      ]
+    },
+    {
+      "id": "W12",
+      "nombre": "Correcciones y ensayo final",
+      "semanaInicio": 17,
+      "duracionSemanas": 1,
+      "dependencias": [
+        "W11"
+      ]
+    }
+  ]
+}

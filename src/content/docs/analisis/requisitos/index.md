@@ -240,7 +240,7 @@ La [revisión funcional completa](/3daltoque-docs/planificacion/revision-funcion
 
 ## Perfil de medición
 
-PERF-01 debe fijar entorno, volumen de datos, mezcla de operaciones, concurrencia, duración y herramientas antes de ejecutar. Las metas propuestas se revisan con PD-13. Cada informe de ejecución debe identificar la versión del RNF, el resultado medido y las exclusiones autorizadas.
+El [perfil PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) fija el entorno de referencia, volumen de datos, mezcla de operaciones, concurrencia, duración y umbrales del piloto. Cada ejecución conserva la versión del RNF, configuración, resultados medidos y evidencia. Los cambios de capacidad y objetivos se registran mediante PD-13.
 
 ## Cobertura funcional ampliada
 

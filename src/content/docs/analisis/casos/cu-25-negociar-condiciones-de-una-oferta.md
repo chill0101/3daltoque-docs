@@ -50,3 +50,7 @@ El [catálogo de pruebas y trazabilidad](/3daltoque-docs/analisis/pruebas-y-traz
 ## Salidas e incidencias
 
 El resultado conserva la referencia del recurso, estado y fecha del servidor. Las alternativas mantienen los datos recuperables y ofrecen la acción de salida especificada en el paso correspondiente.
+
+## Relación de extensión
+
+Extiende CU-03 en EP-03 cuando el cliente propone modificar una oferta antes de confirmarla. La postcondición devuelve al cliente a la comparación de versiones vigentes.

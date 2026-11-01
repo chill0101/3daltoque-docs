@@ -17,7 +17,7 @@ El repositorio del frontend es privado y su acceso se gestiona mediante una invi
 ## Equipo
 
 - Lucas Bernardez.
-- Rocío Cariaga.
+- María del Rosario Cariaga.
 - Lucas Ruiz.
 
 Proyecto de **Análisis de Sistemas**, desarrollado como trabajo final de carrera.

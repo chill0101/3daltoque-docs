@@ -215,3 +215,7 @@ Las secciones incluyen variantes de tamaño de Button, navegación por rol y las
 ## Ajustes visuales pendientes
 
 Revisar los mocks de perfil público, productos, confirmación directa, bandeja de conversaciones y estados alternativos contra sus contratos. Las asociaciones RF, CU y pruebas están en [la matriz funcional](/3daltoque-docs/specs/02-matriz-de-cobertura/).
+
+## Referencias visuales complementarias
+
+[Doce vistas Web y Mobile de catálogo y conversaciones](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con prototipo navegable, capturas y recuperación de estados. Las 110 composiciones de Figma conservan sus enlaces originales.

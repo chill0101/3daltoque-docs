@@ -1,46 +1,37 @@
 ---
-title: Estado de la documentación
-description: Avance de los entregables académicos, documentos disponibles y tareas pendientes.
+title: "Estado de la documentación"
 ---
 
-El portal reúne la presentación del producto, las funcionalidades, los requisitos, las specs, los casos de uso, los prototipos y el design system. También incluye diagramas de dominio, datos, arquitectura, componentes, estados y secuencias, junto con el modelo lógico, los contratos propuestos de API y el plan de integraciones. El avance se organiza según los checkpoints de la materia.
+# Estado de la documentación
 
-## Cómo leer los estados
+La documentación reúne el producto, sus reglas, modelos, contratos, pruebas, manuales y planificación. Los enlaces siguen los puntos de la checklist académica.
 
-El equipo selecciona y revisa cada documento antes de incorporarlo al portal. La publicación sigue el orden y el alcance acordados para cada checkpoint.
+## Entregables
 
-El checklist registra por separado la revisión del equipo, la publicación y la devolución del docente.
+| Punto | Material disponible | Próximo control |
+| --- | --- | --- |
+| [Documento de funcionalidades](/3daltoque-docs/proyecto/funcionalidades/) | 25 funcionalidades y sus specs, actores, canales y referencias. | Implementar y verificar cada recorrido. |
+| [1. Requisitos funcionales](/3daltoque-docs/analisis/requisitos/funcionales/) | 68 fichas y criterios de éxito. | Evidencia de ejecución por release. |
+| [2. Requisitos no funcionales](/3daltoque-docs/analisis/requisitos/no-funcionales/) | 19 fichas, justificación arquitectónica y perfil PERF-01. | Ejecutar los ensayos con el entorno identificado. |
+| [3. Diagrama de casos de uso](/3daltoque-docs/analisis/casos-de-uso/) | 25 CU y actores; relaciones y punto EP-03; SVG y fuente. | Cotejar cambios futuros con las fichas. |
+| [4. Especificaciones de CU](/3daltoque-docs/analisis/casos-de-uso/) | 25 fichas con plantilla de la materia y flujos numerados. | Validar recorridos sobre el producto. |
+| [5. Prototipo Web](/3daltoque-docs/specs/recorridos-y-estados/) | 60 composiciones Figma y seis vistas HTML con recorridos y estados. | Validar los recorridos y estados con usuarios. |
+| [6. Prototipo Mobile](/3daltoque-docs/specs/recorridos-y-estados/) | 50 composiciones Figma y seis vistas HTML con paridad y recuperación. | Validar los recorridos y estados con usuarios. |
+| [7. Clases de dominio](/3daltoque-docs/modelado/clases-y-arquitectura/) | 39 clases, relaciones y cardinalidades con fuente editable. | Cotejar con implementación y evolución de reglas. |
+| [8. DER y modelo lógico](/3daltoque-docs/modelado/modelo-logico/) | 58 tablas, 548 columnas y diez vistas DER. | Aplicar y verificar migraciones del release. |
+| [9. Definición de pruebas](/3daltoque-docs/planificacion/pruebas/) | 160 escenarios, 28 fichas detalladas, ocho PNF y fixtures relacionados. | Ejecutar y registrar resultados. |
+| [10. Trazabilidad](/3daltoque-docs/specs/02-matriz-de-cobertura/) | Relaciones RF/RNF, F, CU, vista, contrato, datos y CP. | Incorporar resultados y evidencia de ejecución. |
+| [11. Arquitectura](/3daltoque-docs/diseno/arquitectura/) | Monolito modular, puertos/adaptadores y mecanismos para RNF. | Fijar versiones y proveedores en el release. |
+| [12. Clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) | 14 servicios, operaciones, puertos y colaboraciones. | Cotejar dependencias con el código. |
+| [13. Componentes](/3daltoque-docs/diseno/arquitectura/#componentes) | Módulos, responsabilidades e interfaces. | Verificar despliegue e integración. |
+| [14. Interfaces entre sistemas](/3daltoque-docs/diseno/contratos-operativos/) | Seis integraciones y OpenAPI con 75 operaciones funcionales y dos técnicas. | Validar implementación y sandbox de proveedores. |
+| [15. Manual de instalación](/3daltoque-docs/manuales/instalacion/) | Entornos, configuración, migraciones, arranque, respaldo y diagnóstico. | Cotejar comandos y resultados del release del producto. |
+| [16. Plan post cursada](/3daltoque-docs/planificacion/post-cursada/) | Doce tareas priorizadas, dependencias, ventanas y criterios de cierre. | Asignar responsables nominales y ajustar calendario oficial. |
+| [Manual de usuario](/3daltoque-docs/manuales/) | Cliente, maker y administración; acciones, errores y recuperación. | Actualizar capturas del producto al disponer del release. |
+| [Material de presentación](/3daltoque-docs/presentacion/material/) | Diez diapositivas navegables, notas y guion de demo. | Grabar funcionamiento y ajustar duración al formato de cátedra. |
 
-## Estado por entregable
+## Planificación y seguimiento
 
-| Elemento de la planificación académica | Situación en este portal |
-| --- | --- |
-| Documento de funcionalidades (Planificación de proyecto) | [Catálogo de 25 funcionalidades (`F01` a `F25`)](/3daltoque-docs/proyecto/funcionalidades/) y [25 specs individuales](/3daltoque-docs/specs/) disponibles |
-| Requisitos funcionales | [68 fichas disponibles](/3daltoque-docs/analisis/requisitos/funcionales/); revisión del equipo pendiente de cierre |
-| Requisitos no funcionales | [19 fichas disponibles](/3daltoque-docs/analisis/requisitos/no-funcionales/); metas y perfil de medición por acordar |
-| Diagrama de casos de uso | [Diagrama de actores, CU-01 a CU-25 y relaciones `<<include>>`/`<<extend>>`](/3daltoque-docs/analisis/casos-de-uso/#diagrama-de-casos-de-uso) disponible, con imagen ampliable y fuente editable |
-| Especificaciones de casos de uso | [25 fichas individuales con la plantilla de la materia](/3daltoque-docs/analisis/casos-de-uso/); flujos normales y alternativas numerados, con referencias a requisitos y pruebas |
-| Prototipo de interfaz web | [60 vistas y composiciones inventariadas](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/#web), con enlaces a Figma y [captura de referencia](/3daltoque-docs/specs/01-navegacion-y-pantallas/#vistas-de-referencia); completar estados alternativos y recorridos de extremo a extremo |
-| Prototipo de interfaz mobile | [50 vistas y composiciones inventariadas](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/#mobile), con enlaces a Figma y [capturas de solicitud y búsqueda](/3daltoque-docs/specs/01-navegacion-y-pantallas/#vistas-de-referencia); completar estados alternativos y recorridos de extremo a extremo |
-| Diagrama de clases de dominio | [Diagrama disponible](/3daltoque-docs/modelado/clases-y-arquitectura/#dominio), con imagen ampliable y fuente editable; cerrar la revisión de relaciones |
-| Diagrama entidad-relación y modelo lógico | [Diez vistas del DER](/3daltoque-docs/modelado/datos/) y [modelo lógico de 58 tablas y 548 columnas](/3daltoque-docs/modelado/modelo-logico/) disponibles |
-| Definición de casos de prueba | [Plan de pruebas, 28 fichas paso a paso (`CP-001..028`) y 8 ensayos no funcionales (`PNF-001..008`)](/3daltoque-docs/planificacion/pruebas/) más [160 escenarios de cobertura por RF/CU](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) disponibles |
-| Documento de trazabilidad | [Matriz de cobertura (`F01–F25`, `68 RF`, `25 CU`, `58 tablas`, `160 CP`) y justificación arquitectónica de los `19 RNF` disponible](/3daltoque-docs/specs/02-matriz-de-cobertura/) |
-| Diseño de arquitectura | [Arquitectura modular con puertos y adaptadores](/3daltoque-docs/diseno/arquitectura/) y [diseño de implementación](/3daltoque-docs/diseno/implementacion/) disponibles; cerrar hosting, workers y versiones concretas |
-| Diagrama de clases de diseño | [14 servicios de aplicación con operaciones, puertos y colaboraciones](/3daltoque-docs/diseno/clases-de-diseno/) |
-| Diseño de componentes | [Diagrama de componentes lógicos disponible](/3daltoque-docs/diseno/arquitectura/#componentes), con imagen ampliable y fuente editable |
-| Interfaces entre sistemas e integraciones | [Plan de seis integraciones](/3daltoque-docs/diseno/integraciones/), [contratos propuestos de API y eventos](/3daltoque-docs/diseno/api-eventos/) y [convenciones compartidas](/3daltoque-docs/specs/00-contratos-y-convenciones/) disponibles; cerrar proveedores, contratos definitivos y OpenAPI |
-| Manual de instalación | Pendiente de incorporación del manual de la aplicación |
-| Plan de tareas post cursada | Pendiente de incorporación |
-| Manual de usuario | Pendiente de incorporación |
-| Material de presentación | Pendiente de incorporación |
+La [ficha del proyecto](/3daltoque-docs/planificacion/ficha-proyecto/), el [cronograma y WBS](/3daltoque-docs/planificacion/cronograma/), el [análisis de contexto y viabilidad](/3daltoque-docs/proyecto/investigacion-y-viabilidad/) y el [plan de calidad y riesgos](/3daltoque-docs/planificacion/calidad-y-riesgos/) organizan el trabajo y sus criterios de cierre. Los responsables nominales, fechas de instancias y condiciones de entrega se registran con los acuerdos del equipo y de la cátedra.
 
-## Criterio de incorporación
-
-Cada documento debe identificar su versión o estado, mantener referencias consistentes y distinguir requisitos, propuestas y decisiones adoptadas. Los diagramas deben acompañarse de contexto y una fuente editable cuando corresponda.
-
-Todo archivo publicado en el sitio queda accesible públicamente. El equipo selecciona material autorizado y conserva las credenciales, los datos privados y las notas internas en sus espacios de trabajo.
-
-## Próximo avance documental
-
-La [revisión funcional completa](/3daltoque-docs/planificacion/revision-funcional/) detalla la cobertura de las 25 funcionalidades, catálogo fijo, conversación, portfolio, reputación, historial y reportes. Los [parámetros operativos](/3daltoque-docs/planificacion/parametros/) reúnen los valores por acordar. El siguiente avance comprende consolidación de contratos en OpenAPI, implementación y ejecución de CP, junto con la revisión de los entregables restantes.
+[Prototipos complementarios](/3daltoque-docs/specs/prototipo-catalogo-y-chat/): doce vistas Web/Mobile de catálogo y conversaciones, con capturas y navegación.

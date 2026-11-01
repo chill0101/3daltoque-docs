@@ -27,6 +27,14 @@ Actualización: 25 de octubre de 2026. Las imágenes y fuentes editables se inse
 ```plantuml
 @startuml
 left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam shadowing false
+skinparam usecaseBackgroundColor #F0F9FF
+skinparam usecaseBorderColor #0A4A70
+skinparam ArrowColor #174C70
+skinparam actorBorderColor #0B2038
+skinparam packageBorderColor #00BBD9
 actor Cliente
 actor Maker
 actor Visitante
@@ -101,19 +109,11 @@ Cliente -- CU24
 Maker -- CU24
 Cliente -- CU25
 Maker -- CU25
-' Relaciones <<include>> y <<extend>>
+
+' Inclusiones obligatorias y extensión con punto identificado
 CU01 ..> CU24 : <<include>>
 CU04 ..> CU24 : <<include>>
-CU15 ..> CU24 : <<include>>
-CU19 ..> CU24 : <<include>>
-CU14 ..> CU03 : <<extend>>
-CU14 ..> CU04 : <<extend>>
-CU14 ..> CU05 : <<extend>>
-CU14 ..> CU06 : <<extend>>
-CU14 ..> CU20 : <<extend>>
-CU25 ..> CU02 : <<extend>>
-CU25 ..> CU03 : <<extend>>
-CU16 ..> CU06 : <<extend>>
+CU25 ..> CU03 : <<extend>>\nEP-03: antes de confirmar
 @enduml
 ```
 

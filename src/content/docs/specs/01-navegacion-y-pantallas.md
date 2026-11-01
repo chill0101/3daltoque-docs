@@ -875,7 +875,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F03](/3daltoque-docs/specs/f03-gestion-de-perfil-de-maker/), [F04](/3daltoque-docs/specs/f04-portfolio-del-maker/), [F18](/3daltoque-docs/specs/f18-reputacion-bidireccional/), [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Consultar capacidades, zona pública, catálogo fijo, portfolio y reputación; abrir un producto o trabajo publicado. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="web-cat-01"></a>
 
@@ -888,7 +888,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Listar productos propios por estado; crear, editar, publicar, pausar o retirar según capacidad devuelta. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="web-cat-02"></a>
 
@@ -901,7 +901,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Editar configuración fija, precio, moneda, cantidades, plazo, condiciones y archivos; mostrar validación y versión en conflicto. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="web-cat-03"></a>
 
@@ -914,7 +914,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Presentar condiciones publicadas, cantidad admitida y disponibilidad; autenticar al cliente antes de confirmar. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="web-cat-04"></a>
 
@@ -927,7 +927,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Revisar versión, cantidad, precio unitario, total, moneda, plazo y condiciones; conservar clave ante incertidumbre y abrir pedido confirmado. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="web-chat-00"></a>
 
@@ -940,7 +940,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F13](/3daltoque-docs/specs/f13-mensajeria-cliente-maker/) |
 | Contrato | Bandeja propia paginada con pedido y último mensaje; abrir conversación autorizada, resolver vacío y recuperar conexión. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 </details>
 
@@ -958,7 +958,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F03](/3daltoque-docs/specs/f03-gestion-de-perfil-de-maker/), [F04](/3daltoque-docs/specs/f04-portfolio-del-maker/), [F18](/3daltoque-docs/specs/f18-reputacion-bidireccional/), [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Consultar capacidades, zona pública, catálogo fijo, portfolio y reputación; abrir un producto o trabajo publicado. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="mob-cat-01"></a>
 
@@ -971,7 +971,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Listar productos propios por estado; crear, editar, publicar, pausar o retirar según capacidad devuelta. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="mob-cat-02"></a>
 
@@ -984,7 +984,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Editar configuración fija, precio, moneda, cantidades, plazo, condiciones y archivos; mostrar validación y versión en conflicto. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="mob-cat-03"></a>
 
@@ -997,7 +997,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Presentar condiciones publicadas, cantidad admitida y disponibilidad; autenticar al cliente antes de confirmar. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="mob-cat-04"></a>
 
@@ -1010,7 +1010,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F25](/3daltoque-docs/specs/f25-catalogo-de-productos-del-maker/) |
 | Contrato | Revisar versión, cantidad, precio unitario, total, moneda, plazo y condiciones; conservar clave ante incertidumbre y abrir pedido confirmado. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 <a id="mob-chat-00"></a>
 
@@ -1023,7 +1023,7 @@ Doce contratos de navegación completan catálogo, perfil público e inbox de pe
 | Funcionalidades | [F13](/3daltoque-docs/specs/f13-mensajeria-cliente-maker/) |
 | Contrato | Bandeja propia paginada con pedido y último mensaje; abrir conversación autorizada, resolver vacío y recuperar conexión. |
 | Estados | Carga, vacío, contenido, validación por campo, sin permiso, conflicto de versión, desconexión y recuperación. |
-| Diseño | Contrato funcional documentado; mock pendiente |
+| Diseño | [Prototipo navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/) |
 
 </details>
 
@@ -1700,3 +1700,7 @@ Cada ficha conserva el enlace al mock de referencia. El contrato de su funcional
 | Reglas vigentes | Consultar la spec y el caso de uso relacionados; los campos visuales existentes se conservan para la revisión de diseño. |
 
 </details>
+
+## Prototipo complementario
+
+Las doce vistas de catálogo, perfil público y bandeja de conversaciones cuentan con [referencia HTML navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con sus estados y recorridos Web/Mobile.

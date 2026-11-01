@@ -4,7 +4,7 @@ title: "Roadmap de 3DAltoque"
 
 # Roadmap de 3DAltoque
 
-Última actualización: **25 de octubre de 2026**. Cada etapa se cierra con su evidencia y la fecha acordada por el equipo.
+Última actualización: **1 de noviembre de 2026**. Cada etapa se cierra con su evidencia y la fecha acordada por el equipo.
 
 ## Etapas y criterios de avance
 
@@ -32,3 +32,7 @@ Cada hito requiere responsable, fecha acordada, documento/versiones y evidencia 
 ## Cobertura funcional consolidada
 
 La [revisión del 25 de octubre](/3daltoque-docs/planificacion/revision-funcional/) incorpora 25 funcionalidades y 25 CU, incluido catálogo con pedido directo y chat desde el pedido confirmado. El avance siguiente concentra parámetros reales, contratos OpenAPI, migraciones e implementación por recorrido. La validación agrega resultados y evidencia a los 160 CP planificados. La actualización visual de Figma y la selección de documentos para el portal conservan sus propias actividades.
+
+## Paquete documental disponible
+
+[Manuales](/3daltoque-docs/manuales/), [WBS y Gantt](/3daltoque-docs/planificacion/cronograma/), [plan post cursada](/3daltoque-docs/planificacion/post-cursada/), [prototipos complementarios](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), [PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/), [contratos operativos y OpenAPI](/3daltoque-docs/diseno/contratos-operativos/) y [presentación](/3daltoque-docs/presentacion/material/).

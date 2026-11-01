@@ -62,3 +62,7 @@ El pago directo de la impresión queda documentado en las condiciones acordadas 
 | INT-06 | F11 y administración: simulación de cobros del abono en entorno permitido. | Modo identificado y separado de las concesiones comerciales reales. |
 
 Los productos de precio fijo crean pedidos directos mediante la API. Portfolio y reputación utilizan persistencia, archivos autorizados y lecturas públicas controladas. Los valores y credenciales reales de cada servicio quedan en [el registro operativo](/3daltoque-docs/planificacion/parametros/).
+
+## Contratos de ejecución
+
+Los [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) definen entradas, salidas, identidad, timeouts, deduplicación y recuperación por integración. [OpenAPI 3.1](/3daltoque-docs/documentos/e37598f41824-openapi.json) conserva el contrato intercambiable. [Seguridad y operación](/3daltoque-docs/diseno/seguridad/) detalla las fronteras y controles.

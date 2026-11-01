@@ -25,7 +25,7 @@ Las reglas funcionales se fundamentan en el catálogo F01 a F25, los RF/RNF, ADR
 | Claves de operación | Identidad estable para el mismo intento lógico; nueva intención utiliza otra clave. |
 | Correlación | request_id y referencia del recurso; excluir secretos y datos personales innecesarios. |
 
-La elección de cookie o token, recuperación de sesión y política de revocación se resuelve en PD-01. La capa de acceso encapsula esa decisión para los clientes.
+La referencia de sesiones opacas revocables utiliza cookie protegida para Web y Bearer para Mobile, sobre la misma identidad del backend. [Seguridad y operación](/3daltoque-docs/diseno/seguridad/) fija sus controles; [OpenAPI](/3daltoque-docs/documentos/e37598f41824-openapi.json) expresa ambos transportes.
 
 ## Éxito y error
 
@@ -38,6 +38,7 @@ Se propone application/problem+json, con type, title, status, detail e instance,
 | 401 | authentication_required | Recuperar autenticación y preservar una intención de navegación segura. |
 | 403 | action_forbidden | Mostrar la condición de acceso y mantener acciones permitidas. |
 | 404 | resource_unavailable | Mensaje seguro según política de visibilidad. |
+| 409 | idempotency_conflict | Consultar la intención original; una clave con otro contenido conserva el primer resultado. |
 | 409 | version_conflict | Consultar versión actual y pedir revisar los cambios. |
 | 409 | offer_expired / request_closed | Recuperar alternativas disponibles. |
 | 409 | founder_capacity_exhausted | Conservar el formulario y mostrar el estado del programa. |
@@ -47,7 +48,7 @@ Se propone application/problem+json, con type, title, status, detail e instance,
 | 502/503 | integration_unavailable | Conservar el recurso local y mostrar recuperación. |
 | 202 | operation_pending | Consultar resultado antes de repetir una operación sensible. |
 
-Un timeout de transporte representa incertidumbre del cliente. Para aceptación de oferta, pedido de producto, compra de abono, devolución y cierre se consulta la operación existente antes de reenviar. Se propone transportar la clave mediante Idempotency-Key y relacionarla con clave_operacion en persistencia. La clave se acota a actor, operación, recurso y payload normalizado. Una repetición con contenido distinto debe producir un conflicto identificable. Retención y ventana de deduplicación quedan sujetas a la política de operación.
+Un timeout de transporte representa incertidumbre del cliente. Para aceptación de oferta, pedido de producto, compra de abono, devolución y cierre se consulta la operación existente antes de reenviar. La clave se transporta mediante Idempotency-Key y se relaciona con clave_operacion en persistencia. La clave se acota a actor, operación, recurso y payload normalizado. Una repetición con contenido distinto debe producir un conflicto identificable. Retención y ventana de deduplicación quedan sujetas a la política de operación.
 
 ## Consistencia y eventos
 

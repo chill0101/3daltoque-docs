@@ -77,3 +77,7 @@ Backend conserva dominio, aplicación, adaptadores, API, worker y migraciones se
 ## Cobertura de catálogo y comunicación
 
 El pedido directo del catálogo conserva una versión publicada, cantidad y precio del servidor y utiliza la misma frontera de confirmación y seguimiento del pedido personalizado. El chat se habilita al confirmar el pedido y autoriza a sus participantes. Portfolio, reputación e indicadores tienen servicios y persistencia identificados en [clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) y [modelo lógico](/3daltoque-docs/modelado/modelo-logico/).
+
+## Atributos de calidad y operación
+
+La [matriz de RNF](/3daltoque-docs/specs/02-matriz-de-cobertura/#justificacion-arquitectonica-de-requerimientos-no-funcionales-rnf-01-a-rnf-19) relaciona los 19 atributos con decisiones y pruebas. [PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/), [seguridad](/3daltoque-docs/diseno/seguridad/) y [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) fijan los criterios y mecanismos de evaluación.

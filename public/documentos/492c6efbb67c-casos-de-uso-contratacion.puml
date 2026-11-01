@@ -1,0 +1,47 @@
+@startuml
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam shadowing false
+skinparam usecaseBackgroundColor #F0F9FF
+skinparam usecaseBorderColor #0A4A70
+skinparam ArrowColor #174C70
+skinparam actorBorderColor #0B2038
+skinparam packageBorderColor #00BBD9
+actor Cliente
+actor Maker
+actor Visitante
+actor Administración as Admin
+rectangle "3DAltoque · Solicitudes, catálogo y ofertas" {
+  usecase "CU-01 Publicar solicitud" as CU01
+  usecase "CU-02 Recibir y responder ofertas" as CU02
+  usecase "CU-03 Elegir oferta" as CU03
+  usecase "CU-15 Mantener y consultar portfolio" as CU15
+  usecase "CU-19 Mantener catálogo de productos" as CU19
+  usecase "CU-20 Pedir un producto del maker" as CU20
+  usecase "CU-21 Gestionar capacidades del maker" as CU21
+  usecase "CU-22 Gestionar perfil de cliente" as CU22
+  usecase "CU-24 Gestionar archivos autorizados" as CU24
+  usecase "CU-25 Negociar condiciones de una oferta" as CU25
+}
+Cliente -- CU01
+Maker -- CU02
+Cliente -- CU03
+Maker -- CU15
+Visitante -- CU15
+Admin -- CU15
+Maker -- CU19
+Visitante -- CU19
+Admin -- CU19
+Cliente -- CU20
+Maker -- CU21
+Cliente -- CU22
+Cliente -- CU24
+Maker -- CU24
+Cliente -- CU25
+Maker -- CU25
+
+' Inclusiones obligatorias y extensión con punto identificado
+CU01 ..> CU24 : <<include>>
+CU25 ..> CU03 : <<extend>>\nEP-03: antes de confirmar
+@enduml

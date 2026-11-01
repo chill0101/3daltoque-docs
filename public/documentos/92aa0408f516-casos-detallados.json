@@ -1,0 +1,407 @@
+{
+  "fecha": "2026-11-01",
+  "version": "1.0",
+  "entorno": "Prueba aislada con datos sintéticos y reloj controlable",
+  "casos": [
+    {
+      "id": "CP-001",
+      "precondiciones": "Identidad disponible; correo de alta sin registrar; términos vigentes publicados.",
+      "datos": "Correo nuevo cliente.demo01@test.3daltoque.local; rol CLIENTE; acepta_terminos=true.",
+      "tecnica": "partición de equivalencia",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-01-1-01",
+        "CP-RF-01-1-02",
+        "CP-RF-01-3-01",
+        "CP-RF-01-3-02"
+      ]
+    },
+    {
+      "id": "CP-002",
+      "precondiciones": "Cuenta U-C1 activa; límite de acceso de prueba fijado en cinco fallos por minuto.",
+      "datos": "Cinco contraseñas incorrectas y un sexto intento dentro de la ventana; repetir desde Web y Mobile.",
+      "tecnica": "valor límite",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-01-4-01",
+        "CP-RF-01-4-02"
+      ]
+    },
+    {
+      "id": "CP-003",
+      "precondiciones": "U-C1 autenticado; almacén de prueba disponible; maker compatible elegible en la zona.",
+      "datos": "STL válido de 4,2 MB, PETG, cantidad 2 y ubicación Almagro; conservar hash y unidad mm.",
+      "tecnica": "recorrido de CU",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-02-1-01",
+        "CP-RF-02-1-02",
+        "CP-RF-02-3-01",
+        "CP-RF-02-3-02",
+        "CP-RF-09-1-01",
+        "CP-RF-09-1-02",
+        "CP-RF-10-1-01",
+        "CP-RF-10-1-02",
+        "CP-RF-10-2-01",
+        "CP-RF-10-2-02"
+      ]
+    },
+    {
+      "id": "CP-004",
+      "precondiciones": "U-C1 autenticado; formulario de solicitud abierto.",
+      "datos": "Descripción vacía, cantidad 0 y ubicación ausente; luego corregir uno por vez.",
+      "tecnica": "partición de equivalencia",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-02-3-01",
+        "CP-RF-02-3-02"
+      ]
+    },
+    {
+      "id": "CP-005",
+      "precondiciones": "Sesión de cliente activa; cuota del fixture de 20 MiB por STL.",
+      "datos": "Ejecutable con extensión .stl y archivo de 250 MB; probar también límite exacto de 20 MiB.",
+      "tecnica": "valores límite",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-02-2-01",
+        "CP-RF-02-2-02",
+        "CP-RF-10-1-01",
+        "CP-RF-10-1-02"
+      ]
+    },
+    {
+      "id": "CP-006",
+      "precondiciones": "STL habilitado y configuración de estimación identificada; tarifa del fixture definida.",
+      "datos": "Volumen de 28,5 cm³, PLA y cantidad 2; registrar versión de fórmula y coeficientes.",
+      "tecnica": "tabla de decisión",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-02-5-01",
+        "CP-RF-02-5-02"
+      ]
+    },
+    {
+      "id": "CP-007",
+      "precondiciones": "Solicitud propia abierta; cuatro makers con ubicación y capacidades registradas.",
+      "datos": "A=compatible/activo; B=compatible/fundador; C=material incompatible; D=compatible/vencido; radio 10 km.",
+      "tecnica": "tabla de decisión",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-03-1-01",
+        "CP-RF-03-1-02",
+        "CP-RF-03-2-01",
+        "CP-RF-03-2-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02"
+      ]
+    },
+    {
+      "id": "CP-008",
+      "precondiciones": "M-M1 invitado, elegible y solicitud abierta; moneda ARS.",
+      "datos": "v1=18500.00 y tres días; v2=17000.00 y dos días; claves de operación distintas.",
+      "tecnica": "transición de estados",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-04-1-01",
+        "CP-RF-04-1-02",
+        "CP-RF-04-2-01",
+        "CP-RF-04-2-02",
+        "CP-RF-04-5-01",
+        "CP-RF-04-5-02",
+        "CP-RF-04-6-01",
+        "CP-RF-04-6-02"
+      ]
+    },
+    {
+      "id": "CP-009",
+      "precondiciones": "Dos makers: M-M2 sin invitación y otro invitado con acceso vencido; solicitud vigente.",
+      "datos": "Primero cuenta sin invitación con acceso vigente; después cuenta invitada vencida; mismo cuerpo válido de oferta.",
+      "tecnica": "tabla de decisión",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-04-1-01",
+        "CP-RF-04-1-02",
+        "CP-RF-12-4-01",
+        "CP-RF-12-4-02",
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02"
+      ]
+    },
+    {
+      "id": "CP-010",
+      "precondiciones": "U-C1 titular; M-M1 elegible; solicitud abierta con dos ofertas.",
+      "datos": "OF-01 v2 vigente y OF-02 v1 vigente; aceptar OF-01 con clave CP010-A.",
+      "tecnica": "transacción e invariantes",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-04-3-01",
+        "CP-RF-04-3-02",
+        "CP-RF-04-4-01",
+        "CP-RF-04-4-02",
+        "CP-RF-05-3-01",
+        "CP-RF-05-3-02",
+        "CP-RF-12-15-01",
+        "CP-RF-12-15-02"
+      ]
+    },
+    {
+      "id": "CP-011",
+      "precondiciones": "Solicitud propia abierta; oferta v1 sustituida por v2 y una segunda oferta vencida.",
+      "datos": "Aceptar v1; luego oferta vencida; consultar pedidos antes y después de cada intento.",
+      "tecnica": "versión y vigencia",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-04-2-01",
+        "CP-RF-04-2-02",
+        "CP-RF-04-4-01",
+        "CP-RF-04-4-02"
+      ]
+    },
+    {
+      "id": "CP-012",
+      "precondiciones": "Solicitud con dos ofertas vigentes y conexiones de cliente autenticadas.",
+      "datos": "Dos claves diferentes sobre la misma solicitud; repetir con una clave común y cuerpo idéntico.",
+      "tecnica": "concurrencia",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-04-4-01",
+        "CP-RF-04-4-02"
+      ]
+    },
+    {
+      "id": "CP-013",
+      "precondiciones": "Pedido P-01 confirmado con M-M1; fotos autorizadas privadas; sesión maker activa.",
+      "datos": "P-01, versión vigente y dos fotografías válidas; clave de envío CP013-A.",
+      "tecnica": "transición de estados",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-06-1-01",
+        "CP-RF-06-1-02",
+        "CP-RF-06-2-01",
+        "CP-RF-06-2-02",
+        "CP-RF-06-5-01",
+        "CP-RF-06-5-02",
+        "CP-RF-10-2-01",
+        "CP-RF-10-2-02"
+      ]
+    },
+    {
+      "id": "CP-014",
+      "precondiciones": "P-01 confirmado entre U-C1 y M-M1; U-C2 ajeno al pedido; archivo privado habilitado.",
+      "datos": "Mensaje CP014-A y adjunto privado; consultas con U-C1, M-M1 y U-C2.",
+      "tecnica": "autorización por recurso",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-05-1-01",
+        "CP-RF-05-1-02",
+        "CP-RF-05-2-01",
+        "CP-RF-05-2-02",
+        "CP-RF-10-3-01",
+        "CP-RF-10-3-02"
+      ]
+    },
+    {
+      "id": "CP-015",
+      "precondiciones": "P-01 EN_REVISION con revisión R-01 vigente y evidencia consultable por U-C1.",
+      "datos": "U-C1 aprueba R-01 con versión_esperada vigente; repetir la intención original.",
+      "tecnica": "transición de estados",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-06-3-01",
+        "CP-RF-06-3-02",
+        "CP-RF-05-3-01",
+        "CP-RF-05-3-02"
+      ]
+    },
+    {
+      "id": "CP-016",
+      "precondiciones": "P-01 con revisión pendiente y P-02 con revisión observada; actores participantes.",
+      "datos": "Coordinar y confirmar recepción sobre ambos pedidos sin aprobación; comparar estado previo.",
+      "tecnica": "tabla de decisión",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-06-3-01",
+        "CP-RF-06-3-02",
+        "CP-RF-06-6-01",
+        "CP-RF-06-6-02"
+      ]
+    },
+    {
+      "id": "CP-017",
+      "precondiciones": "P-01 en revisión R-01; U-C1 titular; observación con motivo.",
+      "datos": "Motivo: corregir rebaba; luego evidencia R-02 vinculada al mismo pedido.",
+      "tecnica": "transición de estados",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-06-3-01",
+        "CP-RF-06-3-02",
+        "CP-RF-05-3-01",
+        "CP-RF-05-3-02"
+      ]
+    },
+    {
+      "id": "CP-018",
+      "precondiciones": "R-01 pendiente; recordatorio a las 24 h en la configuración de prueba; reloj controlable.",
+      "datos": "Instantes t0, t0+24 h y t0+48 h; ejecutar dos veces el mismo ciclo de recordatorio.",
+      "tecnica": "tiempo y deduplicación",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-06-4-01",
+        "CP-RF-06-4-02",
+        "CP-RF-07-4-01",
+        "CP-RF-07-4-02"
+      ]
+    },
+    {
+      "id": "CP-019",
+      "precondiciones": "P-01 con revisión aprobada; propuesta de punto neutral y participantes autenticados.",
+      "datos": "Encuentro E-01 v1; aceptación de la contraparte; recepción de U-C1; reenvío idéntico.",
+      "tecnica": "recorrido de CU",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-06-6-01",
+        "CP-RF-06-6-02",
+        "CP-RF-06-7-01",
+        "CP-RF-06-7-02"
+      ]
+    },
+    {
+      "id": "CP-020",
+      "precondiciones": "M-M1 con domicilio privado y zona pública distintos; U-C1 habilitado para consultas.",
+      "datos": "Inspeccionar cuerpos de búsqueda, perfil, ofertas y encuentro; usar coordenadas privadas reconocibles del fixture.",
+      "tecnica": "protección de datos",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-09-1-01",
+        "CP-RF-09-1-02",
+        "CP-RF-09-2-01",
+        "CP-RF-09-2-02"
+      ]
+    },
+    {
+      "id": "CP-021",
+      "precondiciones": "M-M1 sin primera habilitación ni períodos previos; datos productivos válidos.",
+      "datos": "Prueba de 30 días configurada; completar perfil y editarlo dos veces después de habilitar.",
+      "tecnica": "unicidad temporal",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-01-2-01",
+        "CP-RF-01-2-02",
+        "CP-RF-12-2-01",
+        "CP-RF-12-2-02",
+        "CP-RF-12-4-01",
+        "CP-RF-12-4-02"
+      ]
+    },
+    {
+      "id": "CP-022",
+      "precondiciones": "A-A1 con capacidad de asignación; dos makers elegibles; una plaza disponible.",
+      "datos": "Beneficio 90 días totales; dos solicitudes simultáneas; motivo de asignación y reloj t0.",
+      "tecnica": "concurrencia y límites",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-12-3-01",
+        "CP-RF-12-3-02",
+        "CP-RF-12-13-01",
+        "CP-RF-12-13-02",
+        "CP-RF-12-15-01",
+        "CP-RF-12-15-02"
+      ]
+    },
+    {
+      "id": "CP-023",
+      "precondiciones": "M-M1 con compra de abono creada; credenciales y cuentas exclusivas del entorno de prueba.",
+      "datos": "Compra CP023-A de 10000.00 ARS; retorno del navegador y recurso externo aprobado correspondiente.",
+      "tecnica": "integración",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-12-5-01",
+        "CP-RF-12-5-02",
+        "CP-RF-12-6-01",
+        "CP-RF-12-6-02",
+        "CP-RF-12-7-01",
+        "CP-RF-12-7-02",
+        "CP-RF-12-8-01",
+        "CP-RF-12-8-02",
+        "CP-RF-12-9-01",
+        "CP-RF-12-9-02"
+      ]
+    },
+    {
+      "id": "CP-024",
+      "precondiciones": "Compra CP023-A ya concedida; evento externo conservado; verificador de firma configurado.",
+      "datos": "Mismo evento dos veces; otra notificación con firma alterada; compra y períodos antes/después.",
+      "tecnica": "idempotencia y seguridad",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-12-6-01",
+        "CP-RF-12-6-02",
+        "CP-RF-12-8-01",
+        "CP-RF-12-8-02"
+      ]
+    },
+    {
+      "id": "CP-025",
+      "precondiciones": "P-01 confirmado antes de vencer; reloj posterior al fin del acceso de M-M1.",
+      "datos": "Intentar oferta nueva; después mensaje, evidencia y entrega del pedido existente.",
+      "tecnica": "tabla de decisión",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-12-10-01",
+        "CP-RF-12-10-02"
+      ]
+    },
+    {
+      "id": "CP-026",
+      "precondiciones": "A-A1 con permiso de plan; una compra pendiente y un período vigente con versión anterior.",
+      "datos": "Plan v1=10000.00 ARS; plan v2=12000.00 ARS; motivo y fecha de activación posteriores.",
+      "tecnica": "versionado",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-12-1-01",
+        "CP-RF-12-1-02",
+        "CP-RF-12-12-01",
+        "CP-RF-12-12-02",
+        "CP-RF-12-13-01",
+        "CP-RF-12-13-02"
+      ]
+    },
+    {
+      "id": "CP-027",
+      "precondiciones": "Entorno demo con simulador permitido y entorno comercial con simulador deshabilitado.",
+      "datos": "Mismo resultado simulado en ambos entornos; comprobar modo y referencia de compra.",
+      "tecnica": "segregación de entornos",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-12-14-01",
+        "CP-RF-12-14-02"
+      ]
+    },
+    {
+      "id": "CP-028",
+      "precondiciones": "P-P1 publicado y M-M1 elegible; U-C1 distinto del maker; recepción posterior confirmada.",
+      "datos": "Producto v1, cantidad 2, precio 1000.00 ARS; valoración 4/5; moderación con motivo por A-A1.",
+      "tecnica": "recorrido y auditoría",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-13-1-01",
+        "CP-RF-13-1-02",
+        "CP-RF-13-2-01",
+        "CP-RF-13-2-02",
+        "CP-RF-13-3-01",
+        "CP-RF-13-3-02",
+        "CP-RF-13-4-01",
+        "CP-RF-13-4-02",
+        "CP-RF-15-1-01",
+        "CP-RF-15-1-02",
+        "CP-RF-15-2-01",
+        "CP-RF-15-2-02",
+        "CP-RF-15-3-01",
+        "CP-RF-15-3-02",
+        "CP-RF-07-2-01",
+        "CP-RF-07-2-02"
+      ]
+    }
+  ]
+}

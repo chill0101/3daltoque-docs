@@ -52,13 +52,13 @@ La cobertura documental permite revisar el diseño de cada recorrido. Cada CP co
 | Matching y catálogo | Radios, tamaños de grupo, vigencias y límites de operación en PD-04/PD-05. |
 | Chat, revisión y entrega | Conservación, límites, recordatorios y tratamiento operativo de incidentes en PD-06 a PD-08. |
 | Abono | Cuenta y credenciales por entorno, precio, moneda, cupo, calendario y devoluciones en PD-09/PD-10. |
-| Calidad y operación | Metas de medición, proveedores, hosting, soporte y conservación en PD-11 a PD-15. |
-| Implementación | Consolidar contratos en OpenAPI, migraciones y servicios; ejecutar los CP y registrar evidencia. |
-| Diseño visual | Revisar mocks y añadir las vistas nuevas cuando el equipo retome Figma. |
-| Entrega | Seleccionar el lote para el repo oficial y revisar sus huellas mediante PUBLICAR.md. |
+| Calidad y operación | PERF-01 define el perfil del piloto. La elección de proveedores, hosting y políticas comerciales se registra en PD-11 a PD-15. |
+| Implementación | Implementar el [contrato OpenAPI](/3daltoque-docs/documentos/e37598f41824-openapi.json), migraciones y servicios; ejecutar CP y registrar evidencia. |
+| Diseño visual | Doce vistas nuevas tienen prototipo HTML y capturas. Las composiciones de Figma conservan su versión; la evaluación de recorridos se registra con usuarios. |
+| Entrega | Verificar el paquete documental publicado, sus enlaces y la versión utilizada en cada entrega. |
 
-El [registro PD](/3daltoque-docs/planificacion/parametros/) concentra cada parámetro en su tema. [El estado por entregable](/3daltoque-docs/planificacion/estado/) conserva las revisiones y tareas de los demás entregables. La checklist interna se mantiene en `formal/checklist-de-entregas.md`.
+El [registro PD](/3daltoque-docs/planificacion/parametros/) concentra cada parámetro en su tema. [El estado por entregable](/3daltoque-docs/planificacion/estado/) conserva las revisiones y tareas de los demás entregables.
 
-## Procedimiento del equipo
+## Documentación relacionada
 
-Las instrucciones para agentes están en `AGENTS.md`. El manual `PUBLICAR.md` explica cómo cargar documentos y vistas, preparar Starlight y seleccionar los entregables. La skill compartida está en `.agents/skills/publicar-documentacion-starlight/SKILL.md`.
+[Manuales](/3daltoque-docs/manuales/), [cronograma](/3daltoque-docs/planificacion/cronograma/), [calidad y riesgos](/3daltoque-docs/planificacion/calidad-y-riesgos/), [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) y [PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) completan los procedimientos y criterios de aceptación del proyecto.
