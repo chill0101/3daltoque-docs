@@ -8,7 +8,7 @@ La documentación reúne el producto, sus reglas, modelos, contratos, pruebas, m
 
 ## Entregables
 
-| Punto | Material disponible | Próximo control |
+| Punto | Material documental disponible | Verificación sobre el producto o acuerdo pendiente |
 | --- | --- | --- |
 | [Documento de funcionalidades](/3daltoque-docs/proyecto/funcionalidades/) | 25 funcionalidades y sus specs, actores, canales y referencias. | Implementar y verificar cada recorrido. |
 | [1. Requisitos funcionales](/3daltoque-docs/analisis/requisitos/funcionales/) | 68 fichas y criterios de éxito. | Evidencia de ejecución por release. |
@@ -29,6 +29,22 @@ La documentación reúne el producto, sus reglas, modelos, contratos, pruebas, m
 | [16. Plan post cursada](/3daltoque-docs/planificacion/post-cursada/) | Doce tareas priorizadas, dependencias, ventanas y criterios de cierre. | Asignar responsables nominales y ajustar calendario oficial. |
 | [Manual de usuario](/3daltoque-docs/manuales/) | Cliente, maker y administración; acciones, errores y recuperación. | Actualizar capturas del producto al disponer del release. |
 | [Material de presentación](/3daltoque-docs/presentacion/material/) | Diez diapositivas navegables, notas y guion de demo. | Grabar funcionamiento y ajustar duración al formato de cátedra. |
+
+## Control documental realizado
+
+La revisión comprobó cobertura y referencias de RF/RNF, funcionalidades, CU, vistas, contratos, modelo de datos y CP; los campos de las 28 fichas detalladas y ocho PNF; el contrato OpenAPI; y la compilación y enlaces del portal. Los resultados de ejecución de la aplicación se incorporan por release con versión, entorno, fecha y evidencia.
+
+## Decisiones y datos abiertos
+
+| Tema | Acuerdo o dato que falta | Registro |
+| --- | --- | --- |
+| Modelo comercial | Precio, moneda, cupo y convocatoria de fundadores, regla de calendario y política de devolución del abono. | [PD-09 y PD-10](/3daltoque-docs/planificacion/parametros/#pd-09) |
+| Reglas operativas | Método y coeficientes de estimación, radio y precisión de búsqueda, recordatorios, escalamiento, reprogramaciones, retención y moderación. | [PD-01 a PD-15](/3daltoque-docs/planificacion/parametros/) |
+| Herramientas y proveedores | ORM y versiones, hosting, mapas/geocodificación, almacenamiento y avisos; configuración de cuentas y capacidad del piloto. | [Base técnica](/3daltoque-docs/proyecto/base-tecnica/) y [PD-11](/3daltoque-docs/planificacion/parametros/#pd-11) |
+| Organización | Responsables nominales y dedicación semanal. | [Ficha del proyecto](/3daltoque-docs/planificacion/ficha-proyecto/) |
+| Cátedra | Fechas de parciales y simulacro, docente, condiciones de diciembre y fecha final. | [Cronograma](/3daltoque-docs/planificacion/cronograma/) |
+
+La [hoja de ruta](/3daltoque-docs/planificacion/roadmap/) relaciona estos acuerdos con la implementación y las verificaciones de cada etapa.
 
 ## Planificación y seguimiento
 
