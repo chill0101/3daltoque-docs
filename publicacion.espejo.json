@@ -6,10 +6,11 @@
       "destino": "src/content/docs/planificacion/estado.md",
       "checkpoint": "Checklist",
       "estado": "entregable",
-      "sha256Fuente": "4cedce28ae6d81a74a6daca46776deae17cf8bc0241158991ba3356d0084de13",
-      "sha256": "940741d2db831794b1181d339dfebca76edfcb3b7e27ad2a848e9cc0546672ec",
-      "huella": "aee9aacca22f3bc8a58464004033c159d10a9a724ad16909a53fe458f6278fb0",
-      "adjuntos": []
+      "sha256Fuente": "8cf6e85a882bec63dab5d7522b57dcfcdb4d56b44364b3c9120ecebed1170c7e",
+      "sha256": "41210f3b99d360e2ec4b356d667834f776a08356e4adbb122ff5c7b63110bdd7",
+      "huella": "b4e7355962f6b708f3334430fb6aab9753ebb91090b776e61e756284b25aab07",
+      "adjuntos": [],
+      "commitFuente": "51821a119c9065577464e59992de86b962d25753"
     },
     "casos-de-uso": {
       "origen": "docs/04-casos-de-uso-y-aceptacion.md",
@@ -764,10 +765,11 @@
       "destino": "src/content/docs/planificacion/roadmap.md",
       "checkpoint": "Plan de trabajo",
       "estado": "entregable",
-      "sha256Fuente": "65a2cd3ca392f39243583979c05b809c0b0960cc2850135a0f92fd0d6a4aa513",
-      "sha256": "9af7483194f97b386a97778a6176ed9f1f599f97dc014427cfdf1106cda17f8e",
-      "huella": "7eb0f4b0eee69a901d9b3e17c9c2df458c93262aab3a016f42da404c5883b945",
-      "adjuntos": []
+      "sha256Fuente": "3df6ae866d110e09e4fb2cdabded65c1d4615868dec19a636273110e9caaf6f2",
+      "sha256": "4b50b58babb1aaee8289bd63b9fb68c8fe06f4d280928ca72c9b3c1e43316887",
+      "huella": "a6ff15e195aea840f40b6d7e6f5b536c92a1b48ecd20449c12a0a69cc21f5d58",
+      "adjuntos": [],
+      "commitFuente": "51821a119c9065577464e59992de86b962d25753"
     },
     "paquete-specs-f01-registro-e-inicio-de-sesion": {
       "origen": "docs/specs/f01-registro-e-inicio-de-sesion.md",
@@ -1777,5 +1779,17 @@
     "paginasVerificadas": 110,
     "paginasNuevas": 19,
     "archivosPreparados": 209
-  }
+  },
+  "actualizaciones": [
+    {
+      "fecha": "2026-11-01",
+      "commitFuente": "51821a119c9065577464e59992de86b962d25753",
+      "base": "02e3b4931b52e2602975555ab327714a86d871bc",
+      "documentos": [
+        "roadmap",
+        "estado"
+      ],
+      "motivo": "Precisar decisiones abiertas y verificaciones por etapa."
+    }
+  ]
 }
