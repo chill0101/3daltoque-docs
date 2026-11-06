@@ -26,7 +26,7 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | 2 | Sistema | Entrega sus condiciones y acciones permitidas. |
 | 3 | Maker | Actualiza el avance mediante una transición autorizada. |
 | 4 | Sistema | Valida versión y transición y conserva el historial. |
-| 5 | Maker | Carga fotos o videos y presenta una revisión del resultado. |
+| 5 | Maker | Carga imágenes JPEG o PNG y presenta una revisión del resultado. |
 | 6 | Sistema | Comprueba archivos, conserva la revisión exacta y registra la solicitud de revisión al cliente. |
 | 7 | Cliente | Consulta el avance y la evidencia autorizada. |
 

@@ -13,10 +13,10 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Actores | Cliente, Maker, Sistema |
 | Tipo | Primario; objetivo funcional de sus actores. |
 | Referencias | F22, F12, F14. [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4), [RF-07.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4), [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1). |
-| Precondición | Cliente del pedido; revisión presentada y accesible. |
-| Postcondición | Decisión expresa sobre la revisión; la aprobación habilita coordinar la entrega. |
+| Precondición | Revisión presentada y accesible. El cliente titular puede decidir. Cliente y maker pueden solicitar seguimiento según PD-07. |
+| Postcondición | Decisión expresa sobre la revisión o caso de seguimiento registrado. La aprobación habilita coordinar la entrega. |
 | Descripción | El cliente recibe una revisión del resultado. |
-| Resumen | Decisión expresa sobre la revisión; la aprobación habilita coordinar la entrega. |
+| Resumen | Decisión expresa sobre la revisión o caso de seguimiento registrado. La aprobación habilita coordinar la entrega. |
 
 ## Flujo Normal
 
@@ -35,7 +35,9 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | --- | --- | --- |
 | 3.A | Cliente | Registra observaciones: El sistema conserva el comentario y mantiene pendiente la aprobación hasta una revisión nueva o resolución autorizada. |
 | 4.B | Sistema | La revisión fue reemplazada: Rechaza la decisión sobre la versión anterior y presenta la vigente. |
-| 3.C | Sistema | El cliente permanece sin responder: Mantiene la revisión pendiente y genera únicamente los recordatorios configurados. |
+| 3.C | Sistema | Si el cliente sigue sin responder, conserva la revisión pendiente y procesa los recordatorios de las 24 y 48 horas desde la presentación. Cada plazo genera un aviso obligatorio en la app y prepara el correo según la preferencia del cliente. |
+
+Al cumplir 72 horas con la revisión vigente y pendiente, cliente y maker pueden pedir seguimiento a soporte desde su detalle. El sistema abre un único caso por revisión o recupera el existente y registra la solicitud en su auditoría. Si el caso está cerrado y la revisión sigue vigente y pendiente, cliente y maker pueden usar «Solicitar reapertura» en el detalle. La solicitud conserva la referencia del caso y registra quién la hizo y cuándo. Soporte revisa y decide con motivo registrado. Si aprueba, vuelve a abrir el mismo caso. Si rechaza, el caso queda cerrado de forma definitiva para esa revisión. Cliente y maker consultan el resultado y su fecha en el mismo caso desde el detalle. Soporte contacta a las partes cuando corresponde y registra sus gestiones. La revisión vigente y la evidencia presentada se conservan mientras se espera la decisión del cliente.
 
 ## Datos y controles
 

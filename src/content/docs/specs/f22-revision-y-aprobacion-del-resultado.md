@@ -10,12 +10,12 @@ Fecha: 25 de octubre de 2026. Versión: 2.0.
 
 Registrar la decisión expresa del cliente sobre la evidencia de una revisión.
 
-El cliente aprueba la revisión o registra observaciones. El sistema asocia la decisión con evidencia, actor y fecha. La entrega requiere aprobación expresa de la revisión aplicable. Ante falta de respuesta, la revisión permanece pendiente y se aplican los recordatorios acordados. Las correcciones y reclamos siguen PD-07.
+El cliente aprueba la revisión o registra observaciones. El sistema asocia la decisión con evidencia, actor y fecha. La entrega requiere aprobación expresa de la revisión aplicable. Mientras la revisión vigente siga pendiente, el cliente recibe un aviso obligatorio en la app a las 24 y 48 horas desde su presentación. El correo de cada recordatorio es opcional y está activo por defecto. Las correcciones y reclamos siguen PD-07.
 
 | Referencia | Definición |
 | --- | --- |
 | Funcionalidad | [F22](/3daltoque-docs/proyecto/funcionalidades/#f22) |
-| Actores | Cliente del pedido; maker para la gestión posterior de observaciones. |
+| Actores | Cliente del pedido para decidir la revisión. Cliente y maker para solicitar seguimiento a soporte. |
 | Canales | Lógica de negocio. Web y Mobile. |
 | RF | [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3), [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4) |
 | RNF | [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08) |
@@ -54,7 +54,7 @@ Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-05
 | --- | --- |
 | ALT-F22-01 | Paso 3. Registra observaciones: El sistema conserva el comentario y mantiene pendiente la aprobación hasta una revisión nueva o resolución autorizada. |
 | ALT-F22-02 | Paso 4. La revisión fue reemplazada: Rechaza la decisión sobre la versión anterior y presenta la vigente. |
-| ALT-F22-03 | Paso 3. El cliente permanece sin responder: Mantiene la revisión pendiente y genera únicamente los recordatorios configurados. |
+| ALT-F22-03 | Paso 3. Si el cliente sigue sin responder, conserva la revisión pendiente y procesa los recordatorios de las 24 y 48 horas en la app y prepara el correo según la preferencia del cliente. |
 
 La salida de cada error sigue [los contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/).
 
@@ -65,12 +65,15 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
 | POST | `/revisiones/{id}/decisiones` | versión, decisión, comentario y clave estable | decisión y estado del pedido | Cliente titular y revisión actual pendiente. |
+| POST | `/revisiones/{id}/seguimiento-soporte` | versión esperada, acción y clave estable | id y estado del caso | Participante de la revisión vigente y pendiente con al menos 72 horas desde su presentación. 201 crea el caso único y 200 recupera el existente o registra una solicitud de reapertura. Una nueva solicitud tras el rechazo definitivo devuelve `409 reopen_rejected`. |
 
 ## 7. Datos, consistencia e integración
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `decisiones_revision`, `revisiones_resultado`.
 
-El cliente aprueba la revisión o registra observaciones. El sistema asocia la decisión con evidencia, actor y fecha. La entrega requiere aprobación expresa de la revisión aplicable. Ante falta de respuesta, la revisión permanece pendiente y se aplican los recordatorios acordados. Las correcciones y reclamos siguen PD-07.
+El cliente aprueba la revisión o registra observaciones. El sistema asocia la decisión con evidencia, actor y fecha. La entrega requiere aprobación expresa de la revisión aplicable. Mientras la revisión vigente siga pendiente, el cliente recibe un aviso obligatorio en la app a las 24 y 48 horas desde su presentación. El correo de cada recordatorio es opcional y está activo por defecto. Las correcciones y reclamos siguen PD-07.
+
+Al cumplirse 72 horas desde la presentación, cliente y maker del pedido pueden solicitar seguimiento a soporte si la revisión sigue vigente y pendiente. El sistema mantiene un solo caso de seguimiento por revisión. La primera solicitud válida lo registra. Las siguientes devuelven la misma referencia y su estado vigente. Cada solicitud nueva registra a su participante en la auditoría del caso. Si soporte cerró el caso y la revisión sigue vigente y pendiente, cliente y maker pueden solicitar la reapertura desde el detalle de la revisión. La solicitud queda registrada en el mismo caso con la identidad del participante y la fecha. La solicitud queda pendiente de decisión de soporte. Una persona con permiso específico revisa el caso y registra el motivo y su decisión. Si aprueba, vuelve a abrir el mismo caso. Si soporte rechaza la reapertura, el caso queda cerrado con rechazo definitivo para esa revisión. Cualquier solicitud posterior de reapertura se rechaza y conserva el caso y la decisión registrada. Una revisión posterior tiene su propio seguimiento según PD-07. La revisión conserva su estado y sus evidencias. Cliente y maker consultan el resultado de la reapertura en el mismo caso, desde el detalle de la revisión. El caso muestra su estado y la decisión de soporte con su fecha. La aprobación sigue a cargo del cliente. Soporte puede contactar a las partes y registrar sus gestiones en el caso. La revisión presentada sigue vigente y pendiente hasta la decisión del cliente. El seguimiento conserva la versión, la evidencia y la fecha de presentación. Una corrección se presenta como otra revisión tras las observaciones del cliente. Web y Mobile muestran «Solicitar seguimiento» en el detalle de la revisión según las acciones que habilita la API. Si el caso está cerrado y la revisión sigue pendiente, muestran «Solicitar reapertura» según las acciones autorizadas. Una solicitud registrada se muestra como «Reapertura pendiente de soporte». Si soporte la rechaza, Web y Mobile muestran «Reapertura rechazada» y retiran la acción de solicitarla para esa revisión. El detalle toma el caso asociado a la revisión de `GET /pedidos/{id}`. Muestra «Reapertura aprobada» o «Reapertura rechazada» con la fecha cuando soporte decide. Al confirmar la acción, el backend revalida la versión, el estado pendiente y el plazo con su reloj.
 
 ## 8. Componentes y estados
 
@@ -92,7 +95,7 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 | RF | Criterio de éxito |
 | --- | --- |
 | [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3) | 1. Una aprobación válida identifica la revisión y permite las acciones de entrega autorizadas.<br>2. Una observación conserva el motivo y mantiene bloqueada la entrega hasta resolver el proceso acordado.<br>3. Otro usuario o una solicitud sin revisión pendiente no produce una aprobación válida. |
-| [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4) | 1. Avanzar el tiempo sobre una revisión sin respuesta no cambia su estado a aprobada.<br>2. Un recordatorio enviado no habilita entrega o finalización.<br>3. Toda aprobación registrada tiene una acción explícita y autorizada del cliente sobre la revisión. |
+| [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4) | 1. Avanzar el tiempo sobre una revisión sin respuesta no cambia su estado a aprobada.<br>2. Un recordatorio enviado no habilita entrega o finalización.<br>3. Toda aprobación registrada tiene una acción explícita y autorizada del cliente sobre la revisión.<br>4. Al cumplirse 72 horas de la presentación, cliente y maker pueden solicitar seguimiento para la revisión vigente y pendiente. Ambas solicitudes recuperan un único caso, incluso si llegan en paralelo. Un reintento con la misma clave conserva su registro de auditoría. Registrar seguimiento conserva la versión y el estado. Un intento de presentar otra revisión mientras la vigente está pendiente se rechaza. La entrega sigue sujeta a aprobación expresa.<br>5. Si el caso está cerrado y la revisión sigue vigente y pendiente, la solicitud de reapertura conserva el identificador del caso y queda auditada. Un reintento con la misma clave recupera la solicitud registrada.<br>6. Soporte autorizado aprueba o rechaza la reapertura con motivo. La aprobación vuelve a abrir el mismo caso y el rechazo lo deja cerrado. Ambas acciones registran actor, fecha, motivo y resultado.<br>7. Tras un rechazo definitivo, un intento nuevo de cliente o maker devuelve `409 reopen_rejected` y conserva el caso cerrado y su decisión.<br>8. Cliente y maker pueden consultar el estado, el resultado y la fecha en el caso. La consulta de un tercero se deniega. |
 
 ## 10. Decisiones y dependencias
 

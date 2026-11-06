@@ -18,7 +18,7 @@ El portal reúne el alcance, los requisitos, los modelos, los contratos, los pro
 - [Plan de trabajo y Gantt](src/content/docs/planificacion/cronograma.md).
 - [Material de presentación](src/content/docs/presentacion/material.md).
 
-El catálogo conserva 25 funcionalidades, 68 RF, 19 RNF, 25 casos de uso, 58 tablas y 160 escenarios de prueba. Los manuales, el cronograma, el plan post cursada y la presentación completan los puntos documentales de la materia.
+El catálogo conserva 25 funcionalidades, 68 RF, 19 RNF, 25 casos de uso, 58 tablas y 161 escenarios de prueba. Los manuales, el cronograma, el plan post cursada y la presentación completan los puntos documentales de la materia.
 
 ## Repositorios del proyecto
 

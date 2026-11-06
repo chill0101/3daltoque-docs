@@ -36,15 +36,15 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 | cantidad_minima y maxima | Enteros | Mínimo sí | Rango válido; el máximo propio es opcional. |
 | cantidad | Entero | Al confirmar | Cantidad dentro de los límites del producto y servicio. |
 | plazo y condiciones | Duración y texto | Sí | Unidad explícita, entrega y pago directo. |
-| archivo_ids | Lista UUID | Opcional | Medios autorizados y finalidad de presentación o fabricación. |
+| archivo_ids | Lista UUID | Opcional | Referencias distintas. Hasta cinco fotos de presentación JPEG o PNG por versión con el límite inicial configurable. También admite recursos privados autorizados para fabricación. |
 | clave_operacion | Texto | Al confirmar | Se conserva ante resultado incierto. |
 
 ## 4. Flujo principal
 
 | Paso | Ejecutor | Actividad |
 | --- | --- | --- |
-| 1 | Maker | Crea un borrador con configuración fija, precio unitario, moneda, cantidades y plazo. |
-| 2 | Maker | Adjunta medios autorizados y completa las condiciones. |
+| 1 | Maker | Abre Mis productos y elige un borrador vigente o crea uno con configuración fija, precio unitario, moneda, cantidades y plazo. |
+| 2 | Maker | Completa las condiciones y puede adjuntar hasta cinco fotos JPEG o PNG de hasta 10 MiB cada una con la configuración inicial. |
 | 3 | Sistema | Valida valores, archivos, titularidad y versión. |
 | 4 | Maker | Solicita publicar. |
 | 5 | Sistema | Verifica acceso comercial y conserva la versión y su estado público. |
@@ -56,9 +56,9 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 | 1 | Cliente | Abre el producto y elige una cantidad admitida. |
 | 2 | Sistema | Presenta versión, configuración, precio unitario, total calculado, moneda, plazo y condiciones de entrega y pago directo. |
 | 3 | Cliente | Confirma las condiciones con una clave estable. |
-| 4 | Sistema | Recupera primero un resultado de esa clave y contenido o valida publicación actual, cantidad y acceso comercial. |
+| 4 | Sistema | Recupera primero un resultado de esa clave y contenido. Para un pedido nuevo, valida publicación actual, cantidad, acceso comercial y cobertura en CABA con la referencia confirmada del perfil cliente y la ubicación operativa del maker. |
 | 5 | Sistema | Materializa solicitud de catálogo, oferta de referencia y pedido con sus condiciones en una transacción; habilita la conversación. |
-| 6 | Sistema | Registra avisos y devuelve el pedido confirmado. |
+| 6 | Sistema | Registra el evento para avisar a cliente y maker en la app y por correo según la preferencia de cada cuenta. Devuelve el pedido confirmado. |
 | 7 | Cliente y maker | Continúan por producción, revisión expresa y entrega del mismo circuito. |
 
 Las alternativas de versión, habilitación e idempotencia se detallan en [CU-20](/3daltoque-docs/analisis/casos/cu-20-pedir-un-producto-del-maker/).
@@ -71,6 +71,8 @@ Las alternativas de versión, habilitación e idempotencia se detallan en [CU-20
 | ALT-F25-02 | Paso 4. Pausa o retira la publicación: El sistema impide pedidos nuevos y conserva los datos históricos. |
 | ALT-F25-03 | Paso 5. Acceso comercial vencido: Permite mantener borradores y retirar publicaciones; rechaza habilitar pedidos nuevos. |
 | ALT-F25-04 | Paso 5. Modera con permiso y motivo: El sistema retira la disponibilidad pública y registra auditoría. |
+| ALT-F25-05 | Al vencer un borrador, el listado deja de mostrarlo y la API responde 404 al intentar editarlo o publicarlo. |
+| ALT-F25-06 | Si la versión supera el límite vigente de fotos, la API devuelve 422 e informa cuántas admite. El maker puede quitar fotos y volver a confirmar. |
 
 ## 6. Contrato de API propuesto
 
@@ -80,16 +82,19 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | --- | --- | --- | --- | --- |
 | GET | `/makers/{id}/productos` | cursor | productos publicados y condiciones actuales | Visibilidad pública autorizada. |
 | GET | `/productos/{id}` | producto_id | versión, configuración, precio y disponibilidad de pedido | Publicación visible y medios derivados. |
-| POST | `/makers/me/productos` | configuración, precio, moneda, cantidades, plazo y condiciones | producto_id y versión | Maker titular y campos válidos. |
-| PATCH | `/makers/me/productos/{id}` | versión esperada y condiciones | versión actualizada | Conserva versiones publicadas anteriores. |
-| POST | `/makers/me/productos/{id}/publicacion` | acción y versión | estado de publicación | Acceso comercial para admitir pedidos nuevos. |
+| GET | `/makers/me/productos` | cursor y límite | productos propios con sus borradores vigentes | Sesión con perfil maker y titularidad. |
+| POST | `/makers/me/productos` | configuración, precio, moneda, cantidades, plazo, condiciones y archivos opcionales | producto_id y versión | Maker titular, archivos habilitados y cantidad de fotos dentro del límite vigente. |
+| PATCH | `/makers/me/productos/{id}` | versión esperada, condiciones y archivos opcionales | versión actualizada | Comprueba finalidad, permiso y límite de fotos de la versión resultante. Exige vigencia del borrador y conserva las versiones publicadas anteriores. |
+| POST | `/makers/me/productos/{id}/publicacion` | acción y versión | estado de publicación | Exige vigencia del borrador, límite de fotos y acceso comercial al publicar. Pausar o retirar aplica las guardas de esas acciones. |
 | POST | `/productos/{id}/pedidos` | versión, cantidad y clave estable | pedido y condiciones conservadas | Precio del servidor, versión vigente e idempotencia. |
 
 ## 7. Datos, consistencia e integración
 
+El pedido directo reutiliza la ubicación confirmada del perfil cliente y la conserva como referencia de la solicitud de catálogo. Si falta esa ubicación o alguna de las ubicaciones requeridas queda fuera de CABA, el backend informa la causa antes de crear el pedido.
+
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `productos_maker`, `producto_versiones`, `producto_archivos`, `solicitudes`, `oferta_versiones`, `pedidos`.
 
-El maker titular crea y edita borradores de productos con nombre, descripción, material, color, dimensiones, precio unitario, moneda, cantidades admitidas, plazo y condiciones de fabricación y entrega. Las imágenes o videos se vinculan mediante archivos autorizados. Los cambios de condiciones publicadas crean una nueva versión; los pedidos existentes conservan su versión original. El maker publica una versión completa de su producto, la pausa o la retira. Publicar y habilitar pedidos nuevos exige perfil y membresía vigentes. Pausar, retirar o moderar impide nuevos pedidos desde esa publicación. Las versiones y referencias usadas por pedidos se conservan. La administración puede ocultar una publicación con capacidad específica, motivo y auditoría. El visitante o cliente consulta los productos publicados del maker y abre su detalle con versión, configuración, precio unitario, moneda, cantidades, plazo y condiciones. La respuesta expone la zona pública autorizada y sus medios derivados de presentación. El backend informa si el maker está habilitado para aceptar un pedido. La compra requiere identidad de cliente. El cliente elige producto, versión y cantidad, revisa las condiciones y confirma. El servidor valida publicación y versión actuales, cantidades, maker distinto del cliente y acceso comercial; calcula el total con el precio unitario conservado. En una transacción crea la solicitud de origen catálogo, su oferta publicada de referencia, el pedido, las condiciones y la conversación. Este circuito utiliza al maker del producto y continúa por producción, revisión y entrega. El cliente acuerda directamente con el maker el pago de la impresión.
+El maker titular crea y edita borradores de productos con nombre, descripción, material, color, dimensiones, precio unitario, moneda, cantidades admitidas, plazo y condiciones de fabricación y entrega. El maker consulta sus borradores vigentes en Mis productos. El guardado inicial y cada edición confirmada fijan un nuevo plazo de 90 días. Al vencer, el borrador queda fuera de Mis productos y se retira según PD-12. El maker puede vincular hasta cinco imágenes JPEG o PNG de hasta 10 MiB por versión con el límite inicial configurable. Las imágenes deben estar habilitadas para la presentación del producto. El catálogo público muestra los derivados autorizados. Los cambios de condiciones publicadas crean una nueva versión; los pedidos existentes conservan su versión original. El maker publica una versión completa de su producto, la pausa o la retira. Publicar y habilitar pedidos nuevos exige perfil y membresía vigentes. Pausar, retirar o moderar impide nuevos pedidos desde esa publicación. Las versiones y referencias usadas por pedidos se conservan. La administración puede ocultar una publicación con capacidad específica, motivo y auditoría. El visitante o cliente consulta los productos publicados del maker y abre su detalle con versión, configuración, precio unitario, moneda, cantidades, plazo y condiciones. La respuesta expone la zona pública autorizada y sus medios derivados de presentación. El backend informa si el maker está habilitado para aceptar un pedido. La compra requiere identidad de cliente. El cliente elige producto, versión y cantidad, revisa las condiciones y confirma. El servidor valida publicación y versión actuales, cantidades, maker distinto del cliente y acceso comercial; calcula el total con el precio unitario conservado. En una transacción crea la solicitud de origen catálogo, su oferta publicada de referencia, el pedido, las condiciones y la conversación. Este circuito utiliza al maker del producto y continúa por producción, revisión y entrega. El cliente acuerda directamente con el maker el pago de la impresión.
 ## 8. Componentes y estados
 
 [DS01](/3daltoque-docs/design-system/02-componentes/#ds01), [DS03](/3daltoque-docs/design-system/02-componentes/#ds03), [DS05](/3daltoque-docs/design-system/02-componentes/#ds05), [DS09](/3daltoque-docs/design-system/02-componentes/#ds09), [DS10](/3daltoque-docs/design-system/02-componentes/#ds10), [DS22](/3daltoque-docs/design-system/02-componentes/#ds22), [DS25](/3daltoque-docs/design-system/02-componentes/#ds25), [DS26](/3daltoque-docs/design-system/02-componentes/#ds26), [DS40](/3daltoque-docs/design-system/02-componentes/#ds40), [DS43](/3daltoque-docs/design-system/02-componentes/#ds43).
@@ -110,7 +115,7 @@ Estados funcionales: carga, contenido, vacío, validación, permiso, conflicto, 
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-13.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-1) | 1. El maker conserva un borrador válido y sus archivos autorizados.<br>2. Cambiar precio, configuración o plazo de un producto publicado genera otra versión.<br>3. Una edición de un producto ajeno o una cantidad, moneda o importe inválidos se rechaza. |
+| [RF-13.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-1) | 1. El maker conserva un borrador válido y sus archivos autorizados.<br>2. Cambiar precio, configuración o plazo de un producto publicado genera otra versión.<br>3. Una edición de un producto ajeno o una cantidad, moneda o importe inválidos se rechaza.<br>4. Desde los 90 días del último guardado, el borrador queda fuera de Mis productos y la API rechaza su edición y publicación.<br>5. El catálogo admite fotos JPEG o PNG habilitadas para presentación de productos. El backend rechaza una referencia inválida y conserva la versión anterior.<br>6. La API aplica el límite vigente de fotos a la versión que se guarda, edita o publica. Si se supera, responde con 422 e informa el máximo permitido. Los recursos privados de fabricación se validan por separado. |
 | [RF-13.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-2) | 1. Una publicación completa y autorizada aparece en el catálogo del maker.<br>2. Una publicación pausada, retirada o moderada impide pedidos nuevos.<br>3. Un retiro conserva los datos y archivos necesarios para los pedidos ya confirmados. |
 | [RF-13.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-3) | 1. El perfil público presenta los productos publicados y sus condiciones completas.<br>2. Los borradores y archivos originales privados permanecen protegidos.<br>3. Una publicación retirada ofrece una salida al catálogo y una versión reemplazada informa sus condiciones actuales. |
 | [RF-13.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-4) | 1. Confirmar una versión vigente genera un pedido con cantidad, precio unitario, total, moneda, plazo y condiciones conservados.<br>2. Precio modificado, publicación pausada o maker sin acceso generan un conflicto antes de crear el pedido.<br>3. La repetición de la misma confirmación recupera el pedido; reutilizar su clave con otra cantidad produce conflicto. |

@@ -23,11 +23,15 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
 | 1 | Sistema | Recupera un evento pendiente y determina destinatarios y canales habilitados. |
-| 2 | Sistema | Conserva el aviso interno y prepara el envío externo identificable cuando corresponda. |
+| 2 | Sistema | Resuelve la política y las preferencias de la cuenta. Muestra el aviso si el canal app está activo y prepara el correo si está habilitado. Para ofertas nuevas y actualizadas, el destinatario es el cliente titular. |
 | 3 | Usuario | Abre su bandeja de avisos. |
 | 4 | Sistema | Autoriza destinatario y entrega la página y sus estados de lectura. |
 | 5 | Usuario | Marca un aviso como leído o abre su destino. |
 | 6 | Sistema | Conserva la lectura y revalida el acceso al recurso de destino. |
+
+## Preferencias de avisos
+
+El usuario abre Preferencias de avisos desde la bandeja. El sistema muestra los canales de cada tipo y su estado. El usuario cambia un canal opcional. El servidor guarda la preferencia de la cuenta y la aplica en Web y Mobile. Los canales obligatorios figuran activos y se administran en la política de la plataforma.
 
 ## Flujos Alternativos
 

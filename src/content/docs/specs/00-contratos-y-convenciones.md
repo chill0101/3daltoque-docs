@@ -20,12 +20,22 @@ Las reglas funcionales se fundamentan en el catálogo F01 a F25, los RF/RNF, ADR
 | Fechas | ISO 8601 en UTC; zona horaria identificada al presentar horarios de encuentro. |
 | Vigencia | Intervalos de acceso [inicio, fin); fecha efectiva del servidor. |
 | Versiones | Entero o referencia versionada identificada en cada recurso; version_esperada en mutaciones concurrentes. |
-| Listas | items y next_cursor opaco; filtros normalizados y orden estable. |
+| Listas | items y next_cursor opaco, con filtros normalizados y orden estable. limit admite enteros de 1 a 100 y vale 20 por defecto. |
 | Capacidades | Acciones permitidas derivadas por servidor de identidad, recurso, estado y vigencia aplicable. |
 | Claves de operación | Identidad estable para el mismo intento lógico; nueva intención utiliza otra clave. |
 | Correlación | request_id y referencia del recurso; excluir secretos y datos personales innecesarios. |
 
 La referencia de sesiones opacas revocables utiliza cookie protegida para Web y Bearer para Mobile, sobre la misma identidad del backend. [Seguridad y operación](/3daltoque-docs/diseno/seguridad/) fija sus controles; [OpenAPI](/3daltoque-docs/documentos/e37598f41824-openapi.json) expresa ambos transportes.
+
+## Contexto activo y recursos
+
+Una cuenta admite perfiles cliente y maker. El contexto activo organiza navegación, formularios y lecturas y se conserva por pestaña Web o instancia Mobile. El selector solicita un perfil ya asignado; el alta de perfiles utiliza su flujo autorizado y la administración mantiene su procedimiento específico.
+
+GET /pedidos y GET /conversaciones requieren rol=cliente o rol=maker. El servidor verifica la asignación y limita los resultados al papel de la cuenta en cada pedido. Cada cursor conserva usuario, rol y filtros; reutilizarlo en otro contexto produce error de consulta. Las otras operaciones determinan la acción y el papel admitido según ruta y recurso y verifican propiedad en FastAPI.
+
+Los clientes separan caché, filtros y borradores por usuario, contexto y recurso. Al alternar vuelven a consultar capacidades y evitan incorporar una lectura tardía del contexto anterior en la vista actual. Las mutaciones enviadas conservan su intención y contexto de origen hasta obtener un resultado. Los enlaces de notificación identifican el papel necesario y ofrecen abrir ese contexto cuando pertenece a la cuenta.
+
+El cambio de contexto mantiene intactos estados del pedido, vigencias y concesiones. La confirmación de un pedido exige identidades diferentes entre cliente y usuario titular del maker. El cierre de sesión limpia los datos locales asociados.
 
 ## Éxito y error
 
@@ -36,11 +46,14 @@ Se propone application/problem+json, con type, title, status, detail e instance,
 | HTTP propuesto | code de aplicación | Tratamiento de interfaz |
 | --- | --- | --- |
 | 401 | authentication_required | Recuperar autenticación y preservar una intención de navegación segura. |
+| 401 | reauthentication_required | Iniciar sesión nuevamente al alcanzar las 8 horas del acceso administrativo; recuperar datos vigentes y confirmar la intervención sensible. |
 | 403 | action_forbidden | Mostrar la condición de acceso y mantener acciones permitidas. |
 | 404 | resource_unavailable | Mensaje seguro según política de visibilidad. |
 | 409 | idempotency_conflict | Consultar la intención original; una clave con otro contenido conserva el primer resultado. |
 | 409 | version_conflict | Consultar versión actual y pedir revisar los cambios. |
 | 409 | offer_expired / request_closed | Recuperar alternativas disponibles. |
+| 409 | chat_read_only | Actualizar la conversación en solo lectura y detener los reintentos de envío. |
+| 409 | reopen_rejected | Actualizar el caso cerrado y mostrar el resultado definitivo de reapertura para la revisión. |
 | 409 | founder_capacity_exhausted | Conservar el formulario y mostrar el estado del programa. |
 | 409 | membership_required | Ofrecer renovación y mantener pedidos existentes. |
 | 422 | validation_failed | Relacionar errores con campos y enfocar el resumen. |

@@ -2,6 +2,7 @@
 stateDiagram-v2
   [*] --> Borrador
   Borrador --> Publicado: Condiciones válidas y acceso comercial
+  Borrador --> Retirado: 90 días desde el último guardado
   Publicado --> Pausado: Maker pausa
   Pausado --> Publicado: Maker habilitado confirma
   Publicado --> Retirado: Maker retira

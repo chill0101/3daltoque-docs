@@ -34,9 +34,10 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
-| 3.A | Cliente o maker | Cambia lugar u horario: El sistema conserva otra propuesta y requiere aceptación de la contraparte. |
+| 3.A | Cliente o maker | Propone un cambio de lugar u horario. Si queda cupo, la contraparte puede aceptarlo y el sistema registra una reprogramación. Al agotarse el cupo, el sistema conserva el acuerdo vigente. El límite también se aplica a los casos gestionados por soporte. |
 | 5.B | Maker | Intenta confirmar como receptor: El sistema rechaza la acción y conserva la recepción pendiente. |
-| 6.C | Sistema | Existe un incidente o falta aprobación vigente: Mantiene el cierre pendiente y permite registrar soporte con motivo. |
+| 6.C | Sistema | Ante un incidente, mantiene la recepción pendiente y permite registrar el caso. Si una parte faltó al encuentro y se agotaron las reprogramaciones, soporte puede cancelar el pedido tras revisar el incidente y registrar el motivo según CU-07. |
+| 6.D | Sistema | Si el pedido ya fue cancelado o falta aprobación vigente, rechaza la confirmación y conserva el estado. |
 
 ## Datos y controles
 

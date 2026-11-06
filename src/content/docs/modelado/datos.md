@@ -4,7 +4,7 @@ title: "Diagrama entidad-relación"
 
 # Diagrama entidad-relación
 
-El modelo se organiza en diez vistas para recorrer perfiles, catálogo, negociación, pedidos, comunicación, reputación, membresías y operación. El [diccionario lógico](/3daltoque-docs/modelado/modelo-logico/) desarrolla 58 tablas y 548 columnas.
+El modelo se organiza en diez vistas para recorrer perfiles, catálogo, negociación, pedidos, comunicación, reputación, membresías y operación. El [diccionario lógico](/3daltoque-docs/modelado/modelo-logico/) desarrolla 58 tablas y 552 columnas.
 
 ## Recorridos del modelo
 
@@ -251,6 +251,7 @@ erDiagram
     Texto apellido "Valor de apellido del recurso Usuario, validado con las reglas y el tipo in"
     Texto telefono "Valor de telefono del recurso Usuario, validado con las reglas y el tipo in"
     EstadoUsuario estado "Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada"
+    JSON preferencias_avisos "Preferencias opcionales por tipo de aviso y canal. Valor inicial vacío."
     FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
     FechaHora actualizado_en "Fecha del servidor del evento actualizado en, conservada con zona horaria."
   }
@@ -981,6 +982,7 @@ erDiagram
     Texto texto "Valor de texto del recurso Notificacion, validado con las reglas y el tipo "
     Texto recurso_tipo "Valor de recurso tipo del recurso Notificacion, validado con las reglas y e"
     UUID recurso_id "Valor de recurso id del recurso Notificacion, validado con las reglas y el "
+    Booleano visible_en_app "Visibilidad del aviso en la bandeja fijada al crearlo. Valor inicial verd"
     FechaHora leida_en "Fecha del servidor del evento leida en, conservada con zona horaria."
     FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
@@ -1102,12 +1104,14 @@ erDiagram
     UUID id PK "Identificador estable y opaco de CasoSoporte."
     UUID reportado_por FK "Referencia a usuarios para reporta caso."
     UUID pedido_id FK "Referencia a pedidos para involucra pedido."
+    UUID revision_id FK, UK "Revisión del caso único de seguimiento."
     UUID solicitud_id FK "Referencia a solicitudes para involucra solicitud."
     UUID pago_id FK "Referencia a pagos para involucra pago."
     UUID asignado_a FK "Referencia a usuarios para atiende caso."
     Texto tipo "Valor de tipo del recurso CasoSoporte, validado con las reglas y el tipo in"
     Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
     EstadoCaso estado "Estado vigente de CasoSoporte; sus cambios utilizan las transiciones autori"
+    Entero version "Versión del caso para validar intervenciones concurrentes."
     Texto resolucion "Valor de resolucion del recurso CasoSoporte, validado con las reglas y el t"
     FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
     FechaHora cerrado_en "Fecha del servidor del evento cerrado en, conservada con zona horaria."
@@ -1128,6 +1132,10 @@ erDiagram
   pedidos {
     UUID id PK, FK "Identificador estable y opaco de Pedido."
   }
+  revisiones_resultado {
+    UUID id PK "Identificador estable y opaco de RevisionResultado."
+    UUID pedido_id FK "Referencia a pedidos para tiene revisión."
+  }
   solicitudes {
     UUID id PK, FK "Identificador estable y opaco de Solicitud."
   }
@@ -1142,6 +1150,7 @@ erDiagram
   usuarios o|--o{ auditoria : "audita acción"
   usuarios ||--o{ casos_soporte : "reporta caso"
   pedidos o|--o{ casos_soporte : "involucra pedido"
+  revisiones_resultado o|--o| casos_soporte : "vincula revisión"
   solicitudes o|--o{ casos_soporte : "involucra solicitud"
   pagos o|--o{ casos_soporte : "involucra pago"
   usuarios o|--o{ casos_soporte : "atiende caso"

@@ -55,7 +55,7 @@ Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-06
 | --- | --- |
 | ALT-F17-01 | Paso 3. Cambia lugar u horario: El sistema conserva otra propuesta y requiere aceptación de la contraparte. |
 | ALT-F17-02 | Paso 5. Intenta confirmar como receptor: El sistema rechaza la acción y conserva la recepción pendiente. |
-| ALT-F17-03 | Paso 6. Existe un incidente o falta aprobación vigente: Mantiene el cierre pendiente y permite registrar soporte con motivo. |
+| ALT-F17-03 | Paso 6. Si existe un incidente, conserva la recepción pendiente y permite registrar soporte. Si el pedido ya fue cancelado o falta aprobación vigente, rechaza la confirmación y conserva el estado. |
 
 La salida de cada error sigue [los contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/).
 

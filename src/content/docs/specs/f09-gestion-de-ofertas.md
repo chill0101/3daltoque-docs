@@ -10,7 +10,7 @@ Fecha: 25 de octubre de 2026. Versión: 2.0.
 
 Proponer y comparar condiciones de fabricación identificables.
 
-El maker responde la invitación con una oferta explícita o registra un rechazo. Las modificaciones conservan versiones y condiciones. El cliente compara ofertas disponibles, identifica la versión que está viendo y consulta los datos autorizados del maker. La negociación mantiene la solicitud abierta hasta F10. El cliente propone precio, plazo y observación sobre una versión concreta de una oferta. El maker acepta o rechaza la propuesta. Aceptarla publica una nueva versión de su oferta con condiciones y vigencia explícitas; el cliente conserva la decisión final de contratación. Se registra proponente, versión de origen, respuesta y versión resultante. Una oferta aceptada, vencida o modificada impide resolver una propuesta obsoleta.
+El maker responde la invitación con una oferta explícita o registra un rechazo. Las modificaciones conservan versiones y condiciones. El cliente compara ofertas disponibles, identifica la versión que está viendo y consulta los datos autorizados del maker. La negociación requiere que la solicitud siga abierta y dentro del plazo de PD-05. El cliente propone precio, plazo y observación sobre una versión concreta de una oferta. El maker acepta o rechaza la propuesta. Aceptarla publica una nueva versión de su oferta con condiciones y vigencia explícitas; el cliente conserva la decisión final de contratación. Se registra proponente, versión de origen, respuesta y versión resultante. Una oferta aceptada, vencida o modificada impide resolver una propuesta obsoleta.
 
 | Referencia | Definición |
 | --- | --- |
@@ -33,7 +33,7 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 | --- | --- | --- | --- |
 | precio | Monto decimal | Sí | Positivo y moneda coherente |
 | plazo | Cantidad y unidad | Sí | Valores y unidad visibles |
-| vence_en | Fecha UTC | Sí | Vigencia evaluada por servidor |
+| vigente_hasta | Fecha UTC | Salida | Vencimiento calculado al publicar con la duración configurada, inicialmente 72 horas. |
 | version_esperada | Entero | Al modificar | Evitar sobrescritura concurrente |
 
 ## 4. Flujo principal
@@ -42,10 +42,10 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 | --- | --- | --- |
 | 1 | Maker | Consulta sus invitaciones y selecciona una solicitud. |
 | 2 | Sistema | Verifica destinatario, estado y acceso comercial y entrega las especificaciones autorizadas. |
-| 3 | Maker | Inspecciona el archivo habilitado y define precio total, moneda, plazo, condiciones y vencimiento. |
-| 4 | Sistema | Valida capacidad, versión de solicitud, vigencia y permisos. |
+| 3 | Maker | Inspecciona el archivo habilitado y define precio total, moneda, plazo de producción y condiciones. |
+| 4 | Sistema | Valida capacidad, versión de solicitud y permisos. Calcula el vencimiento de la versión a partir de la hora de publicación y la duración vigente. |
 | 5 | Sistema | Conserva la oferta y su versión inmutable. |
-| 6 | Sistema | Registra el aviso para el cliente y devuelve la referencia de oferta. |
+| 6 | Sistema | Registra el evento de la versión publicada y devuelve su referencia. Cada versión publicada avisa al cliente titular por sus canales habilitados, con app y correo activos por defecto. |
 
 Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-02](/3daltoque-docs/analisis/casos/cu-02-recibir-y-responder-ofertas/), [CU-03](/3daltoque-docs/analisis/casos/cu-03-elegir-oferta/), [CU-25](/3daltoque-docs/analisis/casos/cu-25-negociar-condiciones-de-una-oferta/).
 
@@ -67,16 +67,18 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | --- | --- | --- | --- | --- |
 | POST | `/invitaciones/{id}/rechazo` | motivo opcional y clave de operación | estado de invitación | Destinatario y estado vigente. |
 | GET | `/solicitudes/{id}/ofertas` | filtros y cursor | versiones, condiciones y vencimientos | Cliente titular. |
-| POST | `/solicitudes/{id}/ofertas` | versión de solicitud, precio total, moneda, plazo, condiciones y vigencia | oferta_id y versión | Maker invitado y habilitado. |
-| POST | `/ofertas/{id}/versiones` | versión esperada y condiciones nuevas | versión publicada | Maker titular; conserva las anteriores. |
+| POST | `/solicitudes/{id}/ofertas` | versión de solicitud, precio total, moneda, plazo y condiciones | oferta_id, versión y vencimiento | Maker habilitado con invitación vigente para la versión actual de la solicitud. El backend calcula el vencimiento. |
+| POST | `/ofertas/{id}/versiones` | versión esperada y condiciones nuevas | versión publicada | Maker titular. Conserva las versiones anteriores y registra el evento del aviso para los canales habilitados. |
 | POST | `/ofertas/{id}/propuestas-cambio` | versión, precio total, moneda, plazo y observación | propuesta_id y estado | Cliente titular y oferta vigente. |
-| POST | `/propuestas-cambio/{id}/resolucion` | decisión y versión esperada | respuesta y versión resultante | Maker titular; crea versión si acepta. |
+| POST | `/propuestas-cambio/{id}/resolucion` | decisión y versión esperada | respuesta y versión resultante | Maker titular. Si acepta, crea la versión y registra el evento del aviso para los canales habilitados. |
 
 ## 7. Datos, consistencia e integración
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `ofertas`, `oferta_versiones`, `propuestas_cambio_oferta`.
 
-El maker responde la invitación con una oferta explícita o registra un rechazo. Las modificaciones conservan versiones y condiciones. El cliente compara ofertas disponibles, identifica la versión que está viendo y consulta los datos autorizados del maker. La negociación mantiene la solicitud abierta hasta F10. El cliente propone precio, plazo y observación sobre una versión concreta de una oferta. El maker acepta o rechaza la propuesta. Aceptarla publica una nueva versión de su oferta con condiciones y vigencia explícitas; el cliente conserva la decisión final de contratación. Se registra proponente, versión de origen, respuesta y versión resultante. Una oferta aceptada, vencida o modificada impide resolver una propuesta obsoleta.
+El maker responde la invitación con una oferta explícita o registra un rechazo. Las modificaciones conservan versiones y condiciones. El cliente compara ofertas disponibles, identifica la versión que está viendo y consulta los datos autorizados del maker. La negociación requiere que la solicitud siga abierta y dentro del plazo de PD-05. El cliente propone precio, plazo y observación sobre una versión concreta de una oferta. El maker acepta o rechaza la propuesta. Aceptarla publica una nueva versión de su oferta con condiciones y vigencia explícitas; el cliente conserva la decisión final de contratación. Se registra proponente, versión de origen, respuesta y versión resultante. Una oferta aceptada, vencida o modificada impide resolver una propuesta obsoleta.
+
+Cada versión publicada conserva el vencimiento calculado con la configuración de PD-05, incluidas las versiones que resultan de una contraoferta. La interfaz presenta la fecha del servidor y el plazo de producción por separado. Cada versión publicada de una oferta personalizada usa ambos canales por defecto para el cliente titular. El worker envía el correo mediante Resend cuando corresponde según la política y las preferencias.
 
 ## 8. Componentes y estados
 
@@ -97,8 +99,8 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1) | 1. Una oferta válida queda asociada al maker y solicitud correctos con sus condiciones.<br>2. Precio/plazo inválidos o un maker sin autorización impiden publicar la oferta.<br>3. El cliente sigue comparando hasta seleccionar una oferta vigente. |
-| [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2) | 1. Una oferta que llegó a su vencimiento no puede aceptarse aunque la pantalla no se haya actualizado.<br>2. Una oferta cerrada por otra selección deja de estar disponible.<br>3. La consulta permite identificar las condiciones y vigencia que se muestran al cliente. |
+| [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1) | 1. Una oferta válida queda asociada al maker y solicitud correctos con sus condiciones.<br>2. Precio o plazo inválidos, una invitación de otra versión o un maker sin autorización impiden publicar la oferta.<br>3. El cliente sigue comparando hasta seleccionar una oferta vigente. |
+| [RF-04.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-2) | 1. La versión publicada conserva su vencimiento calculado en servidor con la duración configurada, inicialmente 72 horas. El backend rechaza una aceptación nueva a partir de ese instante.<br>2. La oferta deja de estar disponible para aceptación cuando la solicitud cierra por selección o por vencimiento. Se conserva su vencimiento original para consulta histórica.<br>3. La consulta permite identificar las condiciones y vigencia que se muestran al cliente. |
 | [RF-04.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-3) | 1. Las ofertas de una misma solicitud presentan los campos acordados de forma comparable.<br>2. Una oferta vencida o cerrada se identifica y no aparece como seleccionable.<br>3. Los filtros no alteran los precios o condiciones y el cliente puede cambiar de opción antes de confirmar. |
 | [RF-04.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-5) | 1. El rechazo de una invitación no genera pedido ni cobro.<br>2. Aceptar referencia o contraofertar produce la oferta explícita de RF-04.1.<br>3. Un maker no invitado no responde una solicitud y una solicitud cerrada no recibe nuevas ofertas. |
 | [RF-04.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-6) | 1. Una propuesta aceptada por el maker genera una nueva versión trazable de la oferta.<br>2. El cliente confirma el pedido mediante la aceptación de la versión resultante.<br>3. Una propuesta sobre una versión reemplazada produce conflicto y conserva el pedido y las condiciones existentes. |

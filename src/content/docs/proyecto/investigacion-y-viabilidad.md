@@ -116,7 +116,7 @@ El análisis documental organiza hechos, experiencias esperadas, riesgos, benefi
 | Sustituir | Que puede reemplazarse? | Sustituir la cotización automática definitiva por una orientación seguida de ofertas humanas. |
 | Combinar | Que procesos se pueden unir? | Unir solicitud, ofertas, conversación, evidencia, aprobación y entrega en el seguimiento del pedido; conservar las condiciones de pago directo acordadas. |
 | Adaptar | Que patron conocido ayuda? | Adaptar estados y notificaciones de un marketplace, conservando las particularidades de producción bajo pedido. |
-| Modificar | Que debe cambiar de escala? | Enviar solicitudes a un grupo pequeño de makers compatibles y ampliar la búsqueda solo con reglas configurables. |
+| Modificar | Que debe cambiar de escala? | Enviar solicitudes a un grupo pequeño de makers compatibles y conservar el radio inicial cuando el grupo queda incompleto. |
 | Proponer otros usos | Que valor secundario existe? | Reutilizar perfiles y capacidades para descubrir makers y publicar productos de configuración fija conforme a F25 y ADR-003. |
 | Eliminar | Que fricción puede quitarse? | Eliminar la necesidad de que el cliente contacte y compare cada taller manualmente. |
 | Reordenar | Que secuencia reduce riesgo? | Acordar oferta, confirmar pedido, producir, presentar evidencia, obtener aprobación y coordinar entrega. |
@@ -139,7 +139,7 @@ El modelo vigente es una membresía prepaga para makers, con prueba configurable
 
 ## 10. Decisiones y pendientes
 
-[Modelo comercial](/3daltoque-docs/proyecto/modelo-comercial/), [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/) y [pendientes](/3daltoque-docs/planificacion/parametros/) prevalecen sobre hipótesis anteriores. Precio, moneda, cupo, calendario y política de abono requieren acuerdo. La implementación comercial de v1 sigue los requisitos RF-12.1 a RF-12.15.
+[Modelo comercial](/3daltoque-docs/proyecto/modelo-comercial/), [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/) y [pendientes](/3daltoque-docs/planificacion/parametros/) prevalecen sobre hipótesis anteriores. El abono se publica y cobra en pesos argentinos (ARS), por períodos de 30 días configurables desde la confirmación verificada del pago y con renovación habilitada al vencer. El importe inicial es de 10.000 ARS por período de 30 días y permanece configurable; el análisis económico registra los costos y la disposición a pagar del piloto. El cupo inicial de Makers Fundadores es de 50 makers, configurable. La convocatoria inicial dura 60 días desde la apertura registrada y cierra antes al agotarse el cupo. Una prueba general vigente puede ampliarse a Fundador hasta 90 días totales desde su inicio original, con convocatoria abierta, cupo y auditoría. Las devoluciones son totales, con revisión manual caso por caso en soporte y autorización auditada; su confirmación retira el período de la compra y conserva pedidos aceptados. La implementación comercial de v1 sigue los requisitos RF-12.1 a RF-12.15.
 
 ## 11. Plan mínimo de validación primaria
 

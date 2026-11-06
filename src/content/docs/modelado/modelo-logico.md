@@ -6,7 +6,11 @@ title: "Modelo lógico y diccionario de datos"
 
 Versión 3.0. Fecha: 25 de octubre de 2026.
 
-El [catálogo estructurado](/3daltoque-docs/documentos/b0342fb91680-catalogo.json) contiene 58 tablas y 548 columnas. El modelo cubre perfiles, capacidades, solicitudes personalizadas, catálogo del maker, negociación, pedidos, conversación, revisión, entrega, reputación y membresías. [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/) define el cobro del abono; [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/) incorpora productos y completa la cobertura funcional.
+El [catálogo estructurado](/3daltoque-docs/documentos/b0342fb91680-catalogo.json) contiene 58 tablas y 552 columnas. El modelo cubre perfiles, capacidades, solicitudes personalizadas, catálogo del maker, negociación, pedidos, conversación, revisión, entrega, reputación y membresías. [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/) define el cobro del abono; [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/) incorpora productos y completa la cobertura funcional.
+
+## Adaptación de identidad a Better Auth
+
+[ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) delega credenciales y sesiones en Better Auth. El catálogo de 58 tablas conserva la revisión previa: `usuarios.password_hash` y `sesiones` requieren remapeo o sustitución junto con las tablas técnicas del proveedor. La adaptación registra el identificador estable de Better Auth, el estado verificado del correo, la propiedad de cada tabla y las migraciones antes de cerrar el modelo físico de identidad. Los perfiles y las referencias del negocio conservan sus identificadores.
 
 ## Invariantes
 
@@ -102,6 +106,7 @@ Módulo: identidad. Concepto: Usuario.
 | `apellido` | Texto / text | No | Valor de apellido del recurso Usuario, validado con las reglas y el tipo indicados. |
 | `telefono` | Texto / text | No | Valor de telefono del recurso Usuario, validado con las reglas y el tipo indicados. |
 | `estado` | EstadoUsuario / text con CHECK de valores | Sí | Estado vigente de Usuario; sus cambios utilizan las transiciones autorizadas. |
+| `preferencias_avisos` | JSON / jsonb | Sí | Preferencias opcionales por tipo de aviso y canal. Valor inicial vacío. |
 | `creado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento creado en, conservada con zona horaria. |
 | `actualizado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento actualizado en, conservada con zona horaria. |
 
@@ -111,6 +116,7 @@ Módulo: identidad. Concepto: Usuario.
 - No se almacena contraseña en texto plano. La normalización del identificador debe documentarse.
 - Nombre/apellido/contacto obligatorios por perfil se cierran en PD-01; la nulabilidad del borrador no habilita publicar un perfil incompleto.
 - Bloquear o anonimizar no elimina por cascada acuerdos ni evidencias financieras.
+- La cuenta guarda solo los valores elegidos para canales opcionales. Los pares ausentes heredan la política vigente.
 
 Trazabilidad: [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), RNF-04, RNF-11.
 
@@ -133,7 +139,7 @@ Módulo: identidad. Concepto: RolUsuario.
 - FK: (usuario_id) → usuarios (id). posee rol.
 - FK: (otorgado_por) → usuarios (id). autoriza.
 
-- La relación permite representar varios roles, pero no decide si se habilitan simultáneamente: PD-01.
+- La misma cuenta admite roles cliente y maker vigentes y perfiles vinculados. La selección de contexto se conserva por pestaña o instancia del cliente; cada operación revalida rol y propiedad.
 - El registro público nunca otorga admin. No se elimina una asignación revocada si se necesita su historial.
 
 Trazabilidad: [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), RNF-04.
@@ -184,8 +190,9 @@ Módulo: identidad. Concepto: Maker.
 - FK: (usuario_id) → usuarios (id). tiene perfil maker.
 - FK: (ubicacion_id) → ubicaciones (id). ubica maker.
 
+- El registro crea Cliente. Crear mi perfil maker incorpora perfil pendiente con nombre_publico y disponible=false y rol maker en una transacción; la unicidad por usuario conserva una sola alta. La prueba comienza con la primera habilitación válida.
 - Operar exige rol maker vigente, perfil habilitado y capacidades declaradas.
-- La vista pública utiliza zona/precisión autorizada; el domicilio exacto no se envía a terceros.
+- La vista pública utiliza la etiqueta de zona y un punto representativo compartido por los makers de una celda de 1 km de lado. El backend deriva el punto de la grilla y mantiene el domicilio y las coordenadas operativas como datos privados.
 - La habilitación comercial para trabajos nuevos se consulta en membresías; vencer no altera pedidos existentes.
 - El perfil público integra zona autorizada, capacidades, productos publicados, portfolio y reputación; los originales privados se mantienen protegidos.
 
@@ -346,7 +353,7 @@ Módulo: archivos. Concepto: Archivo.
 | `version_objeto` | Texto / text | No | Valor de version objeto del recurso Archivo, validado con las reglas y el tipo indicados. |
 | `estado` | EstadoArchivo / text con CHECK de valores | Sí | Estado vigente de Archivo; sus cambios utilizan las transiciones autorizadas. |
 | `autorizacion_expira_en` | FechaHora / timestamptz | No | Fecha del servidor del evento autorizacion expira en, conservada con zona horaria. |
-| `retirar_despues_de` | FechaHora / timestamptz | No | Valor de retirar despues de del recurso Archivo, validado con las reglas y el tipo indicados. |
+| `retirar_despues_de` | FechaHora / timestamptz | No | Fecha mínima de retiro. Para la limpieza de huérfanos se calcula siete días después de quedar sin referencias y se cancela si se vuelve a vincular el archivo. |
 | `retirado_en` | FechaHora / timestamptz | No | Fecha del servidor del evento retirado en, conservada con zona horaria. |
 | `creado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento creado en, conservada con zona horaria. |
 
@@ -357,7 +364,7 @@ Módulo: archivos. Concepto: Archivo.
 - Durante la subida se conserva NULL para tamaño o integridad todavía desconocidos.
 - Habilitar requiere comprobaciones completas. Storage_key es opaca y no una URL pública.
 - Una referencia usada por oferta/evidencia publicada conserva sus bytes o versión; una URL de subida no puede alterar evidencia aprobada.
-- Un retiro autorizado conserva los metadatos mínimos y el historial exigidos por política.
+- Un retiro autorizado conserva los metadatos mínimos y el historial exigidos por política. Para limpiar un huérfano, el worker revalida la ausencia de referencias, la vigencia del plazo y las condiciones de conservación.
 
 Trazabilidad: [RF-02.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-1), [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1), [RF-10.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-1), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2), [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3), [RF-10.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-4).
 
@@ -416,8 +423,9 @@ Módulo: cotizaciones. Concepto: Solicitud.
 - FK: (id, version_actual) → solicitud_versiones (solicitud_id, numero). selecciona versión actual. Comprobación diferida de la referencia actual.
 
 - La versión actual pertenece a la solicitud; el alta inicial conserva solicitud y primera versión en una transacción.
-- El vencimiento solo se utiliza si existe una política aprobada; no tiene valor de negocio por defecto.
-- Cambios después de enviar requieren PD-05 y pueden invalidar invitaciones/ofertas, sin reescribir versiones.
+- El guardado inicial del borrador personalizado fija `expira_en` a 90 días desde la hora del servidor. Cada edición guardada en estado `borrador` reemplaza ese plazo desde su propio guardado. Al cumplirse, el worker retira el borrador y registra `borrador_retirado` durante el retiro. La consulta comprueba el vencimiento efectivo. El envío válido reemplaza el vencimiento de borrador por el de la solicitud enviada.
+- En una solicitud personalizada, el envío confirmado fija `expira_en` a siete días desde la hora del servidor. El proceso de vencimiento cambia a `vencida` únicamente una solicitud abierta, sin pedido y con el plazo cumplido. Comparte la guarda transaccional de aceptación y conserva el historial de ofertas. Los 12 meses de consulta y conservación habitual de la solicitud vencida sin pedido se calculan desde `expira_en`. Al retirar los datos, se comprueban las excepciones de PD-12.
+- Una edición de fabricación después del envío requiere una solicitud abierta, dentro de su plazo y con cero ofertas publicadas. Crea otra versión y una ronda asociada. Las rondas de versiones anteriores conservan su historial y pierden su capacidad de cotizar. El vencimiento se conserva.
 
 Trazabilidad: [RF-02.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-3), [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4), [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-13.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-4).
 
@@ -459,6 +467,7 @@ Módulo: cotizaciones. Concepto: VersionSolicitud.
 - Archivo, ubicación y características publicadas no se sustituyen en la misma versión; se crea otra.
 - Presupuesto/moneda de referencia se informan juntos y nunca constituyen una oferta.
 - Personalizada exige STL habilitado y unidad declarada; catálogo exige producto y versión y toma su configuración conservada.
+- El acceso habitual al STL original vence a los 90 días desde el cierre del pedido completado o desde su cancelación, según PD-12. El inicio se toma de la transición registrada en `historial_pedidos`. En una solicitud personalizada que vence sin pedido, cada referencia a un STL de `solicitud_versiones` usa los 90 días desde `solicitudes.expira_en`. La referencia histórica conserva los metadatos requeridos aunque el objeto quede retirado.
 - El pedido de catálogo utiliza un único maker y conserva la cantidad confirmada; el precio publicado se obtiene en el backend.
 
 Trazabilidad: [RF-02.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-1), [RF-02.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-3), [RF-04.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-04-1), [RF-13.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-4).
@@ -478,7 +487,7 @@ Módulo: cotizaciones. Concepto: RondaBusqueda.
 | `numero` | Entero / integer | Sí | Número positivo de versión dentro del recurso. |
 | `configuracion_version_id` | UUID / uuid | Sí | Referencia a configuraciones_versiones para fija reglas búsqueda. |
 | `radio_metros` | Decimal / numeric(18,6) | Sí | Valor de radio metros del recurso RondaBusqueda, validado con las reglas y el tipo indicados. |
-| `limite_makers` | Entero / integer | Sí | Valor de limite makers del recurso RondaBusqueda, validado con las reglas y el tipo indicados. |
+| `limite_makers` | Entero / integer | Sí | Máximo de makers elegibles de la ronda, cinco como valor inicial configurable. Se conserva con la versión de configuración aplicada. |
 | `criterios_orden` | JSON / jsonb | Sí | Valor de criterios orden del recurso RondaBusqueda, validado con las reglas y el tipo indicados. |
 | `estado` | EstadoRonda / text con CHECK de valores | Sí | Estado vigente de RondaBusqueda; sus cambios utilizan las transiciones autorizadas. |
 | `creado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento creado en, conservada con zona horaria. |
@@ -489,8 +498,9 @@ Módulo: cotizaciones. Concepto: RondaBusqueda.
 - FK: (solicitud_id, solicitud_version_numero) → solicitud_versiones (solicitud_id, numero). busca para versión.
 - FK: (configuracion_version_id) → configuraciones_versiones (id). fija reglas búsqueda.
 
-- Radio y límite positivos, definidos conforme a la política de búsqueda PD-04.
+- Radio y límite positivos según PD-04. La primera ronda de una solicitud personalizada registra 10.000 m como valor inicial configurable.
 - Los parámetros aplicados son un snapshot de búsqueda, independiente de futuras activaciones.
+- Una repetición manual usa la misma versión de solicitud y copia los parámetros de la última ronda vacía. El número siguiente se asigna bajo el bloqueo de la solicitud.
 
 Trazabilidad: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4), RNF-06.
 
@@ -551,8 +561,8 @@ Módulo: cotizaciones. Concepto: Estimacion.
 - FK: (solicitud_id, solicitud_version_numero) → solicitud_versiones (solicitud_id, numero). estima referencia.
 - FK: (analisis_archivo_id) → analisis_archivos (id). aporta medidas.
 
-- El rango disponible cumple desde <= hasta y moneda definida; un resultado no disponible no usa precio cero ficticio.
-- Una estimación no modifica precio de oferta ni confirma pedido.
+- El rango disponible conserva los límites calculados con el porcentaje aplicado, inicialmente ±20 %, y la moneda. Se cumple desde <= hasta. El estado no disponible omite los importes.
+- El método de PD-03 guarda en `parametros` cantidad, unidad declarada, volumen sólido en cm³, material, cargo base por pieza, coeficiente aplicado, importe de referencia, porcentaje del rango y versión de configuración. Las condiciones del pedido se conservan a partir de la oferta aceptada o de la publicación de catálogo.
 
 Trazabilidad: [RF-02.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-5).
 
@@ -624,7 +634,7 @@ Módulo: cotizaciones. Concepto: VersionOferta.
 - FK: (producto_id, producto_version_numero, maker_id) → producto_versiones (producto_id, numero, maker_id). conserva condiciones del producto.
 
 - La identidad de versión es (oferta_id, numero) y permanece inmutable después de su publicación.
-- Precio no negativo, plazo positivo y vencimiento posterior a creación; PD-05 define duración y unidad del plazo.
+- El precio es mayor o igual a cero y el plazo de producción es positivo. Para una oferta personalizada, la creación de la versión registra el momento de publicación. El backend calcula `vence_en` desde ese instante con la duración de PD-05, inicialmente 72 horas. Conserva el vencimiento y la versión de configuración para cada publicación.
 - La cotización personalizada exige invitación del mismo maker y solicitud; el origen catálogo conserva una versión del producto del maker y admite invitacion_id NULL.
 - El importe de oferta es el total del pedido. En catálogo se calcula a partir del precio unitario y la cantidad conservados.
 - La configuración conservada identifica condiciones de contratación; el pago del abono corresponde a su propia compra de membresía.
@@ -725,8 +735,8 @@ Módulo: pedidos. Concepto: HistorialPedido.
 - FK: (pedido_id) → pedidos (id). registra transición.
 - FK: (actor_id) → usuarios (id). ejecuta transición.
 
-- Actor o proceso identifican el origen; la transición autorizada y el historial se conservan juntos.
-- Cada decisión agrega un registro al historial y conserva las decisiones anteriores.
+- Actor o proceso identifican el origen; la transición autorizada y el historial se conservan juntos. En una cancelación por inasistencia se registran estado anterior, estado cancelado, actor, motivo y clave de operación. La auditoría conserva la referencia del caso y de la entrega.
+- Cada decisión agrega un registro al historial y conserva las decisiones anteriores según PD-12. El valor de `ocurrido_en` de la transición a completado o cancelado fija el inicio de los 12 meses de consulta del historial. El retiro se calcula a partir de ese mismo registro cuando termina una excepción. El backend verifica los reclamos abiertos vinculados en `casos_soporte` y las obligaciones legales vigentes antes de aplicar el retiro de datos.
 
 Trazabilidad: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-06.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-5), RNF-06.
 
@@ -782,7 +792,7 @@ Módulo: pedidos. Concepto: Evidencia.
 - FK: (archivo_id) → archivos (id). muestra objeto.
 
 - Solo archivos habilitados, de finalidad válida y propietario autorizado.
-- Después de presentar/aprobar, ni el vínculo ni los bytes se reemplazan en esa revisión.
+- Después de presentar o aprobar la evidencia, la revisión conserva el vínculo y la versión exacta del objeto durante el período aplicable. La transición del pedido a completado o cancelado registrada en `historial_pedidos` fija el inicio de los 12 meses. PD-12 determina la conservación restringida por reclamo abierto u obligación legal vigente. El retiro de esa evidencia conserva las demás referencias y los metadatos requeridos por la política.
 
 Trazabilidad: [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1), [RF-10.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-2).
 
@@ -873,8 +883,8 @@ Módulo: pedidos. Concepto: Entrega.
 - La FK garantiza la revisión del mismo pedido; la aprobación vigente y actor se validan en la transición.
 - Coordinar exige aprobación expresa. Cambiar resultado requiere tratar la aprobación/entrega conforme PD-07.
 - La recepción se registra una vez como parte del seguimiento de la entrega. El acuerdo de pago directo se conserva en las condiciones del pedido.
-- El acuerdo conserva propuesta, versión y aceptación de la contraparte; cambiar punto u horario exige otra aceptación.
-- La recepción se completa por confirmación expresa del cliente titular sobre el acuerdo y revisión vigentes.
+- El acuerdo conserva propuesta, versión y aceptación de la contraparte. Las aceptaciones de cambios de punto u horario se registran en `historial_pedidos` con el tipo de operación de reprogramación confirmada. El backend cuenta esas confirmaciones por pedido y valida el máximo de PD-08 en la transacción de aceptación. La primera aceptación registra el acuerdo inicial.
+- La recepción se completa por confirmación expresa del cliente titular sobre una entrega abierta y el acuerdo y revisión vigentes. La cancelación de PD-08 conserva el acuerdo para consulta y cambia el estado de la entrega a cancelada en la misma transacción que cancela el pedido.
 
 Trazabilidad: [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6), [RF-06.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-7), RNF-05.
 
@@ -1094,9 +1104,9 @@ Módulo: pagos. Concepto: Reembolso.
 - FK: (operacion_resultado_id) → operaciones_pago (id). confirma resultado.
 - FK: (solicitado_por) → usuarios (id). solicita devolución.
 
-- La devolución pertenece a un cobro de membresía elegible; no devuelve el precio de una impresión.
+- La devolución total pertenece a un cobro de membresía elegible; el backend determina el importe completo y la moneda desde el cobro original verificado y conserva los pedidos de impresión.
 - Monto, moneda y concurrencia se controlan antes de llamar al proveedor. La devolución se confirma después de consultar su resultado.
-- Política de devolución del abono y efecto sobre acceso futuro requieren PD-09; no impiden finalizar pedidos aceptados.
+- La devolución total confirmada retira de vigencia solo el período de su compra y conserva sus fechas e historial; una devolución pendiente conserva la vigencia previa. Otros períodos válidos y los pedidos aceptados mantienen sus permisos. La autorización exige un caso de soporte revisado por administración, vinculado al mismo pago; decisión, motivo y referencias de caso y reembolso se conservan en auditoría.
 
 Trazabilidad: [RF-12.12](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-12), RNF-09.
 
@@ -1120,7 +1130,7 @@ Módulo: comunicacion. Concepto: Conversacion.
 
 - Todo registro pertenece a un pedido confirmado; la conversación se habilita al confirmar el acuerdo.
 - Cliente y maker del pedido son sus participantes; las consultas y envíos revalidan acceso.
-- El vencimiento comercial del maker mantiene la conversación de los pedidos existentes.
+- El vencimiento comercial del maker conserva la conversación según PD-12. El plazo de acceso a los mensajes se calcula desde la transición a completado o a cancelado registrada en `historial_pedidos`, según corresponda. La misma fecha se usa para aplicar el retiro al finalizar una excepción. Los mensajes necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido.
 
 Trazabilidad: [RF-05.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-1), [RF-11.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-2), [RF-05.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-4), [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10).
 
@@ -1170,7 +1180,7 @@ Módulo: comunicacion. Concepto: Mensaje.
 - FK: (conversacion_id) → conversaciones (id). contiene mensaje.
 - FK: (conversacion_id, remitente_id) → participantes_conversacion (conversacion_id, usuario_id). autoriza autor.
 
-- La FK comprueba pertenencia; activo/puede_enviar se validan al enviar.
+- La FK comprueba pertenencia. El envío verifica `activo`, `puede_enviar` y el estado del pedido. Los estados completado y cancelado deshabilitan el envío y conservan la consulta autorizada según PD-12.
 - Debe existir texto o al menos un adjunto válido al confirmar la transacción.
 - Se informa éxito después de persistir. La misma clave/contenido no duplica el mensaje.
 
@@ -1192,14 +1202,14 @@ Módulo: comunicacion. Concepto: AdjuntoMensaje.
 - FK: (mensaje_id) → mensajes (id). adjunta referencia.
 - FK: (archivo_id) → archivos (id). aporta adjunto.
 
-- Finalidad, propietario y habilitación se verifican para esa conversación.
+- Finalidad, propietario y habilitación se verifican para esa conversación. Los adjuntos propios del chat siguen el plazo de 12 meses desde el cierre del pedido completado o desde su cancelación, con las excepciones de PD-12. El inicio se toma de la transición registrada en `historial_pedidos`. El retiro por este contexto conserva las referencias de otras finalidades que aún requieren el objeto.
 
 Trazabilidad: [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2), [RF-10.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-3).
 
 <a id="notificaciones"></a>
 ### notificaciones
 
-Avisos internos por destinatario y evento persistido.
+Registros de aviso por destinatario y evento persistido.
 
 Módulo: comunicacion. Concepto: Notificacion.
 
@@ -1213,6 +1223,7 @@ Módulo: comunicacion. Concepto: Notificacion.
 | `texto` | Texto / text | Sí | Valor de texto del recurso Notificacion, validado con las reglas y el tipo indicados. |
 | `recurso_tipo` | Texto / text | Sí | Valor de recurso tipo del recurso Notificacion, validado con las reglas y el tipo indicados. |
 | `recurso_id` | UUID / uuid | Sí | Valor de recurso id del recurso Notificacion, validado con las reglas y el tipo indicados. |
+| `visible_en_app` | Booleano / boolean | Sí | Visibilidad del aviso en la bandeja fijada al crearlo. Valor inicial verdadero. |
 | `leida_en` | FechaHora / timestamptz | No | Fecha del servidor del evento leida en, conservada con zona horaria. |
 | `creado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento creado en, conservada con zona horaria. |
 
@@ -1223,6 +1234,7 @@ Módulo: comunicacion. Concepto: Notificacion.
 
 - La aplicación valida recurso_tipo/id contra el tipo de evento, la entidad correspondiente y los permisos del destinatario.
 - El aviso no cambia por sí mismo estado de pago, revisión o entrega.
+- La bandeja y el marcado de lectura requieren visible_en_app. Los avisos de correo conservan su referencia aun cuando queden fuera de la bandeja.
 
 Trazabilidad: [RF-07.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-1), [RF-07.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4), RNF-06.
 
@@ -1254,7 +1266,8 @@ Módulo: comunicacion. Concepto: EnvioNotificacion.
 - FK: (notificacion_id) → notificaciones (id). se distribuye.
 
 - Canal, destino y sus permisos se habilitan según PD-11. Si se elige push, debe detallarse el registro/expiración de dispositivos antes de cerrar esa integración.
-- La aceptación del envío y su entrega se registran como estados separados. Los reintentos mantienen la misma identidad y verifican si el aviso todavía corresponde.
+- La aceptación del envío y su entrega se registran como estados separados. Para recordatorios de revisión se registra un envío de correo asociado a cada aviso interno y su destinatario. Los reintentos reutilizan el identificador del envío y comprueban que la revisión siga vigente y pendiente. El adaptador Resend usa ese identificador como clave de idempotencia y guarda el identificador devuelto en `referencia_externa`.
+- Cada versión publicada de una oferta personalizada prepara el correo para el cliente titular si su canal está activo. La identidad se conserva por oferta, versión y destinatario y se reutiliza al reintentar.
 - El destino puede ser una referencia protegida; su trazabilidad no expone contacto o tokens en registros públicos.
 
 Trazabilidad: [RF-07.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-3), [RF-07.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4), RNF-15.
@@ -1370,7 +1383,7 @@ Módulo: operacion. Concepto: Trabajo.
 - FK: (evento_salida_id) → eventos_salida (id). programa trabajo.
 
 - Reserva con vencimiento; el worker recupera tareas sin suponer ejecución exactamente una vez.
-- Cada tipo valida su payload y recursos antes de ejecutar. Recordatorios comprueban revisión todavía pendiente.
+- Cada tipo valida su payload y recursos antes de ejecutar. La presentación de una revisión registra recordatorios a `presentada_en` más 24 y 48 horas. La clave de deduplicación combina revisión, destinatario y plazo. Al ejecutar, el worker comprueba que la revisión siga vigente, pendiente y asociada al cliente del pedido. El trabajo de correo guarda antes de llamar al proveedor la hora del primer intento y las referencias protegidas para reconstruir la misma solicitud. El límite de reintento incierto se calcula desde ese instante.
 - Reintento financiero incierto sigue conciliación; no crea cobros a ciegas.
 
 Trazabilidad: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2), [RF-07.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-4), RNF-15.
@@ -1378,7 +1391,7 @@ Trazabilidad: [RF-02.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-2
 <a id="auditoria"></a>
 ### auditoria
 
-Registro transversal append-only de acciones y cambios pertinentes.
+Registro transversal de acciones y cambios pertinentes. Las operaciones de negocio solo agregan entradas.
 
 Módulo: operacion. Concepto: RegistroAuditoria.
 
@@ -1401,14 +1414,14 @@ Módulo: operacion. Concepto: RegistroAuditoria.
 
 - Registro añadido con origen identificable. Identidad de entidades se resuelve con tipo/id; la referencia lógica no otorga acceso.
 - Cambios de configuración, estados financieros y acciones administrativas preservan valor anterior/nuevo pertinente.
-- Retención y anonimización no exponen secretos ni destruyen evidencia que deba conservarse.
+- El proceso autorizado de retención calcula 12 meses desde `ocurrido_en`. Antes del retiro verifica reclamos abiertos y obligaciones legales vigentes asociados a la acción. Conserva los registros protegidos con acceso limitado a la finalidad de la excepción. Los registros vigentes mantienen su contenido original.
 
-Trazabilidad: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-07.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-2), RNF-06.
+Trazabilidad: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-07.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-2), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 
 <a id="casos-soporte"></a>
 ### casos_soporte
 
-Casos operativos y de moderación cuando se adopte ese alcance.
+Casos operativos, solicitudes de devolución y moderación con decisión y motivo registrados.
 
 Módulo: operacion. Concepto: CasoSoporte.
 
@@ -1417,12 +1430,14 @@ Módulo: operacion. Concepto: CasoSoporte.
 | `id` | UUID / uuid | Sí | Identificador estable y opaco de CasoSoporte. |
 | `reportado_por` | UUID / uuid | Sí | Referencia a usuarios para reporta caso. |
 | `pedido_id` | UUID / uuid | No | Referencia a pedidos para involucra pedido. |
+| `revision_id` | UUID / uuid | No | Revisión del caso único de seguimiento. |
 | `solicitud_id` | UUID / uuid | No | Referencia a solicitudes para involucra solicitud. |
 | `pago_id` | UUID / uuid | No | Referencia a pagos para involucra pago. |
 | `asignado_a` | UUID / uuid | No | Referencia a usuarios para atiende caso. |
 | `tipo` | Texto / text | Sí | Valor de tipo del recurso CasoSoporte, validado con las reglas y el tipo indicados. |
 | `descripcion` | Texto / text | Sí | Texto de descripcion del recurso, sujeto a sus permisos y límites. |
 | `estado` | EstadoCaso / text con CHECK de valores | Sí | Estado vigente de CasoSoporte; sus cambios utilizan las transiciones autorizadas. |
+| `version` | Entero / integer | Sí | Versión del caso para validar intervenciones concurrentes. |
 | `resolucion` | Texto / text | No | Valor de resolucion del recurso CasoSoporte, validado con las reglas y el tipo indicados. |
 | `creado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento creado en, conservada con zona horaria. |
 | `cerrado_en` | FechaHora / timestamptz | No | Fecha del servidor del evento cerrado en, conservada con zona horaria. |
@@ -1430,15 +1445,21 @@ Módulo: operacion. Concepto: CasoSoporte.
 - PK: id.
 - FK: (reportado_por) → usuarios (id). reporta caso.
 - FK: (pedido_id) → pedidos (id). involucra pedido.
+- FK: (pedido_id, revision_id) → revisiones_resultado (pedido_id, id). vincula revisión.
+- UQ: (revision_id). Un caso de seguimiento por revisión. Los casos con `revision_id` nulo conservan sus propios tipos.
 - FK: (solicitud_id) → solicitudes (id). involucra solicitud.
 - FK: (pago_id) → pagos (id). involucra pago.
 - FK: (asignado_a) → usuarios (id). atiende caso.
 
-- Si hay varias referencias, describen el mismo contexto; la asignación requiere permisos de soporte.
-- Cada resolución utiliza los casos de uso autorizados para devolver un abono, aprobar una pieza o completar una entrega, con sus respectivas precondiciones.
-- Acciones y motivo se registran también en auditoría.
+- El tipo `seguimiento_revision` exige pedido y revisión. Los demás tipos conservan `revision_id` nulo. La FK compuesta comprueba que la revisión corresponda al pedido.
+- El caso conserva el primer solicitante en `reportado_por`. La auditoría vincula al caso la identidad de cada solicitante y la revisión.
+- La versión del caso empieza en 1 y aumenta con cada transición de estado. En seguimiento de revisión, `reapertura_solicitada` conserva el cierre anterior mientras espera la decisión de soporte. La aprobación devuelve el caso a `abierto` y limpia `cerrado_en`. El rechazo cambia a `reapertura_rechazada`, estado cerrado definitivo para la revisión. Si el cliente decide la revisión mientras la solicitud sigue pendiente, el caso vuelve a `cerrado`. Ambas salidas conservan la fecha de cierre. Las transiciones aumentan `version` y dejan constancia en auditoría.
 
-Trazabilidad: [RF-07.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-2), [RF-06.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-3).
+- Si hay varias referencias, describen el mismo contexto; la asignación requiere permisos de soporte.
+- Las resoluciones de devoluciones del abono y cancelaciones de entrega siguen PD-09 y PD-08. El cliente titular decide la revisión y confirma la recepción en sus recorridos autorizados.
+- Acciones y motivo se registran también en auditoría. El caso de inasistencia de PD-08 se vincula al pedido y conserva en auditoría la versión del encuentro informado. La resolución del caso y la cancelación se guardan juntas.
+
+Trazabilidad: [RF-07.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-07-2), [RF-06.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-4).
 
 <a id="aceptaciones-condiciones"></a>
 ### aceptaciones_condiciones
@@ -1524,7 +1545,7 @@ Módulo: pagos. Concepto: membresias_maker.
 
 - Una membresía por maker; editar el perfil no reinicia la antigüedad gratuita.
 - La asignación de fundador y el consumo del cupo configurado se coordinan atómicamente.
-- Cada maker recibe un único beneficio inicial: prueba general de 30 días o beneficio fundador de 90 días totales, como valores configurables.
+- Cada maker recibe un único beneficio inicial: prueba general de 30 días o beneficio fundador de 90 días totales, como valores configurables. Durante una prueba general vigente, administración puede convertirla en beneficio fundador si la convocatoria está abierta y queda cupo. Conserva el inicio y el identificador de la concesión inicial, amplía su fin hasta completar 90 días totales desde ese inicio como duración inicial configurable, consume una plaza una sola vez y audita el estado anterior y posterior. La conversión conserva un único beneficio inicial.
 - El distintivo no representa reputación, prioridad de matching ni participación societaria.
 
 Trazabilidad: [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2), [RF-12.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-3), [RF-12.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-4), [RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13).
@@ -1594,9 +1615,9 @@ Módulo: pagos. Concepto: periodos_membresia.
 - FK: (configuracion_version_id) → configuraciones_versiones (id). conserva condiciones.
 
 - inicio_en < fin_en; intervalos [inicio, fin) con reloj del servidor y fecha/hora inequívoca.
-- Un único beneficio inicial general o fundador; cada compra pagada concede como máximo un período.
+- Un único beneficio inicial general o fundador; cada compra pagada concede como máximo un período. La conversión autorizada de prueba general vigente a fundador conserva el ID y el inicio originales, amplía únicamente el fin a la duración total fundadora y registra el cambio en auditoría.
 - Modo y entorno coinciden con el origen; una simulación nunca habilita acceso real en producción.
-- La política propuesta agrega renovaciones anticipadas después del acceso vigente; la regla exacta de calendario requiere PD-10.
+- La renovación se habilita cuando el acceso comercial está vencido. Cada período comienza con la primera confirmación verificada del pago y suma la duración de 30 días configurable según PD-10; conserva ese inicio y fin ante reintentos.
 - El vencimiento no depende del worker de avisos y no bloquea la finalización de pedidos aceptados.
 
 Trazabilidad: [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2), [RF-12.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-3), [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10), [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14).
@@ -1623,6 +1644,7 @@ Módulo: catalogo. Concepto: ProductoMaker.
 - FK: (id, version_actual) → producto_versiones (producto_id, numero). selecciona versión de producto. Comprobación diferida de la referencia actual.
 
 - El alta conserva publicación y primera versión en una transacción.
+- El borrador vence a los 90 días de `actualizado_en`. El guardado inicial y cada edición confirmada fijan esa fecha con el reloj del servidor. El retiro automático verifica estado y plazo bajo el mismo bloqueo que la edición y la publicación.
 - Publicar y admitir pedidos nuevos exige maker habilitado y acceso comercial vigente; pausar o retirar conserva los pedidos existentes.
 - El catálogo contiene publicaciones de configuración fija; el maker puede publicar otro producto para otra configuración.
 
@@ -1775,7 +1797,7 @@ Módulo: reputacion. Concepto: Valoracion.
 - FK: (configuracion_version_id) → configuraciones_versiones (id). conserva escala y criterios.
 
 - El autor y destinatario son las contrapartes distintas del pedido; el servicio valida pertenencia y recepción confirmada dentro de la operación.
-- Existe como máximo una valoración por autor y pedido. Una repetición con igual contenido recupera el registro.
+- Existe como máximo una valoración por autor y pedido. La misma clave y el mismo contenido recuperan el registro original.
 - La moderación cambia la visibilidad con motivo y auditoría y conserva los puntajes emitidos.
 - El resumen incluye únicamente valoraciones publicadas y compatibles con la escala informada; ausencia de datos produce promedio NULL.
 

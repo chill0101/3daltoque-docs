@@ -24,10 +24,10 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | --- | --- | --- |
 | 1 | Maker | Consulta sus invitaciones y selecciona una solicitud. |
 | 2 | Sistema | Verifica destinatario, estado y acceso comercial y entrega las especificaciones autorizadas. |
-| 3 | Maker | Inspecciona el archivo habilitado y define precio total, moneda, plazo, condiciones y vencimiento. |
-| 4 | Sistema | Valida capacidad, versión de solicitud, vigencia y permisos. |
+| 3 | Maker | Inspecciona el archivo habilitado y define precio total, moneda, plazo de producción y condiciones. |
+| 4 | Sistema | Valida capacidad, versión de solicitud y permisos. Calcula el vencimiento de la versión a partir de la hora de publicación y la duración vigente. |
 | 5 | Sistema | Conserva la oferta y su versión inmutable. |
-| 6 | Sistema | Registra el aviso para el cliente y devuelve la referencia de oferta. |
+| 6 | Sistema | Registra el evento de la versión publicada y devuelve su referencia. Cada versión publicada avisa al cliente titular por sus canales habilitados, con app y correo activos por defecto. |
 
 ## Flujos Alternativos
 

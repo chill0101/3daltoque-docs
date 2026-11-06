@@ -31,7 +31,7 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 | --- | --- | --- | --- |
 | pedido_id | UUID | Sí | Pedido completado del participante. |
 | configuracion_version_id | UUID | Sí | Criterios y escala vigentes conservados con la valoración. |
-| criterios | Lista de código y decimal | Sí | Criterios requeridos y puntajes dentro de escala. |
+| criterios | Lista de código y entero | Sí | Criterios requeridos y puntajes de 1 a 5 por criterio en el piloto. |
 | comentario | Texto | Opcional | Longitud y reglas de contenido. |
 | clave_operacion | Texto | Sí | Identidad estable para recuperar una repetición. |
 
@@ -60,7 +60,7 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| POST | `/pedidos/{id}/valoraciones` | configuración, criterios, comentario y clave estable | valoracion_id y puntaje | Pedido completado y unicidad por autor. |
+| POST | `/pedidos/{id}/valoraciones` | configuración, criterios, comentario y clave estable | valoracion_id y puntaje | Una valoración por autor y pedido completado. |
 | GET | `/makers/{id}/reputacion` | cursor | cantidad, escala, promedio y valoraciones visibles | Agregado de valoraciones publicadas. |
 | GET | `/pedidos/{id}/valoraciones` | pedido_id | valoraciones autorizadas | Participantes o soporte con capacidad. |
 | POST | `/admin/valoraciones/{id}/moderacion` | ocultar o restituir, versión y motivo | visibilidad y auditoría | Capacidad específica. |
@@ -69,7 +69,7 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `valoraciones`, `valoracion_criterios`, `configuraciones_versiones`.
 
-Después de la recepción confirmada, cliente y maker pueden valorar a su contraparte una vez por pedido. La ficha aplica los criterios y escala de una configuración versionada, exige valores dentro del rango y admite comentario dentro del límite. Se conserva autor, destinatario, rol, pedido y configuración. Un participante no puede valorarse a sí mismo ni publicar una valoración por un pedido ajeno o cancelado. El cliente consulta la reputación pública del maker y los participantes consultan las valoraciones autorizadas del cliente según permisos. El resumen identifica cantidad de valoraciones, promedio de los puntajes globales y escala utilizada. El puntaje global de una valoración se obtiene del promedio de sus criterios configurados. La ausencia de valoraciones se representa explícitamente. Se agregan únicamente valoraciones publicadas y compatibles con la escala informada. Administración oculta o restituye una valoración mediante permiso específico y motivo registrado. Cada acción conserva estado anterior, actor y fecha y recalcula la proyección de reputación. La intervención no altera los puntajes emitidos ni crea valoraciones en nombre de otra persona.
+Después de la recepción confirmada, cliente y maker pueden valorar a su contraparte una vez por pedido. La ficha aplica los criterios y escala de una configuración versionada, exige valores dentro del rango y admite comentario dentro del límite. Se conserva autor, destinatario, rol, pedido y configuración. Un participante no puede valorarse a sí mismo ni publicar una valoración por un pedido ajeno o cancelado. El cliente consulta la reputación pública del maker y los participantes consultan las valoraciones autorizadas del cliente según permisos. El resumen identifica cantidad de valoraciones, promedio de los puntajes globales y escala utilizada. El puntaje global de una valoración se obtiene del promedio de sus criterios configurados. La ausencia de valoraciones se representa explícitamente. Se agregan únicamente valoraciones publicadas y compatibles con la escala informada. Para ocultar o restituir una valoración, administración necesita el permiso específico y debe registrar el motivo. La auditoría conserva la acción, el motivo, el actor, la fecha y los estados anterior y resultante. El sistema recalcula la proyección de reputación. La intervención no altera los puntajes emitidos ni crea valoraciones en nombre de otra persona.
 ## 8. Componentes y estados
 
 [DS03](/3daltoque-docs/design-system/02-componentes/#ds03), [DS07](/3daltoque-docs/design-system/02-componentes/#ds07), [DS09](/3daltoque-docs/design-system/02-componentes/#ds09), [DS39](/3daltoque-docs/design-system/02-componentes/#ds39).
@@ -88,7 +88,7 @@ Estados funcionales: carga, contenido, vacío, validación, permiso, conflicto, 
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-15.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-1) | 1. Cada participante de un pedido completado registra una sola valoración de su contraparte.<br>2. Una repetición identificada conserva la valoración original y sus criterios.<br>3. Un pedido sin recepción, un tercero o un puntaje fuera de escala recibe una denegación. |
+| [RF-15.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-1) | 1. Cada participante de un pedido completado registra una sola valoración de su contraparte.<br>2. Una repetición con la misma clave y contenido recupera la valoración original y sus criterios. Un segundo intento del mismo autor con otra clave se rechaza.<br>3. Un pedido sin recepción, un tercero o un puntaje fuera de escala recibe una denegación. |
 | [RF-15.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-2) | 1. El resumen coincide con las valoraciones publicadas y sus criterios.<br>2. Una cuenta sin valoraciones presenta cantidad cero y promedio ausente.<br>3. La consulta pública protege pedidos, identidad privada y contenidos moderados. |
 | [RF-15.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-3) | 1. Una ocultación autorizada retira la valoración del agregado público.<br>2. Una restitución recupera su contribución al agregado.<br>3. Una intervención sin permiso o sin motivo se rechaza y conserva el estado. |
 

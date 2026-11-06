@@ -26,7 +26,7 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | 2 | Sistema | Valida propietario, estado y versión y conserva la propuesta. |
 | 3 | Maker | Consulta la propuesta y decide aceptarla o rechazarla. |
 | 4 | Sistema | Comprueba que la oferta y solicitud continúen vigentes. |
-| 5 | Sistema | Si el maker acepta, conserva una nueva versión con condiciones y vencimiento; registra la respuesta y su relación. |
+| 5 | Sistema | Si el maker acepta, publica otra versión con sus condiciones y el vencimiento calculado desde esa publicación según PD-05. Registra la respuesta y su relación con la versión de origen y genera el evento para avisar al cliente titular por los canales habilitados. |
 | 6 | Cliente | Consulta la versión resultante y decide contratar mediante CU-03. |
 
 ## Flujos Alternativos

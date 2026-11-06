@@ -128,7 +128,7 @@
           "F01"
         ],
         "summary": "Registrar identidad",
-        "description": "Entrada: identificador, secreto, perfiles públicos y aceptación de condiciones. Salida: identidad, perfiles y siguiente acción. Guarda: Datos válidos; el registro público asigna únicamente cliente y maker.",
+        "description": "Entrada: nombre, identificador, secreto y aceptación de condiciones. Salida: identidad y perfil Cliente. El servidor asigna Cliente; campos de roles y privilegios ajenos al contrato se rechazan.",
         "parameters": [
           {
             "name": "X-Client",
@@ -264,7 +264,7 @@
           "F01"
         ],
         "summary": "Iniciar sesión",
-        "description": "Entrada: credenciales y tipo de cliente. Salida: identidad, capacidades y expiración. Guarda: Cuenta habilitada y protección frente a intentos inválidos.",
+        "description": "Entrada: credenciales y tipo de cliente. Salida: identidad, capacidades y expiración. Guarda: Cuenta habilitada y protección frente a intentos inválidos. El límite inicial configurable es de cinco fallos por correo normalizado en una ventana móvil de 60 segundos. Los intentos siguientes reciben 429 usage_limit_reached y Retry-After hasta que el primer fallo salga de la ventana.",
         "parameters": [
           {
             "name": "X-Client",
@@ -302,7 +302,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Credenciales inválidas o cuenta sin acceso. Respuesta neutral.",
             "content": {
               "application/json": {
                 "schema": {
@@ -352,11 +352,20 @@
             }
           },
           "429": {
-            "description": "Límite de uso superado",
+            "description": "Límite de uso superado. La guarda de inicio de sesión informa la espera en Retry-After.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Segundos enteros hasta que se pueda volver a intentar.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
                 }
               }
             }
@@ -756,7 +765,7 @@
           "F03"
         ],
         "summary": "Consultar perfil público",
-        "description": "Entrada: maker_id. Salida: zona pública, capacidades, catálogo, portfolio y reputación. Guarda: Contenido público vigente y precisión autorizada.",
+        "description": "Entrada: maker_id. Salida: zona pública, capacidades, catálogo, portfolio y reputación. Guarda: Contenido público vigente y precisión autorizada. El perfil muestra el punto representativo compartido de la celda de 1 km y omite el domicilio y las coordenadas operativas exactas.",
         "parameters": [
           {
             "name": "id",
@@ -999,6 +1008,146 @@
         ],
         "x-casos-de-uso": [
           "CU-09",
+          "CU-21"
+        ]
+      },
+      "post": {
+        "operationId": "f03_post_makers_me",
+        "tags": [
+          "F03"
+        ],
+        "summary": "Crear mi perfil maker",
+        "description": "Cliente titular activo: crea perfil maker pendiente con disponible=false y asignación maker en una transacción; conserva Cliente. Requiere nombre_publico e Idempotency-Key. Unicidad por usuario. Los reintentos recuperan el perfil existente y conservan estado, restricciones y beneficios; una asignación revocada o perfil suspendido requiere tratamiento autorizado. La prueba comienza al habilitar en CU-09.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil existente recuperado conservando su estado y beneficios.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerfilMaker"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Perfil pendiente creado y rol maker asignado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerfilMaker"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AltaMakerInput"
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.2"
+        ],
+        "x-casos-de-uso": [
+          "CU-13",
           "CU-21"
         ]
       }
@@ -1694,7 +1843,7 @@
           "F04"
         ],
         "summary": "Crear trabajo",
-        "description": "Entrada: título, descripción y archivos autorizados. Salida: trabajo_id y versión. Guarda: Maker titular.",
+        "description": "Entrada: título, descripción y archivos autorizados. Salida: trabajo_id y versión. Guarda: Maker titular. Comprueba que las imágenes sean JPEG o PNG habilitadas y cuenten con autorización de publicación. El uso de evidencia privada requiere la autorización aplicable y la vista pública recibe solo su derivado autorizado. Al guardar, editar o publicar, aplica el límite configurable de fotos al conjunto resultante, inicialmente cinco por trabajo. Si se supera, devuelve 422 validation_failed para archivo_ids e informa el máximo permitido.",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -1825,7 +1974,7 @@
           "F04"
         ],
         "summary": "Editar o publicar trabajo",
-        "description": "Entrada: contenido, estado y versión. Salida: trabajo actualizado. Guarda: Titularidad y autorización de medios.",
+        "description": "Entrada: contenido, estado y versión. Salida: trabajo actualizado. Guarda: Titularidad y autorización de medios. Comprueba que las imágenes sean JPEG o PNG habilitadas y cuenten con autorización de publicación. El uso de evidencia privada requiere la autorización aplicable y la vista pública recibe solo su derivado autorizado. Al guardar, editar o publicar, aplica el límite configurable de fotos al conjunto resultante, inicialmente cinco por trabajo. Si se supera, devuelve 422 validation_failed para archivo_ids e informa el máximo permitido.",
         "parameters": [
           {
             "name": "id",
@@ -2095,7 +2244,7 @@
           "F05"
         ],
         "summary": "Crear borrador personalizado",
-        "description": "Entrada: STL, unidad, material, color, cantidad, urgencia, descripción y ubicación. Salida: solicitud_id, versión y estado. Guarda: Cliente titular y límites.",
+        "description": "Entrada: STL, unidad, material, color, cantidad, urgencia, descripción y ubicación. Salida: solicitud_id, versión, estado y expira_en. Guarda: Cliente titular y límites. Un borrador personalizado vence 90 días después del guardado inicial.",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -2221,13 +2370,120 @@
       }
     },
     "/solicitudes/{id}": {
+      "get": {
+        "operationId": "f12_get_solicitudes_id",
+        "tags": [
+          "F12"
+        ],
+        "summary": "Consultar solicitud",
+        "description": "Devuelve al cliente titular la versión, el estado, el vencimiento y las acciones permitidas. Un borrador personalizado queda disponible hasta expira_en, a los 90 días de su último guardado. Una solicitud personalizada enviada que vence sin pedido queda disponible durante 12 meses desde expira_en según PD-12. Cumplido el plazo, el detalle habitual devuelve 404. La solicitud personalizada enviada permanece abierta hasta confirmar un pedido o alcanzar expira_en. Cuando hay una ronda para la versión vigente, devuelve su resumen en ultima_ronda. Incluye volver_a_buscar entre las acciones permitidas desde que termina la última ronda con cero invitaciones registradas, mientras la solicitud siga abierta y vigente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solicitud propia y sus acciones autorizadas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solicitud"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-02.4"
+        ],
+        "x-casos-de-uso": [
+          "CU-17"
+        ]
+      },
       "patch": {
         "operationId": "f05_patch_solicitudes_id",
         "tags": [
           "F05"
         ],
         "summary": "Actualizar borrador o crear versión",
-        "description": "Entrada: campos y versión esperada. Salida: versión actualizada. Guarda: Reglas de edición antes de contratación.",
+        "description": "Entrada: campos y versión esperada. Salida: versión actualizada. Guarda: Reglas de edición antes de contratación. En un borrador personalizado vigente, el guardado renueva expira_en a 90 días. Un borrador vencido devuelve 404. En una solicitud personalizada enviada, los cambios de fabricación requieren estado abierto, hora anterior a expira_en y ausencia de una primera oferta publicada. La edición válida crea otra versión y ronda, conserva expira_en y deja fuera de uso las invitaciones anteriores. Si ya se publicó una oferta, devuelve 409. El servidor deriva el estado de la solicitud de sus transiciones. Si el cliente envía un estado como campo de edición, devuelve 422.",
         "parameters": [
           {
             "name": "id",
@@ -2368,7 +2624,7 @@
           "F05"
         ],
         "summary": "Enviar solicitud",
-        "description": "Entrada: versión y clave de operación. Salida: solicitud enviada y ronda. Guarda: Archivo habilitado y especificaciones completas.",
+        "description": "Entrada: versión y clave de operación. Salida: solicitud enviada y ronda. Guarda: Borrador vigente, archivo habilitado y especificaciones completas. Un borrador vencido devuelve 404. La referencia confirmada de la solicitud debe estar en CABA. El matching aplica el mismo perímetro a los candidatos. La primera ronda aplica 10 km como radio inicial configurable desde la referencia confirmada y conserva el radio y la versión de configuración usados. Cada ronda invita hasta cinco makers elegibles como máximo inicial configurable y conserva el máximo aplicado. Si hay menos elegibles que el máximo, conserva el radio inicial aplicado y registra en la ronda únicamente a los destinatarios elegibles encontrados. Al enviar la solicitud personalizada, el servidor fija expira_en a siete días desde el envío confirmado. La misma intención recupera la fecha registrada. Si el análisis geométrico agotó su plazo, la solicitud con un STL habilitado puede enviarse para cotización por makers.",
         "parameters": [
           {
             "name": "id",
@@ -2502,6 +2758,151 @@
         ]
       }
     },
+    "/solicitudes/{id}/rondas": {
+      "post": {
+        "operationId": "f08_post_solicitudes_id_rondas",
+        "tags": [
+          "F08"
+        ],
+        "summary": "Repetir búsqueda de makers",
+        "description": "El cliente titular puede iniciar otra ronda apenas termine la última de la versión vigente con cero invitaciones registradas y la solicitud personalizada está abierta dentro de su plazo. Envía la versión esperada y el identificador de esa última ronda. El servidor vuelve a evaluar candidatos con los mismos parámetros de búsqueda, incluido el radio. Conserva la versión de solicitud y expira_en. La clave idempotente recupera la ronda registrada. Una nueva clave con ronda o versión anterior, ronda con alguna invitación registrada o solicitud cerrada devuelve 409. El conteo incluye las invitaciones rechazadas. El detalle de la solicitud permite consultar el resultado vigente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solicitud con el resultado de la ronda registrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Solicitud",
+                  "required": [
+                    "version",
+                    "expira_en",
+                    "ultima_ronda"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReintentoRondaInput"
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-03.1",
+          "RF-02.4"
+        ],
+        "x-casos-de-uso": [
+          "CU-01"
+        ]
+      }
+    },
     "/solicitudes/{id}/estimacion": {
       "get": {
         "operationId": "f06_get_solicitudes_id_estimacion",
@@ -2509,7 +2910,7 @@
           "F06"
         ],
         "summary": "Consultar estimación automática",
-        "description": "Entrada: versión de solicitud. Salida: importe o rango, moneda, método, entradas y estado. Guarda: Cliente titular; motivo explícito si no está disponible.",
+        "description": "El cliente titular consulta el importe o rango orientativo, moneda, método, supuestos y estado para la versión de solicitud dentro de la ventana de PD-12. La referencia usa cantidad × (cargo base por pieza + volumen sólido por pieza en cm³ × coeficiente del material). El rango inicial aplica ±20 % sobre la referencia y usa el porcentaje de la configuración versionada. La referencia monetaria requiere una configuración habilitada para el material conforme a PD-03. Cuando falta volumen utilizable o esa configuración, el estado y los supuestos informan la causa. La cotización por makers sigue disponible mientras la solicitud esté abierta según PD-05. Si el cálculo agota el máximo inicial configurable de 60 segundos desde el inicio en el worker, devuelve 200 con estado indisponible y la causa en supuestos, sin rango de importe.",
         "parameters": [
           {
             "name": "id",
@@ -2628,7 +3029,7 @@
           "F07"
         ],
         "summary": "Consultar candidatos",
-        "description": "Entrada: referencia geográfica, material, capacidad y cursor. Salida: candidatos y precisión de zona. Guarda: Política de búsqueda y privacidad.",
+        "description": "Entrada: referencia geográfica, material, capacidad y cursor. Salida: candidatos y precisión de zona. Guarda: Política de búsqueda y privacidad. La referencia de búsqueda y la ubicación operativa de cada candidato deben estar en CABA según PD-04. La ubicación pública usa el punto representativo de la celda de 1 km. Los filtros y el orden públicos por distancia utilizan ese punto.",
         "parameters": [
           {
             "name": "cursor",
@@ -2791,7 +3192,7 @@
           "F08"
         ],
         "summary": "Consultar invitaciones propias",
-        "description": "Entrada: estado y cursor. Salida: invitaciones autorizadas. Guarda: Maker destinatario.",
+        "description": "Entrada: estado y cursor. Salida: invitaciones autorizadas. Guarda: Maker destinatario y plazo de PD-12. El filtro por vigencia del acceso se aplica antes de paginar.",
         "parameters": [
           {
             "name": "cursor",
@@ -2921,7 +3322,7 @@
           "F08"
         ],
         "summary": "Consultar solicitud invitada",
-        "description": "Entrada: invitacion_id. Salida: especificaciones y capacidades de acción. Guarda: Maker invitado; archivos autorizados.",
+        "description": "Entrada: invitacion_id. Salida: especificaciones y capacidades de acción. Guarda: Maker invitado, archivos autorizados y ventana de acceso de la solicitud de PD-12.",
         "parameters": [
           {
             "name": "id",
@@ -3188,7 +3589,7 @@
           "F09"
         ],
         "summary": "Comparar ofertas",
-        "description": "Entrada: filtros y cursor. Salida: versiones, condiciones y vencimientos. Guarda: Cliente titular.",
+        "description": "Entrada: filtros y cursor. Salida: versiones, condiciones y vencimientos. Guarda: Cliente titular. Las ofertas de una solicitud vencida sin pedido conservan sus condiciones históricas durante 12 meses desde expira_en. Dentro de ese plazo se consultan según PD-12.",
         "parameters": [
           {
             "name": "id",
@@ -3197,6 +3598,23 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
             }
           }
         ],
@@ -3311,7 +3729,7 @@
           "F09"
         ],
         "summary": "Presentar oferta",
-        "description": "Entrada: versión de solicitud, precio total, moneda, plazo, condiciones y vigencia. Salida: oferta_id y versión. Guarda: Maker invitado y habilitado.",
+        "description": "Entrada: versión de solicitud, precio total, moneda, plazo y condiciones. Salida: oferta_id y versión. Guarda: Maker invitado y habilitado. El backend calcula vigente_hasta al publicar, con un plazo inicial configurable de 72 horas. La publicación requiere una solicitud abierta y una hora anterior a expira_en. La invitación debe corresponder a la versión vigente de la solicitud. Si se publicó una versión posterior de la solicitud, la invitación anterior devuelve conflicto. La primera publicación registra el evento que genera el aviso al cliente titular por los canales habilitados, con app y correo por Resend activos por defecto. El envío es asincrónico y se deduplica por oferta, versión y destinatario.",
         "parameters": [
           {
             "name": "id",
@@ -3456,7 +3874,7 @@
           "F09"
         ],
         "summary": "Publicar versión de oferta",
-        "description": "Entrada: versión esperada y condiciones nuevas. Salida: versión publicada. Guarda: Maker titular; conserva las anteriores.",
+        "description": "Entrada: versión esperada y condiciones nuevas. Salida: versión publicada. Guarda: Maker titular; conserva las anteriores. La nueva versión conserva el vencimiento calculado desde su propia publicación con la duración de PD-05. La publicación requiere una solicitud abierta y una hora anterior a expira_en. La versión publicada genera el aviso al cliente titular por los canales habilitados, con app y correo por Resend activos por defecto. El envío se deduplica por oferta, versión y destinatario.",
         "parameters": [
           {
             "name": "id",
@@ -3601,7 +4019,7 @@
           "F09"
         ],
         "summary": "Proponer contraoferta",
-        "description": "Entrada: versión, precio total, moneda, plazo y observación. Salida: propuesta_id y estado. Guarda: Cliente titular y oferta vigente.",
+        "description": "Entrada: versión, precio total, moneda, plazo y observación. Salida: propuesta_id y estado. Guarda: Cliente titular y oferta vigente. Crear una propuesta requiere que la solicitud siga abierta y dentro de su plazo.",
         "parameters": [
           {
             "name": "id",
@@ -3746,7 +4164,7 @@
           "F09"
         ],
         "summary": "Resolver contraoferta",
-        "description": "Entrada: decisión y versión esperada. Salida: respuesta y versión resultante. Guarda: Maker titular; crea versión si acepta.",
+        "description": "Entrada: decisión y versión esperada. Salida: respuesta y versión resultante. Guarda: Maker titular; crea versión si acepta. Una resolución aceptada genera una versión con un vencimiento calculado desde esa publicación. Resolver una propuesta requiere que la solicitud siga abierta y dentro de su plazo. Si la decisión publica una versión, se aplica el aviso al cliente titular por los canales habilitados, con app y correo por Resend activos por defecto. El envío se deduplica por oferta, versión y destinatario.",
         "parameters": [
           {
             "name": "id",
@@ -3891,7 +4309,7 @@
           "F10"
         ],
         "summary": "Confirmar oferta",
-        "description": "Entrada: versión y clave estable. Salida: pedido_id y condiciones. Guarda: Aceptación atómica, identidad y vigencia.",
+        "description": "Entrada: versión y clave estable. Salida: pedido_id y condiciones. Guarda: Aceptación atómica, identidad y vigencia. Para un pedido nuevo, verifica la referencia de la solicitud y la ubicación operativa del maker en CABA. Una repetición de la misma intención recupera el pedido existente. Para una aceptación nueva, el servidor exige una hora anterior a vigente_hasta y devuelve 409 desde el vencimiento. La aceptación nueva también exige que la solicitud siga abierta y que la hora del servidor sea anterior a expira_en. Al cumplirse el plazo devuelve 409. La primera confirmación registra un evento para cliente y maker. Cada participante recibe un aviso obligatorio en la app y el correo según su preferencia, con valor inicial activo.",
         "parameters": [
           {
             "name": "id",
@@ -4449,7 +4867,7 @@
           "F11"
         ],
         "summary": "Crear compra del abono",
-        "description": "Entrada: versión de plan y clave estable. Salida: compra_id y condiciones conservadas. Guarda: Backend determina importe, moneda y duración.",
+        "description": "Entrada: versión de plan y clave estable. Salida: compra_id y condiciones conservadas. Guarda: Backend determina importe, moneda y duración. Renovación habilitada únicamente con acceso vencido. El período pago comienza en la primera confirmación verificada del pago y dura 30 días como valor inicial configurable; conserva el mismo inicio y fin ante reintentos. El abono se publica y cobra en pesos argentinos (ARS); la compra conserva su importe y moneda. El importe inicial del plan es 10000.00 ARS por 30 días, configurable; el servidor utiliza las condiciones de la versión de plan conservada en la compra.",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -4514,11 +4932,21 @@
             }
           },
           "409": {
-            "description": "Conflicto de versión, estado, vigencia o clave",
+            "description": "Conflicto de versión, estado, vigencia o clave; acceso todavía vigente: membership_active.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "accesoVigente": {
+                    "summary": "La renovación se habilita al vencer",
+                    "value": {
+                      "code": "membership_active",
+                      "message": "La membresía continúa vigente; consultá su vencimiento para renovar.",
+                      "request_id": "req-ejemplo-renovacion"
+                    }
+                  }
                 }
               }
             }
@@ -4597,7 +5025,7 @@
           "F11"
         ],
         "summary": "Preparar o recuperar checkout",
-        "description": "Entrada: compra_id y clave estable. Salida: referencia y enlace del proveedor. Guarda: Compra propia; resultado incierto se concilia.",
+        "description": "Entrada: compra_id y clave estable. Salida: referencia y enlace del proveedor. Guarda: Compra propia; resultado incierto se concilia. Renovación habilitada únicamente con acceso vencido. El período pago comienza en la primera confirmación verificada del pago y dura 30 días como valor inicial configurable; conserva el mismo inicio y fin ante reintentos. El abono se publica y cobra en pesos argentinos (ARS); la compra conserva su importe y moneda. El importe inicial del plan es 10000.00 ARS por 30 días, configurable; el servidor utiliza las condiciones de la versión de plan conservada en la compra.",
         "parameters": [
           {
             "name": "id",
@@ -4671,11 +5099,21 @@
             }
           },
           "409": {
-            "description": "Conflicto de versión, estado, vigencia o clave",
+            "description": "Conflicto de versión, estado, vigencia o clave; acceso todavía vigente: membership_active.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "accesoVigente": {
+                    "summary": "La renovación se habilita al vencer",
+                    "value": {
+                      "code": "membership_active",
+                      "message": "La membresía continúa vigente; consultá su vencimiento para renovar.",
+                      "request_id": "req-ejemplo-renovacion"
+                    }
+                  }
                 }
               }
             }
@@ -5092,7 +5530,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5195,7 +5633,17 @@
           "CU-10",
           "CU-11",
           "CU-12"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/admin/compras-membresia/{id}/devoluciones": {
@@ -5204,8 +5652,8 @@
         "tags": [
           "F11"
         ],
-        "summary": "Solicitar devolución de abono",
-        "description": "Entrada: motivo, importe autorizado y clave estable. Salida: operación y estado. Guarda: Política PD-09 y resultado conciliado.",
+        "summary": "Solicitar devolución total de abono",
+        "description": "Entrada: motivo y clave estable. Salida: operación, importe total y estado. Guarda: administración autorizada y política PD-09. El backend obtiene importe y moneda del cobro original verificado; operación idempotente y conciliada. Al confirmarse con el proveedor la devolución total, se retira de vigencia únicamente el período asociado a esa compra y se conserva su historial. Se mantienen los demás períodos válidos y la operativa de los pedidos ya aceptados. Una devolución pendiente conserva la vigencia previa; repetir su confirmación conserva el mismo resultado. Requiere caso_id revisado y autorizado manualmente, del mismo pago, y motivo; un rechazo conserva el estado del cobro y acceso.",
         "parameters": [
           {
             "name": "id",
@@ -5249,7 +5697,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5352,7 +5800,17 @@
           "CU-10",
           "CU-11",
           "CU-12"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/admin/configuracion/membresia": {
@@ -5397,7 +5855,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5500,7 +5958,17 @@
           "CU-10",
           "CU-11",
           "CU-12"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/admin/makers/{id}/fundador": {
@@ -5510,7 +5978,7 @@
           "F11"
         ],
         "summary": "Asignar fundador",
-        "description": "Entrada: configuración y motivo. Salida: asignación y cupo. Guarda: Elegibilidad y consumo atómico de cupo.",
+        "description": "Entrada: configuración y motivo. Salida: asignación y cupo. Guarda: Elegibilidad y consumo atómico de cupo. Cupo inicial del programa: 50 makers, configurable. La asignación por identidad es única y el consumo de plazas es atómico. Convocatoria inicial de 60 días desde la apertura registrada, configurable. Nuevas asignaciones exigen plazo vigente y cupo disponible; el cierre conserva las concesiones anteriores. Durante una prueba general vigente, administración puede convertirla en beneficio fundador si la convocatoria está abierta y queda cupo. Conserva el inicio y el identificador de la concesión inicial, amplía su fin hasta completar 90 días totales desde ese inicio como duración inicial configurable, consume una plaza una sola vez y audita el estado anterior y posterior. La conversión conserva un único beneficio inicial.",
         "parameters": [
           {
             "name": "id",
@@ -5554,7 +6022,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5657,7 +6125,17 @@
           "CU-10",
           "CU-11",
           "CU-12"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/makers/me/cola": {
@@ -5799,7 +6277,7 @@
           "F12"
         ],
         "summary": "Consultar pedido",
-        "description": "Entrada: pedido_id. Salida: condiciones, historial, revisión y entrega. Guarda: Participante autorizado.",
+        "description": "Devuelve las condiciones, historial, revisión, entrega y casos de seguimiento para participantes autorizados. Cada caso incluye su estado y la decisión de reapertura con fecha cuando corresponde. La consulta habitual de un pedido completado está disponible durante 12 meses desde su cierre y la de un pedido cancelado durante 12 meses desde su cancelación, según PD-12.",
         "parameters": [
           {
             "name": "id",
@@ -6067,8 +6545,21 @@
           "F13"
         ],
         "summary": "Consultar bandeja propia",
-        "description": "Entrada: cursor. Salida: conversaciones de pedidos confirmados. Guarda: Participante de cada pedido.",
+        "description": "Entrada: cursor. Salida: conversaciones de pedidos confirmados. Guarda: Participante de cada pedido. El parámetro rol es obligatorio y debe pertenecer a la cuenta; el cursor conserva el mismo contexto. La bandeja incluye conversaciones durante 12 meses desde el cierre del pedido completado o desde su cancelación. La ventana de PD-12 se verifica antes de paginar.",
         "parameters": [
+          {
+            "name": "rol",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cliente",
+                "maker"
+              ]
+            },
+            "description": "Contexto del listado. FastAPI valida que el rol está asignado y filtra por el papel del usuario en cada pedido; el cursor conserva usuario, rol y filtros."
+          },
           {
             "name": "cursor",
             "in": "query",
@@ -6184,7 +6675,8 @@
           "RF-05.2",
           "RF-11.2",
           "RF-12.10",
-          "RF-05.4"
+          "RF-05.4",
+          "RF-01.4"
         ],
         "x-casos-de-uso": [
           "CU-14",
@@ -6200,7 +6692,7 @@
           "F13"
         ],
         "summary": "Abrir conversación del pedido",
-        "description": "Entrada: pedido_id. Salida: conversación y capacidades. Guarda: Pedido confirmado y participante autorizado.",
+        "description": "Entrada: pedido_id. Salida: conversación y capacidades. Guarda: Pedido que se confirmó, participante autorizado y plazo vigente de 12 meses desde el cierre del pedido completado o desde su cancelación. En pedidos completados o cancelados, acciones_permitidas omite el envío y conserva la consulta autorizada. Se aplica PD-12.",
         "parameters": [
           {
             "name": "id",
@@ -6325,7 +6817,7 @@
           "F13"
         ],
         "summary": "Recuperar mensajes",
-        "description": "Entrada: cursor. Salida: mensajes y cursor siguiente. Guarda: Revalida participación y conservación.",
+        "description": "Entrada: cursor. Salida: mensajes y cursor siguiente. Guarda: Revalida participación y conservación. La lectura revalida el plazo de 12 meses desde el cierre del pedido completado o desde su cancelación. Se aplica PD-12.",
         "parameters": [
           {
             "name": "id",
@@ -6334,6 +6826,23 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
             }
           }
         ],
@@ -6448,7 +6957,7 @@
           "F13"
         ],
         "summary": "Enviar mensaje",
-        "description": "Entrada: clave_cliente, texto y archivo_ids. Salida: mensaje_id y fecha. Guarda: Persistencia antes de confirmar y deduplicación.",
+        "description": "Entrada: clave_cliente, texto y archivo_ids. Salida: mensaje_id y fecha. Guarda: Persistencia antes de confirmar y deduplicación. El envío y sus reintentos revalidan participación, permisos de envío y ventana de acceso de PD-12. Desde la confirmación de recepción o la cancelación, el envío y los reintentos responden 409 con code=chat_read_only dentro de la ventana de consulta. Los mensajes y adjuntos existentes se conservan. Admite hasta cinco identificadores de archivo distintos y autorizados. Una solicitud que excede el máximo devuelve 422 sin crear el mensaje ni sus asociaciones.",
         "parameters": [
           {
             "name": "id",
@@ -6593,7 +7102,7 @@
           "F14"
         ],
         "summary": "Consultar avisos",
-        "description": "Entrada: cursor y filtro leído. Salida: avisos propios y cursor. Guarda: Destinatario autenticado.",
+        "description": "Entrada: cursor y filtro leído. Salida: avisos propios y cursor. Guarda: Destinatario autenticado. Devuelve solo avisos visibles en la app para la cuenta autenticada.",
         "parameters": [
           {
             "name": "cursor",
@@ -6717,6 +7226,255 @@
         ]
       }
     },
+    "/notificaciones/preferencias": {
+      "get": {
+        "operationId": "f14_get_notificaciones_preferencias",
+        "tags": [
+          "F14"
+        ],
+        "summary": "Consultar preferencias de avisos propias",
+        "description": "Devuelve los tipos de aviso y sus dos canales, el estado efectivo, el valor por defecto y la obligatoriedad de cada combinación. La identidad se obtiene de la sesión. Para el aviso de pedido confirmado, tanto cliente como maker obtienen correo con activo_por_defecto=true y obligatorio=false. Para el aviso de pedido cancelado por soporte, ambos canales figuran activos y obligatorios para cliente y maker. Para los recordatorios de revisión, app es obligatorio y correo es opcional con activo_por_defecto=true.",
+        "responses": {
+          "200": {
+            "description": "Preferencias vigentes de la cuenta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListaPreferenciasAviso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-07.3"
+        ],
+        "x-casos-de-uso": [
+          "CU-23"
+        ]
+      }
+    },
+    "/notificaciones/preferencias/{tipo}/{canal}": {
+      "put": {
+        "operationId": "f14_put_notificaciones_preferencias_tipo_canal",
+        "tags": [
+          "F14"
+        ],
+        "summary": "Actualizar un canal opcional de avisos",
+        "description": "Actualiza una sola preferencia opcional de la cuenta autenticada. La operación es idempotente. La política vigente determina si el canal se puede editar. Devuelve 403 si el canal es obligatorio y 404 si el tipo no está disponible para la cuenta. Para el aviso de pedido confirmado a cliente y maker, app es obligatorio y correo es opcional. Para el aviso de pedido cancelado por soporte, la edición de cualquiera de los dos canales devuelve 403. Para los recordatorios de revisión, la edición del canal app devuelve 403 y el canal correo se puede modificar.",
+        "parameters": [
+          {
+            "name": "tipo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "canal",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "app",
+                "correo"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Preferencia efectiva actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreferenciaAviso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PreferenciaAvisoInput"
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-07.3"
+        ],
+        "x-casos-de-uso": [
+          "CU-23"
+        ]
+      }
+    },
     "/notificaciones/{id}": {
       "patch": {
         "operationId": "f14_patch_notificaciones_id",
@@ -6724,7 +7482,7 @@
           "F14"
         ],
         "summary": "Marcar aviso leído",
-        "description": "Entrada: leido y versión. Salida: estado leído. Guarda: Aviso del destinatario.",
+        "description": "Entrada: leido y versión. Salida: estado leído. Guarda: Aviso del destinatario. El aviso debe ser visible en la app para la cuenta.",
         "parameters": [
           {
             "name": "id",
@@ -6867,7 +7625,7 @@
           "F15"
         ],
         "summary": "Preparar revisión",
-        "description": "Entrada: archivo_ids y observación. Salida: revision_id y estado. Guarda: Maker del pedido y archivos habilitados.",
+        "description": "El maker del pedido prepara la revisión con una a cinco referencias distintas a imágenes JPEG o PNG habilitadas para la finalidad evidencia del mismo pedido. El backend comprueba la autorización de cada referencia antes de asociarla.",
         "parameters": [
           {
             "name": "id",
@@ -7007,7 +7765,7 @@
           "F15"
         ],
         "summary": "Presentar revisión",
-        "description": "Entrada: versión y clave estable. Salida: revisión pendiente y aviso. Guarda: Maker titular y evidencia completa.",
+        "description": "Entrada: versión y clave estable. Salida: revisión pendiente y aviso. Guarda: Maker titular y evidencia completa. Una presentación nueva devuelve 409 si la revisión vigente sigue pendiente, incluso con un caso de seguimiento. La presentación confirmada programa recordatorios al cliente para las 24 y 48 horas desde la hora registrada por el servidor. Si la revisión sigue vigente y pendiente, cada plazo genera un aviso obligatorio en la app. El correo es opcional y está activo por defecto para el cliente.",
         "parameters": [
           {
             "name": "id",
@@ -7147,7 +7905,7 @@
           "F16"
         ],
         "summary": "Proponer encuentro",
-        "description": "Entrada: punto, horario y versión. Salida: entrega y propuesta. Guarda: Revisión aprobada y participante.",
+        "description": "Entrada: punto, horario y versión. Salida: entrega y propuesta. Guarda: Revisión aprobada y participante. Un cambio sobre un encuentro ya acordado requiere cupo de reprogramación según PD-08. El máximo inicial es de dos por pedido. Al agotarlo, responde 409 y conserva el acuerdo vigente. El límite también se aplica a los casos gestionados por soporte.",
         "parameters": [
           {
             "name": "id",
@@ -7288,7 +8046,7 @@
           "F16"
         ],
         "summary": "Aceptar propuesta de encuentro",
-        "description": "Entrada: versión y clave estable. Salida: acuerdo vigente. Guarda: Contraparte de quien propuso.",
+        "description": "Entrada: versión y clave estable. Salida: acuerdo vigente. Guarda: Contraparte de quien propuso. Aceptar el primer encuentro registra cero reprogramaciones. Una aceptación posterior que cambia punto u horario consume una, hasta el máximo inicial de dos. El reintento de la misma intención recupera el acuerdo registrado.",
         "parameters": [
           {
             "name": "id",
@@ -7429,7 +8187,7 @@
           "F17"
         ],
         "summary": "Confirmar recepción",
-        "description": "Entrada: versión y clave estable. Salida: recepción y pedido completado. Guarda: Cliente titular y revisión/acuerdo vigentes.",
+        "description": "Entrada: versión y clave estable. Salida: recepción y pedido completado. Guarda: Cliente titular, pedido y entrega abiertos, y revisión y acuerdo vigentes. La cancelación previa del pedido devuelve 409.",
         "parameters": [
           {
             "name": "id",
@@ -8011,7 +8769,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8098,7 +8856,17 @@
         ],
         "x-casos-de-uso": [
           "CU-16"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/pedidos": {
@@ -8108,8 +8876,21 @@
           "F19"
         ],
         "summary": "Consultar historial propio",
-        "description": "Entrada: rol, estado, origen, desde, hasta, referencia y cursor. Salida: pedidos propios y cursor. Guarda: Ámbito autorizado y orden estable.",
+        "description": "Entrada: rol, estado, origen, desde, hasta, referencia y cursor. Salida: pedidos propios y cursor. Guarda: Ámbito autorizado y orden estable. El parámetro rol es obligatorio y debe pertenecer a la cuenta. El cursor conserva el mismo contexto. Los pedidos completados se incluyen durante 12 meses desde su cierre y los cancelados durante 12 meses desde su cancelación según PD-12.",
         "parameters": [
+          {
+            "name": "rol",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cliente",
+                "maker"
+              ]
+            },
+            "description": "Contexto del listado. FastAPI valida que el rol está asignado y filtra por el papel del usuario en cada pedido; el cursor conserva usuario, rol y filtros."
+          },
           {
             "name": "cursor",
             "in": "query",
@@ -8223,7 +9004,8 @@
         "x-requisitos": [
           "RF-02.4",
           "RF-05.3",
-          "RF-16.1"
+          "RF-16.1",
+          "RF-01.4"
         ],
         "x-casos-de-uso": [
           "CU-17"
@@ -8279,7 +9061,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8367,7 +9149,156 @@
           "CU-12",
           "CU-18",
           "CU-19"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
+      },
+      "post": {
+        "operationId": "f20_post_admin_casos",
+        "tags": [
+          "F20"
+        ],
+        "summary": "Registrar caso de soporte",
+        "description": "Administración registra una solicitud con tipo, descripción, reportante y referencias autorizadas. Para devolución de abono identifica el pago; registra actor, motivo y estado inicial. La revisión y autorización posteriores son manuales y auditadas.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Caso de soporte registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Caso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CasoSoporteInput"
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-07.2",
+          "RF-12.12"
+        ],
+        "x-casos-de-uso": [
+          "CU-07"
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/admin/casos/{id}/intervenciones": {
@@ -8377,7 +9308,7 @@
           "F20"
         ],
         "summary": "Intervenir recurso",
-        "description": "Entrada: acción, recurso, versión, motivo y clave estable. Salida: resultado y auditoría. Guarda: Permiso específico y validación del caso de uso.",
+        "description": "Entrada: acción, recurso, versión, motivo y clave estable. Salida: resultado y auditoría. Guarda: Permiso específico y validación del caso de uso. Para cancelar por PD-08, enviar accion=cancelar_pedido_por_inasistencia, la version_esperada del pedido vinculado al caso y el motivo. Requiere permiso específico, incidente revisado del último encuentro, fecha acordada anterior a la operación, cupo agotado y recepción pendiente. La cancelación confirmada registra un evento para avisar a cliente y maker por app y correo obligatorios. Para aprobar_reapertura o rechazar_reapertura, enviar la version_esperada del caso y un motivo. Requiere permiso específico, solicitud pendiente y revisión vigente y pendiente. La aprobación abre el mismo caso. El rechazo lo deja en estado=reapertura_rechazada, cierre definitivo para esa revisión. La misma Idempotency-Key recupera la intervención registrada.",
         "parameters": [
           {
             "name": "id",
@@ -8421,7 +9352,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8519,7 +9450,17 @@
           "CU-12",
           "CU-18",
           "CU-19"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/admin/publicaciones/{tipo}/{id}/moderacion": {
@@ -8585,7 +9526,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8683,7 +9624,17 @@
           "CU-12",
           "CU-18",
           "CU-19"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/admin/reportes/actividad": {
@@ -8736,7 +9687,7 @@
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Sesión ausente, vencida o revocada, o límite administrativo de 8 horas alcanzado; en este último caso code=reauthentication_required.",
             "content": {
               "application/json": {
                 "schema": {
@@ -8811,7 +9762,17 @@
         ],
         "x-casos-de-uso": [
           "CU-18"
-        ]
+        ],
+        "x-acceso-administrativo": {
+          "duracion_maxima_segundos": 28800,
+          "origen": "Better Auth session.createdAt",
+          "renovable_por_actividad": false,
+          "error": {
+            "status": 401,
+            "code": "reauthentication_required"
+          },
+          "referencia": "PD-01/DC-19"
+        }
       }
     },
     "/revisiones/{id}/decisiones": {
@@ -8954,6 +9915,148 @@
         ]
       }
     },
+    "/revisiones/{id}/seguimiento-soporte": {
+      "post": {
+        "operationId": "f22_post_revisiones_id_seguimiento_soporte",
+        "tags": [
+          "F22"
+        ],
+        "summary": "Solicitar seguimiento a soporte",
+        "description": "Cliente o maker del pedido solicita seguimiento para su revisión vigente y pendiente al cumplirse 72 horas desde la presentación. El servidor identifica al solicitante por su sesión y crea un único caso por revisión. Devuelve 201 con el caso nuevo y 200 con el existente, incluso para solicitudes simultáneas de cliente y maker. La auditoría registra cada solicitud nueva y la misma clave reutiliza el registro anterior. Para accion=solicitar_reapertura, exige un caso cerrado de la misma revisión vigente y pendiente, registra la solicitud en ese caso y devuelve 200 con estado=reapertura_solicitada para revisión de soporte. Si el caso ya está en reapertura_rechazada, una solicitud nueva devuelve 409 con code=reopen_rejected. El seguimiento conserva la revisión vigente, su evidencia y su estado pendiente hasta la decisión del cliente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Caso único recuperado o solicitud de reapertura registrada en ese caso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Caso"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Caso de seguimiento registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Caso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "La revisión todavía no cumple las 72 horas, dejó de estar vigente o pendiente, o la versión o clave de operación están en conflicto.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "version_esperada": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "accion": {
+                    "type": "string",
+                    "enum": ["solicitar_seguimiento", "solicitar_reapertura"],
+                    "default": "solicitar_seguimiento"
+                  }
+                },
+                "required": ["version_esperada"],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-06.4"
+        ],
+        "x-casos-de-uso": [
+          "CU-05"
+        ]
+      }
+    },
     "/archivos/autorizaciones": {
       "post": {
         "operationId": "f23_post_archivos_autorizaciones",
@@ -8961,7 +10064,7 @@
           "F23"
         ],
         "summary": "Autorizar transferencia",
-        "description": "Entrada: contexto, finalidad, nombre, tipo y tamaño declarado. Salida: archivo_id y autorización temporal. Guarda: Permiso sobre recurso y cuotas.",
+        "description": "Entrada: contexto, finalidad, nombre, tipo y tamaño declarado. Salida: archivo_id y autorización temporal. Guarda: Permiso sobre recurso y cuotas. Para la finalidad chat, requiere capacidad de envío vigente en la conversación. Un pedido completado o cancelado dentro de la ventana de consulta devuelve 409 con code=chat_read_only. El tipo declarado es image/jpeg, image/png o application/pdf y cada archivo admite hasta 10485760 bytes. Para las finalidades evidencia, producto_presentacion y portfolio, admite image/jpeg e image/png hasta 10485760 bytes declarados por archivo.",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -9099,7 +10202,7 @@
           "F23"
         ],
         "summary": "Completar transferencia",
-        "description": "Entrada: integridad y referencia de objeto. Salida: estado de validación. Guarda: Propietario o actor autorizado del recurso.",
+        "description": "Entrada: integridad y referencia de objeto. Salida: estado de validación. Guarda: Propietario o actor autorizado del recurso. En adjuntos del chat, se comprueba que el formato real coincida con el autorizado y que el objeto tenga hasta 10485760 bytes antes de habilitarlo. Para las finalidades evidencia, producto_presentacion y portfolio, valida que el objeto sea una imagen JPEG o PNG válida, coincida con el tipo autorizado y tenga hasta 10485760 bytes.",
         "parameters": [
           {
             "name": "id",
@@ -9246,7 +10349,7 @@
           "F23"
         ],
         "summary": "Obtener acceso autorizado",
-        "description": "Entrada: archivo_id y contexto. Salida: acceso temporal o derivado autorizado. Guarda: Finalidad, permisos y estado del archivo.",
+        "description": "Con el identificador y el contexto del archivo, la API comprueba finalidad, permisos vigentes y estado en cada solicitud. Devuelve un derivado autorizado o un enlace privado de descarga con expires_at a los 300 segundos de su emisión. Para evidencias de revisión y entrega, la API comprueba el plazo de 12 meses desde el cierre del pedido completado o desde su cancelación y las excepciones autorizadas de PD-12. Para el STL original, comprueba el plazo de 90 días desde el cierre del pedido completado o desde su cancelación y las excepciones autorizadas de PD-12. Aplica la misma validación desde el pedido, la solicitud original o por identificador de archivo. Si una solicitud personalizada enviada vence sin generar un pedido, aplica 90 días desde su expira_en y las excepciones de PD-12 tanto desde la solicitud como por identificador. Para los adjuntos propios del chat, comprueba el contexto autorizado y el plazo de 12 meses desde el cierre del pedido completado o desde su cancelación, según PD-12. Al vencer, deja de emitir enlaces para el contexto habitual del chat y restringe el acceso a los adjuntos necesarios para las excepciones vigentes.",
         "parameters": [
           {
             "name": "id",
@@ -9260,7 +10363,7 @@
         ],
         "responses": {
           "200": {
-            "description": "acceso temporal o derivado autorizado",
+            "description": "Derivado autorizado o enlace privado de descarga con vigencia de 300 segundos desde su emisión",
             "content": {
               "application/json": {
                 "schema": {
@@ -9512,7 +10615,7 @@
           "F24"
         ],
         "summary": "Recuperar cambios autorizados",
-        "description": "Entrada: cursor y ámbitos permitidos. Salida: eventos identificados y cursor. Guarda: Reautorización por recurso y recuperación tras reconexión.",
+        "description": "Entrada: cursor y ámbitos permitidos. Salida: eventos identificados y cursor. Guarda: Reautorización por recurso y recuperación tras reconexión. Los eventos del chat y de solicitudes vencidas respetan sus plazos de acceso de PD-12 en cada consulta, incluso con un cursor anterior al vencimiento. Los eventos de la bandeja se emiten para los avisos visibles en la app.",
         "parameters": [
           {
             "name": "cursor",
@@ -9923,13 +11026,138 @@
       }
     },
     "/makers/me/productos": {
+      "get": {
+        "operationId": "f25_get_makers_me_productos",
+        "tags": [
+          "F25"
+        ],
+        "summary": "Consultar Mis productos",
+        "description": "El backend resuelve el maker titular desde el perfil activo de la sesión y excluye los borradores vencidos antes de paginar. El cursor corresponde al mismo titular y se aplica con el filtro de vigencia actual.",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Productos propios con sus borradores vigentes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListaProducto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-13.1"
+        ],
+        "x-casos-de-uso": [
+          "CU-19"
+        ]
+      },
       "post": {
         "operationId": "f25_post_makers_me_productos",
         "tags": [
           "F25"
         ],
         "summary": "Crear borrador de producto",
-        "description": "Entrada: configuración, precio, moneda, cantidades, plazo y condiciones. Salida: producto_id y versión. Guarda: Maker titular y campos válidos.",
+        "description": "Entrada: configuración, precio, moneda, cantidades, plazo y condiciones. Salida: producto_id y versión. Guarda: Maker titular y campos válidos. Para las fotos del catálogo, acepta referencias propias a imágenes JPEG o PNG habilitadas con finalidad producto_presentacion. Los archivos de fabricación se comprueban con su finalidad privada. El servidor cuenta solo las fotos de presentación de la versión resultante. Aplica el límite configurado, inicialmente cinco. Si se supera, devuelve 422 validation_failed e informa el máximo permitido.",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -10063,7 +11291,7 @@
           "F25"
         ],
         "summary": "Editar condiciones de producto",
-        "description": "Entrada: versión esperada y condiciones. Salida: versión actualizada. Guarda: Conserva versiones publicadas anteriores.",
+        "description": "Recibe la versión esperada y las condiciones. Conserva las versiones publicadas anteriores. Desde los 90 días del último guardado, un producto que sigue en borrador devuelve 404. Para las fotos del catálogo, acepta referencias propias a imágenes JPEG o PNG habilitadas con finalidad producto_presentacion. Los archivos de fabricación se comprueban con su finalidad privada. El servidor cuenta solo las fotos de presentación de la versión resultante. Aplica el límite configurado, inicialmente cinco. Si se supera, devuelve 422 validation_failed e informa el máximo permitido.",
         "parameters": [
           {
             "name": "id",
@@ -10206,7 +11434,7 @@
           "F25"
         ],
         "summary": "Publicar, pausar o retirar",
-        "description": "Entrada: acción y versión. Salida: estado de publicación. Guarda: Acceso comercial para admitir pedidos nuevos.",
+        "description": "Recibe la acción y la versión. Exige acceso comercial para habilitar pedidos nuevos. Desde los 90 días del último guardado, un producto que sigue en borrador devuelve 404. Al publicar, comprueba el límite vigente de fotos de presentación, inicialmente cinco. Si se supera, devuelve 422 validation_failed e informa el máximo permitido.",
         "parameters": [
           {
             "name": "id",
@@ -10349,7 +11577,7 @@
           "F25"
         ],
         "summary": "Confirmar pedido directo",
-        "description": "Entrada: versión, cantidad y clave estable. Salida: pedido y condiciones conservadas. Guarda: Precio del servidor, versión vigente e idempotencia.",
+        "description": "Entrada: versión, cantidad y clave estable. Salida: pedido y condiciones conservadas. Guarda: Precio del servidor, versión vigente e idempotencia. Para un pedido nuevo, valida CABA con la referencia confirmada del perfil cliente y la ubicación operativa del maker. Una repetición de la misma intención recupera el pedido existente. La primera confirmación registra un evento para cliente y maker. Cada participante recibe un aviso obligatorio en la app y el correo según su preferencia, con valor inicial activo.",
         "parameters": [
           {
             "name": "id",
@@ -10578,14 +11806,10 @@
           "password": {
             "type": "string",
             "format": "password",
-            "writeOnly": true
-          },
-          "perfil_solicitado": {
-            "type": "string",
-            "enum": [
-              "cliente",
-              "maker"
-            ]
+            "writeOnly": true,
+            "minLength": 15,
+            "maxLength": 128,
+            "description": "Contraseña nueva de 15 a 128 caracteres. Admite frases y espacios, que se conservan al enviar; validación en servidor mediante Better Auth."
           },
           "condiciones_version_id": {
             "type": "string",
@@ -10596,10 +11820,10 @@
           "nombre",
           "email",
           "password",
-          "perfil_solicitado",
           "condiciones_version_id"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Registro público con perfil Cliente asignado por el servidor. El alta maker ocurre después mediante POST /makers/me."
       },
       "SesionInput": {
         "type": "object",
@@ -10746,7 +11970,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "description": "Referencias distintas a fotos autorizadas. El servidor aplica el límite vigente por trabajo al conjunto resultante, inicialmente cinco."
           },
           "estado": {
             "type": "string",
@@ -10856,10 +12081,6 @@
           "condiciones": {
             "type": "string",
             "minLength": 1
-          },
-          "vigente_hasta": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "required": [
@@ -10867,8 +12088,7 @@
           "precio_total",
           "moneda",
           "plazo",
-          "condiciones",
-          "vigente_hasta"
+          "condiciones"
         ],
         "additionalProperties": false
       },
@@ -11013,16 +12233,18 @@
             "type": "string",
             "minLength": 1
           },
-          "importe": {
+          "caso_id": {
             "type": "string",
-            "pattern": "^[0-9]+(?:\\.[0-9]{1,2})?$"
+            "format": "uuid",
+            "description": "Caso de soporte autorizado manualmente y vinculado al mismo pago."
           }
         },
         "required": [
-          "motivo",
-          "importe"
+          "caso_id",
+          "motivo"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Solicitud administrativa de devolución total desde un caso revisado y autorizado. Backend calcula importe y moneda desde el cobro original verificado."
       },
       "PlanInput": {
         "type": "object",
@@ -11154,6 +12376,83 @@
             }
           }
         ]
+      },
+      "PreferenciaAviso": {
+        "type": "object",
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "canal": {
+            "type": "string",
+            "enum": [
+              "app",
+              "correo"
+            ]
+          },
+          "activo": {
+            "type": "boolean"
+          },
+          "activo_por_defecto": {
+            "type": "boolean"
+          },
+          "obligatorio": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tipo",
+          "canal",
+          "activo",
+          "activo_por_defecto",
+          "obligatorio"
+        ],
+        "additionalProperties": false,
+        "if": {
+          "properties": {
+            "obligatorio": {
+              "const": true
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "activo": {
+              "const": true
+            },
+            "activo_por_defecto": {
+              "const": true
+            }
+          }
+        }
+      },
+      "ListaPreferenciasAviso": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PreferenciaAviso"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "additionalProperties": false
+      },
+      "PreferenciaAvisoInput": {
+        "type": "object",
+        "properties": {
+          "activo": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "activo"
+        ],
+        "additionalProperties": false
       },
       "NotificacionInput": {
         "type": "object",
@@ -11289,7 +12588,9 @@
                   "minLength": 1
                 },
                 "puntaje": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5
                 }
               },
               "required": [
@@ -11407,7 +12708,8 @@
           },
           "tamano_bytes": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "description": "Tamaño declarado en bytes. El piloto admite hasta 20971520 bytes por STL y 10485760 bytes por imagen o PDF adjunto al chat. El servidor aplica el límite según la finalidad y el formato."
           }
         },
         "required": [
@@ -11416,7 +12718,54 @@
           "tipo",
           "tamano_bytes"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "if": {
+          "properties": {
+            "finalidad": {
+              "const": "chat"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "tipo": {
+              "enum": [
+                "image/jpeg",
+                "image/png",
+                "application/pdf"
+              ]
+            },
+            "tamano_bytes": {
+              "maximum": 10485760
+            }
+          }
+        },
+        "else": {
+          "if": {
+            "properties": {
+              "finalidad": {
+                "enum": [
+                  "evidencia",
+                  "producto_presentacion",
+                  "portfolio"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "tipo": {
+                "enum": [
+                  "image/jpeg",
+                  "image/png"
+                ]
+              },
+              "tamano_bytes": {
+                "maximum": 10485760
+              }
+            }
+          }
+        }
       },
       "FinalizacionInput": {
         "type": "object",
@@ -11427,7 +12776,8 @@
           },
           "tamano_bytes": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "description": "Tamaño informado en bytes. El servidor comprueba el tamaño real del objeto en almacenamiento. El piloto admite hasta 20971520 bytes por STL y 10485760 bytes por imagen o PDF adjunto al chat."
           }
         },
         "required": [
@@ -11497,7 +12847,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "description": "Referencias distintas a fotos de presentación y recursos privados de fabricación. El servidor cuenta las de finalidad producto_presentacion y aplica el límite configurable por versión, inicialmente cinco."
           }
         },
         "required": [
@@ -11657,6 +13008,29 @@
             "type": "string",
             "format": "uuid"
           },
+          "casos_seguimiento": {
+            "type": "array",
+            "description": "Casos de las revisiones del pedido, disponibles en la consulta de detalle autorizada.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "revision_id": { "type": "string", "format": "uuid" },
+                "estado": { "type": "string", "minLength": 1 },
+                "decision_reapertura": {
+                  "type": "object",
+                  "properties": {
+                    "resultado": { "type": "string", "enum": ["aprobada", "rechazada"] },
+                    "decidida_en": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["resultado", "decidida_en"],
+                  "additionalProperties": false
+                }
+              },
+              "required": ["id", "revision_id", "estado"],
+              "additionalProperties": false
+            }
+          },
           "condiciones": {
             "type": "object",
             "properties": {
@@ -11773,15 +13147,22 @@
             "items": {
               "type": "string",
               "minLength": 1
-            }
+            },
+            "description": "Roles asignados por el servidor a la identidad. La cuenta admite cliente y maker; el contexto seleccionado pertenece a la navegación de cada pestaña o instancia y conserva las asignaciones."
           },
           "expires_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Vencimiento actual de la sesión. Cliente/Maker: 7 días renovables con actividad; referencia de actualización cada 24 horas. Cerrar sesión revoca el acceso y una sesión vencida o revocada requiere autenticación."
           },
           "access_token": {
             "type": "string",
             "description": "Secreto opaco entregado al cliente Mobile; Web utiliza la cookie HttpOnly."
+          },
+          "admin_expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Límite administrativo calculado por servidor cuando corresponde: el menor valor entre expires_at y Better Auth session.createdAt más 8 horas. Al alcanzarlo, las operaciones administrativas requieren una nueva autenticación con 401 reauthentication_required."
           }
         },
         "required": [
@@ -11868,6 +13249,10 @@
           },
           "disponible": {
             "type": "boolean"
+          },
+          "nombre_publico": {
+            "type": "string",
+            "minLength": 1
           }
         },
         "required": [
@@ -11932,7 +13317,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "description": "Referencias distintas a fotos autorizadas. El servidor aplica el límite vigente por trabajo al conjunto resultante, inicialmente cinco."
           },
           "estado": {
             "type": "string",
@@ -12057,7 +13443,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "description": "Referencias distintas a fotos de presentación y recursos privados de fabricación. El servidor cuenta las de finalidad producto_presentacion y aplica el límite configurable por versión, inicialmente cinco."
           }
         },
         "required": [
@@ -12129,6 +13516,42 @@
               "type": "string",
               "minLength": 1
             }
+          },
+          "nombre_publico": {
+            "type": "string",
+            "minLength": 1
+          },
+          "estado": {
+            "type": "string",
+            "description": "Estado del perfil; la creación inicial comienza pendiente."
+          },
+          "disponible": {
+            "type": "boolean"
+          },
+          "zona_mapa": {
+            "type": "object",
+            "description": "Punto representativo de la celda pública. El punto es común a los makers de la zona.",
+            "properties": {
+              "latitud": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+              },
+              "longitud": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+              },
+              "lado_metros": {
+                "const": 1000
+              }
+            },
+            "required": [
+              "latitud",
+              "longitud",
+              "lado_metros"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
@@ -12284,6 +13707,54 @@
         ],
         "additionalProperties": false
       },
+      "ReintentoRondaInput": {
+        "type": "object",
+        "properties": {
+          "version_esperada": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "ronda_anterior_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Identificador de la última ronda vacía de la versión consultada."
+          }
+        },
+        "required": [
+          "version_esperada",
+          "ronda_anterior_id"
+        ],
+        "additionalProperties": false
+      },
+      "RondaBusquedaResumen": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "numero": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "radio_metros": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "cantidad_invitados": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total de invitaciones registradas en la ronda, incluidas las rechazadas."
+          }
+        },
+        "required": [
+          "id",
+          "numero",
+          "radio_metros",
+          "cantidad_invitados"
+        ],
+        "additionalProperties": false
+      },
       "Solicitud": {
         "type": "object",
         "properties": {
@@ -12317,6 +13788,15 @@
               "type": "string",
               "minLength": 1
             }
+          },
+          "expira_en": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Vencimiento UTC de la solicitud personalizada. En borrador es de 90 días desde el último guardado. Al enviarla, el servidor fija siete días desde la confirmación."
+          },
+          "ultima_ronda": {
+            "$ref": "#/components/schemas/RondaBusquedaResumen",
+            "description": "Resumen de la ronda más reciente disponible para la versión vigente. La operación Volver a buscar devuelve aquí la ronda registrada."
           }
         },
         "required": [
@@ -12457,7 +13937,8 @@
           },
           "vigente_hasta": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Vencimiento registrado por el servidor para la versión publicada. En ofertas personalizadas, se calcula con la configuración de PD-05, inicialmente 72 horas desde la publicación."
           },
           "estado": {
             "type": "string",
@@ -12987,6 +14468,44 @@
               "type": "string",
               "minLength": 1
             }
+          },
+          "reportado_por": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "pago_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "pedido_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "revision_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Revisión vinculada al caso único de seguimiento."
+          },
+          "solicitud_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tipo": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "resolucion": {
+            "type": "string"
+          },
+          "creado_en": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
           }
         },
         "required": [
@@ -13383,6 +14902,60 @@
         "required": [
           "items",
           "next_cursor"
+        ],
+        "additionalProperties": false
+      },
+      "CasoSoporteInput": {
+        "type": "object",
+        "properties": {
+          "reportado_por": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tipo": {
+            "type": "string",
+            "minLength": 1
+          },
+          "descripcion": {
+            "type": "string",
+            "minLength": 1
+          },
+          "pago_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "pedido_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "solicitud_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "asignado_a": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "reportado_por",
+          "tipo",
+          "descripcion"
+        ],
+        "additionalProperties": false,
+        "description": "Registro administrativo de una solicitud recibida por soporte. Para devolver un abono requiere pago_id del cobro involucrado; las referencias describen el mismo contexto. Para tipo=inasistencia_entrega, requiere pedido_id y registra la versión del último encuentro en auditoría. Los casos de seguimiento_revision se registran mediante POST /revisiones/{id}/seguimiento-soporte."
+      },
+      "AltaMakerInput": {
+        "type": "object",
+        "properties": {
+          "nombre_publico": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Nombre público de presentación del perfil productivo."
+          }
+        },
+        "required": [
+          "nombre_publico"
         ],
         "additionalProperties": false
       }

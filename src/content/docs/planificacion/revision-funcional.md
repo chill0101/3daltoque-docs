@@ -31,10 +31,10 @@ El cliente confirma directamente un pedido de producto con las condiciones publi
 | Funcionalidades | 25 fichas y 25 specs | [Catálogo](/3daltoque-docs/proyecto/funcionalidades/) y [specs](/3daltoque-docs/specs/) |
 | Requisitos | 68 RF activos y 19 RNF | [RF](/3daltoque-docs/analisis/requisitos/funcionales/) y [RNF](/3daltoque-docs/analisis/requisitos/no-funcionales/) |
 | Casos de uso | 25 fichas con plantilla, flujos normales y alternativos numerados | [Índice y diagrama](/3daltoque-docs/analisis/casos-de-uso/) |
-| Contratos de API | 75 operaciones | [API y eventos](/3daltoque-docs/diseno/api-eventos/) |
-| Persistencia | 58 tablas, 548 columnas y 10 vistas DER | [DER](/3daltoque-docs/modelado/datos/) y [modelo lógico](/3daltoque-docs/modelado/modelo-logico/) |
+| Contratos de API | 83 operaciones | [API y eventos](/3daltoque-docs/diseno/api-eventos/) |
+| Persistencia | 58 tablas, 552 columnas y 10 vistas DER | [DER](/3daltoque-docs/modelado/datos/) y [modelo lógico](/3daltoque-docs/modelado/modelo-logico/) |
 | Diseño | 39 clases de dominio; 14 servicios de aplicación con operaciones y puertos | [Dominio](/3daltoque-docs/modelado/clases-y-arquitectura/#dominio) y [diseño](/3daltoque-docs/diseno/clases-de-diseno/) |
-| Pruebas | 160 CP planificados: 136 por RF, 12 de membresía y 12 de integración | [Datos, acciones y resultados esperados](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) |
+| Pruebas | 161 CP planificados: 136 por RF, 12 de membresía y 13 de integración | [Datos, acciones y resultados esperados](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) |
 | Vistas | 122 superficies documentadas, incluidas 12 nuevas; 110 composiciones de mock conservadas | [Inventario](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/) |
 
 ## Comprobaciones documentales

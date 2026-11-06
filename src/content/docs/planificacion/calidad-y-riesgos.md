@@ -38,7 +38,7 @@ Escala: probabilidad e impacto de 1 a 3; exposición = producto. El equipo revis
 | R03 | Aceptación concurrente duplica pedido o cupo fundador. | 2 | 3 | Transacción, unicidad e idempotencia; ejecutar CP de concurrencia antes del release. | Backend/datos |
 | R04 | Un archivo privado queda expuesto. | 2 | 3 | Autorización por recurso y URL temporal; revocar acceso, contener incidente y auditar. | Seguridad/archivos |
 | R05 | STL inválido consume recursos o no puede analizarse. | 2 | 2 | Límites previos, análisis aislado y timeout; conservar borrador y explicar la indisponibilidad de estimación. | Backend/worker |
-| R06 | Pocos makers compatibles en la zona del piloto. | 3 | 2 | Medir cobertura; ampliar radio con reglas explícitas y reclutar makers; conservar respuesta de búsqueda vacía. | Validación de producto |
+| R06 | Pocos makers compatibles en la zona del piloto. | 3 | 2 | Medir cobertura, reclutar makers dentro de CABA e informar al cliente cuando la búsqueda quede vacía. | Validación de producto |
 | R07 | Cambios del mock y de contratos divergen entre canales. | 2 | 2 | Mantener inventario y estados por pantalla; cotejar Web/Mobile con la misma API. | Interfaz/QA |
 | R08 | Pérdida de datos o respaldo incompleto. | 2 | 3 | Copia de base y objetos con manifiesto; restauración aislada periódica bajo PNF-008. | Operación |
 | R09 | Evidencia de investigación insuficiente para una conclusión. | 2 | 2 | Separar hipótesis y resultados, conservar instrumento y muestra; realizar entrevistas antes de evaluar conversión. | Investigación |

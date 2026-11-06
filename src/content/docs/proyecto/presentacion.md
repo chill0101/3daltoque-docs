@@ -37,6 +37,8 @@ Un plan mensual prepago con renovación manual mediante Checkout Pro. La primera
 
 Web y React Native cubren los recorridos de cliente y maker con una API FastAPI compartida. Administración opera en Web. El maker mantiene perfil, impresoras, materiales, disponibilidad, portfolio y productos. Los indicadores administrativos tienen definiciones, período y permisos.
 
+Una misma cuenta puede tener perfil Cliente y Maker y alternar entre ambos mediante un selector en Web y Mobile. Cada contexto conserva su navegación y actividad; el servidor comprueba los permisos por recurso. El alta y la habilitación del maker conservan sus condiciones y el beneficio inicial único.
+
 ## Límites de v1
 
 La plataforma conserva las condiciones de la pieza y gestiona el cobro del abono. Se excluyen comisión por impresión, custodia de fondos de terceros, split y transferencias a makers. La entrega se coordina personalmente; logística propia, rastreo de repartidores, venta de archivos digitales y renovación automática de membresía corresponden a ampliaciones posteriores.

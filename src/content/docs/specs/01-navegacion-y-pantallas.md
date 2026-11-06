@@ -390,7 +390,7 @@ Las fichas se agrupan por plataforma y tarea. Cada acordeón conserva los identi
 | Actores | Participantes autorizados |
 | Ruta lógica propuesta | /pedidos/:id/conversacion |
 | Specs | [F13](/3daltoque-docs/specs/f13-mensajeria-cliente-maker/), [F23](/3daltoque-docs/specs/f23-gestion-de-archivos-privados/) |
-| Estados | Carga, contenido, vacío, error, permiso y recuperación; agregar pendiente externo o conflicto cuando aplique. |
+| Estados | Carga, contenido, vacío, error, permiso, recuperación y solo lectura para pedidos completados o cancelados dentro del plazo de PD-12. Agregar pendiente externo o conflicto cuando aplique. |
 
 <a id="web-his-01"></a>
 
@@ -414,6 +414,7 @@ Las fichas se agrupan por plataforma y tarea. Cada acordeón conserva los identi
 | Actores | Participantes autorizados |
 | Ruta lógica propuesta | /notificaciones |
 | Specs | [F14](/3daltoque-docs/specs/f14-notificaciones/) |
+| Preferencias | Abrir Preferencias de avisos desde la bandeja. Mostrar App y Correo por tipo. Permitir cambiar los opcionales e indicar los obligatorios. |
 | Estados | Carga, contenido, vacío, error, permiso y recuperación; agregar pendiente externo o conflicto cuando aplique. |
 
 <a id="web-sys-01"></a>
@@ -797,7 +798,7 @@ Las fichas se agrupan por plataforma y tarea. Cada acordeón conserva los identi
 | Actores | Participantes autorizados |
 | Ruta lógica propuesta | /pedidos/:id/conversacion |
 | Specs | [F13](/3daltoque-docs/specs/f13-mensajeria-cliente-maker/), [F23](/3daltoque-docs/specs/f23-gestion-de-archivos-privados/) |
-| Estados | Carga, contenido, vacío, error, permiso y recuperación; agregar pendiente externo o conflicto cuando aplique. |
+| Estados | Carga, contenido, vacío, error, permiso, recuperación y solo lectura para pedidos completados o cancelados dentro del plazo de PD-12. Agregar pendiente externo o conflicto cuando aplique. |
 
 <a id="mob-his-01"></a>
 
@@ -821,6 +822,7 @@ Las fichas se agrupan por plataforma y tarea. Cada acordeón conserva los identi
 | Actores | Participantes autorizados |
 | Ruta lógica propuesta | /notificaciones |
 | Specs | [F14](/3daltoque-docs/specs/f14-notificaciones/) |
+| Preferencias | Abrir Preferencias de avisos desde la bandeja. Mostrar App y Correo por tipo. Permitir cambiar los opcionales e indicar los obligatorios. |
 | Estados | Carga, contenido, vacío, error, permiso y recuperación; agregar pendiente externo o conflicto cuando aplique. |
 
 <a id="mob-sys-01"></a>
@@ -839,6 +841,10 @@ Las fichas se agrupan por plataforma y tarea. Cada acordeón conserva los identi
 </details>
 
 
+## Recuperación desde el acceso
+
+WEB-AUTH-01 y MOB-AUTH-01 incorporan «Olvidé mi contraseña», solicitud por correo, aviso neutral, formulario de contraseña nueva y estados de enlace vencido, inválido o consumido. El token de recuperación dura 15 minutos y se consume al confirmar el restablecimiento. El flujo usa retornos autorizados y permite solicitar otro enlace. [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) y [CU-13](/3daltoque-docs/analisis/casos/cu-13-registrarse-y-acceder/) fijan las reglas.
+
 ## Navegación por rol
 
 | Perfil | Recorrido principal |
@@ -846,6 +852,8 @@ Las fichas se agrupan por plataforma y tarea. Cada acordeón conserva los identi
 | Cliente | Acceso → perfil → solicitud → ofertas → confirmación → pedido/chat → revisión → entrega → actividad. |
 | Maker | Acceso → capacidades/habilitación → membresía → invitaciones → ofertas → cola → pedido/evidencia → entrega. |
 | Administración | Acceso autorizado → soporte → configuración del plan/fundadores → conciliación y acciones permitidas → reportes. |
+
+El selector de contexto de [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) permite alternar Cliente/Maker dentro de la misma cuenta. Se ubica en la navegación principal Web y en el menú de cuenta Mobile, identifica el perfil actual y presenta los perfiles asignados. El registro crea Cliente. La acción «Crear mi perfil maker» de la navegación de cuenta dirige a WEB-MKR-01 o MOB-MKR-01 para incorporar el perfil productivo pendiente. La selección se conserva por pestaña o instancia; cada cambio recupera capacidades y abre las listas y borradores de ese perfil. Un maker pendiente accede a completar su habilitación.
 
 ## Condiciones de navegación
 
@@ -1080,7 +1088,7 @@ Cada ficha conserva el enlace al mock de referencia. El contrato de su funcional
 | Funcionalidades | [F05](/3daltoque-docs/specs/f05-alta-de-solicitud-de-impresion/), [F08](/3daltoque-docs/specs/f08-matching-y-envio-a-makers/), [F14](/3daltoque-docs/specs/f14-notificaciones/) |
 | Referencia de diseño | [Abrir mock](https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2730) |
 | Descripción del mock | Consultá el estado de la ronda de invitaciones y las respuestas recibidas. |
-| Reglas vigentes | Consultar la spec y el caso de uso relacionados; los campos visuales existentes se conservan para la revisión de diseño. |
+| Reglas vigentes | El detalle muestra el resultado de la última ronda. La API habilita Volver a buscar con el mismo radio y la misma versión cuando la solicitud sigue abierta y la última ronda terminó con cero invitaciones registradas. |
 
 <a id="web-mkr-06"></a>
 
@@ -1457,7 +1465,7 @@ Cada ficha conserva el enlace al mock de referencia. El contrato de su funcional
 | Funcionalidades | [F05](/3daltoque-docs/specs/f05-alta-de-solicitud-de-impresion/), [F08](/3daltoque-docs/specs/f08-matching-y-envio-a-makers/), [F14](/3daltoque-docs/specs/f14-notificaciones/) |
 | Referencia de diseño | [Abrir mock](https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2272) |
 | Descripción del mock | Consultá el estado de la ronda de invitaciones y las respuestas recibidas. |
-| Reglas vigentes | Consultar la spec y el caso de uso relacionados; los campos visuales existentes se conservan para la revisión de diseño. |
+| Reglas vigentes | El detalle muestra el resultado de la última ronda. La API habilita Volver a buscar con el mismo radio y la misma versión cuando la solicitud sigue abierta y la última ronda terminó con cero invitaciones registradas. |
 
 <a id="mob-mkr-06"></a>
 

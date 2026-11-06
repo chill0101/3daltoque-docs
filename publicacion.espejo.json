@@ -6,11 +6,11 @@
       "destino": "src/content/docs/planificacion/estado.md",
       "checkpoint": "Checklist",
       "estado": "entregable",
-      "sha256Fuente": "8cf6e85a882bec63dab5d7522b57dcfcdb4d56b44364b3c9120ecebed1170c7e",
-      "sha256": "41210f3b99d360e2ec4b356d667834f776a08356e4adbb122ff5c7b63110bdd7",
-      "huella": "b4e7355962f6b708f3334430fb6aab9753ebb91090b776e61e756284b25aab07",
+      "sha256Fuente": "7d86af4801873ac98420790077987242d81769aec36c84723a2ae5493362a8bf",
+      "sha256": "ab48ca6666b669c7d8e31fe8240d845bea0c53f83fe52ec57a77a65497afd51b",
+      "huella": "c63ba1a4ffd0b94ef07b1e646e3a1d893770da84aadebcadf51f1b0356191e59",
       "adjuntos": [],
-      "commitFuente": "51821a119c9065577464e59992de86b962d25753"
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "casos-de-uso": {
       "origen": "docs/04-casos-de-uso-y-aceptacion.md",
@@ -99,9 +99,9 @@
       "destino": "src/content/docs/diseno/implementacion.md",
       "checkpoint": "12",
       "estado": "entregable",
-      "sha256Fuente": "9ac2412c79a0cf1b08a8cc9b533af88378d0e17f10600fe63ca1937429a84be1",
-      "sha256": "203760b8723233a5a1f4ee489eb3f3dbb4930d48a58d9c4d60e6b7827ddd50ae",
-      "huella": "f53ac691741ef2f28cc05e60932336a2c4dfcd3a8e2d9fe2929001e65550c6c3",
+      "sha256Fuente": "536d5a17ab32cc7a3e87109edf6f8ddeab177a453cbf890f284a63b7a00460cc",
+      "sha256": "201b4373adb9d92d27a392c6b45857638b39cd5158b3845a31a0aee9e35185c9",
+      "huella": "cce678db218f3e9fe6dcc568519a6a8ea1b78d9a30699997040cd674ca61e6a6",
       "adjuntos": [
         {
           "origen": "docs/diagramas/componentes.svg",
@@ -123,16 +123,17 @@
           "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
           "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "der": {
       "origen": "docs/modelo-datos/der.md",
       "destino": "src/content/docs/modelado/datos.md",
       "checkpoint": "8",
       "estado": "entregable",
-      "sha256Fuente": "487b7be542cc488f17786eac2847d455996d97d6bf99fefc3678bdd412da611b",
-      "sha256": "20e354d65d5269ab3ce9ea4acf2e9a09dcf14d92c1da018eb64fd7f6f3728e7c",
-      "huella": "67fe18ed6b1a7535d93505e1eb37ba96b0661a4d5f0ac9e92e95074404a84397",
+      "sha256Fuente": "1e3cafe4e7f75d4935ae15cb82a63f5a81f63feef510816dc68fee2286eac93b",
+      "sha256": "7db1122889df69963c14abdae059d2972af76778fe82c0392a8e86e6521c8459",
+      "huella": "f21109bcfc7bdf4adc50185f6e633f601752d2f1d3b0a919c80414755aa80db6",
       "adjuntos": [
         {
           "origen": "docs/modelo-datos/diagramas/der-general.svg",
@@ -147,12 +148,12 @@
         {
           "origen": "docs/modelo-datos/diagramas/der-identidad.svg",
           "destino": "public/documentos/ccaa2a178084-der-identidad.svg",
-          "sha256": "e155ea8865576dbad01879e9cd8fc507858684d1fd5ba480f4806a4b76aec3e7"
+          "sha256": "2c5ed382661c2c78b787bfbd64f020ab0f8bc92130f07f8332e1bbec5ace0cbf"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-identidad.mmd",
           "destino": "public/documentos/c9a8a7b5f5d5-der-identidad.mmd",
-          "sha256": "c69464d4459c4475aaeee6093e6de707b4471c5872c51ec6a04fbe196b7ca9fb"
+          "sha256": "a8bb2c8b4234f78c4d68ba533a2b8f59f534c24adbf513fef5d6afe202933421"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-archivos.svg",
@@ -197,22 +198,22 @@
         {
           "origen": "docs/modelo-datos/diagramas/der-comunicacion.svg",
           "destino": "public/documentos/e596445273e8-der-comunicacion.svg",
-          "sha256": "b5f8464d8e1fe41d6c87e96cef38b6ee0b9ded8184c94c4d327dbdb02286f999"
+          "sha256": "ad45888c10a890f04e6a68d56508e0090590174172ca6b707b239329f2204c9d"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-comunicacion.mmd",
           "destino": "public/documentos/94b9740f694c-der-comunicacion.mmd",
-          "sha256": "b7568c1cbacf4fc37e08613aa2fd3107b3bf8e8b9254d477c233c9183f03b00c"
+          "sha256": "f972994ac1862fadfe57f46bf4db174d8f9b57f46db2fa4b94261ea84bf1e8c7"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-operacion.svg",
           "destino": "public/documentos/4b5695cb3462-der-operacion.svg",
-          "sha256": "ab99527d7881dd5177f68797a703859b2a4264eb6a268f19f5f006ae2ffc3a20"
+          "sha256": "ec2d0ce4751a1c030f9d551837a9ea93d007f416a0ced1be802f3ef51c6b5bd6"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-operacion.mmd",
           "destino": "public/documentos/e618405f9449-der-operacion.mmd",
-          "sha256": "7cb97c6f017208c459cfdffe6fa31069a685eda1f7863d711556d790667a9db3"
+          "sha256": "de695837027c4d9b60506672be9b5b5538efaa7b734efa438ed46171486ee47e"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-catalogo.svg",
@@ -234,32 +235,34 @@
           "destino": "public/documentos/69a11ae1c1f0-der-reputacion.mmd",
           "sha256": "de0d389983fc05627438c2a5fad8aafe6f60ac2875b7f81956409068e0cbea6e"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "modelo-logico": {
       "origen": "docs/modelo-datos/modelo-logico.md",
       "destino": "src/content/docs/modelado/modelo-logico.md",
       "checkpoint": "8",
       "estado": "entregable",
-      "sha256Fuente": "91526bc2413f96748e075fcf434c7f87e9994d680824e61b65824eebd46355e5",
-      "sha256": "0c14540af149bf0be6b5f94b711b5e223d2d13d5c16b9aa8f00e6f7294878cef",
-      "huella": "08662c81b44650b91390d85fead83bbfe3bf50b94daa36c6332ce4fc91dd5143",
+      "sha256Fuente": "90466e644649ac54809faabe31bb3848fa3abcaa3699ab79360a4a755175d086",
+      "sha256": "988e9a85d3999b51c126a87449f425f5ad6eb37f8cb1f54c0c6922e23c6eabf2",
+      "huella": "725e447d545e3793dd12313a8cf352a7833038e5b9b44d37ea1e49bb205382d1",
       "adjuntos": [
         {
           "origen": "docs/modelo-datos/catalogo.json",
           "destino": "public/documentos/b0342fb91680-catalogo.json",
-          "sha256": "066f43e9296de3cd995d0b41726c62c4baaa1a6731ad40de1bea11774645def9"
+          "sha256": "04b5385ecb82b3172451fd9025a6a88f9461d6dbf1a26713821db2b00edabc97"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "flujos": {
       "origen": "docs/08-flujos-y-diagramas.md",
       "destino": "src/content/docs/flujos/estados.md",
       "checkpoint": "3 y 4",
       "estado": "entregable",
-      "sha256Fuente": "881dc8dfad0875255f163e58aedfba432e89e78900d55971df6930f9dd4c177e",
-      "sha256": "eabc1b9e2e84704cbe8552c89be053f0bde1058bd6a7dad1c3d7ffcdf808e83e",
-      "huella": "67cb1bf75f3f164e96cc20ee41a09545addd6441b9543b406dde87e616272bc1",
+      "sha256Fuente": "08914c777063b9b5de04b34abc75b590fc950c83bc9428f021cf7f1b60e52e46",
+      "sha256": "6251536c2ac277523b372c90f3b4952f686c9397c957443a611b27258e40ccf7",
+      "huella": "eaa40ea4fef3d6ec86a8a8a1e7d048a2fb282f06c584d1382bab6e6ba1bb6643",
       "adjuntos": [
         {
           "origen": "docs/diagramas/secuencia-cotizacion.svg",
@@ -274,32 +277,32 @@
         {
           "origen": "docs/diagramas/estados-solicitud.svg",
           "destino": "public/documentos/5a3710605866-estados-solicitud.svg",
-          "sha256": "4bb013d3741fb4320c870d14420c9c020227dadedfb46de7b5438022137a0c6c"
+          "sha256": "b1e45d5ea2a88993f2dbdd0e14d3d0fed019975bf6ef8ef797dbc509971fb6c9"
         },
         {
           "origen": "docs/diagramas/estados-solicitud.mmd",
           "destino": "public/documentos/1441f04a2334-estados-solicitud.mmd",
-          "sha256": "eb1d41c1abd861946ea866bc092805b61efc610660fab0aeb70265f7dff8a812"
+          "sha256": "04691758845e008767ad4bf3d00e8812ccbaba1cb574581eb768fd0a6dece554"
         },
         {
           "origen": "docs/diagramas/estados-oferta.svg",
           "destino": "public/documentos/a8692614b574-estados-oferta.svg",
-          "sha256": "d8680f9099abee97f27b83998b8d472bdb304e4523b71f4b9e3334618d073ef8"
+          "sha256": "07f31d27efb6cb2fc51ae5d125137d312971659043f7b54aa90b2323de9d3e94"
         },
         {
           "origen": "docs/diagramas/estados-oferta.mmd",
           "destino": "public/documentos/b1d5026866f3-estados-oferta.mmd",
-          "sha256": "fa703655c34a70ba6a12db22ec5407ed4de1da9848f1aeacba04f0865704400d"
+          "sha256": "bec78d6336b759429d79b903599500fb6633fa73471b9137673a6b1b9a600363"
         },
         {
           "origen": "docs/diagramas/estados-pedido.svg",
           "destino": "public/documentos/e9d99ad5c424-estados-pedido.svg",
-          "sha256": "2000d305a4b6f2f5a37aaea73c7d45c71534c77942380af05a744b5b30fff17d"
+          "sha256": "319395cb068ad5f303dbc2720229bcb3655a4e0e91b51a579e3b25aef4f5ec43"
         },
         {
           "origen": "docs/diagramas/estados-pedido.mmd",
           "destino": "public/documentos/51c245f91b6b-estados-pedido.mmd",
-          "sha256": "cb010691ee2c09057e6403470537a72f4dd04f8206c1d39241d702d7df5ab06b"
+          "sha256": "b775d6ee6ff71b0c7a883cec8af53b13ef6147ceed095541a5bd6bb880ece267"
         },
         {
           "origen": "docs/diagramas/estados-revision.svg",
@@ -314,12 +317,12 @@
         {
           "origen": "docs/diagramas/estados-entrega.svg",
           "destino": "public/documentos/1c6a0d8124ee-estados-entrega.svg",
-          "sha256": "6da4a969b2c622dcbe4704f300f970b122b19a1ef31bf35aa4d3158b307ca02c"
+          "sha256": "f72be75166356e49dd5eb2de6ad99bff4cbd811c0cec8127fb9c23dbace96b25"
         },
         {
           "origen": "docs/diagramas/estados-entrega.mmd",
           "destino": "public/documentos/e91a1c54d94b-estados-entrega.mmd",
-          "sha256": "8ec590e6ed1acd70791a7b49f490c7bbb95001fce9b47806bc5e0b8493011905"
+          "sha256": "72fd5854a9e5f2f8adf331f583c486c93853b7a2ee61b26e272a09f825515001"
         },
         {
           "origen": "docs/diagramas/estados-membresia.svg",
@@ -354,12 +357,12 @@
         {
           "origen": "docs/diagramas/estados-producto.svg",
           "destino": "public/documentos/f11a1eaae9d7-estados-producto.svg",
-          "sha256": "97b72a874dc5c945c5b0ee5d84826af0b365a61d8018d4f62a6ace33acedb02b"
+          "sha256": "6c1758d03b86f7e250159755e89a2f346c74a0862e586abfe31fefd903c71a71"
         },
         {
           "origen": "docs/diagramas/estados-producto.mmd",
           "destino": "public/documentos/c4a9b64f607e-estados-producto.mmd",
-          "sha256": "f032224de52a5103fa0bb42be7f67e8c885c7eabd6dd13003d9ad77689a95eaa"
+          "sha256": "9e615549bb91ae904004665ad2de062b3191925fd4eb42f1e4e154cecde75cd0"
         },
         {
           "origen": "docs/diagramas/secuencia-producto.svg",
@@ -381,7 +384,8 @@
           "destino": "public/documentos/df6ea54a560a-secuencia-chat.mmd",
           "sha256": "ab28c2ae033e84bce9c10c1acac7b887afc73dea6e4d1350e3fca390e408f0a7"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-design-system-index": {
       "origen": "docs/design-system/README.md",
@@ -464,9 +468,9 @@
       "destino": "src/content/docs/specs/01-navegacion-y-pantallas.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "c86917849b74257d97dc6deea44a498b6f3c8dda2d21f442e637876602baaaeb",
-      "sha256": "f983c278253acabe0670411f0b7895b8949a2a9d8ee660cdd41c6bc2f018ae44",
-      "huella": "8a86f3a8e469b28ec7ee7a4e837cdc695c99e11910487d3a27c314d305aface2",
+      "sha256Fuente": "ae99aa1d8c83644ab50bd49a226b5189a91d40dd7b02d890b8097719903092a0",
+      "sha256": "1de5b10c87232a9d65d3bca9035a123228ddebc60f97754c5b5ba93788d94a47",
+      "huella": "71cdcd4adde9a2d69c49bff618884c95fbc57e07b8f9c705224e9e89b25d1d72",
       "adjuntos": [
         {
           "origen": "docs/design-system/figma/previews/2026-10-23/vista-web-solicitud.png",
@@ -488,7 +492,8 @@
           "destino": "public/documentos/b06f2f01e8a2-vistas-complementarias.json",
           "sha256": "0ba05fdf54f5968ead1792a9b3f6bf94c85ae27a2ab788d0d4d35cc8f83b46c1"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-03-inventario-de-vistas-y-flujos": {
       "origen": "docs/specs/03-inventario-de-vistas-y-flujos.md",
@@ -505,9 +510,9 @@
       "destino": "src/content/docs/modelado/diagramas.md",
       "checkpoint": "Análisis, modelado y arquitectura",
       "estado": "entregable",
-      "sha256Fuente": "9429f6133c2ffe5e21c67dd384fc3787e52d6cfa076c446a8e0a35b1c9516df6",
-      "sha256": "8afe4ce839853c2d6c07bee1a7649800643218d08fbcc892a318ca444214e147",
-      "huella": "79bdd8bb4a7d67a1879a87a2f03bd41749c8ac7529fc3aaf2caa92276b6bbc50",
+      "sha256Fuente": "1184f13c75ae3ac553ae27e8317bfe9f99e13c55244f067c68641e9e761f91dd",
+      "sha256": "382604add684c532cbb03554866919af8044ca2513254fa60250ca5f9558927a",
+      "huella": "62f7bce3aea9d038d9a3014e255b28f1bee78b42fba19d50beb6ab71a74f2345",
       "adjuntos": [
         {
           "origen": "docs/diagramas/casos-de-uso.svg",
@@ -522,12 +527,12 @@
         {
           "origen": "docs/diagramas/dominio.svg",
           "destino": "public/documentos/3a38ed4d1833-dominio.svg",
-          "sha256": "51a31b7c63195a23750c9a7452ac242eff0f1f5e0bd0493110be9474fcb85da7"
+          "sha256": "ea8dc1ef36c74a3c67259f71be305b39ff920e672969b0ad6586e876049090a5"
         },
         {
           "origen": "docs/diagramas/dominio.mmd",
           "destino": "public/documentos/6420bfd40263-dominio.mmd",
-          "sha256": "10e341687cd07c912acad4128a7732a7f4565a80de83ec3c6932e36679e965fb"
+          "sha256": "a319b70d9fb002990ffa15988ba09b1631fc5babf3848907411e1b895d5fe203"
         },
         {
           "origen": "docs/diagramas/componentes.svg",
@@ -549,26 +554,27 @@
           "destino": "public/documentos/4fad4154f542-clases-diseno.mmd",
           "sha256": "0c31e1112b03002ed9ae5f50d15fc5f84cb736bfa250fbf0d73eccc5cfb77010"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "modelado-arquitectura": {
       "origen": "docs/planificacion/04-modelado-y-arquitectura.md",
       "destino": "src/content/docs/modelado/clases-y-arquitectura.md",
       "checkpoint": "7) Diagrama de clases de dominio",
       "estado": "entregable",
-      "sha256Fuente": "970a219bb7dc78062dc580eba65e386a844e131b8b03b1ce296371688757a686",
-      "sha256": "ab53a6a0b0d9fb37ceae3d685649486766ac6a35bb8709f4d0137947f675d9c3",
-      "huella": "2f5432bd01637d86ee6bf1efce335a3cceb1688b14cb6f657dbf336418283321",
+      "sha256Fuente": "318034ccefb2b787f4f95c6f3b71bd20cfd28f16f806153bd20d3b2a4da98eb0",
+      "sha256": "4895994caa5867aefb3751f78e4486e6989330741045dcff1e79a517bce15162",
+      "huella": "519089f74bde7ecbf2027b796a871665208949c9c4248825e882c67b8e268c0c",
       "adjuntos": [
         {
           "origen": "docs/diagramas/dominio.svg",
           "destino": "public/documentos/3a38ed4d1833-dominio.svg",
-          "sha256": "51a31b7c63195a23750c9a7452ac242eff0f1f5e0bd0493110be9474fcb85da7"
+          "sha256": "ea8dc1ef36c74a3c67259f71be305b39ff920e672969b0ad6586e876049090a5"
         },
         {
           "origen": "docs/diagramas/dominio.mmd",
           "destino": "public/documentos/6420bfd40263-dominio.mmd",
-          "sha256": "10e341687cd07c912acad4128a7732a7f4565a80de83ec3c6932e36679e965fb"
+          "sha256": "a319b70d9fb002990ffa15988ba09b1631fc5babf3848907411e1b895d5fe203"
         },
         {
           "origen": "docs/diagramas/componentes.svg",
@@ -590,7 +596,8 @@
           "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
           "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "inicio": {
       "origen": "docs/publicacion/paginas/inicio.md",
@@ -607,20 +614,22 @@
       "destino": "src/content/docs/proyecto/presentacion.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "0c91974f1e79fd77f90a76566f9504bbf55507a22f51ac9542a2c23c9c6b5af6",
-      "sha256": "da4a441022aa26fb8f02e9559cb1b53eef834b92e313f0ffc7a9a3ead2cbef96",
-      "huella": "f3a9fd2792f83f6b64f2f5b0c3d02225bf5255a20b3ad1328120ff47a13599c8",
-      "adjuntos": []
+      "sha256Fuente": "36ba328ec8e2aac6e8a4662d7acd60ed49a3dbc2f0335aa5ca85d591ed4e9ec9",
+      "sha256": "a270bd571c43d5e0d68f8a93835675c2813f1961eaa7778d78989e11f1ddcf0e",
+      "huella": "719689d1f693af9d971ea0c8db8ef64b711aa54590b268bb925dec8a69facfe7",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcionalidades-proyecto": {
       "origen": "docs/15-funcionalidades.md",
       "destino": "src/content/docs/proyecto/funcionalidades.md",
       "checkpoint": "Documento de Funcionalidades (Planificación de Proyecto)",
       "estado": "entregable",
-      "sha256Fuente": "0c1d41832d2bc98dd1f5741dd4f4232902d5131f8bb589a37590ac2e40008dfa",
-      "sha256": "da2b96d5e07a34a8d08b4aafd292ad64d3622500972da31b00066e23f2d61c90",
-      "huella": "09cd0197797705030fb98dea6236c26cf2112682bb36d43606a160f0dabc091f",
-      "adjuntos": []
+      "sha256Fuente": "9c7a3a9c079e323262c82a1f373eecf89accd8df00d423d384bbaf7e417b78d4",
+      "sha256": "109ac74f8992d63f9a039ff3b819551e7cc43d940a4b26cc92dc968d80309c8d",
+      "huella": "c1cfa9cccf50afa51b16d8db67cbee9e7040eedc6e7bbcd29347d35cf378377d",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "manifiesto": {
       "origen": "docs/publicacion/3daltoque-docs/MANIFIESTO.md",
@@ -637,10 +646,11 @@
       "destino": "src/content/docs/proyecto/base-tecnica.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "e712a42eadae1942743ac658174d40ab37dc937bca9e49bbba7d4514277b74b6",
-      "sha256": "eea3ce73316e63d8cffd72a06a7fe5ce99b3ecc99036bf19f1dc80ff0bfef272",
-      "huella": "16cb3ca74abd876b4e22a432461f71fad3dbedbab49a51af6657de48dedee40c",
-      "adjuntos": []
+      "sha256Fuente": "2f0c732f3047709eba73ce95b91d55177df861d71d14a699edc229eb344d9ffb",
+      "sha256": "2d16170de3ee27e4dd3da306ea5b9f47de2eee4026f05d7eea4c71fc17347bb4",
+      "huella": "6f1660199bc4887b916a6a83238a54b71fbe889723d499fb7acbeb9394b53c9c",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "repositorios": {
       "origen": "docs/publicacion/paginas/repositorios.md",
@@ -657,40 +667,44 @@
       "destino": "src/content/docs/proyecto/modelo-comercial.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "90b0307f51d594237304e7cf14a3d55a96592f9c3a6d9355ae4cdf646751126c",
-      "sha256": "5326c4ce035e68c0d28725b70e30bd8defa5d4cc464a118f3d5f8699c5eb7d8b",
-      "huella": "4491254f58d3691d253d2d33b9288b38c1239ba315fb17bf09dd3b2c0173de44",
-      "adjuntos": []
+      "sha256Fuente": "30c3e8c342f1e08a87b4cafad92ec32fd4cb1a1cf4cff23f3617f8f3306e61af",
+      "sha256": "4261a4b4aa5d3321e6603d80e446a077fa5e2326ba83bfb5f9348a67ef9fb23b",
+      "huella": "d7dc8f9b5c263be264742821d8e22d73121461814385b8e6b4f3c57379d861ff",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "requisitos": {
       "origen": "docs/03-requerimientos.md",
       "destino": "src/content/docs/analisis/requisitos/index.md",
       "checkpoint": "1 y 2",
       "estado": "entregable",
-      "sha256Fuente": "fe99e60bace62508c26f18a66ec1dcd83334bc1dbd4fdb289f41cd5a6037b4c1",
-      "sha256": "8ebb684720929033c2eb8e921611b54503cc9d52275001d059c77bfa8131d52d",
-      "huella": "b3781f6b00650153bac31c12d15e8e1ce713fd173b345a3bfd6cdd76f56bda04",
-      "adjuntos": []
+      "sha256Fuente": "718e9bc0941f2a17571e5a2550321dcc599254abbb536e30be269158cf6ac062",
+      "sha256": "def17db0cb1309c18be3ec4e8eacd78363a5178df37a7aa8a28adebd65e67ec5",
+      "huella": "fccc5b644a1e10baacbd94211c33772a493538f8ba794ba3e1c2df151c5d5bda",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcionales": {
       "origen": "docs/requerimientos/funcionales.md",
       "destino": "src/content/docs/analisis/requisitos/funcionales.md",
       "checkpoint": "1",
       "estado": "entregable",
-      "sha256Fuente": "02d283b0a9dd0c3d9bb968f7394204656d26f135fe28ec90a832dde6fe2f2925",
-      "sha256": "7d3db3874bc4352388efaef0c6245b69f21bfc00a45522667c581e4e68ff943d",
-      "huella": "ad4f2aa90970d7fe468e76ffddd4ab96004d15ad13e13ef8d8a18351dbb0f1cf",
-      "adjuntos": []
+      "sha256Fuente": "132ee8fd5677ce690ac9c746f9b7f552343ca8f82b870cc83615ad028e4ed33a",
+      "sha256": "d5e43e0fa94cc280df571288246ac58a0b2f211a2c1b707b601ddda30bf337a3",
+      "huella": "3787087fa024cf9a882b16c3611298ef85641779ee340864ff1225eececbfc58",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "no-funcionales": {
       "origen": "docs/requerimientos/no-funcionales.md",
       "destino": "src/content/docs/analisis/requisitos/no-funcionales.md",
       "checkpoint": "2",
       "estado": "entregable",
-      "sha256Fuente": "26546fa46f442a8d031a5df44032156efc2a71d4f9eaff1bb0f3078d5edf7f54",
-      "sha256": "594c0eb4dc28e561ff480a22fe6bbeca3714c36dbd36590a125e4c348258f98a",
-      "huella": "84cee2703028d6f14aba408440596f273e3b36fcbc79adaf15f8e451ff20790d",
-      "adjuntos": []
+      "sha256Fuente": "e80c9bade8a31aebf5cba5c59e372b33181c91a8ccfca67e2bdc0101c0776e6b",
+      "sha256": "2a2db0c58ac7c651ef2c83b2806fac08fe1a78a2f1c297e4a6a0aa7084db9df2",
+      "huella": "5cb415f017d4a42087771641195b76ad6ea6007ea14b8438842ae0ffac933052",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "reglas": {
       "origen": "docs/02-reglas-de-negocio.md",
@@ -707,25 +721,26 @@
       "destino": "src/content/docs/diseno/api-eventos.md",
       "checkpoint": "14",
       "estado": "entregable",
-      "sha256Fuente": "2d2523ea78b768a7bd5e64f0f18bad4abe235f2ffce0a87a91636ff392937eec",
-      "sha256": "0852a0c47e6f15cd984afe1b86cf4574461c7fe3e7df0acbae378cf00bff3a39",
-      "huella": "61c4f3393bd86c63b3f4f3f8a852433baea864dd7ace1735b71205a8c2e0dfa0",
+      "sha256Fuente": "e738b928a4647ca37875d169f4f351ee85efb281415c82150866a1e31a35a5b2",
+      "sha256": "31aa79ee2ad2458adc7a24755bce7438f211e1d342f4f7789dc74036f1a25fe2",
+      "huella": "bcd29c5fbb8c27a658fc73d76040bdd11d1cc491440368a623d0582c803a9cd0",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "1f1bf9f35c7c8931dfb403a195461de2fe1991eab15bb6bd53980b40eb238501"
+          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "integraciones": {
       "origen": "docs/13-integraciones.md",
       "destino": "src/content/docs/diseno/integraciones.md",
       "checkpoint": "14",
       "estado": "entregable",
-      "sha256Fuente": "7a8a8be265d02e7a8c1033a6baa7622feaf80ec82f718c8ef8bc8d6db9a47719",
-      "sha256": "c7608ce45e3ae01e60b0e8b15e3361aa605f00c02a85f9a10e6409288c5200f3",
-      "huella": "be009bdf9e4813234ef4128e0895cad8cfca507d88db2c6705d732f2e7e89ca0",
+      "sha256Fuente": "042663509e0e2bb4b66113cdee83ca42ac6afd636d2db5937c04beda5f26dbe9",
+      "sha256": "3d8df9f6e2419b7434f8a52c11f77fac0f16c9774c936f990f0bb9fe916a06f4",
+      "huella": "9e5a19d615da2261722d53bf7b3aea4671b200385ae884101973b5304d2dc4dd",
       "adjuntos": [
         {
           "origen": "docs/diagramas/secuencia-pago.svg",
@@ -740,46 +755,49 @@
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "1f1bf9f35c7c8931dfb403a195461de2fe1991eab15bb6bd53980b40eb238501"
+          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "pruebas": {
       "origen": "docs/09-pruebas-seguridad-operacion.md",
       "destino": "src/content/docs/planificacion/pruebas.md",
       "checkpoint": "9 y 10",
       "estado": "entregable",
-      "sha256Fuente": "1e58c6c694a6caf471f43a3a7bb383f2155aa790aa340b54ec786f6e15892b41",
-      "sha256": "8765d94565ee202141c1b7fdaeab6e2417975dc8d9c7084c32d8d09ed312312c",
-      "huella": "475831cbee17e14be0d2af3d7fe9ed591c74688f4c12b28ed6b08aea29c69e34",
+      "sha256Fuente": "65025efb5d253dbf9c7c33ffe4c2ae6b1e79aa45a91dd914b7548df9e6905fd4",
+      "sha256": "fd087a6a35fb7502c81e91294fdb7e5bd1f737e231a00fa12e9a71f88428fde5",
+      "huella": "450b8a55d2fc8b7e7c57c7274bbbdb98b8244f33a65a02b62646bd15b52ffe19",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/casos-detallados.json",
           "destino": "public/documentos/92aa0408f516-casos-detallados.json",
-          "sha256": "4e186a9198ad09848a95b18ee20b5162eba9623ae50d7d5eb735b49108397167"
+          "sha256": "e8ac4b4b108e2213770cfba083168183ff3581759070e90169f00b8986227ab3"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "roadmap": {
       "origen": "formal/roadmap.md",
       "destino": "src/content/docs/planificacion/roadmap.md",
       "checkpoint": "Plan de trabajo",
       "estado": "entregable",
-      "sha256Fuente": "3df6ae866d110e09e4fb2cdabded65c1d4615868dec19a636273110e9caaf6f2",
-      "sha256": "4b50b58babb1aaee8289bd63b9fb68c8fe06f4d280928ca72c9b3c1e43316887",
-      "huella": "a6ff15e195aea840f40b6d7e6f5b536c92a1b48ecd20449c12a0a69cc21f5d58",
+      "sha256Fuente": "1d0e26066b34d5a5ee83fd12f765b36d75bcdaba01534f89042dfaa43d8ef53b",
+      "sha256": "89ad38d0ddfbbb0537562152e18e6dc7325c98c8d9513dc75159a86f208f2e1c",
+      "huella": "18fd44efa804fc0341e8c437399fe89e81efb8ff2b8da8707bf48a5abecd8a1c",
       "adjuntos": [],
-      "commitFuente": "51821a119c9065577464e59992de86b962d25753"
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f01-registro-e-inicio-de-sesion": {
       "origen": "docs/specs/f01-registro-e-inicio-de-sesion.md",
       "destino": "src/content/docs/specs/f01-registro-e-inicio-de-sesion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "3418d0a7d3dd77297041d92fe6ae1eb45d90315c869cddc9f2634633ba5bfa88",
-      "sha256": "6a583f1db87979ad39247755413deebb051fb9412bdef9d2475c2db362136693",
-      "huella": "7581470ff93d86b398110a9fd034dcc86c4085cafa2521d7b99b6624bae8fc2d",
-      "adjuntos": []
+      "sha256Fuente": "e97cfb0618f314384e399331667091c364e6a9335ae36d8e91b01d94f66d2fa4",
+      "sha256": "5887eb3541b18ad9deed558b2cae7e5a2b1ecd22539ea2ed9000c0ff46477ba1",
+      "huella": "ee013f9e2b7d8f99a111e8544c7940b7a528215793b35f422f5419b1b714accd",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f02-gestion-de-perfil-de-cliente": {
       "origen": "docs/specs/f02-gestion-de-perfil-de-cliente.md",
@@ -796,180 +814,198 @@
       "destino": "src/content/docs/specs/f03-gestion-de-perfil-de-maker.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "076f351806f1588e57f9cb35dec9a2502805d991cbb24d4620a4adae830b1cb9",
-      "sha256": "317fa1ee9273a3f02b0936fdd6a09088baddc52f2d9cf5e32919175cedb5c89e",
-      "huella": "38c7e69ab7a357283744826ba56caff20a71af62d18626db2764c7bb86215d68",
-      "adjuntos": []
+      "sha256Fuente": "3f744afa82c3ef824577435eaab6ea31f894e7e2ff5c1bff72e436f39e36f436",
+      "sha256": "25acf25bbef11856456a3a61968fc7392a6431c19a253574992f5f82dd9a0416",
+      "huella": "e4a3d866816176ab981cdf9d546b5e2e9a3dbd863a16f9a82bcc12d1b93711be",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f04-portfolio-del-maker": {
       "origen": "docs/specs/f04-portfolio-del-maker.md",
       "destino": "src/content/docs/specs/f04-portfolio-del-maker.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "4ad950eb12b3dca5f2cb0953bc2907d08bb8b15e94386a7d38f9908b94396c0e",
-      "sha256": "e521d72ea0c229a86bb68ebb854b1089172b0d20338d61de2c5ee01f7668f72f",
-      "huella": "353b8aeab01f36172b54acb58ec0b163e5082c50a78d72d8566619b3345de48a",
-      "adjuntos": []
+      "sha256Fuente": "141bd024752f41ba1135c0f0923473365da153e4ec0fc94fb2992031ee89d8be",
+      "sha256": "d6cdc27a5655f798c8e677d97d811b2c6e97ab023cb55111ee6f403bab4d3fd2",
+      "huella": "6ce940393be6a5e575055af9a77d983f5139f4dc53072f896165fcc6e09a3a85",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f05-alta-de-solicitud-de-impresion": {
       "origen": "docs/specs/f05-alta-de-solicitud-de-impresion.md",
       "destino": "src/content/docs/specs/f05-alta-de-solicitud-de-impresion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "4dc4f1bad2150f3c52f7ffd893da43e9118f95c7ec6aeaf8f984cd6ee15a0bea",
-      "sha256": "0b0e399d937112076b70adba9c6d09a31567ac901932f36b4cb31533158049fa",
-      "huella": "2690dae895c2fbf6b32db343d0365453f751321d1041cf18afc97ccd7be38a85",
-      "adjuntos": []
+      "sha256Fuente": "082a09a53d27b25e9af18b3ff949d4b0c5ef2fa56d0ce8e6029c6bfb84910a3a",
+      "sha256": "321088c172ff8bcd0d46fb56a8e4bc9955fae5021cf54dd795407da8fad8acd6",
+      "huella": "921df7462132cfdae42fb8c7869cc027226b0ef7e20f8409babe6271a03ce86f",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f06-cotizacion-estimativa-inicial": {
       "origen": "docs/specs/f06-cotizacion-estimativa-inicial.md",
       "destino": "src/content/docs/specs/f06-cotizacion-estimativa-inicial.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "931cfaf0b2ac73df0b2bdf597ae39bf0e772fbdb614c8f17d7d43763d38623e1",
-      "sha256": "dfc2b7116ebbb882ee2fdf7795dba274ce395ed77f671abce646fa31ebd1f543",
-      "huella": "b78311c9775e065eb1b4a40b0626c809d34c37ac2ee9bbbcec5567022260771d",
-      "adjuntos": []
+      "sha256Fuente": "b5f4293749b16450c3bc60644978e5fb3869468835eefebce5fbbd0cf09e6695",
+      "sha256": "94a4181547f62bf74fb64b68639b252ee87cd496b9cf90c6f158af94b44f1989",
+      "huella": "3a36ca7cfb88c1a4f4fa8c7362f6daf4a35bcc5e180b77ca3b2de8f9b12800ea",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f07-busqueda-de-makers-cercanos": {
       "origen": "docs/specs/f07-busqueda-de-makers-cercanos.md",
       "destino": "src/content/docs/specs/f07-busqueda-de-makers-cercanos.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "a64f5b84fad3342b2616bebb474a623c397ff897721339b8c2f6258b28ba8528",
-      "sha256": "f5e9d4e32277598acb8915a156dceb1b8f43545c95813a72ee1c17118678e996",
-      "huella": "4c52c888926db41efd8de41920ed0a8565cb1e4726819576c29f4b2b376d8b02",
-      "adjuntos": []
+      "sha256Fuente": "d72977dc690bf92663c37e763c2bace4b620ced22691897171ee6a03dd3c2a90",
+      "sha256": "0b8d49f3f246120a0cdaa853080afe4616be92fdf5f0c99a88f48bdcf22df0a8",
+      "huella": "35561d0193c581e9a4ec190898789589f1b7e635bddb5cb2ccae3d954d175e03",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f08-matching-y-envio-a-makers": {
       "origen": "docs/specs/f08-matching-y-envio-a-makers.md",
       "destino": "src/content/docs/specs/f08-matching-y-envio-a-makers.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "5b5f55e20e756663f77d67f0201fcadb252cf5bf3c1eb1535e590f5c4630a171",
-      "sha256": "7b0b910b3b2c6d0ac7b74d43faa56dd274d568af857d62dec8b638d1698c6338",
-      "huella": "456f4cbe4bb0357e21e771284180a5c53f56be8ee0a9cf74a1614d92ba352c5f",
-      "adjuntos": []
+      "sha256Fuente": "c3345e554a09b5792480cb3a20b12991160a1672541f12180a00faea9c1c2ce5",
+      "sha256": "d83e5ec99d0e76d95c760327039657882cdf8c4d060384216bacbbb3de56a0f6",
+      "huella": "bac300776c18f497cad2f7a0282a5969140a1daa056cd275126227c82b7f7bc5",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f09-gestion-de-ofertas": {
       "origen": "docs/specs/f09-gestion-de-ofertas.md",
       "destino": "src/content/docs/specs/f09-gestion-de-ofertas.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "3d25eb378359a0cfcd9ee109fd7d5e3842778d04ba149f2d6eb1046b18f6ba5a",
-      "sha256": "65891474effa406fb752d01942c049100f414cda8cfa1aac0907762cdabb7cc3",
-      "huella": "ed6c054b93963293dc2799a5814bd0b2619b8a5d25cf7e478b59c6208d1865ce",
-      "adjuntos": []
+      "sha256Fuente": "a41ba53f39e9ea460cf3e5da3b3bbe4d5e4a028f532f1d9bfa89a3d1ef109c92",
+      "sha256": "6ca9c442ced9d73ab78d56a1344ea51bdbcf2a47bb691c0ecace5e265db90188",
+      "huella": "a21063c9823b8fcfce87da0c19c429c8b32f79e4469a2845b68d602eb406a65e",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f10-confirmacion-de-oferta": {
       "origen": "docs/specs/f10-confirmacion-de-oferta.md",
       "destino": "src/content/docs/specs/f10-confirmacion-de-oferta.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "5822f019661c48e04d2e31db2ad5c75311b898d9b04ad80b6c1ca6cfe1be47c9",
-      "sha256": "be6ac8e11c5e80e723702ca668f012c600d052ead46e78a72add366b118ed552",
-      "huella": "7b6b0c06e05c620b5ef3a39416da01e95b3b12d031393987e3e2dda6b11defcd",
-      "adjuntos": []
+      "sha256Fuente": "3d342a94c92db1948861301bb0f81cf05f00c8ed1b1f7cce778d7e2756240bd7",
+      "sha256": "e3398e33515cea030a7c61e75eafa0c9f59b9353d94553be06c714262ae3b4ca",
+      "huella": "27b55b0fc96c516612ef167f62d52d5671a3b7bfefac411a9ddf164da0fe291a",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f11-membresia-y-abono": {
       "origen": "docs/specs/f11-membresia-y-abono.md",
       "destino": "src/content/docs/specs/f11-membresia-y-abono.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "8b9d95c115b7326abbb12b5ec0f4ab5d3ca5f719cd79ba9dd738ed20653bbe52",
-      "sha256": "5c58881f4150bb1fb1b2cd791a3c25ac71ddd614c23bbc2cec9aeba8d9a20f72",
-      "huella": "28ddbc7235dec77022cb70045f568ea70a4c9a8723da86dbb562b7537df87379",
-      "adjuntos": []
+      "sha256Fuente": "200d13677d9be1d0535a0b9bf22e9e3a5da75a2bfe96b89368afd8821e828544",
+      "sha256": "6b288dfd93426b85d688a056c9ae4051dbd3284b8dce8c90d73e3a1e7c56cd0b",
+      "huella": "b2023f2d4220e642d5b44bbe1eabc7db0b6d78a168aa8282e74ee53ddc95ce5f",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f12-gestion-de-estados-del-pedido": {
       "origen": "docs/specs/f12-gestion-de-estados-del-pedido.md",
       "destino": "src/content/docs/specs/f12-gestion-de-estados-del-pedido.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "07ecffaee2f5f131094d186b4624e7d9abeca00754935c56f8b6e45a07d21283",
-      "sha256": "d3d405cca5a35f4bb5041bdf5631ad0b963b7f7184614615e043be0a4e630fa1",
-      "huella": "037b895c94d35cc962aeda0664f72b1bc5c57dbc03cdaee7ceb15b7b30ace457",
-      "adjuntos": []
+      "sha256Fuente": "c7d6c5300ac1c515b05b5961c438c16d4595f4d496230abec2d6215419c3c9d4",
+      "sha256": "6a27e617009d95e65832564dda62c6bb23e497f1289839ab9241bf0ac2400bfb",
+      "huella": "c9cd06838167318fe40b4df133e27b2dd86befbe74fb31eb016343be5cc318dd",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f13-mensajeria-cliente-maker": {
       "origen": "docs/specs/f13-mensajeria-cliente-maker.md",
       "destino": "src/content/docs/specs/f13-mensajeria-cliente-maker.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "2f9fe39bb825d9127ff1bc4c3e9b02f224c753ff8c2b30d5e1831fb84bf796c3",
-      "sha256": "bbfe05ed5011eddc5b986a153483a227475b0503d09f3f0fe74f98129c612b3a",
-      "huella": "793ac0845010de16c41cec721f99f5ff0dd2e9a7f6c0edca30bfd75fbf560896",
-      "adjuntos": []
+      "sha256Fuente": "9a0c4f4693319eba5b6b2dd2ba8fa35521bacd3b2a715ea39439126f742e171a",
+      "sha256": "2c31539e35aef8e91dd62d99b3bc6f9a2cc67ff99aa7359be5aec92ae48d6d82",
+      "huella": "ac00f22f3b86e88e053e86fddae757eb2a8bae60a7e2cd210b6c7b6bc59ed200",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f14-notificaciones": {
       "origen": "docs/specs/f14-notificaciones.md",
       "destino": "src/content/docs/specs/f14-notificaciones.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "d543969732300e80b018d115f3b1b40613476e6c4788dafba1e60e32d8751a68",
-      "sha256": "901f7d0796c83c892467ca699bcb22a648aeaa151551e98ff134f46ad8fd65fb",
-      "huella": "5672d043244e5a551c48028ae74b8893f5bf8c3e7756e9353c2c36615cad84cd",
-      "adjuntos": []
+      "sha256Fuente": "754a7b230f229b949ac7256d710734d38be1eae51404097f16bfd5a1fcc7773b",
+      "sha256": "4ed8ecedddef42180a1b3e1e00ff8556fe0692f4e4ec425bad03abca18a3136d",
+      "huella": "2de8e20a905d2d3fec6f50fbb5cd557b18ad3c72dee037149ad0bfd2cc436888",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f15-evidencia-previa-a-la-entrega": {
       "origen": "docs/specs/f15-evidencia-previa-a-la-entrega.md",
       "destino": "src/content/docs/specs/f15-evidencia-previa-a-la-entrega.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "9bfb3e307720aebd55aa482c0e3eefd4d2f09cc5b097d8f90e8bdabcbd7b97fe",
-      "sha256": "7f66eb47175885126f677d7176bb3db49c099e352c28c8cbb60cbdc922b4026b",
-      "huella": "e46c36737491d5915661ff71b52445758805e44bef0fcc666924a54e3171e0ea",
-      "adjuntos": []
+      "sha256Fuente": "fb74d413a43410c029e1c4fea6ec84e3841a0742001a054027d54fa4e93c8c43",
+      "sha256": "17350e275e9c554e868bf4f477c9424b0f29b859c3a4552e0edb1b85ecfc5655",
+      "huella": "afdc71619675bca633c965d11c29af5432adfa2897369eeb8b514ea7b31a17c0",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f16-entrega-en-nodo-amigo": {
       "origen": "docs/specs/f16-entrega-en-nodo-amigo.md",
       "destino": "src/content/docs/specs/f16-entrega-en-nodo-amigo.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "3fc0972f21e1772fbd8a0f16ceba6aacee694eda9db50907504110c08d00d282",
-      "sha256": "512adf40d71c00578d7c34071bb0220dad4c9acc7f346b5f68b1fbcf4f1c8cea",
-      "huella": "23ee868a41868ab9dc9f39076efc9e8ad500d610ab35d1329a042aaa5e58a514",
-      "adjuntos": []
+      "sha256Fuente": "5ec60f31a7e13f139ce59371012fe4c82642133e96c9a088d9452894392db376",
+      "sha256": "b5f893d6a58dad34d9aa85e7b84ebcb1b111e21755d71ea69d2426b3093abbec",
+      "huella": "84eaf92bdb8a438d1b81f05e5a6fed3bf417f7e306006bd9e75ae5bb784c2c13",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f17-validacion-de-recepcion": {
       "origen": "docs/specs/f17-validacion-de-recepcion.md",
       "destino": "src/content/docs/specs/f17-validacion-de-recepcion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "7caad6edd64cd0d3711d15bb8a13a1e96adcc0635d47cad72c96b51cdc2f4d39",
-      "sha256": "a5d33fbc21bda169ac47e92cc3106cc76394dccfff0bd30c9e25ac2675f8e9e8",
-      "huella": "2b1f9c4c470a8f87e09a6f800d6fa7c661957b5eab308716244cde997a0aac26",
-      "adjuntos": []
+      "sha256Fuente": "c2ac7523146d643fa1b1c8c5683fcf5c14435357aaa4bf7de4ade4a8445514ae",
+      "sha256": "7e0974b288249dc3bda9b48f2401ef54086e7b7f5b2c775045c0f014be466f79",
+      "huella": "9fa64197626c9d7b32f33cac5def028c738e01bde339cf18904d5034322b4038",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f18-reputacion-bidireccional": {
       "origen": "docs/specs/f18-reputacion-bidireccional.md",
       "destino": "src/content/docs/specs/f18-reputacion-bidireccional.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "4db96046174de4d66c47dd3b9014d180d934639325a8e1011ae4923b6ee0dc1d",
-      "sha256": "85bf57ba9614b464f9e58de695b552b8523e78371425fb01d122f6e9ead2f838",
-      "huella": "98d8113de268057022a2956012fa5688d048c7c290a3a747c29e03ab2ee4d212",
-      "adjuntos": []
+      "sha256Fuente": "a9b6ac623312a4d916beb114871c6e71de66e8e8956884632fbdac45638dfbb6",
+      "sha256": "b9a65364c8448a7159b0dd99ab157a66c8f938ae7b89a157bf8685005f73991e",
+      "huella": "e2572beb7804dcadddd60187716bc72058c96de575c88ea22f4f3ff77e2be658",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f19-historial-de-pedidos": {
       "origen": "docs/specs/f19-historial-de-pedidos.md",
       "destino": "src/content/docs/specs/f19-historial-de-pedidos.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "307c195cd4309544caa98072d3619d59d800d64251f8147b09b58dbfa8c1c2bc",
-      "sha256": "11aae4500c04adea9aab5288bb9ac95416f77e2066d9b0f85f122edfb09071b8",
-      "huella": "62adc37c211b45dcd8858c6706ec1a66a9807ce70f586153b32f97f6d639fd72",
-      "adjuntos": []
+      "sha256Fuente": "dbeb3630faf778dc56b794c9ba5497ab0cea8ede357b7a4d0ad9e658706f6ab4",
+      "sha256": "d03685e761a18dedec489fcbd9f7e69ed043220fa1822f5fade446cf0095fb36",
+      "huella": "a10c90a80c201fe63293556cf109b64c1bb642b2b119322f7d65a1f3300e2196",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f20-panel-de-administracion": {
       "origen": "docs/specs/f20-panel-de-administracion.md",
       "destino": "src/content/docs/specs/f20-panel-de-administracion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "8b6d112c4f52b0f466d3e9ff9a82927dc722fffff87807b93de9029959530442",
-      "sha256": "30f287117b8e55e3782eeb0ecd806d7e6bff268a2ec0bd3ca06c56f3d4b49fef",
-      "huella": "9470b6fe816b63de63d48900e2cd2f0f650c3d1cd18c5d9719ed8a92e546ed75",
-      "adjuntos": []
+      "sha256Fuente": "c0dcd6a5d9260f8506f1861901b7e89cff2c742c16e0a7f314c212c46935f514",
+      "sha256": "9e8638b0048b1c81e1a2987643ec4c57cc086c4d50e86893b6fa60ca83e45399",
+      "huella": "8cfd914316d02f707d7852bdb53ca2eb80a757d5896a10b51919aff69eb22ea1",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f21-reporte-de-actividad": {
       "origen": "docs/specs/f21-reporte-de-actividad.md",
@@ -986,46 +1022,50 @@
       "destino": "src/content/docs/specs/f22-revision-y-aprobacion-del-resultado.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "71ce79a282f8959e263d0c02324eb289597c23ed5d3ac4e1be1b236ad9cc43b1",
-      "sha256": "1b5a7c36871d7486318f99a4bc468283ca7130333dac6dcdd68d2479017b396a",
-      "huella": "41c97ee66d6aa4c0b8743da283b56be79159258e6a8c191043336704a2b2d675",
-      "adjuntos": []
+      "sha256Fuente": "79e9c7f0be4be7a4e48c65df4eabbf3bb30d3a3f5cc09230233bd7edfcfc6ddc",
+      "sha256": "09fce5e9c0a089cd91a9a13788e2da317f383f3d3156966f491e325a27f983a3",
+      "huella": "94e9f779b17c6c822b886a7e6d140fbb92df49e90e91f56b35ce3731d6b9190c",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f23-gestion-de-archivos-privados": {
       "origen": "docs/specs/f23-gestion-de-archivos-privados.md",
       "destino": "src/content/docs/specs/f23-gestion-de-archivos-privados.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "bdd3b9477a781068f1776de8cb73408217dd44ca0f2a8c911637a90da3acc972",
-      "sha256": "673dd855f02da9ae3d787637b2b163f26ba008c5aa42ca89fcf5aee4a8cf085f",
-      "huella": "db10bb51e1c5d0211ed849b78370b7c54cc964c232bdb775f22257c45c3e85d2",
-      "adjuntos": []
+      "sha256Fuente": "ca412fd0b5c27b7e530061053da590d76cfde5775b692b237c0c357d326180b9",
+      "sha256": "ab84927adc270791e37d03d302be9cae2ae9deb1eb5366972ccedc32c06db858",
+      "huella": "e26e156bb879ffbe11fee7cc83279bf502f3d7d34479245acf4866359bc73b61",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-f24-api-comun-y-sincronizacion": {
       "origen": "docs/specs/f24-api-comun-y-sincronizacion.md",
       "destino": "src/content/docs/specs/f24-api-comun-y-sincronizacion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "223efa37f6bd012f0b81a649b8563f4f16de25f31196ea48613dceb6f67996da",
-      "sha256": "6b7330f213f541884d52b015b1d22a18844eac6ff6b74f029d88d19e29876f71",
-      "huella": "58d3a140e9d792e2791118e99c39bd34508270b7d27aaa15d178838a29261754",
-      "adjuntos": []
+      "sha256Fuente": "64bafd230e98c299b746ca8a29faa60f13b70476c8da539e65d302d4d287ce81",
+      "sha256": "89156c473a4ed637815496950071dd3e8ec8d0e7d1ab45821b07e0258f4a5947",
+      "huella": "34d8a1881632ce92a0f03bd2e51bf90e28c223a80471343fa3a2ecb9eecfbbb2",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-specs-00-contratos-y-convenciones": {
       "origen": "docs/specs/00-contratos-y-convenciones.md",
       "destino": "src/content/docs/specs/00-contratos-y-convenciones.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "4d26eb9592080c5e0ece3a8b3975a03e26d3d580b2ebd52b2fe139025bf7b38b",
-      "sha256": "f408101f486db3e97c58cdbddd24defbaf0ce2eff5d4cc576dec9a386cafa745",
-      "huella": "f2d317d8a96020c16f13c84df3e8bc0aa36adf96ac83190feaf340898fc7d02b",
+      "sha256Fuente": "2f79b23c4af1006968e830ff177a13b7feb2bb1aeaa013a661eda3062e49a6d2",
+      "sha256": "43bf04e528249ce0073c435e86fcb07ddb1b05b50c0ef275bffabadc390035f9",
+      "huella": "afcd81a4ee969833844376e6537af22c286614d77a9b74e6ea8b9ceddd962294",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "1f1bf9f35c7c8931dfb403a195461de2fe1991eab15bb6bd53980b40eb238501"
+          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "paquete-design-system-01-fundamentos": {
       "origen": "docs/design-system/01-fundamentos.md",
@@ -1088,80 +1128,88 @@
       "destino": "src/content/docs/specs/02-matriz-de-cobertura.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "8887c4f1ab701f75a1d58a38e5453419ccfc84213e4a8f34762b9f89d7dacec6",
-      "sha256": "3bcd6b0e3642062d341c07e2fb16e636dde75040628dce2f9d5d9b5a12e0bc95",
-      "huella": "91bd1d3f185c727ac1590d28ad1e448877c4c3df11d5a168afb093e11b923a38",
-      "adjuntos": []
+      "sha256Fuente": "0a9faa6160cae5c86a874954d13cafe1039d0f0fa7f4c4c9d2eaaafb522bca04",
+      "sha256": "6abba69f4736777ae9da3f726d3efd7444a7a14e6f91c641a6d691301245e6f5",
+      "huella": "aa984f1f23db024e6675536ab8340cad3b2eac36c4cef60427ae55a265cb6295",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-01-publicar-solicitud": {
       "origen": "docs/casos-de-uso/cu-01-publicar-solicitud.md",
       "destino": "src/content/docs/analisis/casos/cu-01-publicar-solicitud.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "a320874d919b63323444163da1bbbd0e2dcdc5b3529035bc46a4da93a3293e90",
-      "sha256": "96b019d9149241dedb733c7273b0d8e46af74587f4dcfcb77b327eefef4178dc",
-      "huella": "995b693ca56b5421213b47a61e3cae7d350a64e7e6549e2ed74399a3ac0afd78",
-      "adjuntos": []
+      "sha256Fuente": "682ed00f8f881f3b492b2735b9e949257d64a4e91ca3acb99eead6ff6ebaff5c",
+      "sha256": "2686f435858b0d12ba4b8d44b6694263a8c9c84e2e796e559d6bc3b3413c97a7",
+      "huella": "7f280e7787c246d0bf4a02efd8e7a7d6cd7bef8d4528f41e9f83987622b81b1e",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-02-recibir-y-responder-ofertas": {
       "origen": "docs/casos-de-uso/cu-02-recibir-y-responder-ofertas.md",
       "destino": "src/content/docs/analisis/casos/cu-02-recibir-y-responder-ofertas.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "a4933393bf31f83ad48b53255c0db3188748d43ae3e00a67c38ca264a2f829b3",
-      "sha256": "ed7cc4e0fa9e2efc0e2e6a36cea9a897e6e9cd52facbfc6bb991a87e79fdc187",
-      "huella": "641f5cdb712be0c5ef88ef794d4b0d821b24e953f5f0e3b40e8062375ee85dbc",
-      "adjuntos": []
+      "sha256Fuente": "37e89d3e015a98dacf5e3bbd0dc9847d8cd1ace48ed3de02c43445b24c0fbbb9",
+      "sha256": "fdddc191ac02aee67f1568a9cdc4acfeaa9f52b40e40c2f16664ee317a820fc6",
+      "huella": "32fd9675a894d49164a0a9a94cabb4a5f9786c321b75f1feb5ae260d90aa51c9",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-03-elegir-oferta": {
       "origen": "docs/casos-de-uso/cu-03-elegir-oferta.md",
       "destino": "src/content/docs/analisis/casos/cu-03-elegir-oferta.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "5b1faebcfcf792aea684d9962ab613616aa37ff883571c377c3df043f172fcbc",
-      "sha256": "996802929e377bc697c1e37ac612c80ce4e63bac8dbb32ed95f915439f8d6608",
-      "huella": "4ecf0f2965de094c180e2f823c196ac6ebed40510323ba931a22568e2dc4df8e",
-      "adjuntos": []
+      "sha256Fuente": "7ba2f22469d77d28ca0bfa1f0e5f07656c822afd1b1c4c88518aee8ebbde8abb",
+      "sha256": "9122620e91124b6999f56055e93147e2ad260f43d280059b54a881e8756823ba",
+      "huella": "cb03fd597ece51cac1bfedd91585f28a751b77dfe8747839394950ef198e6d06",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-04-produccion-y-evidencia": {
       "origen": "docs/casos-de-uso/cu-04-produccion-y-evidencia.md",
       "destino": "src/content/docs/analisis/casos/cu-04-produccion-y-evidencia.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "c0c46922946e22d14361ec33ef210e003b5bd72bb7bb90c6ec012a5f3627a07d",
-      "sha256": "0e410cd0576ddae433854de8cf7e9e5396110733b9ebdce7e255cdd2074e8855",
-      "huella": "25bfae2bc00a308f268e2456be4d7e636aa3623aef4074b344d8644973c6c709",
-      "adjuntos": []
+      "sha256Fuente": "642ea2bd31ecc00b0bbf1340a7c1bce49d5f4de5de74f8a7feac0c84d4de090c",
+      "sha256": "5c203249579f52af2c9f215db04b75e4b820651971146fe5a1e6da30c6eec40e",
+      "huella": "202931a1ae7f36c842a1a3224a50ac5fa7a5f99d72f782c6c50612268d41c017",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-05-revision-y-aprobacion": {
       "origen": "docs/casos-de-uso/cu-05-revision-y-aprobacion.md",
       "destino": "src/content/docs/analisis/casos/cu-05-revision-y-aprobacion.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "bfede6c507a581b5c069e0eb21687e72a01ef721eece4215c4c50693b5bc0b41",
-      "sha256": "9e9bd2d81b6dd4cc2b8aa422ff993157b40e5034d44cb1120e44ae62a54c97ee",
-      "huella": "b5c351a3df7a0646ffd6e80ce5b1a2a0418fb90ea8a4d8a013c338939b335c60",
-      "adjuntos": []
+      "sha256Fuente": "4b2e858eff879f0e0f502d9c119856094db73df238de3375b248b775e3d2e3af",
+      "sha256": "981f0182505dcb9fbc6303ac30bd43711f1f1b6c41e59b93a42acb2fb1648eb4",
+      "huella": "bdc5318fa6880c7a08fc0ca64bd97a9feab6f2297d8dc37319394e1f41deb92b",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-06-entrega-personal": {
       "origen": "docs/casos-de-uso/cu-06-entrega-personal.md",
       "destino": "src/content/docs/analisis/casos/cu-06-entrega-personal.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "ecccd340e418077beba78ffbfa641579dc6c2a51323ed97e69cebb65b668c143",
-      "sha256": "e39591e71339510c54e50fa4caa4e690e9adbf30ec6de1b404a6edece0d3ca46",
-      "huella": "2befa9a40c120f8ad8423a882451dfe784a8336037723cf3b6d9c4e6f1337bdc",
-      "adjuntos": []
+      "sha256Fuente": "7c5429a74f17ee2ca3679cd96313a66e09d4ab4d443ab30e4ab2afdd559725ec",
+      "sha256": "da2a06d9157c2d778010e62eba11bc5cb3815e9a037bcdc6bf0d29d993a73e57",
+      "huella": "ce9cd1e6eeb288da2fedffe3aa05ba1ad77d6c146c2cef1929fc1684b134633f",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-07-administracion-operativa": {
       "origen": "docs/casos-de-uso/cu-07-administracion-operativa.md",
       "destino": "src/content/docs/analisis/casos/cu-07-administracion-operativa.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "ee081bba3b83d60193791c770435ba0e498094bed0bc8c398191846da37093c5",
-      "sha256": "303167d28bb220279f5375765c3af6372a5dac341b8894bc1405caa9ed562ba0",
-      "huella": "9d0140830957892c750e37dc72044cb8fe48ccbc415c602e803b808785944b59",
-      "adjuntos": []
+      "sha256Fuente": "9c3d12f1aacb5bd34818a2e80dd69edf4407c41ab36004d8b136888671937d47",
+      "sha256": "c38ba711cd08320f9981e033828886f7452a09cdce6ff4d99b467b0a71ccbf0a",
+      "huella": "43d5290d26ef6dabcb51575e26d25e5a0b1e6c0768646648f66760f2d501be5a",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-08-consultar-membresia": {
       "origen": "docs/casos-de-uso/cu-08-consultar-membresia.md",
@@ -1178,30 +1226,33 @@
       "destino": "src/content/docs/analisis/casos/cu-09-habilitar-perfil-e-iniciar-prueba.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "c2a67aff92ec7a7b77c201079434136efa62ec4bd6fe5d791a98a5384ef45817",
-      "sha256": "a8e7fe78e138b2032230cea9e016e1163b2042600595bec9a1dd77b75c4f7b4d",
-      "huella": "d02dc9c4b81510c6374d0f782c01d62e25aa534c6d9c7d0e3141be7b16d581a5",
-      "adjuntos": []
+      "sha256Fuente": "e08baf70ad7af0588b310e07bf29ecee64c189023fac4c040278df57b947c3b3",
+      "sha256": "0cf9ed99669d5b369a27053375622c66cf4b18d1b436cf905e3100cccbc5d21c",
+      "huella": "671a813dd30534845a5bd169d506034e52b8d356414da16ff9dd0a8bc4d5644c",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-10-asignar-beneficio-fundador": {
       "origen": "docs/casos-de-uso/cu-10-asignar-beneficio-fundador.md",
       "destino": "src/content/docs/analisis/casos/cu-10-asignar-beneficio-fundador.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "c3bd4f241625b5f439ca3285ba6f01398884b20233e52334a2410a0ebd79139d",
-      "sha256": "4ec73a95521f36e97a52a5605c8e3d3d5e51f84507a47ed3e527e1ebc0e6594c",
-      "huella": "0b2b38a142f012362e16cc37b4e0f5f680e78dac1529edf4f48fdcd103257beb",
-      "adjuntos": []
+      "sha256Fuente": "e00f152669884a9d8785e2e5daa4c1001200c14aa3417711abef468941509a48",
+      "sha256": "63d621c2c1f82fc32d9ee7d8db33e4ce645cec46a2e3c78aee185c94cbbc55bf",
+      "huella": "76e52803f40543ee7e50079924416ede7251addfc05fd3b25668c40a44b690b5",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-11-pagar-o-renovar-abono": {
       "origen": "docs/casos-de-uso/cu-11-pagar-o-renovar-abono.md",
       "destino": "src/content/docs/analisis/casos/cu-11-pagar-o-renovar-abono.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "923a294b5e0700369c15e1103729460e4c2f03c65873c60b19cef3eec4d12290",
-      "sha256": "2671e33462db1e789049f0878505f4275eea3394f31724d8fef2171e96533f30",
-      "huella": "f38e1c81bb2853024235be4ece6e03b5d44f62e92d905fbee7c21c28bc1e97a5",
-      "adjuntos": []
+      "sha256Fuente": "a2e37a5c43d320110390ba2c538244d82e5bc8a011aa5de3ec86da1b0eaa6bf5",
+      "sha256": "c349fd9ff1ec572d2920f7b4926798902dd4e998bb97bd395b14257b3990df07",
+      "huella": "cb71cd8e62e23c187ad3a9109ed7834652e59eaa7ce46097498eb70931e4c0d9",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-12-gestionar-plan-y-promociones": {
       "origen": "docs/casos-de-uso/cu-12-gestionar-plan-y-promociones.md",
@@ -1218,30 +1269,33 @@
       "destino": "src/content/docs/analisis/casos/cu-13-registrarse-y-acceder.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "23ab990ff92531b69235a5c1855d4f1ae98962260ee32c88a2d34ed6f7cd479e",
-      "sha256": "91307068ac2a1ab5ef1c28ff6caa861a8b0a0e8d697f904b196a16aa902c4893",
-      "huella": "a730042bf0349cd640befb9d206fdc55ea131fbd526767f14b53538d06d0a26d",
-      "adjuntos": []
+      "sha256Fuente": "fffc4671dd6bfcd4a6dacf20d6ee4016369e4f44b272085d3f829f9f09e71c65",
+      "sha256": "a3a35b108fa9d3f580c04ddad3d62f45930f78f530b6c37c55b63571fc66ed2d",
+      "huella": "2c305857d85802e9205f6a8e31f9c6e2f5d3ad377f57aed9b2741bf157fde2c3",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-14-conversar-en-un-pedido": {
       "origen": "docs/casos-de-uso/cu-14-conversar-en-un-pedido.md",
       "destino": "src/content/docs/analisis/casos/cu-14-conversar-en-un-pedido.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "d9d6d2788387bfe096f1dd98cf1a8e21ca2dbf3cb91938bf1edf3e043b8bfe26",
-      "sha256": "db97911137649ab8f1e85230af4da43ddccca0a630c4f5185e9402c77de3e4f4",
-      "huella": "db6e4bc248ce3cb17a5f4f5ae9ca5dbee9cb190c664d25bbeadf6cbc7d44eb1c",
-      "adjuntos": []
+      "sha256Fuente": "a9dffa05acfa50cd262a26275cf8b8ceba39a418e0a61b51c74d010bcf4ee7c4",
+      "sha256": "4625cd68f87846ce446b9fa0055a1be4b597ab34b6ac94f5cfbf38f29130467d",
+      "huella": "c197d15b98cfe15b1db237fbbec1d5812b7cb47ae2eb61e305b60cedf41447f5",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-15-mantener-y-consultar-portfolio": {
       "origen": "docs/casos-de-uso/cu-15-mantener-y-consultar-portfolio.md",
       "destino": "src/content/docs/analisis/casos/cu-15-mantener-y-consultar-portfolio.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "08482d05963d9e99c423af427d9cc38f72ebad029b60c2dbb29505777d99ab6c",
-      "sha256": "9c671e03b1e63590dd10233b8f3623627c32ae6fbfa2dc453a8d14f69d371ae0",
-      "huella": "8dc63ca74478cec3d498d40e8e570306d70d5919aec7f32148709730fb7bc87b",
-      "adjuntos": []
+      "sha256Fuente": "99491d59b94997b04dd2648d7aae452b55ffa329df060b05d0df7816258a7c11",
+      "sha256": "e6d1d2932d58bb1804b5304b1d00105f57ee2d9bf94ba8742188ec57f127be88",
+      "huella": "ac3458123b75b1036627052d49e43297549610d6f7c3a08a81b08a8fa9474467",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-16-valorar-y-consultar-reputacion": {
       "origen": "docs/casos-de-uso/cu-16-valorar-y-consultar-reputacion.md",
@@ -1258,10 +1312,11 @@
       "destino": "src/content/docs/analisis/casos/cu-17-consultar-historial-de-pedidos.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "cca61d27a9494eb41d562127dd4c03d86d4457d847fc3f5222085c9463a9a5a0",
-      "sha256": "4d19586ee9b3939b1ad433e92a1e23d20167f1d2b62cc67d541cb09f28aea213",
-      "huella": "00af4b7d00254b94ab1b812fb4710545c79d1118b0cc85b2b4cf151610e2a30d",
-      "adjuntos": []
+      "sha256Fuente": "3cd2a6adbd0dd1cc28c276d5419da9e9d01610a5589d339213f521767ea40f14",
+      "sha256": "243c78b0d2740c3779302a63f3d93eacf48069e79488ffde686a7a7faabb48a3",
+      "huella": "dc2b112c731db5c6bb3fd5bd771412339df06da969b8eba9e7c4433f2ddf9b7f",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-18-consultar-reporte-de-actividad": {
       "origen": "docs/casos-de-uso/cu-18-consultar-reporte-de-actividad.md",
@@ -1278,30 +1333,33 @@
       "destino": "src/content/docs/analisis/casos/cu-19-mantener-catalogo-de-productos.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "647c0ef978132390c8959575f1e384ef7516f37932c77e7fee5c0ef91fd41b6d",
-      "sha256": "42063bf8b9b40d2aa5cd602c2098dea768441f7990a0a9460d84292020b3a8a8",
-      "huella": "264cbbecb72acb876c80a538f905dcb41a6537ce1403a249762e0a6d9c68ae04",
-      "adjuntos": []
+      "sha256Fuente": "27d5f45cc47f449bb8ccf0bb686b109cf39d171c397a15148885e4c50e67ad8a",
+      "sha256": "f28f4a9a1aa81a6a00c3df14b63e586ee0f02e6dce32274a51e11de519f4081b",
+      "huella": "ba759ba5a1ae4518c3d7d8a144b05f4be62dc5c070148fca172532508959053f",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-20-pedir-un-producto-del-maker": {
       "origen": "docs/casos-de-uso/cu-20-pedir-un-producto-del-maker.md",
       "destino": "src/content/docs/analisis/casos/cu-20-pedir-un-producto-del-maker.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "8f93a7381a185710774192c9a05ca912ee7fc82f630db52dc9f8ce4ecad98173",
-      "sha256": "e7750088a9708dff74d8f63e42ac9627530bf429977fc5acebe3f0c52faab083",
-      "huella": "44c9ff7cee3e1694039b04f6136a6c88b5170109c22ede58dcc46ed00c497653",
-      "adjuntos": []
+      "sha256Fuente": "4199f427d2741542d7fd28e372e6e63116aec96d4f3d60601f7a3ae05eeab5ce",
+      "sha256": "f9a0fc25e9c47dfb46e4be2d6775bd2ce47c9628bbb8a1b8855c19390222747f",
+      "huella": "8f75abaffdb7196f8e8f3b1df0cfda9c39cbf71db7e5d81579c6fdb62790b505",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-21-gestionar-capacidades-del-maker": {
       "origen": "docs/casos-de-uso/cu-21-gestionar-capacidades-del-maker.md",
       "destino": "src/content/docs/analisis/casos/cu-21-gestionar-capacidades-del-maker.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "41b20f558093effbc5b379a07df65a3f1b22c30ff966667f3fc00f14d286afe1",
-      "sha256": "9f22d2da5562384668e27ebb0961566d33be7f337dde33d1950db23f7b64204e",
-      "huella": "e2815633b6111f4bc97cabbf121c8d5b04c2c634ee03ef0d18e8d950aba0b9dd",
-      "adjuntos": []
+      "sha256Fuente": "d505a4ac22fe021380cf7163bf04d030e6527e693871c96287703ee578b250ff",
+      "sha256": "18b90f169b9aca36d9fe1293a89cb9f059766216474e672e04c7235315925be2",
+      "huella": "28ff5fc20716b5c29117f466ed7107e6d6c291b2bf48592e9cca20e2a70fa4e5",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-22-gestionar-perfil-de-cliente": {
       "origen": "docs/casos-de-uso/cu-22-gestionar-perfil-de-cliente.md",
@@ -1318,40 +1376,44 @@
       "destino": "src/content/docs/analisis/casos/cu-23-recibir-y-consultar-notificaciones.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "937506ca5887908aaf7cf9e304e2e37833b256e35a48d8460d4df18f23c2088d",
-      "sha256": "e9693769521f953dfa56ce2bb3d8ab13915623546ff16333ac5344f3dd923281",
-      "huella": "e1788256279054bf355fa24ae71840bbb02116bb77ad358c3298f4d7493d3c7f",
-      "adjuntos": []
+      "sha256Fuente": "ac7f27a8cf01e29a3d78534b9e91e555cbdf66ef5acba3fb53d07cc505365a63",
+      "sha256": "aac7b03a1e160a9c7931570104baa8f19e5aacf00a355eb097db35cecf2bf577",
+      "huella": "1ec2c97cebaeeb26ee07bff1f4642baa1a69420d8d9a28f64befcd2f2c8874f3",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-24-gestionar-archivos-autorizados": {
       "origen": "docs/casos-de-uso/cu-24-gestionar-archivos-autorizados.md",
       "destino": "src/content/docs/analisis/casos/cu-24-gestionar-archivos-autorizados.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "33090159c6ff65b1e1ce32ddddf8fdf036d13448b3faf1745d773dfaa459d7fa",
-      "sha256": "2d0384d212ea07340af5e5533be521f3fa2dfe9256163f27bd970cd33b555576",
-      "huella": "7810e1d8ac6edb73f24e0022a4520226f16a91003eb3ff15ca1d2aceef0356ab",
-      "adjuntos": []
+      "sha256Fuente": "36ca97e898aa361033d8a3a2ec9fe98f1ce7ac384eef2c12a8cf7c263014bd47",
+      "sha256": "bd7a04adb6608042f2adf482c4f93475a54495e6785cb512eb5f033802bcbc34",
+      "huella": "c7051981d11f4108d663406920aca77d26642867fabbe454654b5cad0c277e82",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-analisis-casos-cu-25-negociar-condiciones-de-una-oferta": {
       "origen": "docs/casos-de-uso/cu-25-negociar-condiciones-de-una-oferta.md",
       "destino": "src/content/docs/analisis/casos/cu-25-negociar-condiciones-de-una-oferta.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "86aeade69ae79d52879f8bda6c4bd9c6174914629564a73dfcb1060c5f58d3b3",
-      "sha256": "aad40e6ac97699828aff527fe00c1a527a507d8c95acc4cecb956009bce2b569",
-      "huella": "70ef987241fc1495c29319c522afc0818ad614d54db775c1f1ee3c6b3a8d97d9",
-      "adjuntos": []
+      "sha256Fuente": "5b9b3f7c690640c09ef46f38d9e3aef67f67979ddf09aafb1a52a23f3da60b55",
+      "sha256": "0f8543101d0f1145d8416d74cfc532d6de6afb09b3aeb9701f96a80dc3fd2f56",
+      "huella": "7d4a458a0ba8394cf45ae7b3255226d027554ffda896103754b57febb1a789ab",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-specs-f25-catalogo-de-productos-del-maker": {
       "origen": "docs/specs/f25-catalogo-de-productos-del-maker.md",
       "destino": "src/content/docs/specs/f25-catalogo-de-productos-del-maker.md",
       "checkpoint": "Documento de funcionalidades",
       "estado": "entregable",
-      "sha256Fuente": "496e13e63478d5143a6686e67614683929d4c8047247cb57b0c063d87482280f",
-      "sha256": "e6de7e0bea9fa6bd499d0672dda8ba0cda4336fa17efdadf0e93761e61cbc00c",
-      "huella": "85e2952d69f6200d8adb9e4396f75c83b583efc2a1b60f76305412f91c7a2b98",
-      "adjuntos": []
+      "sha256Fuente": "e17cbc4ecf548d63e94454feeb0508321aeafb936dc07fc0240b517d5d5a5772",
+      "sha256": "443e9414739342cc954dc500e83d622ab39362fb5c3104c9c7782d584664d21d",
+      "huella": "7ab913ea98d5dc528f6188bf7191892cd15453d4649b345213630dff021c58d6",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-diseno-clases-de-diseno": {
       "origen": "docs/diseno/clases-de-diseno.md",
@@ -1379,20 +1441,22 @@
       "destino": "src/content/docs/planificacion/parametros.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "7d1d48f0a4f840b91feb99ee2ff3efb2c43e9b14344c29adba4763b7ed496570",
-      "sha256": "745b8a89c077661f8aa272a0f48cda902e328523436794470791c7a322f56d3a",
-      "huella": "ab1d6db88bd52223e02ffe85fec47b8fdd76e8819caf2fc44531b07e32dad7c7",
-      "adjuntos": []
+      "sha256Fuente": "b945c6b4587ce12521ce680fe42eec16707aa21db93d618c5ea8b6d2f376851e",
+      "sha256": "4a98ad5a81a4f209d40eebfaa366894658fbcb87ed9e45c0b1122e35311c9894",
+      "huella": "0b744d0baf4c5038d622b454747a8a672664faa340c41799916d932005280777",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-decisiones-modelo-comercial": {
       "origen": "docs/decisiones/ADR-002-modelo-comercial-membresias.md",
       "destino": "src/content/docs/decisiones/modelo-comercial.md",
       "checkpoint": "Arquitectura",
       "estado": "entregable",
-      "sha256Fuente": "f0178e76bd29be23e9c2d89bceb5514c1c1fd31c72195d2ba90d8b06bfbc3943",
-      "sha256": "e591e47051513ce70d27bc9a1b0cbd7c00a9553bad829c6633259f325dc9cf4d",
-      "huella": "9e5ca6f9f673d5feb4c58e8d5d5e475033364ed78117ca88dace7ee1438bcaab",
-      "adjuntos": []
+      "sha256Fuente": "6606ac285e93847e9c1f034569548679dd819d167cc36668eef69060a74c1312",
+      "sha256": "3e49b530ffc9cf33c24326f880d8c52e3aebbc54a54444a787715088c66b7d57",
+      "huella": "6ec4aacc03245cd6c85387498000f596b365d8a313dcf6dec9caaa5b62f311d6",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-decisiones-catalogo-y-cobertura": {
       "origen": "docs/decisiones/ADR-003-catalogo-y-cobertura-funcional.md",
@@ -1409,32 +1473,39 @@
       "destino": "src/content/docs/analisis/pruebas-y-trazabilidad.md",
       "checkpoint": "9) Casos de prueba y 10) Trazabilidad",
       "estado": "entregable",
-      "sha256Fuente": "25d9e85e636a7c7bf2030d5942c9ab32167c49abeea4c8a33c7f1fbd55e1068a",
-      "sha256": "9631199584d4acb6ea7b4bc7f567a836a039e26972df8b50253f2627cb65ee53",
-      "huella": "1ea12bc30bcbb4005c9413eaab78ce2a43f8cf4e8dca03ef1bce566121fd3bde",
+      "sha256Fuente": "743d590fe28c9def7f77e6b7c18ac2cc298ff4879dc8b1f2790f7da26e6dcc9f",
+      "sha256": "732d75e1077758c865fc1b140fc907a17c6c1a9e047221d492144e3ad61d60f3",
+      "huella": "92832d6cf68343bb79a16cedf1c4073f3ddbc37ee9edd0566e234c4fc873d434",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/datos-funcionales.json",
           "destino": "public/documentos/8a0c5389371a-datos-funcionales.json",
           "sha256": "4295b7eace683c432467ae2c932032b64b47d06270a034f1308a9aa19c348bfd"
+        },
+        {
+          "origen": "docs/pruebas/fixtures/casos-detallados.json",
+          "destino": "public/documentos/92aa0408f516-casos-detallados.json",
+          "sha256": "e8ac4b4b108e2213770cfba083168183ff3581759070e90169f00b8986227ab3"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "funcional-planificacion-revision-funcional": {
       "origen": "docs/planificacion/13-revision-funcional-completa.md",
       "destino": "src/content/docs/planificacion/revision-funcional.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "83c6a526f89a31617fc4b900842dd6bf9e313ef2d9e28bf229b2551bc601a2cf",
-      "sha256": "9f7ac509594b43cf30d853429c37ad1416e297e7cf84e815ef1adb5d6933fc25",
-      "huella": "1d4ab1a108c97f5b120cabe248416009c0afd489c7f2a74a68966d2a88fd3886",
+      "sha256Fuente": "7340c18299dfae21873c11ff22ffcf72a3449ce074c43395429e30b3d3af1eaa",
+      "sha256": "dc5d48fc9aea2038f5dcaf1cb3f7906869a97fca974aa684864cd8c83ae77898",
+      "huella": "24458fd024e6f1ac3e8d59aa57f208d8958ca428a9b408cb1e68d82a93cc1f69",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "1f1bf9f35c7c8931dfb403a195461de2fe1991eab15bb6bd53980b40eb238501"
+          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "alcance-bernardez": {
       "origen": "formal/entregas/01-alcance-y-producto.md",
@@ -1467,25 +1538,26 @@
       "destino": "src/content/docs/manuales/instalacion.md",
       "checkpoint": "15",
       "estado": "entregable",
-      "sha256Fuente": "2fb5254f05dfc977e2b9753fe6d87d30bcfc8f86f78cdaf6d99977401b461db6",
-      "sha256": "68fd78751e28e5179e14ccd2037ef2eeb1a524aad97112c01f412bb72eb3901a",
-      "huella": "ff28b73a1f769227a6054237aee2525fefe9abf916e756ebb45252f60991c0e7",
+      "sha256Fuente": "75c68b3ce7268f1e8ce17b5e004caa53330dab8ca38601cda2763325f2580e16",
+      "sha256": "481ebf6c432a3129edc3d4fb5c1c0e9e556ffd08bc80e0af36f2655c53c853f6",
+      "huella": "e0dd34dc693caee4854eec735476de463e214f62cd673c86612ade44b39636e3",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/datos-funcionales.json",
           "destino": "public/documentos/8a0c5389371a-datos-funcionales.json",
           "sha256": "4295b7eace683c432467ae2c932032b64b47d06270a034f1308a9aa19c348bfd"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-manuales-cliente": {
       "origen": "docs/manuales/cliente.md",
       "destino": "src/content/docs/manuales/cliente.md",
       "checkpoint": "Manual de usuario",
       "estado": "entregable",
-      "sha256Fuente": "76e6dde1907e81eaecfd956cfa1e57a7eb4c3112c0175271e5ec417da183fec6",
-      "sha256": "88b176c498db970a03dbb1968091329892c947ec302bdb2b044c6e688d7dc717",
-      "huella": "dc17cc1a7a171f84e6be86273c19bfd01d7833c5ca4877ebc97176ea5180250a",
+      "sha256Fuente": "51d4987edb90f957cc6928981f655b24c7647abbcd46659fe73e872095152fca",
+      "sha256": "975d5e4505ce24077f04fe371e1cb093bed05284c264734fccfa7a977ce13752",
+      "huella": "6fb5f3c6fc84a35d8880bc133ff4d4dca123a469ddc46058e3ebbc95a2fd2e0f",
       "adjuntos": [
         {
           "origen": "docs/design-system/figma/previews/2026-10-23/vista-web-solicitud.png",
@@ -1502,16 +1574,17 @@
           "destino": "public/documentos/c38bd72b53be-catalogo-y-chat.html",
           "sha256": "908c6da41b85fa91dd1368718e800deb83f2ba7b83b8aac1d0006a2356ee384b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-manuales-maker": {
       "origen": "docs/manuales/maker.md",
       "destino": "src/content/docs/manuales/maker.md",
       "checkpoint": "Manual de usuario",
       "estado": "entregable",
-      "sha256Fuente": "6574eaabc92aaf913dc76574d7a85a8caeaddbe6c552ec22ce14c10fa8fa1126",
-      "sha256": "ca5fa1429f5112342372f088628da3ae4ebd91385a4783fd1abca939f30a581c",
-      "huella": "077f016cd3ad736b737faf2af99c923fae66b174d9d13f618c9b3ba36fedfe0d",
+      "sha256Fuente": "601c0e12a516a789d5f6d2a69985abf0d3b22ccd9f9890a71c89b5e4a5db9e5e",
+      "sha256": "b905f60f9b870c60c2071923f0925a4745e20523f212c0fc75bf93d70ada42bb",
+      "huella": "3450e029d23870a3b9a245bef156b40fdf73011e68c3c1c7ea09d1b1599c299d",
       "adjuntos": [
         {
           "origen": "docs/prototipos/capturas/web-cat-01.png",
@@ -1523,17 +1596,19 @@
           "destino": "public/documentos/c38bd72b53be-catalogo-y-chat.html",
           "sha256": "908c6da41b85fa91dd1368718e800deb83f2ba7b83b8aac1d0006a2356ee384b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-manuales-administracion": {
       "origen": "docs/manuales/administracion.md",
       "destino": "src/content/docs/manuales/administracion.md",
       "checkpoint": "Manual de usuario",
       "estado": "entregable",
-      "sha256Fuente": "4ef48e278ee76b0980f190f5c63491f61fdf8c8f781e3a5157db81613362947e",
-      "sha256": "89fd637b150ea068bb4ae047646613cca469e2367df5b5a2554f0f532d09454c",
-      "huella": "125e62aa35ec8968013c218e32bf233cc493cb737c92495b6fa81966ff1c01cb",
-      "adjuntos": []
+      "sha256Fuente": "26e61247089a3a552b28e4aeef782455a5885f3d10b4b67f7369647f21eaaf11",
+      "sha256": "fdedbbe9e053818eed0cf79fcb570fa65ce1fef2a4327aa41e5d61f0b161077f",
+      "huella": "271c0a82cb54761c72ec0a41328473b2a064cc75fbce9e3fa44587959235b782",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-manuales-index": {
       "origen": "docs/planificacion/06-manuales.md",
@@ -1550,46 +1625,50 @@
       "destino": "src/content/docs/diseno/seguridad.md",
       "checkpoint": "Especificaciones de seguridad",
       "estado": "entregable",
-      "sha256Fuente": "33ba80bc99c29248835785d45647b6c7eda514d760e193f90b9bfb1ca0267e92",
-      "sha256": "4394c286b8b87ec1ad1930a23e7de83abf64702987a2eaf622d6102ea0fdbda0",
-      "huella": "a20576e5ba92a7159e01b9c8119bdfed8691d06c2f8809ab35d6025053e457f5",
-      "adjuntos": []
+      "sha256Fuente": "8c9818be234ea26819dee6b195b81f5bde27520090645e549f8101341628deff",
+      "sha256": "4d74218d266c8518153212555d97fa3c3a08a2789766b21af1389330894d8126",
+      "huella": "6e387eadd455fea910f5005fa6e38a184a7d773267a79eb152d77f0315a414f2",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-planificacion-perfil-perf-01": {
       "origen": "docs/pruebas/perfil-perf-01.md",
       "destino": "src/content/docs/planificacion/perfil-perf-01.md",
       "checkpoint": "2 y 9",
       "estado": "entregable",
-      "sha256Fuente": "02c95548c7c240334cef6f2fe9f6bf6b529e1955f650bd1bafa25183bd3b701c",
-      "sha256": "a12702f17d5aabda56a43566d77f894561c54aafa380540e8e9f0e42574bfccc",
-      "huella": "3f5b00d86a44306a18c6c140be0657939582e5750a400f13398e686bef83344a",
-      "adjuntos": []
+      "sha256Fuente": "e2460b5edad22801f6f2233c9b15d26d56a44d677a4a208b2fc2ede402747981",
+      "sha256": "fca22799a6d461a618d48050fd491ed7aada02219b99d821651a8ae163e51912",
+      "huella": "e7f117523c2f92a63fbdf9a322d22dbae0a9be179c4a01aed3eb3691cb83340e",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-diseno-contratos-operativos": {
       "origen": "docs/diseno/contratos-operativos.md",
       "destino": "src/content/docs/diseno/contratos-operativos.md",
       "checkpoint": "14",
       "estado": "entregable",
-      "sha256Fuente": "11bf4755f57bce83083957d39d68aff8a7de6e341839785da94a3dce92c6ed3b",
-      "sha256": "b5128a5464c612e1c60e087c7c94ab6dd0d33a709209455f0a00ecf34417b2c5",
-      "huella": "c4f368d884039b5e8432cf8a01c314f1a957758f5e02fcf36bce2c768861e461",
+      "sha256Fuente": "0cc535e72f9a4df7f1d8f785cdb012a82a556b209ae9f247c4ac6599ea7c18ff",
+      "sha256": "89b35664306f86f9b31774475636dab0ff087ed26ea7250fd10a2a95cd0348ed",
+      "huella": "471293b78254f45054338420183e779e24e9e873e3f2815246764272c155029a",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "1f1bf9f35c7c8931dfb403a195461de2fe1991eab15bb6bd53980b40eb238501"
+          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-planificacion-calidad-y-riesgos": {
       "origen": "docs/planificacion/14-calidad-riesgos-y-cambios.md",
       "destino": "src/content/docs/planificacion/calidad-y-riesgos.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "7a624ed5316f2664dcae5887d4d549e70dea18f98752a86921d047ede296c1ef",
-      "sha256": "18cde6cf712991ad843fb8c12bb914193b0660634178e2cbfcc52195729ecdf8",
-      "huella": "3bd3fe2e6f4900cb31e779486f8484a768f3a0ce18cfead4588727c7b5d9509c",
-      "adjuntos": []
+      "sha256Fuente": "bc1a5fa0f7e1340368d4be4b0b1a47fec426239d1396dd1dc4d92628baf700ad",
+      "sha256": "22c7492f7f4b1da82e1368d57ea6a5ee4cf27e8ba4d04730da801293872c63f2",
+      "huella": "405eb44fa35ea7fd50ffe77810cc428ac5d196e96947697b7592fd1b3d1c916c",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-planificacion-cronograma": {
       "origen": "docs/planificacion/09-cronograma-y-entregas.md",
@@ -1617,26 +1696,28 @@
       "destino": "src/content/docs/planificacion/post-cursada.md",
       "checkpoint": "16",
       "estado": "entregable",
-      "sha256Fuente": "54f2cf7cd510957bf858dc7395db4fe655ea48a28a1064697c6e9936e79c6603",
-      "sha256": "60b17efc8ebded1dd45e36568512570871fc5cf73484e581a8331a42daa289b0",
-      "huella": "a90c0d85e6914677e96270f1ce3a0e80eb3ebf1f4acd2d6fbff9591a1087a662",
-      "adjuntos": []
+      "sha256Fuente": "c2d2378dbe1e0d8b36290a3a9b47e4fde1445a092967d47e567487df8629a71a",
+      "sha256": "1907c6441117b7cfe088c9e05b8a7cc2ef68c230237164fb7841304846e7aec2",
+      "huella": "b61afcfffb1a7714a8be77e33fcc730bbc2d002aab8aa02b0c5cf673f9afbf62",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-presentacion-material": {
       "origen": "docs/planificacion/08-material-presentacion.md",
       "destino": "src/content/docs/presentacion/material.md",
       "checkpoint": "Material de presentación",
       "estado": "entregable",
-      "sha256Fuente": "246152ce620f87407c9f2b0c2bb51353f75fe0fd32669069c19abf4a639ecb5c",
-      "sha256": "ff766458bf1f1bc1bfc897b6e1b2972cdbc66483dc314d082d1525ffb86e52df",
-      "huella": "da2ed89b9ad2d418fba830f78e8759377571bef5e501c6229cf225ad4492f91b",
+      "sha256Fuente": "355060bd6ca73409d593a1686e8a88ec3331eb76cf6481852ad4607398548da2",
+      "sha256": "49aa27562ff93ce741c9bf5b5373c79ca00753d9ba583c71a56f111db946d4c4",
+      "huella": "c4dac3f67fef028c061c6f684c193b2b512f3639870d52249032e66815e288b2",
       "adjuntos": [
         {
           "origen": "docs/presentacion/presentacion.html",
           "destino": "public/documentos/95b080382aea-presentacion.html",
-          "sha256": "432a3fd0a66c98bca66f8480a51ea7343f6a52740e78ee735f0a33a418a2c2ca"
+          "sha256": "1647f37269e0b7c4d0447292b3ce44f647a3d64ff3c5efa4a592b5ee366f5414"
         }
-      ]
+      ],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-presentacion-demo": {
       "origen": "docs/presentacion/guion-demo.md",
@@ -1663,10 +1744,11 @@
       "destino": "src/content/docs/proyecto/investigacion-y-viabilidad.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "75877aeca08a0b8c9a647403481f7428caab4cc0638777474f5e780fcf26236d",
-      "sha256": "17c0c50f526cc4b4ef5bba2b4f9f49c6770721938dfaf30c0bb7a7b1f951f6f6",
-      "huella": "d4dcab89ade1e7867ecf561ec3c1b3a22b68814f1ad57ead243e037c54e69fef",
-      "adjuntos": []
+      "sha256Fuente": "49115c0f60456edf28f89109209993caec8803403862bff6261ae911c31305f3",
+      "sha256": "b85cf383a61fc8f7c23e6af9c827950862a720fe7a1563d922099ea7e74cde18",
+      "huella": "c95c9ca3bf50e0d2a1d23c1d80df4f8e3883e48be1d253a53b512ce6eda68e55",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
     "entrega-planificacion-ficha-proyecto": {
       "origen": "docs/planificacion/01-ficha-proyecto-y-organizacion.md",
@@ -1753,6 +1835,17 @@
           "sha256": "8fa082a8e094d15dfe98dc66ffec9ce3d247681778f3da1e7f59172e99d6aabf"
         }
       ]
+    },
+    "decision-autenticacion-better-auth": {
+      "origen": "docs/decisiones/ADR-004-autenticacion-better-auth.md",
+      "destino": "src/content/docs/decisiones/autenticacion-better-auth.md",
+      "checkpoint": "Arquitectura",
+      "estado": "entregable",
+      "sha256Fuente": "f2d9d456010ec960585882159bc4d8b4fa496be9e71d1de96a82de685c41a6d3",
+      "sha256": "fe7bf78f0058e6985cb2ec3df5a8d4548c2228978add76698c4c36683cbaafca",
+      "huella": "f6da052441280a5e287b5c071f348f9c5bd74f34cc20458c8ca6ff41b300af2f",
+      "adjuntos": [],
+      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     }
   },
   "integracion": [

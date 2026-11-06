@@ -15,11 +15,11 @@ El maker registra y actualiza sus capacidades. El sistema controla el titular o 
 | Referencia | Definición |
 | --- | --- |
 | Funcionalidad | [F03](/3daltoque-docs/proyecto/funcionalidades/#f03) |
-| Actores | Maker titular; administración con intervención autorizada. |
+| Actores | Cliente titular que crea su perfil maker; maker titular; administración con intervención autorizada. |
 | Canales | ABM. Web y Mobile. |
-| RF | [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2) |
+| RF | [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2) |
 | RNF | [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08), [RNF-13](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-13), [RNF-17](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-17) |
-| CU | [CU-09](/3daltoque-docs/analisis/casos/cu-09-habilitar-perfil-e-iniciar-prueba/), [CU-21](/3daltoque-docs/analisis/casos/cu-21-gestionar-capacidades-del-maker/) |
+| CU | [CU-13](/3daltoque-docs/analisis/casos/cu-13-registrarse-y-acceder/), [CU-09](/3daltoque-docs/analisis/casos/cu-09-habilitar-perfil-e-iniciar-prueba/), [CU-21](/3daltoque-docs/analisis/casos/cu-21-gestionar-capacidades-del-maker/) |
 
 ## 2. Pantallas y permisos
 
@@ -27,10 +27,17 @@ El maker registra y actualiza sus capacidades. El sistema controla el titular o 
 
 El servidor comprueba actor, propiedad, estado y acción en cada operación. La interfaz utiliza las capacidades devueltas para presentar acciones y mantiene la finalización de pedidos existentes cuando aplica RF-12.10.
 
+### Crear mi perfil maker
+
+Desde la cuenta Cliente, el titular elige «Crear mi perfil maker» y completa nombre_publico. POST /makers/me crea perfil y asignación maker en una transacción y conserva Cliente. El perfil comienza pendiente y con disponible=false; queda accesible para completar contacto, zona, impresoras y capacidades. El selector recupera los perfiles asignados y permite abrir el contexto Maker.
+
+La clave de operación y la unicidad por usuario conservan una sola alta. Repetir la solicitud recupera el perfil y su estado actual. Una asignación revocada o un perfil suspendido requiere el procedimiento autorizado correspondiente. Crear el perfil y cambiar de contexto conservan sin iniciar la prueba gratuita; CU-09 aplica su primera habilitación válida.
+
 ## 3. Entradas y validaciones
 
 | Campo | Tipo | Obligatoriedad | Validación |
 | --- | --- | --- | --- |
+| nombre_publico | Texto | En el alta | Nombre de presentación no vacío; actualización posterior por el titular |
 | dimensiones_mm | Decimales | Por capacidad | Valores positivos y unidad visible |
 | materiales | Referencias | Según PD-01 | Catálogo activo y combinaciones admitidas |
 | disponibilidad | Configuración | Según perfil | Horario y zona horaria explícitos |
@@ -62,8 +69,9 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| GET | `/makers/{id}` | maker_id | zona pública, capacidades, catálogo, portfolio y reputación | Contenido público vigente y precisión autorizada. |
-| PATCH | `/makers/me` | descripción, zona, disponibilidad y versión | perfil y capacidades | Maker titular. |
+| GET | `/makers/{id}` | maker_id | zona pública, punto representativo de 1 km, capacidades, catálogo, portfolio y reputación | Contenido público vigente y precisión autorizada. |
+| POST | `/makers/me` | nombre_publico y clave de operación | perfil propio pendiente y rol maker asignado | Cliente titular activo; unicidad por usuario; conserva Cliente y beneficios existentes. |
+| PATCH | `/makers/me` | nombre público, descripción, zona, disponibilidad y versión | perfil y capacidades | Maker titular. |
 | POST | `/makers/me/impresoras` | nombre, tecnología, dimensiones y estado | impresora_id | Dimensiones positivas y titularidad. |
 | PATCH | `/makers/me/impresoras/{id}` | dimensiones, estado y versión | impresora actualizada | Conserva referencias históricas. |
 | PUT | `/makers/me/impresoras/{id}/capacidades` | capacidades y disponibilidad | capacidades válidas | Impresora propia y materiales habilitados. |
@@ -71,7 +79,9 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 ## 7. Datos, consistencia e integración
 
-Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `makers`, `impresoras`, `materiales`, `capacidades_impresora`.
+El maker debe verificar su correo electrónico antes de habilitarse para recibir y aceptar trabajos. El backend comprueba esa condición y conserva la prueba gratuita sin iniciar mientras la habilitación esté pendiente. Better Auth genera y valida el enlace de verificación; Resend entrega el correo mediante su API. El dominio, remitente y retornos se configuran según PD-01 y ADR-004.
+
+Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `usuarios`, `usuario_roles`, `clientes`, `makers`, `impresoras`, `materiales`, `capacidades_impresora`.
 
 El maker registra y actualiza sus capacidades. El sistema controla el titular o el permiso administrativo y utiliza los datos declarados en F08. La primera habilitación del perfil para recibir solicitudes inicia el beneficio gratuito aplicable en F11.
 

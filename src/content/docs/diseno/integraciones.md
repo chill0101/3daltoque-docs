@@ -4,16 +4,17 @@ title: "Plan de integraciones"
 
 # Plan de integraciones
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.1. Fecha: 5 de noviembre de 2026.
 
 | ID | Integración | Alcance vigente | Pendientes |
 | --- | --- | --- | --- |
 | <a id="int-01"></a>INT-01 | Mercado Pago Checkout Pro | Cobro manual del abono del maker a favor de la plataforma | Cuenta, credenciales por entorno, retornos web/mobile, pruebas y política de devolución del abono |
 | <a id="int-02"></a>INT-02 | Mapas y geocodificación | Ubicaciones, visualización y apoyo geográfico | Proveedor, límites, licencias y precisión publicada |
-| <a id="int-03"></a>INT-03 | Archivos y análisis | STL, fotos y videos privados; validación según finalidad | Proveedor, cuotas, conservación y método de estimación |
-| <a id="int-04"></a>INT-04 | Notificaciones | Avisos internos y canales externos elegidos | Canales, frecuencia, preferencias y reintentos |
-| <a id="int-05"></a>INT-05 | API común y actualización en vivo | Clientes web/mobile con permisos compartidos | Contratos y transporte final |
-| <a id="int-06"></a>INT-06 | Simulador de cobros | Demostración identificada del abono y su concesión de acceso | Entornos y permisos; nunca concede acceso comercial real desde un resultado ficticio |
+| <a id="int-03"></a>INT-03 | Archivos y análisis | STL, imágenes y adjuntos privados con validación según finalidad | Proveedor, cuotas, conservación y método de estimación |
+| <a id="int-04"></a>INT-04 | Notificaciones | Bandeja de la app y correo mediante Resend. Preferencias por tipo y canal | Dominio verificado, remitente, credenciales por entorno y política de otros avisos |
+| <a id="int-05"></a>INT-05 | API común y recuperación de eventos | Web y Mobile consultan eventos autorizados cada 10 segundos con la pantalla activa. | Validación de integración en ambos clientes. |
+| <a id="int-06"></a>INT-06 | Simulador de cobros | Demostración identificada del abono y su concesión de acceso | Entorno de demostración identificado y separado de producción. El backend exige permiso explícito por cuenta y el resultado simulado solo se aplica al abono de demostración. |
+| <a id="int-07"></a>INT-07 | Better Auth | Credenciales, sesiones y enlaces de verificación y recuperación con Better Auth; Resend entrega los correos; FastAPI conserva autorización y habilitación comercial | Dominio y remitente de Resend para verificación, contratos de F01, migraciones y alojamiento Node/TypeScript según ADR-004 |
 
 ## Cobro propio de membresía
 
@@ -41,7 +42,7 @@ Los archivos requieren finalización controlada, integridad y acceso por recurso
 
 ## Escenarios de prueba propuestos
 
-Los [160 casos planificados](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) incluyen principal, alternativa por RF y recuperación entre módulos. Los CP-MEM conservan las pruebas de membresía, y los CP-X cubren autorización, catálogo, chat, publicación de medios, entrega y reportes. Cada ejecución incorporará versión, ambiente y evidencia.
+Los [161 casos planificados](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) incluyen principal, alternativa por RF y recuperación entre módulos. Los CP-MEM conservan las pruebas de membresía, y los CP-X cubren autorización, catálogo, chat, publicación de medios, entrega y reportes. Cada ejecución incorporará versión, ambiente y evidencia.
 
 ## Fuentes
 
@@ -56,10 +57,11 @@ El pago directo de la impresión queda documentado en las condiciones acordadas 
 | --- | --- | --- |
 | INT-01 | F11: checkout manual del abono de la plataforma. | Conservar compra y verificar notificación y recurso antes de conceder acceso. |
 | INT-02 | F02/F03/F07/F08/F16: zona pública, compatibilidad geográfica y punto de encuentro. | Alternativa de ubicación textual y consulta por lista; cambios del encuentro requieren aceptación. |
-| INT-03 | F04/F05/F13/F15/F23/F25: STL, adjuntos privados y medios de presentación. | Verificar finalidad, integridad y pertenencia; publicar únicamente derivados autorizados. |
-| INT-04 | F08/F09/F12/F13/F14/F15/F16/F22/F25: avisos duraderos sobre hechos conservados. | Outbox y deduplicación; el fallo del canal conserva el acuerdo y el historial. |
+| INT-03 | F04/F05/F06/F13/F15/F23/F25: STL, adjuntos privados y medios de presentación. | Verificar finalidad, integridad y pertenencia. Si el análisis geométrico agota su máximo inicial de 60 segundos, la solicitud con STL habilitado puede continuar a cotización por makers. La evidencia de revisión y las fotos del catálogo y del portfolio admiten JPEG y PNG de hasta 10 MiB por imagen. Los enlaces privados de descarga vencen a los cinco minutos. Solo se publican derivados autorizados. |
+| INT-04 | F08/F09/F12/F13/F14/F15/F16/F22/F25: avisos duraderos sobre hechos conservados. | Outbox y deduplicación. Las versiones publicadas de ofertas personalizadas tienen app y correo activos por defecto para el cliente titular. Los recordatorios de revisión se programan a las 24 y 48 horas desde su presentación. Si la revisión sigue vigente y pendiente, cada plazo genera el aviso obligatorio en la app y prepara el correo opcional si está habilitado. El correo está activo por defecto. Una falla del correo conserva el historial y los avisos visibles. [Contrato del adaptador](/3daltoque-docs/diseno/contratos-operativos/#int-04-notificaciones). |
 | INT-05 | F01 a F25: API común, consultas y actualización autorizada de Web y Mobile. | Reautorizar por recurso, recuperar cursor y deduplicar; el chat se vincula al pedido confirmado. |
-| INT-06 | F11 y administración: simulación de cobros del abono en entorno permitido. | Modo identificado y separado de las concesiones comerciales reales. |
+| INT-06 | F11 y administración. Simulación de cobros del abono en un entorno de demostración identificado y separado de producción. | Modo identificado y separado de las concesiones comerciales reales. |
+| INT-07 | F01/F03/F11: identidad, sesión y correo verificado del maker. | Conservar el vínculo de perfil, revalidar sesión y permitir retomar la verificación; una falla de autenticación conserva los recursos de negocio. |
 
 Los productos de precio fijo crean pedidos directos mediante la API. Portfolio y reputación utilizan persistencia, archivos autorizados y lecturas públicas controladas. Los valores y credenciales reales de cada servicio quedan en [el registro operativo](/3daltoque-docs/planificacion/parametros/).
 

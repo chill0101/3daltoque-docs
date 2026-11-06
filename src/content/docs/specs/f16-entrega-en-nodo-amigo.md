@@ -53,7 +53,7 @@ Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-06
 
 | ID | Condición y respuesta |
 | --- | --- |
-| ALT-F16-01 | Paso 3. Cambia lugar u horario: El sistema conserva otra propuesta y requiere aceptación de la contraparte. |
+| ALT-F16-01 | Paso 3. Ante un cambio de lugar u horario, el sistema registra la propuesta si queda cupo y requiere la aceptación de la contraparte. Al agotarse el cupo, se conserva el último acuerdo, incluso si existe un caso de soporte. |
 | ALT-F16-02 | Paso 5. Intenta confirmar como receptor: El sistema rechaza la acción y conserva la recepción pendiente. |
 | ALT-F16-03 | Paso 6. Existe un incidente o falta aprobación vigente: Mantiene el cierre pendiente y permite registrar soporte con motivo. |
 
@@ -66,13 +66,15 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
 | POST | `/pedidos/{id}/entrega` | punto, horario y versión | entrega y propuesta | Revisión aprobada y participante. |
-| POST | `/entregas/{id}/acuerdo` | versión y clave estable | acuerdo vigente | Contraparte de quien propuso. |
+| POST | `/entregas/{id}/acuerdo` | versión y clave estable | acuerdo vigente | Contraparte de quien propuso. Un cambio aceptado consume una reprogramación según PD-08. |
 
 ## 7. Datos, consistencia e integración
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `entregas`, `puntos_encuentro`, `ubicaciones`.
 
 Las partes coordinan un punto neutral y un horario y conservan el acuerdo. Nodo Amigo designa el punto de encuentro utilizado en el catálogo de alcance; la modalidad vigente es encuentro personal entre cliente y maker. La visualización comparte la ubicación necesaria y preserva los datos privados.
+
+Cada pedido admite hasta dos reprogramaciones con la configuración inicial. Se cuenta una reprogramación cuando la contraparte acepta un cambio al punto u horario ya acordados. La primera aceptación establece el encuentro y el conteo empieza en cero. Las propuestas pendientes, rechazadas o repetidas conservan el conteo. El backend comprueba el máximo al proponer o aceptar un cambio. Al agotarse, el último acuerdo sigue disponible para confirmar la recepción mientras el pedido permanezca abierto. El límite también se aplica a los casos gestionados por soporte. Cuando soporte confirma la cancelación de PD-08, ambas partes pueden consultar el acuerdo anterior desde el pedido cancelado.
 
 ## 8. Componentes y estados
 
@@ -93,9 +95,9 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6) | 1. Un pedido aprobado puede registrar un acuerdo de punto y horario entre sus participantes.<br>2. Un pedido sin aprobación vigente no habilita coordinación de entrega.<br>3. La búsqueda pública no expone el domicilio privado del maker como consecuencia de coordinar el encuentro. |
+| [RF-06.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-6) | 1. Un pedido aprobado puede registrar un acuerdo de punto y horario entre sus participantes.<br>2. Un pedido sin aprobación vigente no habilita coordinación de entrega.<br>3. La búsqueda pública no expone el domicilio privado del maker como consecuencia de coordinar el encuentro.<br>4. Con la configuración inicial, el primer acuerdo registra cero reprogramaciones. Cada cambio aceptado suma una. El tercer cambio se rechaza y se conserva el último acuerdo vigente. Un caso de soporte conserva el mismo límite y acuerdo. |
 | [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1) | 1. Una selección confirmada conserva coordenadas y metadatos autorizados con significado inequívoco.<br>2. Un resultado ambiguo o inexistente requiere corrección o confirmación y no se adopta silenciosamente.<br>3. Permiso denegado o falla externa se informa con las alternativas que se hayan habilitado. |
-| [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2) | 1. El mapa representa los recursos autorizados de un conjunto de prueba conocido.<br>2. La vista pública no permite reconstruir el domicilio privado del maker mediante los datos enviados.<br>3. Una falla de servicio se distingue de ausencia de resultados y no invalida acuerdos ya registrados. |
+| [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2) | 1. El mapa representa los recursos autorizados de un conjunto de prueba conocido.<br>2. El mapa y la API pública muestran el mismo punto representativo para makers de una misma zona de 1 km. Los resultados públicos omiten el domicilio y las coordenadas operativas exactas.<br>3. Una falla de servicio se distingue de ausencia de resultados y no invalida acuerdos ya registrados. |
 
 ## 10. Decisiones y dependencias
 
