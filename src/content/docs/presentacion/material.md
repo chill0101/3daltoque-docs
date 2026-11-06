@@ -62,7 +62,7 @@ Zona pública aproximada, archivos privados, descargas temporales y conversació
 
 ### 9. Cómo evaluamos el producto
 
-160 escenarios de cobertura, 28 fichas detalladas y ocho ensayos no funcionales. PERF-01 define datos, carga, accesibilidad, integridad y recuperación. Cada ejecución conserva release y evidencia.
+161 escenarios de cobertura, 29 fichas detalladas y ocho ensayos no funcionales. PERF-01 define datos, carga, accesibilidad, integridad y recuperación. Cada ejecución conserva release y evidencia.
 
 **Apoyo:** Mostrar una ficha y un resultado real cuando exista la ejecución del release.
 

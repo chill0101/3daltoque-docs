@@ -22,8 +22,8 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
-| 1 | Maker | Crea un borrador con configuración fija, precio unitario, moneda, cantidades y plazo. |
-| 2 | Maker | Adjunta medios autorizados y completa las condiciones. |
+| 1 | Maker | Abre Mis productos y elige un borrador vigente o crea uno con configuración fija, precio unitario, moneda, cantidades y plazo. |
+| 2 | Maker | Completa las condiciones y puede adjuntar hasta cinco fotos JPEG o PNG de hasta 10 MiB cada una con la configuración inicial. |
 | 3 | Sistema | Valida valores, archivos, titularidad y versión. |
 | 4 | Maker | Solicita publicar. |
 | 5 | Sistema | Verifica acceso comercial y conserva la versión y su estado público. |
@@ -37,6 +37,7 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | 4.B | Maker | Pausa o retira la publicación: El sistema impide pedidos nuevos y conserva los datos históricos. |
 | 5.C | Sistema | Acceso comercial vencido: Permite mantener borradores y retirar publicaciones; rechaza habilitar pedidos nuevos. |
 | 5.D | Administración | Modera con permiso y motivo: El sistema retira la disponibilidad pública y registra auditoría. |
+| 5.E | Sistema | Si pasaron 90 días desde el último guardado de un borrador, lo excluye de Mis productos y rechaza los intentos de editarlo o publicarlo. |
 
 ## Datos y controles
 

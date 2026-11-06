@@ -8,6 +8,7 @@ stateDiagram-v2
   state "Aprobado para entrega" as aprobado
   state "Entrega coordinada" as coordinado
   state "Entregado" as entregado
+  state "Cancelado" as cancelado
   [*] --> confirmado: Oferta aceptada o producto confirmado
   confirmado --> produccion: Inicio autorizado del trabajo
   produccion --> revision: Presentar revisión con evidencia
@@ -16,6 +17,8 @@ stateDiagram-v2
   revision --> aprobado: Cliente aprueba revisión vigente
   aprobado --> coordinado: Acordar encuentro
   coordinado --> entregado: Cliente autenticado confirma recepción
+  coordinado --> cancelado: Soporte cancela por inasistencia según PD-08
+  cancelado --> [*]
   entregado --> [*]
   note right of revision
     El silencio no aprueba.

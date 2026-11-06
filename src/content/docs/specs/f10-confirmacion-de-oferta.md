@@ -41,9 +41,9 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 | 1 | Cliente | Consulta las ofertas con precio, plazo, condiciones y vencimiento. |
 | 2 | Sistema | Presenta las versiones vigentes y las condiciones del pago directo entre las partes. |
 | 3 | Cliente | Selecciona una versión y confirma su aceptación con una clave estable. |
-| 4 | Sistema | Comprueba propietario, versión, vigencia, maker habilitado y participantes distintos. |
+| 4 | Sistema | Para una aceptación nueva, comprueba propietario, versión, maker habilitado y participantes distintos. Valida que la hora del servidor sea anterior a los vencimientos guardados de la oferta y de la solicitud. |
 | 5 | Sistema | Crea el pedido y sus condiciones, cierra alternativas y habilita su conversación en una transacción. |
-| 6 | Sistema | Registra los avisos posteriores y devuelve el pedido confirmado. |
+| 6 | Sistema | Registra el evento para avisar a cliente y maker en la app y por correo según la preferencia de cada cuenta. Devuelve el pedido confirmado. |
 
 Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-03](/3daltoque-docs/analisis/casos/cu-03-elegir-oferta/), [CU-20](/3daltoque-docs/analisis/casos/cu-20-pedir-un-producto-del-maker/).
 
@@ -66,6 +66,8 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | POST | `/ofertas/{id}/aceptar` | versión y clave estable | pedido_id y condiciones | Aceptación atómica, identidad y vigencia. |
 
 ## 7. Datos, consistencia e integración
+
+Antes de confirmar un pedido nuevo, el backend comprueba la ubicación de referencia de la solicitud y la ubicación operativa del maker según PD-04. La misma clave y contenido recuperan un pedido previamente confirmado.
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `pedidos`, `condiciones_pedido`, `solicitudes`, `oferta_versiones`.
 

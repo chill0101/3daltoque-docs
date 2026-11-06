@@ -10,13 +10,17 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | --- | --- |
 | Caso de uso | Gestionar capacidades del maker |
 | Identificador | CU-21 |
-| Actores | Maker, Sistema |
+| Actores | Cliente titular, Maker, Sistema |
 | Tipo | Primario; objetivo funcional de sus actores. |
-| Referencias | F03. [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1), [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1). |
-| Precondición | Titular autenticado con rol maker. |
+| Referencias | F03. [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1), [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1). |
+| Precondición | Titular autenticado con perfil Cliente; el perfil maker puede estar creado o incorporarse mediante este recorrido. |
 | Postcondición | Perfil, impresoras y capacidades actualizados y versionados donde corresponda. |
 | Descripción | El maker abre su perfil productivo. |
 | Resumen | Perfil, impresoras y capacidades actualizados y versionados donde corresponda. |
+
+## Alta del perfil maker
+
+El cliente elige «Crear mi perfil maker», informa nombre_publico y confirma. El sistema valida cuenta activa, crea en una transacción el perfil pendiente y la asignación maker y conserva Cliente. El nuevo perfil comienza con disponible=false y permite preparar las capacidades. Una repetición recupera el perfil existente; las restricciones, beneficios y fechas previos se conservan. Después continúa el flujo de gestión y solicita la habilitación de CU-09 cuando cumple sus condiciones.
 
 ## Flujo Normal
 

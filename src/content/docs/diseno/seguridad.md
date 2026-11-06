@@ -4,7 +4,7 @@ title: "Seguridad y operación"
 
 # Especificaciones de seguridad y operación
 
-Versión 1.0. Fecha: 1 de noviembre de 2026. Referencias: RNF-04, RNF-06, RNF-09 a RNF-12, RNF-15, RNF-16 y RNF-19.
+Versión 1.1. Fecha: 5 de noviembre de 2026. Referencias: RNF-04, RNF-06, RNF-09 a RNF-12, RNF-15, RNF-16 y RNF-19.
 
 ## Activos y fronteras de confianza
 
@@ -12,9 +12,29 @@ Los activos protegidos comprenden identidades, sesiones, domicilios exactos, STL
 
 ## Identidad y sesiones
 
-La referencia de implementación utiliza sesiones opacas revocables respaldadas por la tabla sesiones. El servidor conserva la huella del secreto y consulta vigencia y estado de la cuenta. Web transporta la sesión mediante cookie HttpOnly, Secure en HTTPS y política SameSite compatible con su despliegue; las mutaciones por cookie verifican origen y token CSRF. Mobile utiliza Bearer sobre TLS y almacena el secreto en el almacén seguro del sistema. Ambos transportes resuelven la misma identidad y capacidades.
+Better Auth administra credenciales y sesiones persistidas y revocables. El componente Node/TypeScript valida la sesión; FastAPI resuelve la identidad mediante un adaptador y comprueba estado de cuenta y permisos por recurso. El control del maker requiere el correo verificado informado por Better Auth. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) detalla responsabilidades y adaptación.
 
-El perfil de prueba configura duración máxima de ocho horas, inactividad de treinta minutos y revocación al cerrar sesión. Una cuenta suspendida pierde acceso al consultar la guarda. Las contraseñas se almacenan mediante un hash adaptativo con sal y parámetros conservados; el código de identidad fija su biblioteca y parámetros en el release. El registro público admite cliente y maker; la creación administrativa utiliza un procedimiento autorizado y auditado.
+Web utiliza cookies HttpOnly, Secure en HTTPS y SameSite compatible con el despliegue; las mutaciones por cookie verifican origen y protección CSRF. Mobile transporta la sesión mediante el plugin Bearer de Better Auth y conserva el secreto en almacenamiento seguro del sistema. La resolución de sesión consulta su vigencia en Better Auth con cookieCache deshabilitado y verifica revocación y correo actualizados antes de habilitar operaciones protegidas.
+
+Cliente y Maker utilizan sesiones de 7 días renovables con actividad mientras sigan vigentes. La referencia de Better Auth configura expiresIn=604800 y updateAge=86400; al alcanzar el intervalo de actualización, el uso válido extiende el vencimiento a la hora actual más 7 días. Cerrar sesión revoca la sesión del dispositivo y limpia sus datos locales. Una petición posterior con ese secreto obtiene 401. El panel y las operaciones administrativas exigen una autenticación con antigüedad menor a 8 horas. FastAPI contrasta la hora del servidor con session.createdAt de Better Auth y comprueba sesión, cuenta y capacidad específica. Al alcanzar el límite devuelve 401 reauthentication_required y exige iniciar sesión nuevamente. La actividad y la renovación del vencimiento conservan la fecha original de autenticación. Better Auth administra el hash de contraseña y sus migraciones. FastAPI conserva la asociación de identidad, los roles públicos y el estado de negocio. La creación administrativa utiliza un procedimiento autorizado y auditado.
+
+La guarda administrativa se aplica a consultas, mutaciones y rutas que requieran capacidad administrativa. admin_expires_at informa el menor valor entre el vencimiento de la sesión y su creación más 8 horas; el servidor calcula y valida ese límite. Un nuevo inicio de sesión válido genera la referencia de autenticación utilizada para el siguiente período. Cliente y Maker conservan las reglas de DC-18.
+
+## Política de contraseñas
+
+Las contraseñas nuevas admiten entre 15 y 128 caracteres y permiten frases y espacios. Better Auth aplica minPasswordLength=15 y maxPasswordLength=128 en registro y restablecimiento. Web y Mobile conservan los espacios introducidos. Las validaciones se ejecutan en servidor; el proveedor administra el hash y los registros excluyen el secreto. ADR-004 conserva el fundamento y los parámetros de integración.
+
+## Recuperación de contraseña
+
+Better Auth emite el enlace de recuperación con una vigencia de 900 segundos y sendResetPassword lo envía mediante Resend. El token se consume al confirmar exitosamente una contraseña válida. Su validación y cambio de contraseña se resuelven con la transacción del adaptador de identidad; una solicitud repetida o concurrente conserva el consumo único. El formulario permite corregir una contraseña rechazada mientras el enlace siga vigente. Al vencer se puede solicitar otro.
+
+La solicitud protege la existencia de la cuenta y limita los envíos según la configuración del entorno. Los retornos Web/Mobile se autorizan por configuración y los registros excluyen tokens, enlaces completos y contraseñas. El restablecimiento exitoso revoca todas las sesiones de la cuenta mediante emailAndPassword.revokeSessionsOnPasswordReset=true. Token, contraseña y revocación se confirman en la misma transacción de la base de identidad; sesiones y verificaciones utilizan esa persistencia. FastAPI rechaza los accesos previos con 401, incluidos los administrativos. Los clientes limpian sus datos locales de sesión al recibir el rechazo y requieren iniciar sesión nuevamente con la contraseña nueva.
+
+## Contextos de una cuenta
+
+Cliente y maker pueden pertenecer al mismo usuario. FastAPI valida la asignación del rol y la propiedad de cada recurso, incluido el rol de participación en listados compartidos. El contexto seleccionado en el cliente organiza la navegación y sus datos locales. Una selección manipulada o un rol revocado deniega la operación. Administración conserva su acceso y asignación autorizados. La confirmación de pedido compara el usuario cliente con el usuario del maker y exige participantes diferentes.
+
+La caché de cada cliente incluye usuario y contexto; el cambio de cuenta o cierre de sesión limpia los datos asociados. Cada pestaña o dispositivo conserva su selección y las peticiones en curso mantienen actor, intención y recurso de origen.
 
 ## Autorización por recurso
 
@@ -50,13 +70,17 @@ Los cobros del abono validan firma, referencia, receptor, entorno, importe, mone
 
 ## Límites y observabilidad
 
-El entorno publica límites de archivos, longitud de mensajes, paginación, tasa y presupuesto de análisis. La referencia de prueba está en PERF-01. Las respuestas de tasa incluyen ventana y Retry-After cuando corresponda. Los logs conservan request_id, servicio, acción y código de resultado; los secretos, cuerpos de chat, archivos y domicilios privados se excluyen.
+El entorno publica límites de archivos, longitud de mensajes, paginación, tasa y presupuesto de análisis. La referencia de prueba está en PERF-01. Las respuestas de tasa incluyen ventana y Retry-After cuando corresponda. El inicio de sesión admite hasta cinco intentos fallidos por identificador de acceso en una ventana móvil de 60 segundos, como límite inicial configurable. Web y Mobile comparten el conteo. Al alcanzar el máximo, los intentos siguientes devuelven 429 con el tiempo de espera en Retry-After. El control aplica la misma política a correos existentes y a correos desconocidos. Los logs conservan request_id, servicio, acción y código de resultado; los secretos, cuerpos de chat, archivos y domicilios privados se excluyen.
 
 Liveness informa que el proceso responde. Readiness comprueba PostgreSQL y configuración indispensable. La indisponibilidad de mapas, correo o cobros se informa por integración y permite las alternativas previstas; cada dependencia tiene timeout y tratamiento de recuperación.
 
+## Conservación de auditoría
+
+Cada registro de auditoría se conserva durante 12 meses desde la fecha de la acción. Los registros necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. El proceso de retiro autorizado comprueba la fecha de la acción y las excepciones vigentes antes de retirar cada registro elegible. Al cesar una excepción, reevalúa el registro con el plazo original. Las operaciones de negocio agregan entradas y conservan íntegros los registros vigentes. [PD-12](/3daltoque-docs/planificacion/parametros/#pd-12) y [PNF-007](/3daltoque-docs/planificacion/pruebas/#pnf-007) fijan la regla y su comprobación.
+
 ## Copias de resguardo y recuperación
 
-Generar copia consistente de PostgreSQL y un manifiesto de los objetos referenciados con sus hashes. Conservar por entorno la hora, release, migración y política de retención. Restaurar en un destino aislado, verificar integridad referencial, cantidades y objetos privados, y ejecutar los recorridos de acceso, consulta de pedido y membresía. PERF-01 utiliza RPO de 24 horas y RTO de 60 minutos para el piloto.
+Generar copia consistente de PostgreSQL y un manifiesto de los objetos referenciados con sus hashes. Registrar por entorno la fecha y hora de generación, release, migración y política de retención. Cada copia de respaldo del piloto se conserva durante 30 días desde su generación. Al vencer el plazo, el proceso de retención la retira del conjunto disponible para restauración. Retirar sus artefactos y preservar los que todavía utilicen otras copias vigentes. Restaurar en un destino aislado y verificar integridad referencial, cantidades y objetos privados. Reaplicar los retiros, vencimientos y restricciones vigentes antes de habilitar consultas sobre los datos recuperados. Verificar los recorridos de acceso, consulta de pedido y membresía. El RPO acordado del piloto es de 24 horas. PNF-008 lo comprueba a partir de la hora del incidente simulado y del punto consistente recuperado. El RTO acordado es de cuatro horas desde el incidente simulado hasta verificar acceso, consulta de pedido y membresía en el entorno restaurado.
 
 ## Respuesta a incidentes
 

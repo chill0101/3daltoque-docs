@@ -45,7 +45,7 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 | 3 | Cliente | Corrige los datos, confirma la ubicación y solicita enviar. |
 | 4 | Sistema | Comprueba titularidad, archivo habilitado, parámetros y límites. |
 | 5 | Sistema | Conserva la versión, calcula la estimación orientativa y registra método y supuestos o su causa de indisponibilidad. |
-| 6 | Sistema | Selecciona un grupo limitado por capacidad, material, ubicación y acceso comercial y conserva la ronda. |
+| 6 | Sistema | Para una ronda de solicitud personalizada, aplica la selección de F08 con el máximo configurado, inicialmente cinco makers elegibles, y conserva la ronda. |
 | 7 | Sistema | Registra invitaciones y eventos de aviso de forma duradera. |
 | 8 | Cliente | Consulta la solicitud enviada y su estado. |
 
@@ -57,7 +57,7 @@ Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-01
 | --- | --- |
 | ALT-F07-01 | Paso 2. Archivo inválido, análisis pendiente o cuota excedida: Informa el estado, conserva el borrador y permite corregir o recuperar la transferencia. |
 | ALT-F07-02 | Paso 5. Faltan datos o parámetros para estimar: Informa el motivo y mantiene disponible la cotización por makers. |
-| ALT-F07-03 | Paso 6. Grupo insuficiente o mapas indisponibles: Registra el resultado y aplica únicamente la ampliación o alternativa textual configuradas. |
+| ALT-F07-03 | Paso 6. Si el grupo está incompleto, registra los candidatos disponibles dentro del radio inicial. Si queda vacío, informa el resultado. Si falla el mapa, ofrece la entrada textual y la vista de lista. |
 
 La salida de cada error sigue [los contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/).
 
@@ -67,9 +67,11 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| GET | `/makers` | referencia geográfica, material, capacidad y cursor | candidatos y precisión de zona | Política de búsqueda y privacidad. |
+| GET | `/makers` | referencia geográfica, material, capacidad y cursor | candidatos y punto representativo de la zona pública de 1 km | Política de búsqueda y privacidad. |
 
 ## 7. Datos, consistencia e integración
+
+El backend valida el perímetro de CABA en la referencia de búsqueda y en la ubicación operativa del candidato. Para la búsqueda pública, la posición visible y los filtros y el orden por distancia usan el punto representativo de la celda de 1 km. El matching interno aplica la distancia operativa autorizada según F08. Una referencia fuera de cobertura muestra el área disponible y permite corregir la ubicación.
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `ubicaciones`, `makers`, `capacidades_impresora`.
 
@@ -95,8 +97,8 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 | RF | Criterio de éxito |
 | --- | --- |
 | [RF-09.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-1) | 1. Una selección confirmada conserva coordenadas y metadatos autorizados con significado inequívoco.<br>2. Un resultado ambiguo o inexistente requiere corrección o confirmación y no se adopta silenciosamente.<br>3. Permiso denegado o falla externa se informa con las alternativas que se hayan habilitado. |
-| [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2) | 1. El mapa representa los recursos autorizados de un conjunto de prueba conocido.<br>2. La vista pública no permite reconstruir el domicilio privado del maker mediante los datos enviados.<br>3. Una falla de servicio se distingue de ausencia de resultados y no invalida acuerdos ya registrados. |
-| [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1) | 1. Para un conjunto conocido de makers, los invitados cumplen los filtros y el límite configurados para la prueba.<br>2. Un maker incompatible o fuera del criterio geográfico no se incorpora por ser el único disponible.<br>3. Si no hay candidatos se informa el resultado y no se envía indiscriminadamente a toda la plataforma. |
+| [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2) | 1. El mapa representa los recursos autorizados de un conjunto de prueba conocido.<br>2. El mapa y la API pública muestran el mismo punto representativo para makers de una misma zona de 1 km. Los resultados públicos omiten el domicilio y las coordenadas operativas exactas.<br>3. Una falla de servicio se distingue de ausencia de resultados y no invalida acuerdos ya registrados. |
+| [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1) | 1. En la primera ronda de una solicitud personalizada, los invitados cumplen los filtros, la cobertura de CABA y el radio configurado, cuyo valor inicial es 10 km. La ronda conserva el radio y la configuración utilizados.<br>2. Un maker incompatible o fuera del criterio geográfico no se incorpora por ser el único disponible.<br>3. Si hay menos elegibles que el máximo, la ronda mantiene el radio inicial y solo invita a los encontrados. Con cero elegibles, registra una ronda vacía e informa el resultado al cliente.<br>4. Con la configuración inicial, cada ronda invita hasta cinco makers elegibles y distintos según el orden aplicado. Conserva el límite y la versión utilizados.<br>5. Con cero invitaciones registradas en la última ronda terminada, el titular puede iniciar otra de inmediato con el mismo radio, versión y vencimiento. Si todos los invitados rechazaron, la ronda se conserva para esa versión hasta el vencimiento. Repetir la misma clave recupera la ronda registrada. |
 
 ## 10. Decisiones y dependencias
 

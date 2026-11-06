@@ -6,7 +6,7 @@
     {
       "id": "CP-001",
       "precondiciones": "Identidad disponible; correo de alta sin registrar; términos vigentes publicados.",
-      "datos": "Correo nuevo cliente.demo01@test.3daltoque.local; rol CLIENTE; acepta_terminos=true.",
+      "datos": "Correo nuevo cliente.demo01@test.3daltoque.local; Cliente asignado por servidor; aceptación de términos. Después, alta maker con nombre_publico e Idempotency-Key; repetir y comprobar perfil único pendiente y beneficio sin iniciar. Contraseña sintética: Frase de prueba 3D 2026 (23 caracteres).",
       "tecnica": "partición de equivalencia",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -19,7 +19,7 @@
     {
       "id": "CP-002",
       "precondiciones": "Cuenta U-C1 activa; límite de acceso de prueba fijado en cinco fallos por minuto.",
-      "datos": "Cinco contraseñas incorrectas y un sexto intento dentro de la ventana; repetir desde Web y Mobile.",
+      "datos": "Cinco intentos con contraseña incorrecta y un sexto dentro de los 60 segundos para el mismo correo. Alternar Web y Mobile, usar reloj controlado y repetir con un correo inexistente. Preparar seis intentos simultáneos para otra identidad sintética.",
       "tecnica": "valor límite",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -30,7 +30,7 @@
     {
       "id": "CP-003",
       "precondiciones": "U-C1 autenticado; almacén de prueba disponible; maker compatible elegible en la zona.",
-      "datos": "STL válido de 4,2 MB, PETG, cantidad 2 y ubicación Almagro; conservar hash y unidad mm.",
+      "datos": "STL válido de 4,2 MB, PETG, cantidad 2 y ubicación Almagro. Conservar hash y unidad mm. Probar una edición de cantidad antes de la primera oferta y otra después. En dos solicitudes independientes, controlar el orden de confirmación entre una edición y la primera oferta.",
       "tecnica": "recorrido de CU",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -59,21 +59,23 @@
     },
     {
       "id": "CP-005",
-      "precondiciones": "Sesión de cliente activa; cuota del fixture de 20 MiB por STL.",
-      "datos": "Ejecutable con extensión .stl y archivo de 250 MB; probar también límite exacto de 20 MiB.",
+      "precondiciones": "Sesión activa con permiso de carga. El piloto admite hasta 20 MiB por STL y 10 MiB por imagen o PDF adjunto al chat. Para los adjuntos, usar un pedido confirmado y un participante autorizado en su conversación.",
+      "datos": "Ejecutable renombrado a .stl. Declarar 20971520 y 20971521 bytes para STL y 10485760 y 10485761 bytes para imagen y PDF de chat en solicitudes separadas. Para cada formato, finalizar una carga con el máximo declarado y un byte de exceso en almacenamiento. Para chat, incluir JPEG, PNG y PDF válidos dentro de los límites, un GIF declarado como image/gif y un ejecutable renombrado a .pdf y declarado como application/pdf.",
       "tecnica": "valores límite",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
         "CP-RF-02-2-01",
         "CP-RF-02-2-02",
         "CP-RF-10-1-01",
-        "CP-RF-10-1-02"
+        "CP-RF-10-1-02",
+        "CP-RF-10-2-01",
+        "CP-RF-10-2-02"
       ]
     },
     {
       "id": "CP-006",
-      "precondiciones": "STL habilitado y configuración de estimación identificada; tarifa del fixture definida.",
-      "datos": "Volumen de 28,5 cm³, PLA y cantidad 2; registrar versión de fórmula y coeficientes.",
+      "precondiciones": "STL habilitado y configuración sintética identificada, con cargo base de 1.000 ARS por pieza y coeficiente para PLA de 100 ARS por cm³ y rango de ±20 %.",
+      "datos": "Volumen por pieza de 28.500 mm³, PLA y cantidad dos. El importe de referencia esperado es 7.700 ARS, con límite inferior de 6.160 ARS y superior de 9.240 ARS. Usar una segunda solicitud admitida cuyo análisis carezca de volumen utilizable y una tercera con volumen válido y material sin configuración habilitada. Preparar una cuarta solicitud con STL habilitado y un analizador de prueba que no termine dentro de 60 segundos.",
       "tecnica": "tabla de decisión",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -83,8 +85,8 @@
     },
     {
       "id": "CP-007",
-      "precondiciones": "Solicitud propia abierta; cuatro makers con ubicación y capacidades registradas.",
-      "datos": "A=compatible/activo; B=compatible/fundador; C=material incompatible; D=compatible/vencido; radio 10 km.",
+      "precondiciones": "Solicitud propia en CABA, radio inicial de 10.000 m y seis makers con ubicaciones sintéticas y capacidades registradas.",
+      "datos": "A compatible y activo en CABA a 10.000 m. B compatible y Fundador en CABA a menor distancia. C y D dentro de CABA y del radio, con material incompatible y acceso vencido, respectivamente. E compatible y activo fuera de CABA dentro del radio. F compatible y activo en CABA a 10.001 m. Preparar otra solicitud con seis makers elegibles y distintos, todos dentro de CABA y del radio y con distancias distintas y disponibilidad equivalente. Preparar una variante sin elegibles en el radio inicial, con un maker compatible y activo en CABA a 10.001 m. Usar un maker dentro del radio que se habilite después de la primera ronda vacía. Preparar dos claves sobre la misma ronda, dos rondas vacías consecutivas con reloj controlado y una variante que alcance el vencimiento. Preparar también una ronda vigente con todos sus invitados en rechazo y sin ofertas.",
       "tecnica": "tabla de decisión",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -99,7 +101,7 @@
     {
       "id": "CP-008",
       "precondiciones": "M-M1 invitado, elegible y solicitud abierta; moneda ARS.",
-      "datos": "v1=18500.00 y tres días; v2=17000.00 y dos días; claves de operación distintas.",
+      "datos": "V1 por 18500.00 ARS con tres días de producción, publicada el 5 de noviembre a las 15:00 UTC. V2 por 17000.00 ARS con dos días de producción, publicada el 6 de noviembre a las 15:00 UTC. Usar claves distintas y una configuración de vigencia de 72 horas. Preparar la bandeja del cliente titular y un adaptador de correo que simule una respuesta incierta al avisar una versión publicada. Usar una oferta independiente para aceptar una propuesta de cambio y otra para rechazarla.",
       "tecnica": "transición de estados",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -110,7 +112,9 @@
         "CP-RF-04-5-01",
         "CP-RF-04-5-02",
         "CP-RF-04-6-01",
-        "CP-RF-04-6-02"
+        "CP-RF-04-6-02",
+        "CP-RF-07-1-01",
+        "CP-RF-07-1-02"
       ]
     },
     {
@@ -147,8 +151,8 @@
     },
     {
       "id": "CP-011",
-      "precondiciones": "Solicitud propia abierta; oferta v1 sustituida por v2 y una segunda oferta vencida.",
-      "datos": "Aceptar v1; luego oferta vencida; consultar pedidos antes y después de cada intento.",
+      "precondiciones": "Solicitudes propias abiertas, con makers elegibles y referencias en CABA. Una oferta tiene v1 sustituida por v2. Otras dos conservan versiones vigentes para controlar su vencimiento. Preparar una cuarta solicitud enviada el 5 de noviembre a las 15:00 UTC con oferta publicada el 11 de noviembre a las 15:00 UTC.",
+      "datos": "Intentar aceptar la versión sustituida. Con reloj controlado y solicitudes independientes, aceptar una versión vigente un segundo antes del vencimiento y otra en el instante exacto. Consultar pedidos antes y después. En la cuarta solicitud, dejar la oferta sin aceptar, intentar cerrar la solicitud mediante el campo estado de la edición y comprobar el vencimiento a los siete días con la oferta todavía dentro de sus 72 horas.",
       "tecnica": "versión y vigencia",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -172,7 +176,7 @@
     {
       "id": "CP-013",
       "precondiciones": "Pedido P-01 confirmado con M-M1; fotos autorizadas privadas; sesión maker activa.",
-      "datos": "P-01, versión vigente y dos fotografías válidas; clave de envío CP013-A.",
+      "datos": "P-01 con versión vigente y seis imágenes JPEG y PNG habilitadas. Intentar preparar con seis archivos mediante CP013-A. Preparar y presentar con cinco mediante CP013-B. Para CP013-C usar un PDF declarado, un PNG declarado como JPEG y una imagen válida habilitada para otra finalidad.",
       "tecnica": "transición de estados",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -188,8 +192,8 @@
     },
     {
       "id": "CP-014",
-      "precondiciones": "P-01 confirmado entre U-C1 y M-M1; U-C2 ajeno al pedido; archivo privado habilitado.",
-      "datos": "Mensaje CP014-A y adjunto privado; consultas con U-C1, M-M1 y U-C2.",
+      "precondiciones": "P-01 confirmado entre U-C1 y M-M1. U-C2 ajeno al pedido. Seis archivos privados distintos habilitados para la conversación.",
+      "datos": "Mensaje de 4000 caracteres y cinco adjuntos con clave CP014-A. Intento de 4001 caracteres por API con clave CP014-B. Intento por API con seis adjuntos distintos y texto válido con clave CP014-C. Consultas con U-C1, M-M1 y U-C2. Variantes con un pedido cancelado y un pedido listo para confirmar recepción. Ambos tienen mensajes y adjuntos existentes y un mensaje pendiente.",
       "tecnica": "autorización por recurso",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -216,15 +220,19 @@
     },
     {
       "id": "CP-016",
-      "precondiciones": "P-01 con revisión pendiente y P-02 con revisión observada; actores participantes.",
-      "datos": "Coordinar y confirmar recepción sobre ambos pedidos sin aprobación; comparar estado previo.",
+      "precondiciones": "Dos pedidos con revisiones presentadas y hora conocida. P-01 queda pendiente. En P-02 el cliente registra observaciones entre las 24 y 48 horas. Usar los canales por defecto y preparar una variante con el correo opcional desactivado.",
+      "datos": "Probar ambos plazos con reloj controlado, repetir cada trabajo y usar un adaptador de correo de prueba. Comparar avisos internos, correos, estado de la revisión y guardas de entrega y recepción. Probar la solicitud de soporte justo antes y a las 72 horas. Probar cliente y maker por separado y en paralelo sobre la misma revisión, con claves distintas. Repetir una clave y probar una cuenta ajena. Usar una cuenta de soporte autorizada y preparar una corrección que el maker intente presentar mientras la revisión vigente siga pendiente. Preparar una variante con el caso cerrado y la revisión aún pendiente para solicitar la reapertura. Preparar copias para aprobar, rechazar, intervenir sin permiso o motivo, usar una versión anterior y responder la revisión antes de que soporte decida. Usar claves nuevas de cliente y maker después de un rechazo y preparar una revisión posterior para verificar su propio seguimiento. Usar decisiones con fecha conocida y consultar el caso con cliente, maker y una cuenta ajena al pedido.",
       "tecnica": "tabla de decisión",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
         "CP-RF-06-3-01",
         "CP-RF-06-3-02",
+        "CP-RF-06-4-01",
+        "CP-RF-06-4-02",
         "CP-RF-06-6-01",
-        "CP-RF-06-6-02"
+        "CP-RF-06-6-02",
+        "CP-RF-07-4-01",
+        "CP-RF-07-4-02"
       ]
     },
     {
@@ -242,8 +250,8 @@
     },
     {
       "id": "CP-018",
-      "precondiciones": "R-01 pendiente; recordatorio a las 24 h en la configuración de prueba; reloj controlable.",
-      "datos": "Instantes t0, t0+24 h y t0+48 h; ejecutar dos veces el mismo ciclo de recordatorio.",
+      "precondiciones": "R-01 vigente y pendiente. Reloj controlable y adaptador de correo de prueba que registra la clave de cada envío.",
+      "datos": "Instantes t0, t0+24 h y t0+48 h desde la presentación. Simular una falla temporal, una aceptación con respuesta perdida y una revisión respondida antes del reintento. Usar un doble de la API de Resend y comprobar el límite de 24 h desde el primer intento de correo.",
       "tecnica": "tiempo y deduplicación",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -255,8 +263,8 @@
     },
     {
       "id": "CP-019",
-      "precondiciones": "P-01 con revisión aprobada; propuesta de punto neutral y participantes autenticados.",
-      "datos": "Encuentro E-01 v1; aceptación de la contraparte; recepción de U-C1; reenvío idéntico.",
+      "precondiciones": "P-01 con revisión aprobada, propuesta de punto neutral, participantes autenticados y una cuenta administrativa autorizada para gestionar el caso de soporte.",
+      "datos": "Encuentro E-01 v1 y tres cambios sucesivos de punto u horario. Aceptar los dos primeros cambios, repetir la segunda aceptación con la misma clave e intentar un tercer cambio. Registrar un caso de soporte vinculado al pedido y probar el cambio desde administración. Confirmar recepción de U-C1 sobre el último acuerdo aceptado.",
       "tecnica": "recorrido de CU",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -268,8 +276,8 @@
     },
     {
       "id": "CP-020",
-      "precondiciones": "M-M1 con domicilio privado y zona pública distintos; U-C1 habilitado para consultas.",
-      "datos": "Inspeccionar cuerpos de búsqueda, perfil, ofertas y encuentro; usar coordenadas privadas reconocibles del fixture.",
+      "precondiciones": "Dos makers con coordenadas operativas sintéticas distintas en la misma celda pública de 1 km próxima al límite de CABA. U-C1 habilitado para consultas y participante de un pedido con encuentro confirmado.",
+      "datos": "Consultar búsqueda y perfil con dos referencias de búsqueda distintas. Comparar el punto público de ambos makers, revisar filtros y distancias visibles e inspeccionar ofertas y encuentro.",
       "tecnica": "protección de datos",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -296,8 +304,8 @@
     },
     {
       "id": "CP-022",
-      "precondiciones": "A-A1 con capacidad de asignación; dos makers elegibles; una plaza disponible.",
-      "datos": "Beneficio 90 días totales; dos solicitudes simultáneas; motivo de asignación y reloj t0.",
+      "precondiciones": "A-A1 autorizado, convocatoria abierta y una plaza disponible; M-M1 en día 10 de prueba general vigente y otro maker elegible.",
+      "datos": "Inicio t0, fin inicial t0+30 días, reloj t0+10 días y fin esperado t0+90 días sobre la misma concesión; reintento y solicitudes concurrentes; controles de prueba vencida y acceso pago.",
       "tecnica": "concurrencia y límites",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -311,8 +319,8 @@
     },
     {
       "id": "CP-023",
-      "precondiciones": "M-M1 con compra de abono creada; credenciales y cuentas exclusivas del entorno de prueba.",
-      "datos": "Compra CP023-A de 10000.00 ARS; retorno del navegador y recurso externo aprobado correspondiente.",
+      "precondiciones": "M-M1 con acceso comercial vencido y compra de abono creada; credenciales y cuentas exclusivas del entorno de prueba.",
+      "datos": "Compra CP023-A de 10000.00 ARS; retorno del navegador y recurso externo aprobado correspondiente. Registrar primera confirmación verificada; comprobar inicio estable y fin a 30 días configurables.",
       "tecnica": "integración",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -369,9 +377,9 @@
     },
     {
       "id": "CP-027",
-      "precondiciones": "Entorno demo con simulador permitido y entorno comercial con simulador deshabilitado.",
-      "datos": "Mismo resultado simulado en ambos entornos; comprobar modo y referencia de compra.",
-      "tecnica": "segregación de entornos",
+      "precondiciones": "Entorno de demostración con una cuenta habilitada y otra sin permiso. Entorno de producción separado.",
+      "datos": "Solicitudes equivalentes con datos propios de cada entorno. Ambas cuentas de demostración pueden comprar el abono y difieren en el permiso de simulación. Comprobar modo y referencia de compra.",
+      "tecnica": "segregación de entornos y control de permisos",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
         "CP-RF-12-14-01",
@@ -380,8 +388,8 @@
     },
     {
       "id": "CP-028",
-      "precondiciones": "P-P1 publicado y M-M1 elegible; U-C1 distinto del maker; recepción posterior confirmada.",
-      "datos": "Producto v1, cantidad 2, precio 1000.00 ARS; valoración 4/5; moderación con motivo por A-A1.",
+      "precondiciones": "P-P1 publicado y M-M1 elegible con ubicación operativa en CABA. U-C1 distinto del maker y con referencia confirmada en CABA. Preparar una variante con referencia del cliente fuera de CABA y otra con ubicación operativa del maker fuera de CABA.",
+      "datos": "Producto v1, cantidad 2, precio 1000.00 ARS; valoración 4/5; moderación con motivo por A-A1. Para probar los medios del catálogo, preparar seis fotos JPEG y PNG válidas, un recurso privado de fabricación, un MP4, un PNG declarado como JPEG y un JPEG habilitado para otra finalidad.",
       "tecnica": "recorrido y auditoría",
       "estadoEjecucion": "pendiente",
       "casosCatalogo": [
@@ -402,6 +410,43 @@
         "CP-RF-07-2-01",
         "CP-RF-07-2-02"
       ]
+    },
+    {
+      "id": "CP-029",
+      "precondiciones": "Pedido con revisión aprobada, último encuentro acordado ya pasado, dos reprogramaciones aceptadas y recepción pendiente. Caso de inasistencia revisado y vinculado al pedido. Cuenta administrativa con capacidad específica y cliente titular.",
+      "datos": "Usar pedidos independientes para cancelación válida, permiso insuficiente, motivo vacío, caso de otro tipo o de un encuentro anterior, cupo disponible, encuentro futuro y recepción ya confirmada. Probar en otra variante la carrera entre cancelación y recepción. Preparar las cuentas de ambos participantes, sus bandejas y un adaptador de correo de prueba.",
+      "tecnica": "recorrido de CU y concurrencia",
+      "estadoEjecucion": "pendiente",
+      "casosCatalogo": [
+        "CP-RF-07-2-01",
+        "CP-RF-07-2-02",
+        "CP-RF-06-7-02",
+        "CP-X-13"
+      ]
     }
-  ]
+  ],
+  "politica_longitud_contrasenas": {
+    "minimo": 15,
+    "maximo": 128,
+    "permite_espacios": true,
+    "ejemplo_sintetico": "Frase de prueba 3D 2026",
+    "limites": [
+      {
+        "longitud": 14,
+        "resultado": "rechazado_por_longitud"
+      },
+      {
+        "longitud": 15,
+        "resultado": "admitido_por_longitud"
+      },
+      {
+        "longitud": 128,
+        "resultado": "admitido_por_longitud"
+      },
+      {
+        "longitud": 129,
+        "resultado": "rechazado_por_longitud"
+      }
+    ]
+  }
 }

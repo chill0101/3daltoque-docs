@@ -69,14 +69,14 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | ID requerimiento | RNF-02 |
 | Nombre | Rendimiento de búsqueda |
 | Propósito | Obtener resultados de makers dentro de un tiempo comprobable. |
-| Descripción | Se propone que la búsqueda con ubicaciones ya registradas alcance p95 de tiempo de respuesta de hasta 2 segundos y menos de 1% de errores técnicos bajo el perfil PERF-01. Las llamadas externas de geocodificación se miden por separado y muestran su estado mientras se resuelven. PD-13 debe acordar el objetivo y PERF-01 debe identificar el volumen y la concurrencia utilizados para medirlo. |
+| Descripción | La búsqueda con ubicaciones registradas tiene un objetivo acordado de p95 de hasta 2 segundos bajo PERF-01. El perfil propone menos del 1 % de errores técnicos. Las llamadas externas de geocodificación se miden por separado y muestran su estado mientras se resuelven. Cada ejecución registra el volumen y la concurrencia utilizados. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Should (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. El ensayo aprobado informa dataset, concurrencia, duración, percentiles y errores técnicos.<br>2. La búsqueda alcanza p95 y tasa de error acordados conservando los resultados funcionalmente correctos.<br>3. La medición identifica por separado la latencia de proveedores y no omite operaciones fallidas para mejorar el resultado. |
+| Criterio de éxito | 1. El ensayo aprobado informa dataset, concurrencia, duración, percentiles y errores técnicos.<br>2. La búsqueda alcanza un p95 de hasta 2 segundos, registra la tasa de errores y conserva los resultados funcionalmente correctos.<br>3. La medición identifica por separado la latencia de proveedores y no omite operaciones fallidas para mejorar el resultado. |
 
 Requisitos/CU relacionados: [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-03.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-2), [RNF-07](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-07).
 
@@ -115,7 +115,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-13
 | ID requerimiento | RNF-04 |
 | Nombre | Seguridad de acceso y datos privados |
 | Propósito | Proteger recursos, credenciales y domicilios. |
-| Descripción | Las operaciones HTTP, archivos, suscripciones y administración deben verificar identidad y autorización por recurso en el backend. Contraseñas y credenciales se protegen mediante la estrategia elegida, fuera de respuestas y registros públicos. Las notificaciones de pago requieren autenticación del proveedor y las vistas públicas no transmiten ubicaciones privadas exactas. Los plazos de sesión y permisos específicos requieren PD-01, PD-06 y PD-12. |
+| Descripción | Las operaciones HTTP, archivos, suscripciones y administración deben verificar identidad y autorización por recurso en el backend. Los enlaces privados de descarga vencen cinco minutos después de emitirse. Contraseñas y credenciales se protegen mediante la estrategia elegida, fuera de respuestas y registros públicos. Las notificaciones de pago requieren autenticación del proveedor y las vistas públicas de makers muestran una zona aproximada de 1 km y omiten el domicilio y las coordenadas operativas exactas. Cliente y Maker utilizan sesiones de 7 días renovables con actividad y revocadas al cerrar sesión. Las operaciones administrativas exigen autenticación de menos de 8 horas; al alcanzar ese límite requieren un nuevo inicio de sesión, aunque haya actividad. Los permisos específicos se completan en PD-06 y PD-12. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -161,14 +161,14 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-07
 | ID requerimiento | RNF-06 |
 | Nombre | Trazabilidad de decisiones y cambios |
 | Propósito | Reconstruir hechos comerciales y administrativos. |
-| Descripción | El historial debe identificar operación, recurso, actor/proceso, fecha con zona horaria, resultado y motivo pertinente para oferta, pedido, revisión, entrega, compra de membresía, concesión de acceso y configuración. Los registros se agregan y su acceso/modificación se restringe. El plazo de conservación y el detalle permitido se fijan en PD-12. La trazabilidad no incluye secretos ni contenido privado innecesario. |
+| Descripción | El historial debe identificar operación, recurso, actor/proceso, fecha con zona horaria, resultado y motivo pertinente para oferta, pedido, revisión, entrega, compra de membresía, concesión de acceso y configuración. Las operaciones habituales agregan registros inmutables y la consulta requiere autorización. Cada registro de auditoría se conserva durante 12 meses desde la fecha de la acción. Los registros necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. PD-12 gobierna el retiro. La trazabilidad excluye secretos y datos privados innecesarios. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
-| Criterio de éxito | 1. Cada escenario crítico ejecutado tiene registros correlacionables con sus recursos y actores.<br>2. Un acuerdo o una configuración anterior puede reconstruirse sin depender del valor global vigente.<br>3. Los roles sin autorización no alteran historial y los registros no contienen credenciales. |
+| Criterio de éxito | 1. Cada escenario crítico ejecutado tiene registros correlacionables con sus recursos y actores.<br>2. Un acuerdo o una configuración anterior puede reconstruirse sin depender del valor global vigente.<br>3. Los registros son inmutables para los roles de negocio y excluyen credenciales.<br>4. El proceso de retiro verifica los 12 meses desde la acción y preserva con acceso restringido los registros sujetos a una excepción vigente de PD-12. |
 
 Requisitos/CU relacionados: [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1).
 
@@ -276,7 +276,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-15
 | ID requerimiento | RNF-11 |
 | Nombre | Retención y borrado de datos personales |
 | Propósito | Conservar solo lo necesario conforme a una política explícita. |
-| Descripción | La política debe definir plazos y finalidad por categoría de perfil, contacto, ubicación, archivos, mensajes, evidencias y registros, incluidas excepciones por operaciones pendientes y tratamiento de respaldos. Los procesos deben aplicar esa política y restringir el acceso a los datos retenidos. Los valores y excepciones requieren PD-12 antes de habilitar borrados automáticos o usar datos reales. |
+| Descripción | La política debe definir plazos y finalidad por categoría de perfil, contacto, ubicación, archivos, mensajes, evidencias y registros, incluidas excepciones por operaciones pendientes y tratamiento de respaldos. Los procesos aplican esa política y restringen el acceso a los datos retenidos. Los archivos huérfanos son elegibles para limpieza tras siete días continuos sin referencias, sujetos a las reglas de conservación. Los borradores de solicitudes personalizadas se conservan durante 90 días desde el último guardado. El guardado inicial inicia el plazo y cada edición confirmada lo vuelve a contar. Al cumplirlo, el borrador sale de las consultas habituales y se retira según PD-12. Los borradores de productos del catálogo también se retiran a los 90 días desde el último guardado y quedan fuera de Mis productos al vencer. El historial y los datos de una solicitud personalizada enviada que vence sin generar un pedido se conservan durante 12 meses desde el vencimiento registrado en `expira_en`. El historial de pedidos completados se conserva para consulta durante 12 meses desde el cierre. El historial de pedidos cancelados se conserva durante 12 meses desde la cancelación. Los mensajes del chat, sus adjuntos y las evidencias de revisión y entrega se conservan 12 meses desde el cierre del pedido completado o desde su cancelación, según corresponda. El STL original del pedido se conserva durante 90 días desde el cierre del pedido completado o desde su cancelación, según corresponda. El STL asociado a una solicitud personalizada enviada que vence sin generar un pedido se conserva durante 90 días desde el vencimiento registrado en `expira_en`. Los registros de auditoría se conservan durante 12 meses desde la fecha de cada acción. Los reclamos abiertos y las obligaciones legales vigentes justifican la conservación restringida de los datos, mensajes, adjuntos, evidencias, STL originales y registros necesarios. Las copias de respaldo se conservan 30 días desde su generación. El procedimiento de restauración reaplica las reglas vigentes de retención y acceso antes de habilitar consultas sobre los datos recuperados. PD-12 fija los demás plazos y excepciones antes de aplicar la política con datos reales. |
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -391,7 +391,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 | ID requerimiento | RNF-16 |
 | Nombre | Límites de uso y recursos |
 | Propósito | Controlar cargas y consumo de servicios. |
-| Descripción | Se deben definir y aplicar límites de peticiones, tamaño/tipo de archivos, análisis y uso de proveedores por entorno. Los límites, cuotas, presupuesto y umbrales se documentan con unidades y responsables. El consumo real de servicios se mide y se identifican excedentes. Se documentan por proveedor las alertas, los límites disponibles y el responsable de actuar ante cada umbral. |
+| Descripción | Se deben definir y aplicar límites de peticiones, tamaño/tipo de archivos, análisis y uso de proveedores por entorno. Los límites, cuotas, presupuesto y umbrales se documentan con unidades y responsables. El análisis geométrico para la estimación de cada STL tiene un máximo inicial configurable de 60 segundos desde su inicio en el worker. El inicio de sesión aplica el límite inicial configurable de cinco fallos por identificador de acceso en una ventana móvil de 60 segundos según PD-01. El consumo real de servicios se mide y se identifican excedentes. Se documentan por proveedor las alertas, los límites disponibles y el responsable de actuar ante cada umbral. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
@@ -414,14 +414,14 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11
 | ID requerimiento | RNF-17 |
 | Nombre | Compatibilidad de los canales |
 | Propósito | Mantener el recorrido utilizable en las plataformas aprobadas. |
-| Descripción | Los canales implementados deben conservar las mismas reglas de negocio y funcionar en una matriz de navegadores/dispositivos acordada. Para web se propone revisar formularios y listas críticas entre 320 y 1440 píxeles CSS, con controles accesibles y contenido legible; vistas espaciales/tablas que requieran desplazamiento se documentan. La entrega funcional comprende los recorridos de cliente y maker en Web y React Native mediante la misma API. El panel administrativo se utiliza en Web. Las vistas de Figma conservan su función de referencia visual. |
+| Descripción | Los flujos compartidos por Web y Mobile deben aplicar los mismos permisos y reglas de negocio y producir resultados y cambios de estado equivalentes con los mismos datos de partida. Cada canal funciona en la matriz de navegadores y dispositivos acordada. Para Web se propone revisar formularios y listas críticas entre 320 y 1440 píxeles CSS, con controles accesibles y contenido legible. Se documentan las vistas espaciales y tablas que requieran desplazamiento. La entrega funcional comprende los recorridos de cliente y maker en Web y React Native mediante la misma API. El panel administrativo se utiliza en Web. Las vistas de Figma conservan su función de referencia visual. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
-| Criterio de éxito | 1. Cada combinación aprobada de canal/dispositivo permite completar sus recorridos críticos.<br>2. El mismo acuerdo, importe y estado se interpretan de forma consistente en los canales disponibles.<br>3. La interfaz web conserva controles y mensajes utilizables en los anchos acordados, sin desbordamiento que impida una operación. |
+| Criterio de éxito | 1. Cada combinación aprobada de canal/dispositivo permite completar sus recorridos críticos.<br>2. En cada flujo compartido, los canales aplican los mismos permisos y devuelven acuerdos, importes, resultados y cambios de estado equivalentes.<br>3. La interfaz web conserva controles y mensajes utilizables en los anchos acordados, sin desbordamiento que impida una operación. |
 
 Requisitos/CU relacionados: [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08), [RNF-14](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-14).
 
@@ -460,14 +460,14 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | ID requerimiento | RNF-19 |
 | Nombre | Respaldo y recuperación |
 | Propósito | Restaurar información coherente después de una pérdida o falla. |
-| Descripción | Se deben respaldar datos y referencias de archivos de acuerdo con su política, probar restauración y registrar resultados. Para el piloto se propone RPO de hasta 24 horas y RTO de hasta 4 horas sobre el volumen acordado. Las metas, retención, almacenamiento y recursos requieren PD-12 y PD-13. La recuperación mantiene permisos y permite reconciliar información financiera externa posterior al respaldo. |
+| Descripción | Se deben respaldar datos y referencias de archivos de acuerdo con su política, probar restauración y registrar resultados. El piloto adopta un RPO de 24 horas para los datos persistidos y un RTO de cuatro horas para recuperar el servicio. Las copias de respaldo se conservan 30 días desde su generación según PD-12. El almacenamiento y los recursos del respaldo se definen en PD-12 y PD-13. La recuperación mantiene permisos y permite reconciliar información financiera externa posterior al respaldo. |
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
 | Prioridad | Should (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
-| Criterio de éxito | 1. Una restauración de prueba informa fecha de respaldo, punto recuperado, tiempo total y alcance.<br>2. Los datos y archivos recuperados mantienen referencias, permisos y ausencia de registros parciales.<br>3. Con metas aprobadas, pérdida de datos y tiempo de recuperación están dentro del objetivo; pagos externos posteriores se identifican para conciliación. |
+| Criterio de éxito | 1. Una restauración de prueba informa fecha de respaldo, punto recuperado, tiempo total y alcance.<br>2. Los datos y archivos recuperados mantienen referencias, permisos y ausencia de registros parciales.<br>3. El punto consistente recuperado tiene una antigüedad de hasta 24 horas respecto del incidente simulado. El servicio recupera sus recorridos críticos dentro de las cuatro horas posteriores al incidente simulado. Se registra el tiempo total y se identifican los pagos externos posteriores para conciliación.<br>4. Al cumplir 30 días desde su generación, la copia deja de estar disponible para restaurar. La rotación conserva recuperables las copias vigentes y los objetos que necesitan. |
 
 Requisitos/CU relacionados: [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-10.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-10-4), [RNF-11](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-11).
 

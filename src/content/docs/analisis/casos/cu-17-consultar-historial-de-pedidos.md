@@ -34,7 +34,12 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | --- | --- | --- |
 | 2.A | Sistema | Intervalo o cursor inválidos: Informa el error y permite reiniciar la consulta. |
 | 3.B | Sistema | No hay resultados: Presenta un estado vacío conservando los filtros. |
-| 5.C | Sistema | Membresía vencida: Mantiene el historial y detalle de los pedidos propios existentes. |
+| 5.C | Sistema | Si la membresía está vencida, conserva la consulta de pedidos propios según la ventana de acceso de PD-12. |
+| 5.D | Sistema | Al cumplirse 12 meses del cierre o de la cancelación, el pedido queda fuera del listado y detalle habituales. Los reclamos abiertos y las obligaciones legales vigentes habilitan la conservación restringida de los datos necesarios. |
+
+### Consulta de una solicitud sin pedido
+
+El cliente titular abre el detalle de la solicitud y consulta su estado, vencimiento y las ofertas autorizadas. Si venció sin generar un pedido, el acceso habitual termina al cumplirse 12 meses desde `expira_en`. Los datos necesarios para las excepciones de PD-12 quedan bajo acceso restringido.
 
 ## Datos y controles
 

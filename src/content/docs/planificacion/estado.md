@@ -18,13 +18,13 @@ La documentación reúne el producto, sus reglas, modelos, contratos, pruebas, m
 | [5. Prototipo Web](/3daltoque-docs/specs/recorridos-y-estados/) | 60 composiciones Figma y seis vistas HTML con recorridos y estados. | Validar los recorridos y estados con usuarios. |
 | [6. Prototipo Mobile](/3daltoque-docs/specs/recorridos-y-estados/) | 50 composiciones Figma y seis vistas HTML con paridad y recuperación. | Validar los recorridos y estados con usuarios. |
 | [7. Clases de dominio](/3daltoque-docs/modelado/clases-y-arquitectura/) | 39 clases, relaciones y cardinalidades con fuente editable. | Cotejar con implementación y evolución de reglas. |
-| [8. DER y modelo lógico](/3daltoque-docs/modelado/modelo-logico/) | 58 tablas, 548 columnas y diez vistas DER. | Aplicar y verificar migraciones del release. |
-| [9. Definición de pruebas](/3daltoque-docs/planificacion/pruebas/) | 160 escenarios, 28 fichas detalladas, ocho PNF y fixtures relacionados. | Ejecutar y registrar resultados. |
+| [8. DER y modelo lógico](/3daltoque-docs/modelado/modelo-logico/) | 58 tablas, 552 columnas y diez vistas DER. | Aplicar y verificar migraciones del release. |
+| [9. Definición de pruebas](/3daltoque-docs/planificacion/pruebas/) | 161 escenarios, 29 fichas detalladas, ocho PNF y fixtures relacionados. | Ejecutar y registrar resultados. |
 | [10. Trazabilidad](/3daltoque-docs/specs/02-matriz-de-cobertura/) | Relaciones RF/RNF, F, CU, vista, contrato, datos y CP. | Incorporar resultados y evidencia de ejecución. |
 | [11. Arquitectura](/3daltoque-docs/diseno/arquitectura/) | Monolito modular, puertos/adaptadores y mecanismos para RNF. | Fijar versiones y proveedores en el release. |
 | [12. Clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) | 14 servicios, operaciones, puertos y colaboraciones. | Cotejar dependencias con el código. |
 | [13. Componentes](/3daltoque-docs/diseno/arquitectura/#componentes) | Módulos, responsabilidades e interfaces. | Verificar despliegue e integración. |
-| [14. Interfaces entre sistemas](/3daltoque-docs/diseno/contratos-operativos/) | Seis integraciones y OpenAPI con 75 operaciones funcionales y dos técnicas. | Validar implementación y sandbox de proveedores. |
+| [14. Interfaces entre sistemas](/3daltoque-docs/diseno/contratos-operativos/) | Siete integraciones y OpenAPI con 83 operaciones funcionales y dos técnicas. | Validar implementación y sandbox de proveedores. |
 | [15. Manual de instalación](/3daltoque-docs/manuales/instalacion/) | Entornos, configuración, migraciones, arranque, respaldo y diagnóstico. | Cotejar comandos y resultados del release del producto. |
 | [16. Plan post cursada](/3daltoque-docs/planificacion/post-cursada/) | Doce tareas priorizadas, dependencias, ventanas y criterios de cierre. | Asignar responsables nominales y ajustar calendario oficial. |
 | [Manual de usuario](/3daltoque-docs/manuales/) | Cliente, maker y administración; acciones, errores y recuperación. | Actualizar capturas del producto al disponer del release. |
@@ -32,15 +32,16 @@ La documentación reúne el producto, sus reglas, modelos, contratos, pruebas, m
 
 ## Control documental realizado
 
-La revisión comprobó cobertura y referencias de RF/RNF, funcionalidades, CU, vistas, contratos, modelo de datos y CP; los campos de las 28 fichas detalladas y ocho PNF; el contrato OpenAPI; y la compilación y enlaces del portal. Los resultados de ejecución de la aplicación se incorporan por release con versión, entorno, fecha y evidencia.
+La revisión comprobó cobertura y referencias de RF/RNF, funcionalidades, CU, vistas, contratos, modelo de datos y CP; los campos de las 29 fichas detalladas y ocho PNF; el contrato OpenAPI; y la compilación y enlaces del portal. Los resultados de ejecución de la aplicación se incorporan por release con versión, entorno, fecha y evidencia.
 
 ## Decisiones y datos abiertos
 
 | Tema | Acuerdo o dato que falta | Registro |
 | --- | --- | --- |
-| Modelo comercial | Precio, moneda, cupo y convocatoria de fundadores, regla de calendario y política de devolución del abono. | [PD-09 y PD-10](/3daltoque-docs/planificacion/parametros/#pd-09) |
-| Reglas operativas | Método y coeficientes de estimación, radio y precisión de búsqueda, recordatorios, escalamiento, reprogramaciones, retención y moderación. | [PD-01 a PD-15](/3daltoque-docs/planificacion/parametros/) |
-| Herramientas y proveedores | ORM y versiones, hosting, mapas/geocodificación, almacenamiento y avisos; configuración de cuentas y capacidad del piloto. | [Base técnica](/3daltoque-docs/proyecto/base-tecnica/) y [PD-11](/3daltoque-docs/planificacion/parametros/#pd-11) |
+| Modelo comercial | Cuenta receptora y configuración de cobro por entorno. | [PD-09 y PD-10](/3daltoque-docs/planificacion/parametros/#pd-09) |
+| Reglas operativas | Calibración de la estimación con cinco piezas, criterios de valoración, políticas de conservación pendientes y tratamiento de otros incidentes de revisión. | [PD-01 a PD-15](/3daltoque-docs/planificacion/parametros/) |
+| Notificaciones | Clasificación de los canales por tipo de aviso y configuración de Resend. | [Preferencias de avisos](/3daltoque-docs/specs/f14-notificaciones/#preferencias-por-tipo-de-aviso) |
+| Herramientas y proveedores | Versiones y ORM, alojamiento de API, worker y autenticación, proveedor de PostgreSQL con PostGIS, mapas y geocodificación, almacenamiento privado y capacidad del piloto. | [Base técnica](/3daltoque-docs/proyecto/base-tecnica/) y [PD-11](/3daltoque-docs/planificacion/parametros/#pd-11) |
 | Organización | Responsables nominales y dedicación semanal. | [Ficha del proyecto](/3daltoque-docs/planificacion/ficha-proyecto/) |
 | Cátedra | Fechas de parciales y simulacro, docente, condiciones de diciembre y fecha final. | [Cronograma](/3daltoque-docs/planificacion/cronograma/) |
 

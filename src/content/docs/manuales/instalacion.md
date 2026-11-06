@@ -54,11 +54,14 @@ El backend publica en su manifiesto los comandos de instalación, migración, ca
 
 | Grupo | Variables o valores requeridos | Comprobación |
 | --- | --- | --- |
-| Identidad | Entorno, origen Web permitido, parámetros de sesión y clave de protección correspondiente. | Inicio/cierre de sesión, revocación y permisos por recurso. |
+| Identidad | Better Auth: BETTER_AUTH_SECRET, BETTER_AUTH_URL, conexión de datos, orígenes y retornos permitidos; URL de resolución de sesión para FastAPI. Referencia Cliente/Maker: session.expiresIn=604800, session.updateAge=86400 y cookieCache deshabilitado. | Renovación con reloj controlado, vencimiento de Cliente/Maker a los 7 días, límite administrativo de 8 horas desde session.createdAt, cierre con revocación y permisos por recurso. |
 | Base | DATABASE_URL y configuración de conexiones. | Conexión, extensión PostGIS y migración vigente. |
 | Objetos | Endpoint, bucket privado, acceso del servicio y TTL. | Carga autorizada y descarga temporal; objeto inaccesible públicamente. |
 | Mapas | Proveedor, claves si aplica, atribución, límites y precisión pública. | Búsqueda y alternativa textual ante falla. |
-| Avisos | Canal, remitente autorizado, credenciales y política de reintento. | Notificación interna y resultado del envío externo. |
+| Contraseñas | Better Auth: emailAndPassword.minPasswordLength=15 y emailAndPassword.maxPasswordLength=128; contratos de registro y restablecimiento. | Límites de 14, 15, 128 y 129 caracteres y frase con espacios en ambos clientes. |
+| Recuperación de contraseña | Better Auth: emailAndPassword.resetPasswordTokenExpiresIn=900, emailAndPassword.revokeSessionsOnPasswordReset=true y sendResetPassword conectado a Resend; retorno autorizado y transacciones del adaptador de identidad. | Enlace válido, vencido y consumido; revocación de todas las sesiones, confirmaciones concurrentes y rollback ante falla de la transacción de identidad. |
+| Verificación de correo | Configurar emailVerification.expiresIn=3600, RESEND_API_KEY y AUTH_EMAIL_FROM en el componente Better Auth con dominio propio verificado en Resend. | Verificar el enlace dentro de la primera hora, comprobar el rechazo al alcanzar el vencimiento, solicitar otro enlace y consultar el correo verificado desde FastAPI. |
+| Avisos de revisión | Configurar `RESEND_API_KEY` y `NOTIFICATIONS_EMAIL_FROM` en el worker con una credencial de envío por entorno y un remitente de un dominio propio verificado. | Aviso interno y resultado del correo. Comprobar reintentos con la misma clave y el límite de 24 horas. |
 | Abono | Modo, credencial de la cuenta receptora, secreto de webhook y URLs HTTPS por entorno. | Checkout, firma, consulta del pago y concesión única. |
 | Clientes | URL base /api/v1 y retornos Web/Mobile autorizados. | Dispositivo alcanza la API y recupera una compra al volver del proveedor. |
 | Operación | Zona horaria de presentación, límites, intervalos del worker, retención y respaldo. | Configuración versionada y tareas recuperables. |
@@ -67,14 +70,14 @@ Las credenciales se proporcionan desde el gestor del entorno. Los repositorios c
 
 ## Migraciones y datos iniciales
 
-Aplicá las migraciones del release sobre una base exclusiva. Comprobá la versión del esquema y la existencia de las 58 tablas del modelo. La primera configuración crea catálogos, plan y capacidades administrativas mediante el procedimiento autorizado. La carga de datos sintéticos se restringe a prueba o demo.
+Aplicá las migraciones del release sobre una base exclusiva. Comprobá la versión del esquema del negocio y las migraciones de Better Auth. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) identifica la adaptación pendiente del catálogo de 58 tablas y la separación de responsabilidades. La primera configuración crea catálogos, plan y capacidades administrativas mediante el procedimiento autorizado. La carga de datos sintéticos se restringe a prueba o demo.
 
 Los [fixtures funcionales](/3daltoque-docs/documentos/8a0c5389371a-datos-funcionales.json) identifican usuarios, producto, plan, escala y archivos de prueba. La carga conserva un namespace para poder restablecerlos sin afectar otro entorno. Las cuentas de demostración obtienen sus contraseñas durante la preparación y se comunican mediante el canal privado del equipo.
 
 ## Arranque y comprobación
 
 1. Iniciá base y almacén; comprobá conectividad y permisos.
-2. Ejecutá la API y el worker con los comandos del release.
+2. Ejecutá el componente Node/TypeScript de Better Auth, la API FastAPI y el worker con los comandos del release.
 3. Consultá /health/live y /health/ready; registrá estado y request_id ante un error.
 4. Iniciá Web y abrí la dirección informada por su servidor.
 5. Iniciá Mobile con la URL de API accesible desde el emulador o dispositivo. La dirección loopback del equipo requiere el encaminamiento propio del dispositivo.
@@ -88,7 +91,7 @@ Conservá release anterior, respaldo y compatibilidad de migraciones antes de ac
 
 ## Respaldo y recuperación
 
-Generá una copia consistente de base y el manifiesto de objetos, con hora, esquema y hashes. Restaurá mediante las herramientas de PostgreSQL en una base separada; recuperá los objetos y verificá referencias, cantidades y permisos. Ejecutá PNF-008 y los accesos críticos después de restaurar. PERF-01 establece los objetivos del piloto.
+Generá una copia consistente de base y el manifiesto de objetos, con hora de generación, esquema y hashes. Conservá el conjunto durante 30 días desde su generación. Al vencer, retiralo del catálogo de restauración y conservá los artefactos que todavía usen otras copias vigentes. Restaurá una copia vigente en una base separada, recuperá los objetos y verificá referencias, cantidades y permisos. Reaplicá la política vigente de acceso y retención antes de habilitar consultas. Ejecutá PNF-008 y los accesos críticos después de restaurar. PERF-01 establece los objetivos del piloto.
 
 ## Diagnóstico
 

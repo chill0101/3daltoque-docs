@@ -23,8 +23,8 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
 | 1 | Participante | Consulta su bandeja y selecciona un pedido. |
-| 2 | Sistema | Comprueba pertenencia y recupera la conversación única y su historial paginado. |
-| 3 | Participante | Escribe texto o selecciona adjuntos habilitados y envía con una clave estable. |
+| 2 | Sistema | Comprueba pertenencia y plazo de PD-12 antes de recuperar la conversación única y su historial paginado. |
+| 3 | Participante | Escribe texto o selecciona hasta cinco adjuntos distintos y habilitados. Envía el mensaje con una clave estable. |
 | 4 | Sistema | Revalida permiso y contenido y persiste el mensaje antes de confirmar. |
 | 5 | Sistema | Registra el aviso y devuelve identidad y fecha del mensaje. |
 | 6 | Participante | Consulta el historial y recupera cambios al reconectar. |
@@ -34,9 +34,11 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
 | 2.A | Sistema | Todavía no existe pedido confirmado o el usuario es ajeno: Deniega la conversación y protege el historial. |
-| 4.B | Sistema | Red interrumpida o resultado incierto: Permite reintentar con la misma clave y reconciliar el mensaje. |
+| 4.B | Sistema | Red interrumpida o resultado incierto: Permite reintentar con la misma clave mientras siga habilitado el envío. |
 | 4.C | Sistema | Misma clave con contenido distinto: Devuelve conflicto y conserva el mensaje original. |
-| 2.D | Sistema | Membresía vencida con pedido existente: Mantiene la conversación autorizada del pedido. |
+| 2.D | Sistema | Si vence la membresía, conserva la conversación del pedido según PD-12. |
+| 2.E | Sistema | Al cumplirse 12 meses desde el cierre del pedido completado o desde su cancelación, la conversación sale de la bandeja y el backend rechaza la apertura, lectura y envío. Los mensajes necesarios para excepciones de PD-12 se conservan con acceso restringido. |
+| 2.F | Sistema | Si el pedido está completado o cancelado y la consulta sigue vigente, muestra la conversación en solo lectura y mantiene los mensajes y adjuntos autorizados. Si llega un envío o reintento, responde `409 chat_read_only` y conserva el historial. |
 
 ## Datos y controles
 

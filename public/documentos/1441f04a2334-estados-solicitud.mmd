@@ -4,10 +4,16 @@ stateDiagram-v2
   state "Borrador" as borrador
   state "Abierta" as abierta
   state "Cerrada por selección" as cerrada
+  state "Vencida" as vencida
+  state "Borrador retirado" as borrador_retirado
   [*] --> borrador
-  borrador --> abierta: Datos y archivo habilitados
+  borrador --> abierta: Envío con datos y archivo habilitados
+  borrador --> borrador_retirado: 90 días desde el último guardado
+  borrador_retirado --> [*]
   abierta --> cerrada: Aceptación válida y atómica de una oferta
   cerrada --> [*]
+  abierta --> vencida: 7 días desde el envío sin pedido
+  vencida --> [*]
   note right of abierta
     Solo se invitan makers compatibles y habilitados.
     El chat se habilita al confirmar el pedido.

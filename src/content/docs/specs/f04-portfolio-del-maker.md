@@ -31,7 +31,7 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 | --- | --- | --- | --- |
 | titulo | Texto | Sí | Título del trabajo dentro del límite configurado. |
 | descripcion | Texto | Sí | Descripción pública autorizada. |
-| archivo_ids | Lista UUID | Según contenido | Archivos propios habilitados y autorizados para presentación. |
+| archivo_ids | Lista UUID | Según contenido | Referencias distintas a imágenes JPEG o PNG habilitadas y autorizadas para presentación, de hasta 10 MiB por imagen. El máximo configurable inicial es de cinco por trabajo. |
 | estado | Estado | Sí | Borrador, publicado o retirado conforme a permiso. |
 | version | Entero | En edición | Versión actual esperada. |
 
@@ -39,8 +39,8 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 
 | Paso | Ejecutor | Actividad |
 | --- | --- | --- |
-| 1 | Maker | Crea un trabajo con título, descripción y medios de presentación. |
-| 2 | Sistema | Comprueba titularidad, archivo habilitado y autorización de publicación. |
+| 1 | Maker | Crea un trabajo con título, descripción y hasta cinco imágenes JPEG o PNG autorizadas con la configuración inicial. |
+| 2 | Sistema | Comprueba titularidad, archivos habilitados, autorización de publicación y cantidad de fotos. |
 | 3 | Maker | Publica el trabajo. |
 | 4 | Sistema | Conserva el registro y habilita sus derivados de presentación. |
 | 5 | Visitante | Consulta el portfolio del maker y abre un trabajo. |
@@ -53,6 +53,7 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 | ALT-F04-01 | Paso 2. Archivo ajeno o evidencia privada sin permiso: Rechaza su publicación. |
 | ALT-F04-02 | Paso 3. Retira el trabajo: El sistema retira la presentación pública y conserva las referencias históricas necesarias. |
 | ALT-F04-03 | Paso 4. Modera contenido con capacidad y motivo: El sistema registra la intervención y su efecto público. |
+| ALT-F04-04 | Si el trabajo supera el máximo vigente de fotos, el backend devuelve 422 e informa cuántas admite. El maker puede quitar fotos y volver a confirmar. |
 
 ## 6. Contrato de API propuesto
 
@@ -61,15 +62,15 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
 | GET | `/makers/{id}/portfolio` | cursor | trabajos y medios autorizados | Publicados y visibles. |
-| POST | `/makers/me/portfolio` | título, descripción y archivos autorizados | trabajo_id y versión | Maker titular. |
-| PATCH | `/makers/me/portfolio/{id}` | contenido, estado y versión | trabajo actualizado | Titularidad y autorización de medios. |
+| POST | `/makers/me/portfolio` | título, descripción e imágenes autorizadas | trabajo_id y versión | Maker titular, imágenes JPEG o PNG habilitadas y cantidad dentro del límite vigente. |
+| PATCH | `/makers/me/portfolio/{id}` | contenido, estado y versión | trabajo actualizado | Titularidad, formato, autorización de publicación y cantidad de fotos del trabajo resultante. |
 | DELETE | `/makers/me/portfolio/{id}` | versión | retiro lógico | Conservación de referencias y auditoría. |
 
 ## 7. Datos, consistencia e integración
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `portfolio_trabajos`, `portfolio_archivos`, `archivos`.
 
-El maker crea, publica y retira trabajos de su portfolio con título, descripción y medios autorizados. La publicación utiliza derivados de presentación y conserva la autoría y finalidad declaradas. El uso de una evidencia privada de un cliente requiere la autorización de publicación aplicable. La moderación conserva motivo e historial. El visitante o cliente consulta los trabajos publicados del portfolio de un maker y sus medios de presentación. La respuesta incluye descripción y autor; oculta datos privados de pedidos, clientes y archivos originales. Un portfolio vacío presenta el estado correspondiente y mantiene accesibles los datos públicos del maker.
+El maker crea, publica y retira trabajos de su portfolio con título, descripción y hasta cinco imágenes JPEG o PNG autorizadas de hasta 10 MiB por imagen. El máximo de fotos es configurable. La publicación utiliza derivados de presentación y conserva la autoría y finalidad declaradas. El uso de una evidencia privada de un cliente requiere la autorización de publicación aplicable. La moderación conserva motivo e historial. El visitante o cliente consulta los trabajos publicados del portfolio de un maker y sus medios de presentación. La respuesta incluye descripción y autor; oculta datos privados de pedidos, clientes y archivos originales. Un portfolio vacío presenta el estado correspondiente y mantiene accesibles los datos públicos del maker.
 ## 8. Componentes y estados
 
 [DS01](/3daltoque-docs/design-system/02-componentes/#ds01), [DS03](/3daltoque-docs/design-system/02-componentes/#ds03), [DS25](/3daltoque-docs/design-system/02-componentes/#ds25), [DS26](/3daltoque-docs/design-system/02-componentes/#ds26), [DS31](/3daltoque-docs/design-system/02-componentes/#ds31).
@@ -88,7 +89,7 @@ Estados funcionales: carga, contenido, vacío, validación, permiso, conflicto, 
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-14.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-14-1) | 1. Un trabajo publicado aparece en el portfolio del maker titular.<br>2. Un archivo ajeno, no habilitado o sin autorización de publicación es rechazado.<br>3. Retirar o moderar un trabajo elimina su presentación pública y conserva las referencias necesarias. |
+| [RF-14.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-14-1) | 1. Un trabajo publicado aparece en el portfolio del maker titular.<br>2. Un archivo ajeno, no habilitado o sin autorización de publicación es rechazado.<br>3. Retirar o moderar un trabajo elimina su presentación pública y conserva las referencias necesarias.<br>4. El portfolio admite imágenes JPEG o PNG habilitadas y autorizadas para presentación. La vista pública entrega sus derivados autorizados.<br>5. El backend aplica el máximo vigente por trabajo al guardar, editar y publicar. Si se supera, responde con 422 e informa el máximo permitido. |
 | [RF-14.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-14-2) | 1. La consulta devuelve exclusivamente trabajos publicados y autorizados.<br>2. Un trabajo retirado deja de estar disponible públicamente.<br>3. El detalle del portfolio conserva la privacidad de pedidos y archivos. |
 
 ## 10. Decisiones y dependencias

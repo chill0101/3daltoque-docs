@@ -10,7 +10,7 @@ Fecha: 25 de octubre de 2026. Versión: 2.0.
 
 Conservar la comunicación relacionada con un pedido.
 
-La conversación se vincula a un pedido confirmado y a sus participantes autorizados. Cliente y maker consultan el historial y envían mensajes mientras el pedido siga accesible conforme a la política de conservación. La creación del pedido habilita una sola conversación. La consulta previa a la contratación queda fuera del circuito de chat de v1. El vencimiento comercial del maker mantiene la comunicación de los pedidos existentes. El backend verifica participante y permiso actual, exige texto o al menos un adjunto habilitado, y persiste el mensaje antes de confirmar envío. Conserva remitente, conversación, fecha del servidor y clave estable del cliente. La repetición del mismo contenido y clave recupera el mensaje; una clave reutilizada con otro contenido produce conflicto. Los estados pendiente, enviado y fallido representan el resultado del comando y se reconcilian con el historial persistido. El cliente y el maker consultan una bandeja paginada de sus conversaciones de pedidos confirmados, con referencia de pedido y último mensaje autorizado. La lectura comprueba permisos actuales y permite abrir el historial. La vista vacía ofrece acceso a los pedidos; los mensajes pendientes del dispositivo se reconcilian con el servidor.
+La conversación se vincula a un pedido confirmado y a sus participantes autorizados. El chat pasa a solo lectura cuando el cliente confirma la recepción y el pedido queda completado, o cuando se registra su cancelación. Desde ese momento, cliente y maker pueden consultar los mensajes y descargar los adjuntos autorizados durante 12 meses. El servidor rechaza los envíos nuevos y los reintentos de envío. Al vencer el plazo, el backend retira la conversación de la bandeja y cierra la lectura y el envío de mensajes. Los mensajes necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. Los archivos propios del chat se conservan durante 12 meses desde el cierre del pedido completado o desde su cancelación, según corresponda. Al vencer el plazo, el backend deja de emitir enlaces de descarga para ese contexto, tanto desde el chat como por identificador de archivo. Los adjuntos necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. La creación del pedido habilita una sola conversación. La consulta previa a la contratación queda fuera del circuito de chat de v1. El vencimiento comercial del maker conserva la comunicación de los pedidos existentes dentro de la ventana de acceso de PD-12. El backend verifica participante y permiso actual, exige texto o al menos un adjunto habilitado, y persiste el mensaje antes de confirmar envío. Conserva remitente, conversación, fecha del servidor y clave estable del cliente. La repetición del mismo contenido y clave recupera el mensaje; una clave reutilizada con otro contenido produce conflicto. Los estados pendiente, enviado y fallido representan el resultado del comando y se reconcilian con el historial persistido. El cliente y el maker consultan una bandeja paginada de sus conversaciones de pedidos confirmados, con referencia de pedido y último mensaje autorizado. La bandeja y la lectura comprueban permisos vigentes y la ventana de acceso de PD-12. La vista vacía ofrece acceso a los pedidos. Los clientes reconcilian los mensajes pendientes mientras esté habilitado el envío. En solo lectura, actualizan el historial autorizado y detienen los reintentos.
 
 | Referencia | Definición |
 | --- | --- |
@@ -32,8 +32,8 @@ La bandeja y conversación pertenecen a pedidos confirmados. El vencimiento come
 | Campo | Tipo | Obligatoriedad | Validación |
 | --- | --- | --- | --- |
 | clave_cliente | Identidad opaca | Sí | Conservar al reintentar el mismo mensaje |
-| texto | Texto | Según contenido | Longitud configurada |
-| archivo_ids | Lista UUID | Opcional | Adjuntos autorizados para la conversación |
+| texto | Texto | Según contenido | Hasta 4.000 caracteres por mensaje. El servidor valida el límite antes de guardar. |
+| archivo_ids | Lista UUID | Opcional | Hasta cinco identificadores distintos de archivos autorizados para la conversación. Los adjuntos propios del chat pueden ser JPEG, PNG o PDF, con hasta 10 MiB por archivo. |
 
 ## 4. Flujo principal
 
@@ -41,7 +41,7 @@ La bandeja y conversación pertenecen a pedidos confirmados. El vencimiento come
 | --- | --- | --- |
 | 1 | Participante | Consulta su bandeja y selecciona un pedido. |
 | 2 | Sistema | Comprueba pertenencia y recupera la conversación única y su historial paginado. |
-| 3 | Participante | Escribe texto o selecciona adjuntos habilitados y envía con una clave estable. |
+| 3 | Participante | Escribe texto o selecciona hasta cinco adjuntos distintos y habilitados. Envía el mensaje con una clave estable. |
 | 4 | Sistema | Revalida permiso y contenido y persiste el mensaje antes de confirmar. |
 | 5 | Sistema | Registra el aviso y devuelve identidad y fecha del mensaje. |
 | 6 | Participante | Consulta el historial y recupera cambios al reconectar. |
@@ -53,9 +53,11 @@ Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-14
 | ID | Condición y respuesta |
 | --- | --- |
 | ALT-F13-01 | Paso 2. Todavía no existe pedido confirmado o el usuario es ajeno: Deniega la conversación y protege el historial. |
-| ALT-F13-02 | Paso 4. Red interrumpida o resultado incierto: Permite reintentar con la misma clave y reconciliar el mensaje. |
+| ALT-F13-02 | Paso 4. Red interrumpida o resultado incierto: Permite reintentar con la misma clave mientras siga habilitado el envío. |
 | ALT-F13-03 | Paso 4. Misma clave con contenido distinto: Devuelve conflicto y conserva el mensaje original. |
-| ALT-F13-04 | Paso 2. Membresía vencida con pedido existente: Mantiene la conversación autorizada del pedido. |
+| ALT-F13-04 | Paso 2. Si vence la membresía, conserva la conversación del pedido según PD-12. |
+| ALT-F13-05 | Paso 2. Al cumplirse 12 meses desde el cierre del pedido completado o desde su cancelación, el backend retira la conversación de la bandeja y rechaza la apertura, lectura y envío. Los mensajes necesarios para excepciones de PD-12 se conservan con acceso restringido. |
+| ALT-F13-06 | Si el pedido está completado o cancelado, la API conserva las acciones de consulta autorizadas y retira la acción de envío. Web y Mobile muestran el aviso de solo lectura, deshabilitan el campo de mensaje y la carga de adjuntos y detienen los reintentos al actualizar la conversación o recibir `409 chat_read_only`. |
 
 La salida de cada error sigue [los contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/).
 
@@ -65,16 +67,20 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| GET | `/conversaciones` | cursor | conversaciones de pedidos confirmados | Participante de cada pedido. |
-| GET | `/pedidos/{id}/conversacion` | pedido_id | conversación y capacidades | Pedido confirmado y participante autorizado. |
-| GET | `/conversaciones/{id}/mensajes` | cursor | mensajes y cursor siguiente | Revalida participación y conservación. |
-| POST | `/conversaciones/{id}/mensajes` | clave_cliente, texto y archivo_ids | mensaje_id y fecha | Persistencia antes de confirmar y deduplicación. |
+| GET | `/conversaciones` | rol y cursor | conversaciones de pedidos confirmados | Participante de cada pedido y ventana de acceso de PD-12. |
+| GET | `/pedidos/{id}/conversacion` | pedido_id | conversación y capacidades | Conversación asociada a un pedido que se confirmó, participante autorizado y ventana de acceso de PD-12. |
+| GET | `/conversaciones/{id}/mensajes` | cursor | mensajes y cursor siguiente | Revalida participación y ventana de acceso de PD-12. |
+| POST | `/conversaciones/{id}/mensajes` | clave_cliente, texto y archivo_ids | mensaje_id y fecha | Ventana de acceso de PD-12 y hasta cinco adjuntos distintos. Un pedido completado o cancelado dentro de la ventana de consulta devuelve `409 chat_read_only`. Persistencia antes de confirmar y deduplicación. |
 
 ## 7. Datos, consistencia e integración
 
+La cuenta puede tener perfiles cliente y maker. La colección compartida recibe rol obligatorio y FastAPI filtra por el papel autorizado del usuario en cada pedido. El cursor y la caché conservan ese contexto; cambiar de perfil recupera sus listas y capacidades.
+
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `conversaciones`, `participantes_conversacion`, `mensajes`, `mensaje_archivos`.
 
-La conversación se vincula a un pedido confirmado y a sus participantes autorizados. Cliente y maker consultan el historial y envían mensajes mientras el pedido siga accesible conforme a la política de conservación. La creación del pedido habilita una sola conversación. La consulta previa a la contratación queda fuera del circuito de chat de v1. El vencimiento comercial del maker mantiene la comunicación de los pedidos existentes. El backend verifica participante y permiso actual, exige texto o al menos un adjunto habilitado, y persiste el mensaje antes de confirmar envío. Conserva remitente, conversación, fecha del servidor y clave estable del cliente. La repetición del mismo contenido y clave recupera el mensaje; una clave reutilizada con otro contenido produce conflicto. Los estados pendiente, enviado y fallido representan el resultado del comando y se reconcilian con el historial persistido. El cliente y el maker consultan una bandeja paginada de sus conversaciones de pedidos confirmados, con referencia de pedido y último mensaje autorizado. La lectura comprueba permisos actuales y permite abrir el historial. La vista vacía ofrece acceso a los pedidos; los mensajes pendientes del dispositivo se reconcilian con el servidor.
+La conversación se vincula a un pedido confirmado y a sus participantes autorizados. El chat pasa a solo lectura cuando el cliente confirma la recepción y el pedido queda completado, o cuando se registra su cancelación. Desde ese momento, cliente y maker pueden consultar los mensajes y descargar los adjuntos autorizados durante 12 meses. El servidor rechaza los envíos nuevos y los reintentos de envío. Al vencer el plazo, el backend retira la conversación de la bandeja y cierra la lectura y el envío de mensajes. Los mensajes necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. Los archivos propios del chat se conservan durante 12 meses desde el cierre del pedido completado o desde su cancelación, según corresponda. Al vencer el plazo, el backend deja de emitir enlaces de descarga para ese contexto, tanto desde el chat como por identificador de archivo. Los adjuntos necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. La creación del pedido habilita una sola conversación. La consulta previa a la contratación queda fuera del circuito de chat de v1. El vencimiento comercial del maker conserva la comunicación de los pedidos existentes dentro de la ventana de acceso de PD-12. El backend verifica participante y permiso actual, exige texto o al menos un adjunto habilitado, y persiste el mensaje antes de confirmar envío. Conserva remitente, conversación, fecha del servidor y clave estable del cliente. La repetición del mismo contenido y clave recupera el mensaje; una clave reutilizada con otro contenido produce conflicto. Los estados pendiente, enviado y fallido representan el resultado del comando y se reconcilian con el historial persistido. El cliente y el maker consultan una bandeja paginada de sus conversaciones de pedidos confirmados, con referencia de pedido y último mensaje autorizado. La bandeja y la lectura comprueban permisos vigentes y la ventana de acceso de PD-12. La vista vacía ofrece acceso a los pedidos. Los clientes reconcilian los mensajes pendientes mientras esté habilitado el envío. En solo lectura, actualizan el historial autorizado y detienen los reintentos.
+
+El chat consulta novedades cada 10 segundos mientras la pantalla está activa y recupera cambios al reconectar. [F24](/3daltoque-docs/specs/f24-api-comun-y-sincronizacion/) describe la recuperación por cursor.
 
 ## 8. Componentes y estados
 
@@ -95,11 +101,11 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-05.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-1) | 1. Un pedido confirmado dispone de una única conversación para sus participantes.<br>2. Una solicitud, invitación o producto sin pedido confirmado impide abrir o enviar mensajes en una conversación de pedido.<br>3. Un usuario ajeno recibe una denegación de acceso; los participantes conservan historial al reconectar o vencer la membresía del maker. |
-| [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2) | 1. Un mensaje informado como enviado puede recuperarse en el historial autorizado.<br>2. Repetir el mismo envío identificado no genera otro mensaje visible.<br>3. Un adjunto ajeno, inválido o no habilitado no se publica como parte del mensaje. |
+| [RF-05.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-1) | 1. Un pedido confirmado dispone de una única conversación para sus participantes.<br>2. Una solicitud, invitación o producto sin pedido confirmado impide abrir o enviar mensajes en una conversación de pedido.<br>3. El backend verifica la pertenencia y conserva el acceso autorizado al reconectar o vencer la membresía del maker dentro de la ventana vigente.<br>4. Los participantes pueden consultar los mensajes durante 12 meses desde el cierre del pedido completado o desde su cancelación, según corresponda. Al vencer el plazo, el backend bloquea la consulta, el envío y el reintento de mensajes. Conserva con acceso restringido los mensajes necesarios mientras dure una excepción de PD-12.<br>5. Al completarse el pedido por recepción confirmada o al cancelarse, Web y Mobile muestran el chat en solo lectura. Un envío nuevo o un reintento devuelve `409 chat_read_only` dentro de la ventana de consulta y conserva el historial. |
+| [RF-05.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-2) | 1. Un mensaje informado como enviado puede recuperarse en el historial autorizado.<br>2. Repetir el mismo envío identificado no genera otro mensaje visible.<br>3. Un adjunto ajeno, inválido o no habilitado no se publica como parte del mensaje.<br>4. Los adjuntos propios del chat quedan disponibles durante 12 meses desde el cierre del pedido completado o desde su cancelación y se conservan con acceso restringido si aplica una excepción de PD-12.<br>5. Un mensaje puede contener hasta cinco adjuntos distintos y autorizados. Con seis adjuntos, el backend devuelve 422 y conserva el historial y sus asociaciones. |
 | [RF-11.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-2) | 1. Después de reconectarse, un cliente autorizado recupera mensajes y estado vigentes sin pérdida de datos persistidos.<br>2. Repetir un aviso no duplica mensajes ni transiciones visibles.<br>3. Una suscripción o consulta a un recurso ajeno es denegada y no filtra su contenido. |
 | [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10) | 1. Un maker vencido no confirma un trabajo nuevo mediante una petición directa que eluda la interfaz.<br>2. Vencer el acceso no cancela pedidos ni bloquea su finalización.<br>3. La guarda determina la vigencia con la fecha del servidor, los permisos y los períodos concedidos. |
-| [RF-05.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-4) | 1. La bandeja contiene únicamente conversaciones de pedidos en los que participa el usuario.<br>2. Una paginación estable permite recuperar las conversaciones sin duplicarlas.<br>3. Una pérdida de conexión conserva los mensajes pendientes y permite reintentar con su identidad original. |
+| [RF-05.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-4) | 1. La bandeja contiene únicamente conversaciones de pedidos en los que participa el usuario y cuyo plazo de acceso sigue vigente.<br>2. Una paginación estable permite recuperar las conversaciones sin duplicarlas.<br>3. Una pérdida de conexión conserva los mensajes pendientes y permite reintentar con su identidad original mientras esté habilitado el envío. |
 
 ## 10. Decisiones y dependencias
 

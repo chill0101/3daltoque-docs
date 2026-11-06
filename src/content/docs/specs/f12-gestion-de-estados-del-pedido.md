@@ -10,7 +10,7 @@ Fecha: 25 de octubre de 2026. Versión: 2.0.
 
 Consultar el avance del trabajo y organizar la actividad del maker.
 
-El cliente consulta estados y plazos de su solicitud. El maker actualiza el avance productivo de sus pedidos. Las transiciones verifican actor, etapa y reglas y conservan estado anterior, nuevo estado, fecha y motivo. La vista de cola reúne trabajos del maker con acciones disponibles según su estado; su orden y las reglas de reordenación requieren definición.
+El cliente consulta estados y plazos de su solicitud. El maker actualiza el avance productivo de sus pedidos. Las transiciones verifican actor, etapa y reglas y conservan estado anterior, nuevo estado, fecha y motivo. El pedido cancelado por inasistencia se consulta desde el historial. El cierre por soporte sigue PD-08 y se ejecuta desde el caso vinculado. La vista de cola reúne trabajos del maker con acciones disponibles según su estado; su orden y las reglas de reordenación requieren definición.
 
 | Referencia | Definición |
 | --- | --- |
@@ -19,7 +19,7 @@ El cliente consulta estados y plazos de su solicitud. El maker actualiza el avan
 | Canales | Lógica de negocio. Web y Mobile. |
 | RF | [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4), [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3), [RF-06.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-5), [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10) |
 | RNF | [RNF-04](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-04), [RNF-05](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-05), [RNF-06](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-06), [RNF-08](/3daltoque-docs/analisis/requisitos/no-funcionales/#rnf-08) |
-| CU | [CU-04](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/), [CU-05](/3daltoque-docs/analisis/casos/cu-05-revision-y-aprobacion/), [CU-06](/3daltoque-docs/analisis/casos/cu-06-entrega-personal/) |
+| CU | [CU-04](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/), [CU-05](/3daltoque-docs/analisis/casos/cu-05-revision-y-aprobacion/), [CU-06](/3daltoque-docs/analisis/casos/cu-06-entrega-personal/), [CU-17](/3daltoque-docs/analisis/casos/cu-17-consultar-historial-de-pedidos/) |
 
 ## 2. Pantallas y permisos
 
@@ -43,7 +43,7 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 | 2 | Sistema | Entrega sus condiciones y acciones permitidas. |
 | 3 | Maker | Actualiza el avance mediante una transición autorizada. |
 | 4 | Sistema | Valida versión y transición y conserva el historial. |
-| 5 | Maker | Carga fotos o videos y presenta una revisión del resultado. |
+| 5 | Maker | Carga imágenes JPEG o PNG y presenta una revisión del resultado. |
 | 6 | Sistema | Comprueba archivos, conserva la revisión exacta y registra la solicitud de revisión al cliente. |
 | 7 | Cliente | Consulta el avance y la evidencia autorizada. |
 
@@ -66,14 +66,15 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
 | GET | `/makers/me/cola` | estado y cursor | pedidos y acciones permitidas | Orden estable por confirmación e identidad. |
-| GET | `/pedidos/{id}` | pedido_id | condiciones, historial, revisión y entrega | Participante autorizado. |
+| GET | `/solicitudes/{id}` | solicitud_id | versión, estado, vencimiento y acciones permitidas | Cliente titular y ventana de acceso de PD-12. |
+| GET | `/pedidos/{id}` | pedido_id | condiciones, historial, revisión, entrega y casos de seguimiento | Participante autorizado y ventana de acceso de PD-12. |
 | POST | `/pedidos/{id}/transiciones` | estado destino, versión, motivo y clave estable | estado e historial | Transición y actor permitidos. |
 
 ## 7. Datos, consistencia e integración
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `pedidos`, `historial_pedidos`, `revisiones_resultado`.
 
-El cliente consulta estados y plazos de su solicitud. El maker actualiza el avance productivo de sus pedidos. Las transiciones verifican actor, etapa y reglas y conservan estado anterior, nuevo estado, fecha y motivo. La vista de cola reúne trabajos del maker con acciones disponibles según su estado; su orden y las reglas de reordenación requieren definición.
+El cliente consulta estados y plazos de su solicitud. El maker actualiza el avance productivo de sus pedidos. Las transiciones verifican actor, etapa y reglas y conservan estado anterior, nuevo estado, fecha y motivo. El pedido cancelado por inasistencia se consulta desde el historial. El cierre por soporte sigue PD-08 y se ejecuta desde el caso vinculado. La vista de cola reúne trabajos del maker con acciones disponibles según su estado; su orden y las reglas de reordenación requieren definición.
 
 ## 8. Componentes y estados
 
@@ -94,7 +95,7 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4) | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. La ausencia de un plazo aprobado no se reemplaza por una fecha inventada. |
+| [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4) | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. La ausencia de un plazo aprobado no se reemplaza por una fecha inventada.<br>4. El cliente consulta el estado y la fecha de una solicitud vencida sin pedido dentro del plazo de 12 meses de PD-12. |
 | [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3) | 1. Cada transición permitida deja un registro ligado al pedido.<br>2. Una transición rechazada no figura como realizada y conserva la evidencia operativa correspondiente.<br>3. La consulta permite reconstruir quién cambió el pedido y cuándo sin exponer secretos. |
 | [RF-06.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-5) | 1. Los participantes consultan avance e historial.<br>2. Solo el actor autorizado ejecuta una transición válida.<br>3. El vencimiento comercial no cancela ni bloquea la finalización de pedidos existentes. |
 | [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10) | 1. Un maker vencido no confirma un trabajo nuevo mediante una petición directa que eluda la interfaz.<br>2. Vencer el acceso no cancela pedidos ni bloquea su finalización.<br>3. La guarda determina la vigencia con la fecha del servidor, los permisos y los períodos concedidos. |

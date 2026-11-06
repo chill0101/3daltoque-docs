@@ -1,7 +1,7 @@
 {
-  "version": "3.0",
-  "fecha": "2026-10-25",
-  "decision": "ADR-002 y ADR-003",
+  "version": "3.1",
+  "fecha": "2026-11-05",
+  "decision": "ADR-002, ADR-003 y PD-01/DC-16",
   "schema": [
     {
       "name": "usuarios",
@@ -58,6 +58,12 @@
           "note": "Estado vigente de Usuario; sus cambios utilizan las transiciones autorizadas."
         },
         {
+          "name": "preferencias_avisos",
+          "type": "JSON",
+          "required": true,
+          "note": "Preferencias opcionales por tipo de aviso y canal. Valor inicial vacío."
+        },
+        {
           "name": "creado_en",
           "type": "FechaHora",
           "required": true,
@@ -82,7 +88,8 @@
       "rules": [
         "No se almacena contraseña en texto plano. La normalización del identificador debe documentarse.",
         "Nombre/apellido/contacto obligatorios por perfil se cierran en PD-01; la nulabilidad del borrador no habilita publicar un perfil incompleto.",
-        "Bloquear o anonimizar no elimina por cascada acuerdos ni evidencias financieras."
+        "Bloquear o anonimizar no elimina por cascada acuerdos ni evidencias financieras.",
+        "La cuenta guarda solo los valores elegidos para canales opcionales. Los pares ausentes heredan la política vigente."
       ],
       "requirements": [
         "RF-01.1",
@@ -157,7 +164,7 @@
         }
       ],
       "rules": [
-        "La relación permite representar varios roles, pero no decide si se habilitan simultáneamente: PD-01.",
+        "La misma cuenta admite roles cliente y maker vigentes y perfiles vinculados. La selección de contexto se conserva por pestaña o instancia del cliente; cada operación revalida rol y propiedad.",
         "El registro público nunca otorga admin. No se elimina una asignación revocada si se necesita su historial."
       ],
       "requirements": [
@@ -327,9 +334,11 @@
         "Operar exige rol maker vigente, perfil habilitado y capacidades declaradas.",
         "La vista pública utiliza zona/precisión autorizada; el domicilio exacto no se envía a terceros.",
         "La habilitación comercial para trabajos nuevos se consulta en membresías; vencer no altera pedidos existentes.",
-        "El perfil público integra zona autorizada, capacidades, productos publicados, portfolio y reputación; los originales privados se mantienen protegidos."
+        "El perfil público integra zona autorizada, capacidades, productos publicados, portfolio y reputación; los originales privados se mantienen protegidos.",
+        "El registro crea Cliente. Crear mi perfil maker incorpora perfil pendiente con nombre_publico y disponible=false y rol maker en una transacción; la unicidad por usuario conserva una sola alta. La prueba comienza con la primera habilitación válida."
       ],
       "requirements": [
+        "RF-01.1",
         "RF-01.2",
         "RF-03.1",
         "RF-09.2",
@@ -1097,7 +1106,8 @@
       "rules": [
         "La versión actual pertenece a la solicitud; el alta inicial conserva solicitud y primera versión en una transacción.",
         "El vencimiento solo se utiliza si existe una política aprobada; no tiene valor de negocio por defecto.",
-        "Cambios después de enviar requieren PD-05 y pueden invalidar invitaciones/ofertas, sin reescribir versiones."
+        "Cambios después de enviar requieren PD-05 y pueden invalidar invitaciones/ofertas, sin reescribir versiones.",
+        "El guardado inicial del borrador personalizado fija expira_en a 90 días desde la hora del servidor. Cada edición guardada en estado borrador reemplaza ese plazo desde su propio guardado. Al cumplirse, el worker retira el borrador y registra borrador_retirado durante el retiro. La consulta comprueba el vencimiento efectivo. El envío válido reemplaza el vencimiento de borrador por el de la solicitud enviada."
       ],
       "requirements": [
         "RF-02.3",
@@ -1396,7 +1406,8 @@
       ],
       "rules": [
         "Radio y límite positivos, definidos conforme a la política de búsqueda PD-04.",
-        "Los parámetros aplicados son un snapshot de búsqueda, independiente de futuras activaciones."
+        "Los parámetros aplicados son un snapshot de búsqueda, independiente de futuras activaciones.",
+        "Una repetición manual usa la misma versión de solicitud y copia los parámetros de la última ronda vacía. El número siguiente se asigna bajo el bloqueo de la solicitud."
       ],
       "requirements": [
         "RF-03.1",
@@ -3646,9 +3657,9 @@
         }
       ],
       "rules": [
-        "La devolución pertenece a un cobro de membresía elegible; no devuelve el precio de una impresión.",
+        "La devolución total pertenece a un cobro de membresía elegible; el backend determina el importe completo y la moneda desde el cobro original verificado y conserva los pedidos de impresión.",
         "Monto, moneda y concurrencia se controlan antes de llamar al proveedor. La devolución se confirma después de consultar su resultado.",
-        "Política de devolución del abono y efecto sobre acceso futuro requieren PD-09; no impiden finalizar pedidos aceptados."
+        "La devolución total confirmada retira de vigencia solo el período de su compra y conserva sus fechas e historial; una devolución pendiente conserva la vigencia previa. Otros períodos válidos y los pedidos aceptados mantienen sus permisos. La autorización exige un caso de soporte revisado por administración, vinculado al mismo pago; decisión, motivo y referencias de caso y reembolso se conservan en auditoría."
       ],
       "requirements": [
         "RF-12.12",
@@ -3947,7 +3958,7 @@
       "name": "notificaciones",
       "module": "comunicacion",
       "concept": "Notificacion",
-      "description": "Avisos internos por destinatario y evento persistido.",
+      "description": "Registros de aviso por destinatario y evento persistido.",
       "cols": [
         {
           "name": "id",
@@ -3998,6 +4009,12 @@
           "note": "Valor de recurso id del recurso Notificacion, validado con las reglas y el tipo indicados."
         },
         {
+          "name": "visible_en_app",
+          "type": "Booleano",
+          "required": true,
+          "note": "Visibilidad del aviso en la bandeja fijada al crearlo. Valor inicial verdadero."
+        },
+        {
           "name": "leida_en",
           "type": "FechaHora",
           "required": false,
@@ -4044,7 +4061,8 @@
       ],
       "rules": [
         "La aplicación valida recurso_tipo/id contra el tipo de evento, la entidad correspondiente y los permisos del destinatario.",
-        "El aviso no cambia por sí mismo estado de pago, revisión o entrega."
+        "El aviso no cambia por sí mismo estado de pago, revisión o entrega.",
+        "La bandeja y el marcado de lectura requieren visible_en_app. Los avisos de correo conservan su referencia aun cuando queden fuera de la bandeja."
       ],
       "requirements": [
         "RF-07.1",
@@ -4163,6 +4181,7 @@
       "rules": [
         "Canal, destino y sus permisos se habilitan según PD-11. Si se elige push, debe detallarse el registro/expiración de dispositivos antes de cerrar esa integración.",
         "La aceptación del envío y su entrega se registran como estados separados. Los reintentos mantienen la misma identidad y verifican si el aviso todavía corresponde.",
+        "Cada versión publicada de una oferta personalizada prepara el correo para el cliente titular si su canal está activo. La identidad se conserva por oferta, versión y destinatario y se reutiliza al reintentar.",
         "El destino puede ser una referencia protegida; su trazabilidad no expone contacto o tokens en registros públicos."
       ],
       "requirements": [
@@ -4658,7 +4677,7 @@
       "name": "casos_soporte",
       "module": "operacion",
       "concept": "CasoSoporte",
-      "description": "Casos operativos y de moderación cuando se adopte ese alcance.",
+      "description": "Casos operativos, solicitudes de devolución y moderación con decisión y motivo registrados.",
       "cols": [
         {
           "name": "id",
@@ -4677,6 +4696,12 @@
           "type": "UUID",
           "required": false,
           "note": "Referencia a pedidos para involucra pedido."
+        },
+        {
+          "name": "revision_id",
+          "type": "UUID",
+          "required": false,
+          "note": "Revisión del caso único de seguimiento."
         },
         {
           "name": "solicitud_id",
@@ -4715,6 +4740,12 @@
           "note": "Estado vigente de CasoSoporte; sus cambios utilizan las transiciones autorizadas."
         },
         {
+          "name": "version",
+          "type": "Entero",
+          "required": true,
+          "note": "Versión del caso para validar intervenciones concurrentes."
+        },
+        {
           "name": "resolucion",
           "type": "Texto",
           "required": false,
@@ -4736,7 +4767,11 @@
       "pk": [
         "id"
       ],
-      "uniques": [],
+      "uniques": [
+        [
+          "revision_id"
+        ]
+      ],
       "foreign": [
         {
           "cols": [
@@ -4757,6 +4792,18 @@
             "id"
           ],
           "label": "involucra pedido"
+        },
+        {
+          "cols": [
+            "pedido_id",
+            "revision_id"
+          ],
+          "target": "revisiones_resultado",
+          "refs": [
+            "pedido_id",
+            "id"
+          ],
+          "label": "vincula revisión"
         },
         {
           "cols": [
@@ -4791,12 +4838,16 @@
       ],
       "rules": [
         "Si hay varias referencias, describen el mismo contexto; la asignación requiere permisos de soporte.",
-        "Cada resolución utiliza los casos de uso autorizados para devolver un abono, aprobar una pieza o completar una entrega, con sus respectivas precondiciones.",
-        "Acciones y motivo se registran también en auditoría."
+        "Las resoluciones de devoluciones del abono y cancelaciones de entrega siguen PD-09 y PD-08. El cliente titular decide la revisión y confirma la recepción en sus recorridos autorizados.",
+        "Acciones y motivo se registran también en auditoría.",
+        "El tipo seguimiento_revision exige pedido y revisión. Los demás tipos conservan revision_id nulo.",
+        "El caso conserva el primer solicitante en reportado_por. La auditoría vincula al caso la identidad de cada solicitante y la revisión.",
+        "En seguimiento de revisión, reapertura_solicitada conserva el cierre anterior mientras espera la decisión de soporte. La aprobación devuelve el caso a abierto y limpia cerrado_en. El rechazo cambia a reapertura_rechazada, estado cerrado definitivo para la revisión. Si el cliente decide la revisión mientras la solicitud sigue pendiente, el caso vuelve a cerrado. Ambas salidas conservan la fecha de cierre. Las transiciones aumentan version y dejan constancia en auditoría.",
+        "La versión del caso empieza en 1 y aumenta con cada transición de estado."
       ],
       "requirements": [
         "RF-07.2",
-        "RF-06.3"
+        "RF-06.4"
       ],
       "status": "Soporte PD-07/14"
     },
@@ -5099,7 +5150,7 @@
       "rules": [
         "Una membresía por maker; editar el perfil no reinicia la antigüedad gratuita.",
         "La asignación de fundador y el consumo del cupo configurado se coordinan atómicamente.",
-        "Cada maker recibe un único beneficio inicial: prueba general de 30 días o beneficio fundador de 90 días totales, como valores configurables.",
+        "Cada maker recibe un único beneficio inicial: prueba general de 30 días o beneficio fundador de 90 días totales, como valores configurables. Durante una prueba general vigente, administración puede convertirla en beneficio fundador si la convocatoria está abierta y queda cupo. Conserva el inicio y el identificador de la concesión inicial, amplía su fin hasta completar 90 días totales desde ese inicio como duración inicial configurable, consume una plaza una sola vez y audita el estado anterior y posterior. La conversión conserva un único beneficio inicial.",
         "El distintivo no representa reputación, prioridad de matching ni participación societaria."
       ],
       "requirements": [
@@ -5370,9 +5421,9 @@
       ],
       "rules": [
         "inicio_en < fin_en; intervalos [inicio, fin) con reloj del servidor y fecha/hora inequívoca.",
-        "Un único beneficio inicial general o fundador; cada compra pagada concede como máximo un período.",
+        "Un único beneficio inicial general o fundador; cada compra pagada concede como máximo un período. La conversión autorizada de prueba general vigente a fundador conserva el ID y el inicio originales, amplía únicamente el fin a la duración total fundadora y registra el cambio en auditoría.",
         "Modo y entorno coinciden con el origen; una simulación nunca habilita acceso real en producción.",
-        "La política propuesta agrega renovaciones anticipadas después del acceso vigente; la regla exacta de calendario requiere PD-10.",
+        "La renovación se habilita cuando el acceso comercial está vencido. Cada período comienza con la primera confirmación verificada del pago y suma la duración de 30 días configurable según PD-10; conserva ese inicio y fin ante reintentos.",
         "El vencimiento no depende del worker de avisos y no bloquea la finalización de pedidos aceptados."
       ],
       "requirements": [
@@ -5463,6 +5514,7 @@
       ],
       "rules": [
         "El alta conserva publicación y primera versión en una transacción.",
+        "El borrador vence a los 90 días de `actualizado_en`. El guardado inicial y cada edición confirmada fijan esa fecha con el reloj del servidor. El retiro automático verifica estado y plazo bajo el mismo bloqueo que la edición y la publicación.",
         "Publicar y admitir pedidos nuevos exige maker habilitado y acceso comercial vigente; pausar o retirar conserva los pedidos existentes.",
         "El catálogo contiene publicaciones de configuración fija; el maker puede publicar otro producto para otra configuración."
       ],
@@ -6015,7 +6067,7 @@
       ],
       "rules": [
         "El autor y destinatario son las contrapartes distintas del pedido; el servicio valida pertenencia y recepción confirmada dentro de la operación.",
-        "Existe como máximo una valoración por autor y pedido. Una repetición con igual contenido recupera el registro.",
+        "Existe como máximo una valoración por autor y pedido. La misma clave y el mismo contenido recuperan el registro original.",
         "La moderación cambia la visibilidad con motivo y auditoría y conserva los puntajes emitidos.",
         "El resumen incluye únicamente valoraciones publicadas y compatibles con la escala informada; ausencia de datos produce promedio NULL."
       ],
@@ -6296,7 +6348,7 @@
     {
       "name": "der-identidad",
       "title": "Identidad, ubicaciones y capacidades",
-      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n    Texto email \"Valor de email del recurso Usuario, validado con las reglas y el tipo indic\"\n    Texto email_normalizado \"Valor de email normalizado del recurso Usuario, validado con las reglas y e\"\n    Texto password_hash \"Valor de password hash del recurso Usuario, validado con las reglas y el ti\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto apellido \"Valor de apellido del recurso Usuario, validado con las reglas y el tipo in\"\n    Texto telefono \"Valor de telefono del recurso Usuario, validado con las reglas y el tipo in\"\n    EstadoUsuario estado \"Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n    FechaHora actualizado_en \"Fecha del servidor del evento actualizado en, conservada con zona horaria.\"\n  }\n  usuario_roles {\n    UUID usuario_id PK, FK \"Referencia a usuarios para posee rol.\"\n    Rol rol PK \"Valor de rol del recurso RolUsuario, validado con las reglas y el tipo indi\"\n    UUID otorgado_por FK \"Referencia a usuarios para autoriza.\"\n    FechaHora otorgado_en \"Fecha del servidor del evento otorgado en, conservada con zona horaria.\"\n    FechaHora revocado_en \"Fecha del servidor del evento revocado en, conservada con zona horaria.\"\n  }\n  clientes {\n    UUID usuario_id PK, FK \"Referencia a usuarios para tiene perfil cliente.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica cliente.\"\n    Booleano perfil_completo \"Valor de perfil completo del recurso PerfilCliente, validado con las reglas\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  makers {\n    UUID id PK \"Identificador estable y opaco de Maker.\"\n    UUID usuario_id FK \"Referencia a usuarios para tiene perfil maker.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica maker.\"\n    Texto nombre_publico \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    EstadoPerfil estado \"Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas.\"\n    JSON horario_disponibilidad \"Valor de horario disponibilidad del recurso Maker, validado con las reglas \"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  sesiones {\n    UUID id PK \"Identificador estable y opaco de Sesion.\"\n    UUID usuario_id FK \"Referencia a usuarios para inicia sesión.\"\n    Texto token_renovacion_hash \"Valor de token renovacion hash del recurso Sesion, validado con las reglas \"\n    FechaHora expira_en \"Fecha del servidor del evento expira en, conservada con zona horaria.\"\n    FechaHora revocada_en \"Fecha del servidor del evento revocada en, conservada con zona horaria.\"\n    Texto cliente_tipo \"Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  ubicaciones {\n    UUID id PK \"Identificador estable y opaco de Ubicacion.\"\n    UUID propietario_id FK \"Referencia a usuarios para registra ubicación.\"\n    Coordenada latitud \"Valor de latitud del recurso Ubicacion, validado con las reglas y el tipo i\"\n    Coordenada longitud \"Valor de longitud del recurso Ubicacion, validado con las reglas y el tipo \"\n    Texto zona_publica \"Valor de zona publica del recurso Ubicacion, validado con las reglas y el t\"\n    Texto precision_publica \"Valor de precision publica del recurso Ubicacion, validado con las reglas y\"\n    OrigenUbicacion origen \"Valor de origen del recurso Ubicacion, validado con las reglas y el tipo in\"\n    Texto proveedor \"Valor de proveedor del recurso Ubicacion, validado con las reglas y el tipo\"\n    Texto referencia_externa \"Valor de referencia externa del recurso Ubicacion, validado con las reglas \"\n    FechaHora confirmada_en \"Fecha del servidor del evento confirmada en, conservada con zona horaria.\"\n    FechaHora valida_hasta \"Valor de valida hasta del recurso Ubicacion, validado con las reglas y el t\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  impresoras {\n    UUID id PK \"Identificador estable y opaco de Impresora.\"\n    UUID maker_id FK \"Referencia a makers para declara impresora.\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto tecnologia \"Valor de tecnologia del recurso Impresora, validado con las reglas y el tip\"\n    Decimal dimension_x_mm \"Valor de dimension x mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_y_mm \"Valor de dimension y mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_z_mm \"Valor de dimension z mm del recurso Impresora, validado con las reglas y el\"\n    EstadoRecurso estado \"Estado vigente de Impresora; sus cambios utilizan las transiciones autoriza\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  materiales {\n    UUID id PK \"Identificador estable y opaco de Material.\"\n    Texto codigo \"Valor de codigo del recurso Material, validado con las reglas y el tipo ind\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano activo \"Indicador vigente de activo utilizado en la autorización o selección de Mat\"\n  }\n  capacidades_impresora {\n    UUID id PK \"Identificador estable y opaco de CapacidadImpresora.\"\n    UUID impresora_id FK \"Referencia a impresoras para admite capacidad.\"\n    UUID material_id FK \"Referencia a materiales para usa material.\"\n    Texto color \"Valor de color del recurso CapacidadImpresora, validado con las reglas y el\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    Texto observaciones \"Texto de observaciones del recurso, sujeto a sus permisos y límites.\"\n  }\n  usuarios ||--o{ usuario_roles : \"posee rol\"\n  usuarios o|--o{ usuario_roles : \"autoriza\"\n  usuarios ||--o| clientes : \"tiene perfil cliente\"\n  ubicaciones o|--o{ clientes : \"ubica cliente\"\n  usuarios ||--o| makers : \"tiene perfil maker\"\n  ubicaciones o|--o{ makers : \"ubica maker\"\n  usuarios ||--o{ sesiones : \"inicia sesión\"\n  usuarios ||--o{ ubicaciones : \"registra ubicación\"\n  makers ||--o{ impresoras : \"declara impresora\"\n  impresoras ||--o{ capacidades_impresora : \"admite capacidad\"\n  materiales ||--o{ capacidades_impresora : \"usa material\"\n",
+      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n    Texto email \"Valor de email del recurso Usuario, validado con las reglas y el tipo indic\"\n    Texto email_normalizado \"Valor de email normalizado del recurso Usuario, validado con las reglas y e\"\n    Texto password_hash \"Valor de password hash del recurso Usuario, validado con las reglas y el ti\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto apellido \"Valor de apellido del recurso Usuario, validado con las reglas y el tipo in\"\n    Texto telefono \"Valor de telefono del recurso Usuario, validado con las reglas y el tipo in\"\n    EstadoUsuario estado \"Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada\"\n    JSON preferencias_avisos \"Preferencias opcionales por tipo de aviso y canal. Valor inicial vacío.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n    FechaHora actualizado_en \"Fecha del servidor del evento actualizado en, conservada con zona horaria.\"\n  }\n  usuario_roles {\n    UUID usuario_id PK, FK \"Referencia a usuarios para posee rol.\"\n    Rol rol PK \"Valor de rol del recurso RolUsuario, validado con las reglas y el tipo indi\"\n    UUID otorgado_por FK \"Referencia a usuarios para autoriza.\"\n    FechaHora otorgado_en \"Fecha del servidor del evento otorgado en, conservada con zona horaria.\"\n    FechaHora revocado_en \"Fecha del servidor del evento revocado en, conservada con zona horaria.\"\n  }\n  clientes {\n    UUID usuario_id PK, FK \"Referencia a usuarios para tiene perfil cliente.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica cliente.\"\n    Booleano perfil_completo \"Valor de perfil completo del recurso PerfilCliente, validado con las reglas\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  makers {\n    UUID id PK \"Identificador estable y opaco de Maker.\"\n    UUID usuario_id FK \"Referencia a usuarios para tiene perfil maker.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica maker.\"\n    Texto nombre_publico \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    EstadoPerfil estado \"Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas.\"\n    JSON horario_disponibilidad \"Valor de horario disponibilidad del recurso Maker, validado con las reglas \"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  sesiones {\n    UUID id PK \"Identificador estable y opaco de Sesion.\"\n    UUID usuario_id FK \"Referencia a usuarios para inicia sesión.\"\n    Texto token_renovacion_hash \"Valor de token renovacion hash del recurso Sesion, validado con las reglas \"\n    FechaHora expira_en \"Fecha del servidor del evento expira en, conservada con zona horaria.\"\n    FechaHora revocada_en \"Fecha del servidor del evento revocada en, conservada con zona horaria.\"\n    Texto cliente_tipo \"Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  ubicaciones {\n    UUID id PK \"Identificador estable y opaco de Ubicacion.\"\n    UUID propietario_id FK \"Referencia a usuarios para registra ubicación.\"\n    Coordenada latitud \"Valor de latitud del recurso Ubicacion, validado con las reglas y el tipo i\"\n    Coordenada longitud \"Valor de longitud del recurso Ubicacion, validado con las reglas y el tipo \"\n    Texto zona_publica \"Valor de zona publica del recurso Ubicacion, validado con las reglas y el t\"\n    Texto precision_publica \"Valor de precision publica del recurso Ubicacion, validado con las reglas y\"\n    OrigenUbicacion origen \"Valor de origen del recurso Ubicacion, validado con las reglas y el tipo in\"\n    Texto proveedor \"Valor de proveedor del recurso Ubicacion, validado con las reglas y el tipo\"\n    Texto referencia_externa \"Valor de referencia externa del recurso Ubicacion, validado con las reglas \"\n    FechaHora confirmada_en \"Fecha del servidor del evento confirmada en, conservada con zona horaria.\"\n    FechaHora valida_hasta \"Valor de valida hasta del recurso Ubicacion, validado con las reglas y el t\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  impresoras {\n    UUID id PK \"Identificador estable y opaco de Impresora.\"\n    UUID maker_id FK \"Referencia a makers para declara impresora.\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto tecnologia \"Valor de tecnologia del recurso Impresora, validado con las reglas y el tip\"\n    Decimal dimension_x_mm \"Valor de dimension x mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_y_mm \"Valor de dimension y mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_z_mm \"Valor de dimension z mm del recurso Impresora, validado con las reglas y el\"\n    EstadoRecurso estado \"Estado vigente de Impresora; sus cambios utilizan las transiciones autoriza\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  materiales {\n    UUID id PK \"Identificador estable y opaco de Material.\"\n    Texto codigo \"Valor de codigo del recurso Material, validado con las reglas y el tipo ind\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano activo \"Indicador vigente de activo utilizado en la autorización o selección de Mat\"\n  }\n  capacidades_impresora {\n    UUID id PK \"Identificador estable y opaco de CapacidadImpresora.\"\n    UUID impresora_id FK \"Referencia a impresoras para admite capacidad.\"\n    UUID material_id FK \"Referencia a materiales para usa material.\"\n    Texto color \"Valor de color del recurso CapacidadImpresora, validado con las reglas y el\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    Texto observaciones \"Texto de observaciones del recurso, sujeto a sus permisos y límites.\"\n  }\n  usuarios ||--o{ usuario_roles : \"posee rol\"\n  usuarios o|--o{ usuario_roles : \"autoriza\"\n  usuarios ||--o| clientes : \"tiene perfil cliente\"\n  ubicaciones o|--o{ clientes : \"ubica cliente\"\n  usuarios ||--o| makers : \"tiene perfil maker\"\n  ubicaciones o|--o{ makers : \"ubica maker\"\n  usuarios ||--o{ sesiones : \"inicia sesión\"\n  usuarios ||--o{ ubicaciones : \"registra ubicación\"\n  makers ||--o{ impresoras : \"declara impresora\"\n  impresoras ||--o{ capacidades_impresora : \"admite capacidad\"\n  materiales ||--o{ capacidades_impresora : \"usa material\"\n",
       "ownedTables": [
         "usuarios",
         "usuario_roles",
@@ -6448,7 +6500,7 @@
     {
       "name": "der-comunicacion",
       "title": "Conversaciones y notificaciones",
-      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  conversaciones {\n    UUID id PK \"Identificador estable y opaco de Conversacion.\"\n    UUID pedido_id FK \"Referencia a pedidos para contextualiza chat.\"\n    Texto estado \"Estado vigente de Conversacion; sus cambios utilizan las transiciones autor\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  participantes_conversacion {\n    UUID conversacion_id PK, FK \"Referencia a conversaciones para habilita participante.\"\n    UUID usuario_id PK, FK \"Referencia a usuarios para participa.\"\n    Texto tipo_participacion \"Valor de tipo participacion del recurso ParticipanteConversacion, validado \"\n    Booleano puede_enviar \"Valor de puede enviar del recurso ParticipanteConversacion, validado con la\"\n    Booleano activo \"Indicador vigente de activo utilizado en la autorización o selección de Par\"\n    FechaHora autorizado_en \"Fecha del servidor del evento autorizado en, conservada con zona horaria.\"\n  }\n  mensajes {\n    UUID id PK \"Identificador estable y opaco de Mensaje.\"\n    UUID conversacion_id FK \"Referencia a conversaciones para contiene mensaje.\"\n    UUID remitente_id FK \"Referencia a participantes_conversacion para autoriza autor.\"\n    Texto clave_cliente \"Identidad estable de la operación o referencia clave cliente.\"\n    Texto texto \"Valor de texto del recurso Mensaje, validado con las reglas y el tipo indic\"\n    FechaHora enviado_en \"Fecha del servidor del evento enviado en, conservada con zona horaria.\"\n  }\n  mensaje_archivos {\n    UUID mensaje_id PK, FK \"Referencia a mensajes para adjunta referencia.\"\n    UUID archivo_id PK, FK \"Referencia a archivos para aporta adjunto.\"\n  }\n  notificaciones {\n    UUID id PK \"Identificador estable y opaco de Notificacion.\"\n    UUID evento_salida_id FK \"Referencia a eventos_salida para origina aviso.\"\n    UUID destinatario_id FK \"Referencia a usuarios para recibe aviso.\"\n    Texto tipo_aviso \"Valor de tipo aviso del recurso Notificacion, validado con las reglas y el \"\n    Texto titulo \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto texto \"Valor de texto del recurso Notificacion, validado con las reglas y el tipo \"\n    Texto recurso_tipo \"Valor de recurso tipo del recurso Notificacion, validado con las reglas y e\"\n    UUID recurso_id \"Valor de recurso id del recurso Notificacion, validado con las reglas y el \"\n    FechaHora leida_en \"Fecha del servidor del evento leida en, conservada con zona horaria.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  envios_notificacion {\n    UUID id PK \"Identificador estable y opaco de EnvioNotificacion.\"\n    UUID notificacion_id FK \"Referencia a notificaciones para se distribuye.\"\n    Texto canal \"Valor de canal del recurso EnvioNotificacion, validado con las reglas y el \"\n    Texto destino_ref \"Valor de destino ref del recurso EnvioNotificacion, validado con las reglas\"\n    Texto proveedor \"Valor de proveedor del recurso EnvioNotificacion, validado con las reglas y\"\n    Texto plantilla_version \"Valor de plantilla version del recurso EnvioNotificacion, validado con las \"\n    Texto referencia_externa \"Valor de referencia externa del recurso EnvioNotificacion, validado con las\"\n    EstadoEnvio estado \"Estado vigente de EnvioNotificacion; sus cambios utilizan las transiciones \"\n    Entero intentos \"Valor de intentos del recurso EnvioNotificacion, validado con las reglas y \"\n    FechaHora proximo_intento_en \"Fecha del servidor del evento proximo intento en, conservada con zona horar\"\n    FechaHora aceptado_en \"Fecha del servidor del evento aceptado en, conservada con zona horaria.\"\n    FechaHora entregado_en \"Fecha del servidor del evento entregado en, conservada con zona horaria.\"\n    Texto ultimo_error \"Valor de ultimo error del recurso EnvioNotificacion, validado con las regla\"\n  }\n  pedidos {\n    UUID id PK, FK \"Identificador estable y opaco de Pedido.\"\n  }\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n  }\n  archivos {\n    UUID id PK \"Identificador estable y opaco de Archivo.\"\n  }\n  eventos_salida {\n    UUID id PK \"Identificador estable y opaco de EventoDominio.\"\n  }\n  pedidos ||--o| conversaciones : \"contextualiza chat\"\n  conversaciones ||--o{ participantes_conversacion : \"habilita participante\"\n  usuarios ||--o{ participantes_conversacion : \"participa\"\n  conversaciones ||--o{ mensajes : \"contiene mensaje\"\n  participantes_conversacion ||--o{ mensajes : \"autoriza autor\"\n  mensajes ||--o{ mensaje_archivos : \"adjunta referencia\"\n  archivos ||--o{ mensaje_archivos : \"aporta adjunto\"\n  eventos_salida ||--o{ notificaciones : \"origina aviso\"\n  usuarios ||--o{ notificaciones : \"recibe aviso\"\n  notificaciones ||--o{ envios_notificacion : \"se distribuye\"\n",
+      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  conversaciones {\n    UUID id PK \"Identificador estable y opaco de Conversacion.\"\n    UUID pedido_id FK \"Referencia a pedidos para contextualiza chat.\"\n    Texto estado \"Estado vigente de Conversacion; sus cambios utilizan las transiciones autor\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  participantes_conversacion {\n    UUID conversacion_id PK, FK \"Referencia a conversaciones para habilita participante.\"\n    UUID usuario_id PK, FK \"Referencia a usuarios para participa.\"\n    Texto tipo_participacion \"Valor de tipo participacion del recurso ParticipanteConversacion, validado \"\n    Booleano puede_enviar \"Valor de puede enviar del recurso ParticipanteConversacion, validado con la\"\n    Booleano activo \"Indicador vigente de activo utilizado en la autorización o selección de Par\"\n    FechaHora autorizado_en \"Fecha del servidor del evento autorizado en, conservada con zona horaria.\"\n  }\n  mensajes {\n    UUID id PK \"Identificador estable y opaco de Mensaje.\"\n    UUID conversacion_id FK \"Referencia a conversaciones para contiene mensaje.\"\n    UUID remitente_id FK \"Referencia a participantes_conversacion para autoriza autor.\"\n    Texto clave_cliente \"Identidad estable de la operación o referencia clave cliente.\"\n    Texto texto \"Valor de texto del recurso Mensaje, validado con las reglas y el tipo indic\"\n    FechaHora enviado_en \"Fecha del servidor del evento enviado en, conservada con zona horaria.\"\n  }\n  mensaje_archivos {\n    UUID mensaje_id PK, FK \"Referencia a mensajes para adjunta referencia.\"\n    UUID archivo_id PK, FK \"Referencia a archivos para aporta adjunto.\"\n  }\n  notificaciones {\n    UUID id PK \"Identificador estable y opaco de Notificacion.\"\n    UUID evento_salida_id FK \"Referencia a eventos_salida para origina aviso.\"\n    UUID destinatario_id FK \"Referencia a usuarios para recibe aviso.\"\n    Texto tipo_aviso \"Valor de tipo aviso del recurso Notificacion, validado con las reglas y el \"\n    Texto titulo \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto texto \"Valor de texto del recurso Notificacion, validado con las reglas y el tipo \"\n    Texto recurso_tipo \"Valor de recurso tipo del recurso Notificacion, validado con las reglas y e\"\n    UUID recurso_id \"Valor de recurso id del recurso Notificacion, validado con las reglas y el \"\n    Booleano visible_en_app \"Visibilidad del aviso en la bandeja fijada al crearlo. Valor inicial verd\"\n    FechaHora leida_en \"Fecha del servidor del evento leida en, conservada con zona horaria.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  envios_notificacion {\n    UUID id PK \"Identificador estable y opaco de EnvioNotificacion.\"\n    UUID notificacion_id FK \"Referencia a notificaciones para se distribuye.\"\n    Texto canal \"Valor de canal del recurso EnvioNotificacion, validado con las reglas y el \"\n    Texto destino_ref \"Valor de destino ref del recurso EnvioNotificacion, validado con las reglas\"\n    Texto proveedor \"Valor de proveedor del recurso EnvioNotificacion, validado con las reglas y\"\n    Texto plantilla_version \"Valor de plantilla version del recurso EnvioNotificacion, validado con las \"\n    Texto referencia_externa \"Valor de referencia externa del recurso EnvioNotificacion, validado con las\"\n    EstadoEnvio estado \"Estado vigente de EnvioNotificacion; sus cambios utilizan las transiciones \"\n    Entero intentos \"Valor de intentos del recurso EnvioNotificacion, validado con las reglas y \"\n    FechaHora proximo_intento_en \"Fecha del servidor del evento proximo intento en, conservada con zona horar\"\n    FechaHora aceptado_en \"Fecha del servidor del evento aceptado en, conservada con zona horaria.\"\n    FechaHora entregado_en \"Fecha del servidor del evento entregado en, conservada con zona horaria.\"\n    Texto ultimo_error \"Valor de ultimo error del recurso EnvioNotificacion, validado con las regla\"\n  }\n  pedidos {\n    UUID id PK, FK \"Identificador estable y opaco de Pedido.\"\n  }\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n  }\n  archivos {\n    UUID id PK \"Identificador estable y opaco de Archivo.\"\n  }\n  eventos_salida {\n    UUID id PK \"Identificador estable y opaco de EventoDominio.\"\n  }\n  pedidos ||--o| conversaciones : \"contextualiza chat\"\n  conversaciones ||--o{ participantes_conversacion : \"habilita participante\"\n  usuarios ||--o{ participantes_conversacion : \"participa\"\n  conversaciones ||--o{ mensajes : \"contiene mensaje\"\n  participantes_conversacion ||--o{ mensajes : \"autoriza autor\"\n  mensajes ||--o{ mensaje_archivos : \"adjunta referencia\"\n  archivos ||--o{ mensaje_archivos : \"aporta adjunto\"\n  eventos_salida ||--o{ notificaciones : \"origina aviso\"\n  usuarios ||--o{ notificaciones : \"recibe aviso\"\n  notificaciones ||--o{ envios_notificacion : \"se distribuye\"\n",
       "ownedTables": [
         "conversaciones",
         "participantes_conversacion",
@@ -6475,7 +6527,7 @@
     {
       "name": "der-operacion",
       "title": "Configuración, operación y auditoría",
-      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  configuraciones_versiones {\n    UUID id PK \"Identificador estable y opaco de ConfiguracionVersion.\"\n    DominioConfig dominio \"Valor de dominio del recurso ConfiguracionVersion, validado con las reglas \"\n    Entero numero \"Número positivo de versión dentro del recurso.\"\n    JSON valores \"Valor de valores del recurso ConfiguracionVersion, validado con las reglas \"\n    UUID creada_por FK \"Referencia a usuarios para versiona configuración.\"\n    Texto motivo \"Texto de motivo del recurso, sujeto a sus permisos y límites.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  activaciones_configuracion {\n    UUID id PK \"Identificador estable y opaco de ActivacionConfiguracion.\"\n    UUID configuracion_version_id FK \"Referencia a configuraciones_versiones para entra en vigencia.\"\n    DominioConfig dominio \"Valor de dominio del recurso ActivacionConfiguracion, validado con las regl\"\n    FechaHora vigente_desde \"Valor de vigente desde del recurso ActivacionConfiguracion, validado con la\"\n    FechaHora vigente_hasta \"Valor de vigente hasta del recurso ActivacionConfiguracion, validado con la\"\n    UUID activada_por FK \"Referencia a usuarios para activa versión.\"\n    UUID cerrada_por FK \"Referencia a usuarios para cierra vigencia.\"\n  }\n  eventos_salida {\n    UUID id PK \"Identificador estable y opaco de EventoDominio.\"\n    Texto tipo \"Valor de tipo del recurso EventoDominio, validado con las reglas y el tipo \"\n    Entero version_contrato \"Valor de version contrato del recurso EventoDominio, validado con las regla\"\n    Texto entidad_tipo \"Valor de entidad tipo del recurso EventoDominio, validado con las reglas y \"\n    UUID entidad_id \"Valor de entidad id del recurso EventoDominio, validado con las reglas y el\"\n    Texto version_entidad \"Valor de version entidad del recurso EventoDominio, validado con las reglas\"\n    Texto correlacion_id \"Valor de correlacion id del recurso EventoDominio, validado con las reglas \"\n    Texto clave_evento \"Identidad estable de la operación o referencia clave evento.\"\n    JSON payload_minimo \"Valor de payload minimo del recurso EventoDominio, validado con las reglas \"\n    FechaHora ocurrido_en \"Fecha del servidor del evento ocurrido en, conservada con zona horaria.\"\n    EstadoTrabajo estado_publicacion \"Valor de estado publicacion del recurso EventoDominio, validado con las reg\"\n  }\n  trabajos {\n    UUID id PK \"Identificador estable y opaco de Trabajo.\"\n    UUID evento_salida_id FK \"Referencia a eventos_salida para programa trabajo.\"\n    Texto tipo \"Valor de tipo del recurso Trabajo, validado con las reglas y el tipo indica\"\n    Texto clave_deduplicacion \"Identidad estable de la operación o referencia clave deduplicacion.\"\n    JSON payload \"Valor de payload del recurso Trabajo, validado con las reglas y el tipo ind\"\n    EstadoTrabajo estado \"Estado vigente de Trabajo; sus cambios utilizan las transiciones autorizada\"\n    Entero intentos \"Valor de intentos del recurso Trabajo, validado con las reglas y el tipo in\"\n    FechaHora proxima_ejecucion_en \"Fecha del servidor del evento proxima ejecucion en, conservada con zona hor\"\n    FechaHora reservado_hasta \"Valor de reservado hasta del recurso Trabajo, validado con las reglas y el \"\n    Texto reservado_por \"Valor de reservado por del recurso Trabajo, validado con las reglas y el ti\"\n    Texto ultimo_error \"Valor de ultimo error del recurso Trabajo, validado con las reglas y el tip\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  auditoria {\n    UUID id PK \"Identificador estable y opaco de RegistroAuditoria.\"\n    UUID actor_usuario_id FK \"Referencia a usuarios para audita acción.\"\n    Texto origen_proceso \"Valor de origen proceso del recurso RegistroAuditoria, validado con las reg\"\n    Texto entidad_tipo \"Valor de entidad tipo del recurso RegistroAuditoria, validado con las regla\"\n    UUID entidad_id \"Valor de entidad id del recurso RegistroAuditoria, validado con las reglas \"\n    Texto accion \"Valor de accion del recurso RegistroAuditoria, validado con las reglas y el\"\n    Texto resultado \"Valor de resultado del recurso RegistroAuditoria, validado con las reglas y\"\n    Texto motivo \"Texto de motivo del recurso, sujeto a sus permisos y límites.\"\n    Texto correlacion_id \"Valor de correlacion id del recurso RegistroAuditoria, validado con las reg\"\n    JSON datos_pertinentes \"Valor de datos pertinentes del recurso RegistroAuditoria, validado con las \"\n    FechaHora ocurrido_en \"Fecha del servidor del evento ocurrido en, conservada con zona horaria.\"\n  }\n  casos_soporte {\n    UUID id PK \"Identificador estable y opaco de CasoSoporte.\"\n    UUID reportado_por FK \"Referencia a usuarios para reporta caso.\"\n    UUID pedido_id FK \"Referencia a pedidos para involucra pedido.\"\n    UUID solicitud_id FK \"Referencia a solicitudes para involucra solicitud.\"\n    UUID pago_id FK \"Referencia a pagos para involucra pago.\"\n    UUID asignado_a FK \"Referencia a usuarios para atiende caso.\"\n    Texto tipo \"Valor de tipo del recurso CasoSoporte, validado con las reglas y el tipo in\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    EstadoCaso estado \"Estado vigente de CasoSoporte; sus cambios utilizan las transiciones autori\"\n    Texto resolucion \"Valor de resolucion del recurso CasoSoporte, validado con las reglas y el t\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n    FechaHora cerrado_en \"Fecha del servidor del evento cerrado en, conservada con zona horaria.\"\n  }\n  aceptaciones_condiciones {\n    UUID id PK \"Identificador estable y opaco de AceptacionCondiciones.\"\n    UUID usuario_id FK \"Referencia a usuarios para acepta condiciones.\"\n    Texto documento_tipo \"Valor de documento tipo del recurso AceptacionCondiciones, validado con las\"\n    Texto documento_version \"Valor de documento version del recurso AceptacionCondiciones, validado con \"\n    Texto documento_hash \"Valor de documento hash del recurso AceptacionCondiciones, validado con las\"\n    Texto referencia_documento \"Valor de referencia documento del recurso AceptacionCondiciones, validado c\"\n    Texto finalidad \"Valor de finalidad del recurso AceptacionCondiciones, validado con las regl\"\n    FechaHora aceptada_en \"Fecha del servidor del evento aceptada en, conservada con zona horaria.\"\n  }\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n  }\n  pedidos {\n    UUID id PK, FK \"Identificador estable y opaco de Pedido.\"\n  }\n  solicitudes {\n    UUID id PK, FK \"Identificador estable y opaco de Solicitud.\"\n  }\n  pagos {\n    UUID id PK \"Identificador estable y opaco de Pago.\"\n  }\n  usuarios ||--o{ configuraciones_versiones : \"versiona configuración\"\n  configuraciones_versiones ||--o{ activaciones_configuracion : \"entra en vigencia\"\n  usuarios ||--o{ activaciones_configuracion : \"activa versión\"\n  usuarios o|--o{ activaciones_configuracion : \"cierra vigencia\"\n  eventos_salida o|--o{ trabajos : \"programa trabajo\"\n  usuarios o|--o{ auditoria : \"audita acción\"\n  usuarios ||--o{ casos_soporte : \"reporta caso\"\n  pedidos o|--o{ casos_soporte : \"involucra pedido\"\n  solicitudes o|--o{ casos_soporte : \"involucra solicitud\"\n  pagos o|--o{ casos_soporte : \"involucra pago\"\n  usuarios o|--o{ casos_soporte : \"atiende caso\"\n  usuarios ||--o{ aceptaciones_condiciones : \"acepta condiciones\"\n",
+      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  configuraciones_versiones {\n    UUID id PK \"Identificador estable y opaco de ConfiguracionVersion.\"\n    DominioConfig dominio \"Valor de dominio del recurso ConfiguracionVersion, validado con las reglas \"\n    Entero numero \"Número positivo de versión dentro del recurso.\"\n    JSON valores \"Valor de valores del recurso ConfiguracionVersion, validado con las reglas \"\n    UUID creada_por FK \"Referencia a usuarios para versiona configuración.\"\n    Texto motivo \"Texto de motivo del recurso, sujeto a sus permisos y límites.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  activaciones_configuracion {\n    UUID id PK \"Identificador estable y opaco de ActivacionConfiguracion.\"\n    UUID configuracion_version_id FK \"Referencia a configuraciones_versiones para entra en vigencia.\"\n    DominioConfig dominio \"Valor de dominio del recurso ActivacionConfiguracion, validado con las regl\"\n    FechaHora vigente_desde \"Valor de vigente desde del recurso ActivacionConfiguracion, validado con la\"\n    FechaHora vigente_hasta \"Valor de vigente hasta del recurso ActivacionConfiguracion, validado con la\"\n    UUID activada_por FK \"Referencia a usuarios para activa versión.\"\n    UUID cerrada_por FK \"Referencia a usuarios para cierra vigencia.\"\n  }\n  eventos_salida {\n    UUID id PK \"Identificador estable y opaco de EventoDominio.\"\n    Texto tipo \"Valor de tipo del recurso EventoDominio, validado con las reglas y el tipo \"\n    Entero version_contrato \"Valor de version contrato del recurso EventoDominio, validado con las regla\"\n    Texto entidad_tipo \"Valor de entidad tipo del recurso EventoDominio, validado con las reglas y \"\n    UUID entidad_id \"Valor de entidad id del recurso EventoDominio, validado con las reglas y el\"\n    Texto version_entidad \"Valor de version entidad del recurso EventoDominio, validado con las reglas\"\n    Texto correlacion_id \"Valor de correlacion id del recurso EventoDominio, validado con las reglas \"\n    Texto clave_evento \"Identidad estable de la operación o referencia clave evento.\"\n    JSON payload_minimo \"Valor de payload minimo del recurso EventoDominio, validado con las reglas \"\n    FechaHora ocurrido_en \"Fecha del servidor del evento ocurrido en, conservada con zona horaria.\"\n    EstadoTrabajo estado_publicacion \"Valor de estado publicacion del recurso EventoDominio, validado con las reg\"\n  }\n  trabajos {\n    UUID id PK \"Identificador estable y opaco de Trabajo.\"\n    UUID evento_salida_id FK \"Referencia a eventos_salida para programa trabajo.\"\n    Texto tipo \"Valor de tipo del recurso Trabajo, validado con las reglas y el tipo indica\"\n    Texto clave_deduplicacion \"Identidad estable de la operación o referencia clave deduplicacion.\"\n    JSON payload \"Valor de payload del recurso Trabajo, validado con las reglas y el tipo ind\"\n    EstadoTrabajo estado \"Estado vigente de Trabajo; sus cambios utilizan las transiciones autorizada\"\n    Entero intentos \"Valor de intentos del recurso Trabajo, validado con las reglas y el tipo in\"\n    FechaHora proxima_ejecucion_en \"Fecha del servidor del evento proxima ejecucion en, conservada con zona hor\"\n    FechaHora reservado_hasta \"Valor de reservado hasta del recurso Trabajo, validado con las reglas y el \"\n    Texto reservado_por \"Valor de reservado por del recurso Trabajo, validado con las reglas y el ti\"\n    Texto ultimo_error \"Valor de ultimo error del recurso Trabajo, validado con las reglas y el tip\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  auditoria {\n    UUID id PK \"Identificador estable y opaco de RegistroAuditoria.\"\n    UUID actor_usuario_id FK \"Referencia a usuarios para audita acción.\"\n    Texto origen_proceso \"Valor de origen proceso del recurso RegistroAuditoria, validado con las reg\"\n    Texto entidad_tipo \"Valor de entidad tipo del recurso RegistroAuditoria, validado con las regla\"\n    UUID entidad_id \"Valor de entidad id del recurso RegistroAuditoria, validado con las reglas \"\n    Texto accion \"Valor de accion del recurso RegistroAuditoria, validado con las reglas y el\"\n    Texto resultado \"Valor de resultado del recurso RegistroAuditoria, validado con las reglas y\"\n    Texto motivo \"Texto de motivo del recurso, sujeto a sus permisos y límites.\"\n    Texto correlacion_id \"Valor de correlacion id del recurso RegistroAuditoria, validado con las reg\"\n    JSON datos_pertinentes \"Valor de datos pertinentes del recurso RegistroAuditoria, validado con las \"\n    FechaHora ocurrido_en \"Fecha del servidor del evento ocurrido en, conservada con zona horaria.\"\n  }\n  casos_soporte {\n    UUID id PK \"Identificador estable y opaco de CasoSoporte.\"\n    UUID reportado_por FK \"Referencia a usuarios para reporta caso.\"\n    UUID pedido_id FK \"Referencia a pedidos para involucra pedido.\"\n    UUID revision_id FK, UK \"Revisión del caso único de seguimiento.\"\n    UUID solicitud_id FK \"Referencia a solicitudes para involucra solicitud.\"\n    UUID pago_id FK \"Referencia a pagos para involucra pago.\"\n    UUID asignado_a FK \"Referencia a usuarios para atiende caso.\"\n    Texto tipo \"Valor de tipo del recurso CasoSoporte, validado con las reglas y el tipo in\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    EstadoCaso estado \"Estado vigente de CasoSoporte; sus cambios utilizan las transiciones autori\"\n    Entero version \"Versión del caso para validar intervenciones concurrentes.\"\n    Texto resolucion \"Valor de resolucion del recurso CasoSoporte, validado con las reglas y el t\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n    FechaHora cerrado_en \"Fecha del servidor del evento cerrado en, conservada con zona horaria.\"\n  }\n  aceptaciones_condiciones {\n    UUID id PK \"Identificador estable y opaco de AceptacionCondiciones.\"\n    UUID usuario_id FK \"Referencia a usuarios para acepta condiciones.\"\n    Texto documento_tipo \"Valor de documento tipo del recurso AceptacionCondiciones, validado con las\"\n    Texto documento_version \"Valor de documento version del recurso AceptacionCondiciones, validado con \"\n    Texto documento_hash \"Valor de documento hash del recurso AceptacionCondiciones, validado con las\"\n    Texto referencia_documento \"Valor de referencia documento del recurso AceptacionCondiciones, validado c\"\n    Texto finalidad \"Valor de finalidad del recurso AceptacionCondiciones, validado con las regl\"\n    FechaHora aceptada_en \"Fecha del servidor del evento aceptada en, conservada con zona horaria.\"\n  }\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n  }\n  pedidos {\n    UUID id PK, FK \"Identificador estable y opaco de Pedido.\"\n  }\n  revisiones_resultado {\n    UUID id PK \"Identificador estable y opaco de RevisionResultado.\"\n    UUID pedido_id FK \"Referencia a pedidos para tiene revisión.\"\n  }\n  solicitudes {\n    UUID id PK, FK \"Identificador estable y opaco de Solicitud.\"\n  }\n  pagos {\n    UUID id PK \"Identificador estable y opaco de Pago.\"\n  }\n  usuarios ||--o{ configuraciones_versiones : \"versiona configuración\"\n  configuraciones_versiones ||--o{ activaciones_configuracion : \"entra en vigencia\"\n  usuarios ||--o{ activaciones_configuracion : \"activa versión\"\n  usuarios o|--o{ activaciones_configuracion : \"cierra vigencia\"\n  eventos_salida o|--o{ trabajos : \"programa trabajo\"\n  usuarios o|--o{ auditoria : \"audita acción\"\n  usuarios ||--o{ casos_soporte : \"reporta caso\"\n  pedidos o|--o{ casos_soporte : \"involucra pedido\"\n  revisiones_resultado o|--o| casos_soporte : \"vincula revisión\"\n  solicitudes o|--o{ casos_soporte : \"involucra solicitud\"\n  pagos o|--o{ casos_soporte : \"involucra pago\"\n  usuarios o|--o{ casos_soporte : \"atiende caso\"\n  usuarios ||--o{ aceptaciones_condiciones : \"acepta condiciones\"\n",
       "ownedTables": [
         "configuraciones_versiones",
         "activaciones_configuracion",
@@ -6495,10 +6547,11 @@
         "aceptaciones_condiciones",
         "usuarios",
         "pedidos",
+        "revisiones_resultado",
         "solicitudes",
         "pagos"
       ],
-      "relationshipCount": 12,
+      "relationshipCount": 13,
       "summary": false
     },
     {

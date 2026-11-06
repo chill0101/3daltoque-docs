@@ -4,13 +4,17 @@ title: "Arquitectura de implementación"
 
 # Arquitectura de implementación
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.1. Fecha: 5 de noviembre de 2026.
 
 ## Enfoque adoptado
 
 Backend FastAPI y Python en un monolito modular con separación hexagonal simple. Web y React Native comparten la API y los recorridos de cliente y maker; administración utiliza Web.
 
 El módulo comercial cobra el servicio de membresía mediante Checkout Pro y concede períodos temporales de acceso, conforme a ADR-002 y RF-12.1 a RF-12.15.
+
+## Autenticación con Better Auth
+
+Better Auth gestiona credenciales, sesiones y enlaces de verificación en un componente Node/TypeScript. Se propone alojarlo junto a Web en Next.js. FastAPI obtiene la identidad desde el adaptador de sesión y aplica estado de cuenta, roles y permisos por recurso. La verificación del correo se comprueba antes de habilitar al maker. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) registra el flujo y la adaptación requerida de contratos y persistencia.
 
 ## Componentes
 
@@ -46,7 +50,7 @@ El catálogo lógico conserva versiones de solicitudes/ofertas y evidencia por r
 
 PostgreSQL/PostGIS y SQLAlchemy/Alembic permanecen como propuestas por confirmar. Los archivos son privados y el análisis se aísla en un worker del mismo proyecto. Outbox y tareas persistidas permiten reintentos sin perder el hecho de negocio.
 
-El despliegue contempla frontend, API, worker, base de datos y almacenamiento de objetos. La selección del hosting requiere presupuesto, contratos de proveedores y objetivos operativos, registrados en PD-11 y PD-13.
+El despliegue contempla frontend, componente Node/TypeScript de Better Auth, API FastAPI, worker, base de datos y almacenamiento de objetos. La selección del hosting requiere presupuesto, contratos de proveedores y objetivos operativos, registrados en PD-11 y PD-13.
 
 ## Seguridad e integración
 

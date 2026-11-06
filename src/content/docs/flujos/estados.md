@@ -60,10 +60,16 @@ stateDiagram-v2
   state "Borrador" as borrador
   state "Abierta" as abierta
   state "Cerrada por selección" as cerrada
+  state "Vencida" as vencida
+  state "Borrador retirado" as borrador_retirado
   [*] --> borrador
-  borrador --> abierta: Datos y archivo habilitados
+  borrador --> abierta: Envío con datos y archivo habilitados
+  borrador --> borrador_retirado: 90 días desde el último guardado
+  borrador_retirado --> [*]
   abierta --> cerrada: Aceptación válida y atómica de una oferta
   cerrada --> [*]
+  abierta --> vencida: 7 días desde el envío sin pedido
+  vencida --> [*]
   note right of abierta
     Solo se invitan makers compatibles y habilitados.
     El chat se habilita al confirmar el pedido.
@@ -98,7 +104,7 @@ stateDiagram-v2
   activa --> cerrada: Se confirma otra oferta
   note right of activa
     La vigencia de oferta y el acceso del maker son condiciones distintas.
-    El acuerdo nuevo requiere acceso comercial vigente.
+    El acuerdo requiere solicitud abierta y acceso comercial vigente.
   end note
 ```
 
@@ -124,6 +130,7 @@ stateDiagram-v2
   state "Aprobado para entrega" as aprobado
   state "Entrega coordinada" as coordinado
   state "Entregado" as entregado
+  state "Cancelado" as cancelado
   [*] --> confirmado: Oferta aceptada o producto confirmado
   confirmado --> produccion: Inicio autorizado del trabajo
   produccion --> revision: Presentar revisión con evidencia
@@ -132,6 +139,8 @@ stateDiagram-v2
   revision --> aprobado: Cliente aprueba revisión vigente
   aprobado --> coordinado: Acordar encuentro
   coordinado --> entregado: Cliente autenticado confirma recepción
+  coordinado --> cancelado: Soporte cancela por inasistencia según PD-08
+  cancelado --> [*]
   entregado --> [*]
   note right of revision
     El silencio no aprueba.
@@ -178,6 +187,8 @@ stateDiagram-v2
 
 [Abrir SVG](/3daltoque-docs/documentos/1c6a0d8124ee-estados-entrega.svg) · [Fuente editable](/3daltoque-docs/documentos/e91a1c54d94b-estados-entrega.mmd)
 
+Si una de las partes falta al último encuentro acordado y se agotaron las dos reprogramaciones, soporte puede cancelar el pedido tras revisar el incidente y registrar el motivo. La cancelación requiere un caso vinculado al pedido, el permiso específico y una recepción pendiente. El sistema conserva el último acuerdo y registra la cancelación en el historial del pedido y en auditoría.
+
 <details class="doc-accordion">
 <summary>Fuente editable</summary>
 
@@ -188,9 +199,12 @@ stateDiagram-v2
   state "Pendiente de coordinar" as pendiente
   state "Coordinada" as coordinada
   state "Completada" as completada
+  state "Cancelada" as cancelada
   [*] --> pendiente
   pendiente --> coordinada: Revisión aprobada y contraparte acepta versión de encuentro
   coordinada --> completada: Cliente autenticado confirma recepción
+  coordinada --> cancelada: Soporte cancela el pedido según PD-08
+  cancelada --> [*]
   completada --> [*]
   note right of coordinada
     Encuentro personal sin custodia de terceros.
@@ -326,6 +340,7 @@ stateDiagram-v2
 stateDiagram-v2
   [*] --> Borrador
   Borrador --> Publicado: Condiciones válidas y acceso comercial
+  Borrador --> Retirado: 90 días desde el último guardado
   Publicado --> Pausado: Maker pausa
   Pausado --> Publicado: Maker habilitado confirma
   Publicado --> Retirado: Maker retira

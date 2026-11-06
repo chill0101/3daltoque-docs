@@ -23,11 +23,11 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
 | 1 | Cliente | Carga STL, unidad, material, color, cantidad, urgencia y descripción. |
-| 2 | Sistema | Autoriza el archivo, verifica su integridad y análisis y devuelve las validaciones. |
+| 2 | Sistema | Autoriza la carga y comprueba el tamaño, el formato y la integridad. El análisis geométrico para estimar se ejecuta sobre el STL habilitado. |
 | 3 | Cliente | Corrige los datos, confirma la ubicación y solicita enviar. |
 | 4 | Sistema | Comprueba titularidad, archivo habilitado, parámetros y límites. |
-| 5 | Sistema | Conserva la versión, calcula la estimación orientativa y registra método y supuestos o su causa de indisponibilidad. |
-| 6 | Sistema | Selecciona un grupo limitado por capacidad, material, ubicación y acceso comercial y conserva la ronda. |
+| 5 | Sistema | Conserva la versión y aplica la fórmula de PD-03 si hay volumen utilizable, unidad y configuración. Registra el método y los supuestos o la causa de indisponibilidad y continúa hacia cotización por makers. |
+| 6 | Sistema | Filtra por capacidad, material, acceso comercial y cobertura de CABA. Aplica el radio inicial configurable de 10 km, ordena los candidatos elegibles y selecciona hasta cinco según el máximo inicial configurable. Conserva radio, máximo y versión de configuración de la ronda. |
 | 7 | Sistema | Registra invitaciones y eventos de aviso de forma duradera. |
 | 8 | Cliente | Consulta la solicitud enviada y su estado. |
 
@@ -35,9 +35,12 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
-| 2.A | Sistema | Archivo inválido, análisis pendiente o cuota excedida: Informa el estado, conserva el borrador y permite corregir o recuperar la transferencia. |
-| 5.B | Sistema | Faltan datos o parámetros para estimar: Informa el motivo y mantiene disponible la cotización por makers. |
-| 6.C | Sistema | Grupo insuficiente o mapas indisponibles: Registra el resultado y aplica únicamente la ampliación o alternativa textual configuradas. |
+| 2.A | Sistema | Si el archivo es inválido, la validación sigue pendiente o se supera una cuota, informa el estado y conserva el borrador para corregir o recuperar la transferencia. |
+| 5.B | Sistema | Si faltan datos para estimar o se agota el tiempo de análisis, informa el motivo y permite continuar a cotización por makers con el STL habilitado. |
+| 6.C | Sistema | Si el grupo está incompleto, registra los candidatos disponibles dentro del radio inicial. Si queda vacío, informa el resultado y habilita Volver a buscar mientras siga abierta. Si falla el mapa, ofrece la entrada textual y la vista de lista. |
+| 6.D | Sistema | Al cumplir 90 días desde el último guardado, retira el borrador y rechaza su envío. |
+
+El cliente puede editar los datos de fabricación de una solicitud personalizada en borrador o, tras el envío, mientras siga abierta, dentro de su plazo y hasta la primera oferta publicada. La primera oferta publicada cierra esa edición durante el resto de la solicitud, aunque después venza. Una edición de fabricación posterior al envío crea una versión y una ronda para las nuevas especificaciones. Las invitaciones anteriores pierden su capacidad de recibir ofertas. El backend conserva la fecha de vencimiento original de la solicitud. Una solicitud personalizada enviada permanece abierta hasta que el cliente confirma una oferta y se crea el pedido, o hasta que vence a los siete días del envío confirmado.
 
 ## Datos y controles
 

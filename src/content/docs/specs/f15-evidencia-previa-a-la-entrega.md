@@ -31,7 +31,7 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 
 | Campo | Tipo | Obligatoriedad | Validación |
 | --- | --- | --- | --- |
-| archivo_ids | Lista UUID | Sí | Al menos la evidencia habilitada exigida por política |
+| archivo_ids | Lista UUID | Sí | De una a cinco imágenes JPEG o PNG habilitadas como evidencia para el mismo pedido, con referencias distintas. |
 | revision_id | UUID | Según operación | Pertenencia al pedido |
 | comentario_maker | Texto | Opcional | Límite configurado |
 
@@ -43,8 +43,8 @@ El servidor comprueba actor, propiedad, estado y acción en cada operación. La 
 | 2 | Sistema | Entrega sus condiciones y acciones permitidas. |
 | 3 | Maker | Actualiza el avance mediante una transición autorizada. |
 | 4 | Sistema | Valida versión y transición y conserva el historial. |
-| 5 | Maker | Carga fotos o videos y presenta una revisión del resultado. |
-| 6 | Sistema | Comprueba archivos, conserva la revisión exacta y registra la solicitud de revisión al cliente. |
+| 5 | Maker | Carga imágenes JPEG o PNG y presenta una revisión del resultado. |
+| 6 | Sistema | Comprueba que la revisión tenga hasta cinco archivos habilitados, conserva la versión exacta y registra la solicitud al cliente. |
 | 7 | Cliente | Consulta el avance y la evidencia autorizada. |
 
 Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-04](/3daltoque-docs/analisis/casos/cu-04-produccion-y-evidencia/).
@@ -55,7 +55,8 @@ Los casos relacionados detallan los otros recorridos de la funcionalidad: [CU-04
 | --- | --- |
 | ALT-F15-01 | Paso 4. Transición inválida o versión anterior: Conserva el estado y solicita recuperar el pedido vigente. |
 | ALT-F15-02 | Paso 6. Archivo pendiente o rechazado: Mantiene la revisión en preparación y detalla la recuperación. |
-| ALT-F15-03 | Paso 5. Presenta una corrección posterior: Crea una revisión nueva y conserva evidencia y decisiones anteriores. |
+| ALT-F15-03 | Paso 5. Tras las observaciones del cliente, presenta una corrección y crea otra revisión. El sistema conserva evidencia y decisiones anteriores. |
+| ALT-F15-04 | Paso 5. Si la revisión vigente espera la decisión del cliente, el backend rechaza una presentación nueva con 409 y conserva la revisión vigente. La misma regla se aplica mientras haya un caso de seguimiento. |
 
 La salida de cada error sigue [los contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/).
 
@@ -65,14 +66,16 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| POST | `/pedidos/{id}/evidencias` | archivo_ids y observación | revision_id y estado | Maker del pedido y archivos habilitados. |
-| POST | `/revisiones/{id}/presentar` | versión y clave estable | revisión pendiente y aviso | Maker titular y evidencia completa. |
+| POST | `/pedidos/{id}/evidencias` | archivo_ids y observación | revision_id y estado | Maker del pedido y hasta cinco imágenes JPEG o PNG habilitadas como evidencia para ese pedido. |
+| POST | `/revisiones/{id}/presentar` | versión y clave estable | revisión pendiente y aviso | Maker titular, evidencia completa y revisión anterior resuelta mediante observaciones cuando corresponda. |
 
 ## 7. Datos, consistencia e integración
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `revisiones_resultado`, `evidencias`, `archivos`.
 
 El maker presenta evidencia que F23 ha habilitado y que queda vinculada a su revisión. El sistema conserva la referencia del archivo y coloca el resultado en pendiente de revisión. El cliente consulta exactamente la versión presentada y decide mediante F22.
+
+Las evidencias de la revisión se conservan durante 12 meses desde el cierre del pedido completado o desde su cancelación. El acceso posterior para atender reclamos abiertos u obligaciones legales vigentes queda restringido según [PD-12](/3daltoque-docs/planificacion/parametros/#pd-12).
 
 ## 8. Componentes y estados
 
@@ -93,7 +96,7 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1) | 1. Una presentación válida conserva archivos, pedido, maker y fecha de la revisión.<br>2. Un usuario que no sea el maker autorizado no presenta evidencia en ese pedido.<br>3. El cliente puede consultar los mismos archivos que componen la revisión a aprobar. |
+| [RF-06.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-1) | 1. Una presentación válida conserva archivos, pedido, maker y fecha de la revisión.<br>2. Un usuario que no sea el maker autorizado no presenta evidencia en ese pedido.<br>3. El cliente puede consultar los mismos archivos que componen la revisión a aprobar.<br>4. Los participantes conservan acceso autorizado a las evidencias durante 12 meses desde el cierre del pedido completado o desde su cancelación, según PD-12.<br>5. La revisión solo admite referencias a imágenes JPEG o PNG habilitadas como evidencia para el mismo pedido. |
 | [RF-06.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-06-2) | 1. Una evidencia final válida genera una revisión pendiente identificable.<br>2. Una presentación sin evidencia requerida no habilita la revisión final ni la entrega.<br>3. El cliente ve la revisión actual y el maker puede conocer que espera su respuesta. |
 
 ## 10. Decisiones y dependencias

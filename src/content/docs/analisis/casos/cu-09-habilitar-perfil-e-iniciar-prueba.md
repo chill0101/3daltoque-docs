@@ -4,7 +4,7 @@ title: "CU-09 Habilitar perfil e iniciar prueba"
 
 # CU-09 Habilitar perfil e iniciar prueba
 
-Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y Ruiz).
+Fecha: 4 de noviembre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y Ruiz).
 
 | Campo de la plantilla | Contenido |
 | --- | --- |
@@ -13,7 +13,7 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Actores | Maker, Sistema |
 | Tipo | Primario; objetivo funcional de sus actores. |
 | Referencias | F03, F11. [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2), [RF-12.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-4), [RF-11.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-11-1). |
-| Precondición | Rol maker, contacto y zona de referencia completos; al menos una impresora activa con capacidad válida. |
+| Precondición | Rol maker, correo electrónico verificado, contacto y zona de referencia completos; al menos una impresora activa con capacidad válida. |
 | Postcondición | Perfil habilitado y único beneficio inicial conservado. |
 | Descripción | El maker solicita habilitar su perfil productivo. |
 | Resumen | Perfil habilitado y único beneficio inicial conservado. |
@@ -23,7 +23,7 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
 | 1 | Maker | Revisa perfil, capacidades y condiciones del beneficio inicial. |
-| 2 | Sistema | Valida titularidad, datos mínimos y asignación fundadora si existe. |
+| 2 | Sistema | Valida titularidad, correo verificado, datos mínimos y asignación fundadora si existe. |
 | 3 | Maker | Confirma la habilitación. |
 | 4 | Sistema | Conserva la primera habilitación y concede una única prueba general o fundadora. |
 | 5 | Sistema | Devuelve inicio, vencimiento y condiciones aplicadas. |
@@ -37,6 +37,8 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | 4.C | Sistema | Existe asignación fundadora válida: Concede el beneficio fundador como alternativa al general. |
 
 ## Datos y controles
+
+El perfil maker se incorpora después del registro como cliente mediante CU-21. Su creación conserva el estado pendiente y la prueba sin iniciar. Un correo pendiente de verificación impide habilitar al maker y recibir o aceptar trabajos. La prueba gratuita comienza con la primera habilitación válida.
 
 Las entradas, validaciones y contratos de este recorrido se desarrollan en [F03](/3daltoque-docs/specs/f03-gestion-de-perfil-de-maker/), [F11](/3daltoque-docs/specs/f11-membresia-y-abono/). La autorización se verifica sobre cada recurso y las mutaciones sensibles conservan versión y clave estable.
 

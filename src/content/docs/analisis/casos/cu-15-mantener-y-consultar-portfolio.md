@@ -22,8 +22,8 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 
 | Nro | Ejecutor | Paso o Actividad |
 | --- | --- | --- |
-| 1 | Maker | Crea un trabajo con título, descripción y medios de presentación. |
-| 2 | Sistema | Comprueba titularidad, archivo habilitado y autorización de publicación. |
+| 1 | Maker | Crea un trabajo con título, descripción y hasta cinco imágenes JPEG o PNG autorizadas con la configuración inicial. |
+| 2 | Sistema | Comprueba titularidad, archivos habilitados, autorización de publicación y cantidad de fotos. |
 | 3 | Maker | Publica el trabajo. |
 | 4 | Sistema | Conserva el registro y habilita sus derivados de presentación. |
 | 5 | Visitante | Consulta el portfolio del maker y abre un trabajo. |

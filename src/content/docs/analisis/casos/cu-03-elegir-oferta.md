@@ -27,7 +27,7 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | 3 | Cliente | Selecciona una versión y confirma su aceptación con una clave estable. |
 | 4 | Sistema | Comprueba propietario, versión, vigencia, maker habilitado y participantes distintos. |
 | 5 | Sistema | Crea el pedido y sus condiciones, cierra alternativas y habilita su conversación en una transacción. |
-| 6 | Sistema | Registra los avisos posteriores y devuelve el pedido confirmado. |
+| 6 | Sistema | Registra el evento para avisar a cliente y maker en la app y por correo según la preferencia de cada cuenta. Devuelve el pedido confirmado. |
 
 ## Flujos Alternativos
 

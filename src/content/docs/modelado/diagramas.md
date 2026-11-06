@@ -218,6 +218,7 @@ classDiagram
   CompraMembresia --> PagoAbono : registra cobro
   PagoAbono --> IntentoPago : conserva
   CasoSoporte --> Pedido : interviene con permiso
+  RevisionResultado "0..1" -- "0..1" CasoSoporte : agrupa seguimiento
   ReporteActividad --> Pedido : consulta proyección
   ReporteActividad --> Valoracion : consulta agregado
 ```

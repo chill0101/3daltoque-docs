@@ -25,9 +25,9 @@ Fecha: 25 de octubre de 2026. Autoría: equipo 3DAltoque (Bernardez, Cariaga y R
 | 1 | Cliente | Abre el producto y elige una cantidad admitida. |
 | 2 | Sistema | Presenta versión, configuración, precio unitario, total calculado, moneda, plazo y condiciones de entrega y pago directo. |
 | 3 | Cliente | Confirma las condiciones con una clave estable. |
-| 4 | Sistema | Recupera primero un resultado de esa clave y contenido o valida publicación actual, cantidad y acceso comercial. |
+| 4 | Sistema | Recupera primero un resultado de esa clave y contenido. Para un pedido nuevo, valida publicación actual, cantidad, acceso comercial y cobertura en CABA con la referencia confirmada del perfil cliente y la ubicación operativa del maker. |
 | 5 | Sistema | Materializa solicitud de catálogo, oferta de referencia y pedido con sus condiciones en una transacción; habilita la conversación. |
-| 6 | Sistema | Registra avisos y devuelve el pedido confirmado. |
+| 6 | Sistema | Registra el evento para avisar a cliente y maker en la app y por correo según la preferencia de cada cuenta. Devuelve el pedido confirmado. |
 | 7 | Cliente y maker | Continúan por producción, revisión expresa y entrega del mismo circuito. |
 
 ## Flujos Alternativos

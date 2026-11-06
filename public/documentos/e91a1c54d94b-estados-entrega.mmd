@@ -4,9 +4,12 @@ stateDiagram-v2
   state "Pendiente de coordinar" as pendiente
   state "Coordinada" as coordinada
   state "Completada" as completada
+  state "Cancelada" as cancelada
   [*] --> pendiente
   pendiente --> coordinada: Revisión aprobada y contraparte acepta versión de encuentro
   coordinada --> completada: Cliente autenticado confirma recepción
+  coordinada --> cancelada: Soporte cancela el pedido según PD-08
+  cancelada --> [*]
   completada --> [*]
   note right of coordinada
     Encuentro personal sin custodia de terceros.

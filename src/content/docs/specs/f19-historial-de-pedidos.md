@@ -51,7 +51,8 @@ La API comprueba actor, recurso, estado y versión en cada operación.
 | --- | --- |
 | ALT-F19-01 | Paso 2. Intervalo o cursor inválidos: Informa el error y permite reiniciar la consulta. |
 | ALT-F19-02 | Paso 3. No hay resultados: Presenta un estado vacío conservando los filtros. |
-| ALT-F19-03 | Paso 5. Membresía vencida: Mantiene el historial y detalle de los pedidos propios existentes. |
+| ALT-F19-03 | Paso 5. Si la membresía está vencida, conserva la consulta de pedidos propios según la ventana de acceso de PD-12. |
+| ALT-F19-04 | Paso 5. Al cumplirse el plazo de consulta, el pedido queda fuera del listado y detalle habituales. Los datos necesarios para una excepción se conservan bajo acceso restringido. |
 
 ## 6. Contrato de API propuesto
 
@@ -59,13 +60,15 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| GET | `/pedidos` | rol, estado, origen, desde, hasta, referencia y cursor | pedidos propios y cursor | Ámbito autorizado y orden estable. |
+| GET | `/pedidos` | rol, estado, origen, desde, hasta, referencia y cursor | pedidos propios y cursor | Ámbito autorizado, ventana de acceso de PD-12 y orden estable. |
 
 ## 7. Datos, consistencia e integración
 
+La cuenta puede tener perfiles cliente y maker. La colección compartida recibe rol obligatorio y FastAPI filtra por el papel autorizado del usuario en cada pedido. El cursor y la caché conservan ese contexto; cambiar de perfil recupera sus listas y capacidades.
+
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `pedidos`, `historial_pedidos`, `condiciones_pedido`.
 
-El sistema debe mostrar al cliente el estado vigente de su solicitud y las acciones disponibles. Cuando exista un plazo definido debe mostrar su vencimiento o tiempo restante de forma consistente con la hora del servidor. La expiración global de solicitudes, sus etiquetas de estado y la ampliación de búsqueda quedan sujetas a PD-04 y PD-05. El sistema debe conservar el historial de transiciones del pedido, con estado anterior/nuevo, actor o proceso, fecha y motivo pertinente. Las modificaciones administrativas también se registran. El historial es consultable según permisos y se conserva conforme a la política de retención. El participante consulta pedidos propios con filtros de estado, intervalo de fecha, referencia y origen personalizado o catálogo. La paginación utiliza orden estable por fecha e identidad. El detalle conserva condiciones, revisiones y entrega autorizadas, incluso después de vencer la membresía del maker. Un usuario ajeno no obtiene el pedido mediante filtros ni identificadores directos.
+El sistema debe mostrar al cliente el estado vigente de su solicitud y las acciones disponibles. Cuando exista un plazo definido debe mostrar su vencimiento o tiempo restante de forma consistente con la hora del servidor. La búsqueda conserva el radio inicial cuando faltan candidatos y muestra el resultado según PD-04. Una solicitud personalizada enviada permanece abierta hasta que el cliente confirma una oferta y se crea el pedido, o hasta que vence a los siete días del envío confirmado. El backend guarda la fecha de vencimiento al enviar la solicitud. Desde esa fecha, la solicitud deja de admitir cotizaciones, cambios de condiciones y aceptaciones nuevas. Las ofertas asociadas se consultan como historial durante el plazo de PD-12. El sistema debe conservar el historial de transiciones del pedido, con estado anterior/nuevo, actor o proceso, fecha y motivo pertinente. Las modificaciones administrativas también se registran. El historial y los datos de una solicitud personalizada enviada que vence sin generar un pedido se conservan durante 12 meses desde el vencimiento registrado en `expira_en`. El plazo abarca las ofertas asociadas en su consulta histórica. Al vencer, se retira el acceso habitual. Los datos necesarios para un reclamo abierto o una obligación legal vigente se conservan con acceso restringido mientras dure la excepción. El acceso al historial de pedidos completados y cancelados y su conservación siguen el plazo y las excepciones de PD-12. El participante consulta pedidos propios con filtros de estado, intervalo de fecha, referencia y origen personalizado o catálogo. La paginación utiliza orden estable por fecha e identidad. El detalle incluye condiciones, revisiones y entrega autorizadas durante el período de consulta, incluso después de vencer la membresía del maker. Cliente y maker pueden consultar el historial de un pedido completado durante 12 meses desde su cierre. En pedidos cancelados, el plazo es de 12 meses desde la fecha de cancelación registrada en el historial. Vencido el plazo, el sistema retira el pedido de las consultas habituales y conserva bajo acceso restringido los datos necesarios mientras haya un reclamo abierto o una obligación legal vigente. Un usuario ajeno no obtiene el pedido mediante filtros ni identificadores directos.
 ## 8. Componentes y estados
 
 [DS05](/3daltoque-docs/design-system/02-componentes/#ds05), [DS19](/3daltoque-docs/design-system/02-componentes/#ds19), [DS20](/3daltoque-docs/design-system/02-componentes/#ds20), [DS28](/3daltoque-docs/design-system/02-componentes/#ds28), [DS40](/3daltoque-docs/design-system/02-componentes/#ds40).
@@ -84,9 +87,9 @@ Estados funcionales: carga, contenido, vacío, validación, permiso, conflicto, 
 
 | RF | Criterio de éxito |
 | --- | --- |
-| [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4) | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. La ausencia de un plazo aprobado no se reemplaza por una fecha inventada. |
+| [RF-02.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-02-4) | 1. El cliente consulta el mismo estado que determina la API.<br>2. Los plazos mostrados corresponden a los almacenados y no habilitan operaciones ya vencidas.<br>3. Si el cliente deja sus ofertas sin aceptar, la solicitud permanece abierta hasta el vencimiento a los siete días del envío confirmado. El cliente puede consultar su fecha y estado de cierre. |
 | [RF-05.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-05-3) | 1. Cada transición permitida deja un registro ligado al pedido.<br>2. Una transición rechazada no figura como realizada y conserva la evidencia operativa correspondiente.<br>3. La consulta permite reconstruir quién cambió el pedido y cuándo sin exponer secretos. |
-| [RF-16.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-16-1) | 1. Los filtros y el cursor devuelven únicamente pedidos propios en orden estable.<br>2. Pedidos finalizados y de catálogo conservan sus condiciones históricas.<br>3. Un usuario ajeno recibe una denegación sin datos del pedido. |
+| [RF-16.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-16-1) | 1. Los filtros y el cursor devuelven únicamente pedidos propios en orden estable.<br>2. Los pedidos propios completados o cancelados conservan sus condiciones históricas durante 12 meses desde el cierre o la cancelación, respectivamente.<br>3. Un usuario ajeno recibe una denegación sin datos del pedido.<br>4. Al vencer el plazo, el pedido deja de aparecer en la lista y el detalle habituales. Solo se conservan con acceso restringido los datos necesarios para reclamos abiertos u obligaciones legales vigentes. |
 
 ## 10. Decisiones y dependencias
 

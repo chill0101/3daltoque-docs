@@ -10,7 +10,7 @@ Fecha: 25 de octubre de 2026. Versión: 2.0.
 
 Aplicar las mismas reglas del negocio y recuperar estados consistentes en ambos canales.
 
-La API FastAPI expone las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías y seguimiento. Los clientes consultan y recuperan mensajes y estados persistidos. Las suscripciones o consultas de actualización respetan los permisos del recurso y toleran reconexión y eventos repetidos. El backend determina importes, vigencias y transiciones.
+La API FastAPI expone las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías y seguimiento. Los clientes consultan y recuperan mensajes y estados persistidos. Los clientes consultan las novedades del chat y los estados cada 10 segundos mientras la pantalla está activa. El backend determina importes, vigencias y transiciones.
 
 | Referencia | Definición |
 | --- | --- |
@@ -68,7 +68,7 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `eventos_salida`, `trabajos`, `sesiones`.
 
-La API FastAPI expone las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías y seguimiento. Los clientes consultan y recuperan mensajes y estados persistidos. Las suscripciones o consultas de actualización respetan los permisos del recurso y toleran reconexión y eventos repetidos. El backend determina importes, vigencias y transiciones.
+La API FastAPI expone las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías y seguimiento. Los clientes consultan y recuperan mensajes y estados persistidos. GET /eventos devuelve cambios autorizados por cursor. Al reconectar, el cliente recupera cambios desde el cursor conservado y deduplica eventos por ID. El backend determina importes, vigencias y transiciones.
 
 ## 8. Componentes y estados
 
@@ -80,7 +80,7 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 | ID | Dado | Cuando | Entonces |
 | --- | --- | --- | --- |
-| AC-F24-01 | Clientes Web y Mobile autorizados sobre el mismo recurso | Consultan su versión y acciones | Interpretan el mismo contrato de importes, fechas, estados y permisos. |
+| AC-F24-01 | Clientes Web y Mobile con roles y recursos equivalentes | Ejecutan el mismo flujo compartido y consultan el resultado | Aplican los mismos permisos y obtienen acuerdos, importes, fechas, resultados y cambios de estado equivalentes. |
 | AC-F24-02 | Cliente con cursor anterior y conexión recuperada | Consulta cambios y el recurso vigente | Reconcilia la información persistida y deduplica eventos por identidad. |
 | AC-F24-PERM | Falta el permiso requerido por una operación | Se solicita la acción directamente al backend | La operación se deniega y conserva la privacidad del recurso. |
 | AC-F24-INPUT | Entrada incompatible con la política vigente | Se confirma la operación | Se informa el campo o condición a corregir y se conserva el estado válido. |
@@ -94,6 +94,6 @@ Aplicar carga, vacío, error, conflicto, permiso, pendiente externo y recuperaci
 
 ## 10. Decisiones y dependencias
 
-Reglas funcionales: [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/). Configuración y servicios: [PD-01](/3daltoque-docs/planificacion/parametros/#pd-01), [PD-11](/3daltoque-docs/planificacion/parametros/#pd-11), [PD-13](/3daltoque-docs/planificacion/parametros/#pd-13).
+Reglas funcionales: [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/). La configuración se detalla en [PD-01](/3daltoque-docs/planificacion/parametros/#pd-01), [PD-06](/3daltoque-docs/planificacion/parametros/#pd-06), [PD-11](/3daltoque-docs/planificacion/parametros/#pd-11) y [PD-13](/3daltoque-docs/planificacion/parametros/#pd-13).
 
 La [matriz de cobertura](/3daltoque-docs/specs/02-matriz-de-cobertura/) y los [casos de prueba](/3daltoque-docs/analisis/pruebas-y-trazabilidad/) relacionan esta funcionalidad con sus condiciones y escenarios.

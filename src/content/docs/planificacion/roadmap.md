@@ -4,15 +4,15 @@ title: "Roadmap de 3DAltoque"
 
 # Roadmap de 3DAltoque
 
-Última actualización: **1 de noviembre de 2026**. Cada etapa se cierra con su evidencia y la fecha acordada por el equipo.
+Última actualización: **6 de noviembre de 2026**. Cada etapa se cierra con su evidencia y la fecha acordada por el equipo.
 
 ## Etapas y criterios de avance
 
 | Etapa | Definición documentada | Trabajo pendiente para cerrar la etapa |
 | --- | --- | --- |
-| M0. Producto y organización | Alcance, repositorios y modelo de membresía prepaga. | Acordar precio, moneda, cupo y convocatoria de fundadores; asignar responsables y completar datos académicos. |
+| M0. Producto y organización | Alcance, repositorios y modelo de membresía prepaga. | Asignar responsables y completar datos académicos. |
 | M1. Análisis | 68 RF, 19 RNF, 25 CU, reglas, trazabilidad y referencias visuales Web/Mobile. | Resolver los parámetros de negocio abiertos y registrar la evaluación de los recorridos con usuarios. |
-| M2. Diseño y base técnica | Arquitectura modular FastAPI, clases, DER, modelo lógico, seis integraciones y OpenAPI con 77 operaciones. | Seleccionar ORM y proveedores de hosting, mapas, geocodificación, almacenamiento y avisos; crear y probar migraciones al implementar. |
+| M2. Diseño y base técnica | Arquitectura modular FastAPI, clases, DER, modelo lógico, siete integraciones y OpenAPI con 83 operaciones funcionales. | Adaptar contratos, modelo de identidad y diagramas según [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/). Elegir proveedores de infraestructura y comprobar las migraciones durante la implementación. |
 | M3. Identidad y acceso comercial | Specs, contratos y pruebas de perfil, habilitación, prueba general y fundadores. | Implementar los flujos y comprobar cupo concurrente, vigencias y permisos para trabajos nuevos y existentes. |
 | M4. Abono propio | Checkout Pro, webhooks, conciliación, renovación manual e idempotencia especificados. | Configurar la cuenta de prueba; implementar y comprobar cobro, notificaciones, concesión de acceso y devolución; comprobar el modo de simulación de PD-15. |
 | M5. Marketplace | Solicitudes, matching, ofertas, catálogo y pedido directo especificados y trazados. | Implementar el recorrido integrado y ejecutar las pruebas de aceptación concurrente y condiciones vigentes. |
@@ -23,9 +23,9 @@ Las etapas pueden solaparse. La integración del abono se explora desde el anál
 
 ## Decisiones y datos por completar
 
-- **Comerciales:** precio y moneda del plan; cupo, ventana de convocatoria y vigencia del beneficio fundador; regla de calendario, cuenta de cobro y tratamiento de devoluciones. Los 30/90 días conservan su carácter de valores iniciales configurables en PD-09 y PD-10.
-- **Operación del negocio:** método y coeficientes de estimación, radio y precisión de búsqueda, plazos de recordatorio y escalamiento, reprogramaciones, retención de datos y criterios de moderación. Cada acuerdo se registra con valor, responsable, fecha y fundamento en su PD.
-- **Implementación:** ORM y versiones, hosting y proveedores definitivos; credenciales por entorno y capacidad del piloto. Los contratos de la API, sesiones, recuperación de eventos y perfil de calidad ya tienen una definición de referencia.
+- **Comerciales.** Configurar la cuenta receptora por entorno. El precio inicial, la renovación, las devoluciones y el programa de fundadores están definidos en PD-09 y PD-10.
+- **Operación del negocio.** Calibrar el cargo base y los coeficientes de estimación con cinco piezas. Completar la clasificación de avisos, los criterios de valoración y moderación, las reglas de conservación pendientes y las intervenciones de soporte para otros incidentes de revisión.
+- **Implementación.** Seleccionar ORM, versiones, alojamiento y proveedores. Configurar credenciales por entorno, dominio y remitente de Resend, y capacidad del piloto. El contrato de API y el perfil de calidad guían las verificaciones.
 - **Organización académica:** responsables nominales, dedicación semanal, fechas de parciales y simulacro, docente y condiciones de entrega.
 
 El [registro de parámetros](/3daltoque-docs/planificacion/parametros/) detalla PD-01 a PD-15 y las referencias operativas disponibles.
@@ -38,7 +38,7 @@ Cada hito requiere responsable, fecha acordada, documento/versiones y evidencia 
 
 La [revisión funcional](/3daltoque-docs/planificacion/revision-funcional/) reúne 25 funcionalidades y 25 CU, incluido catálogo con pedido directo y chat desde el pedido confirmado. La [matriz de cobertura](/3daltoque-docs/specs/02-matriz-de-cobertura/) enlaza RF/RNF, funcionalidades, CU, vistas, contratos, datos y CP. El contrato OpenAPI y su validación documental forman parte del paquete publicado.
 
-El control documental verificó referencias y cobertura, 28 fichas de prueba detalladas y ocho PNF. La ejecución sobre la aplicación agregará versión, entorno, resultados y evidencia a los 160 escenarios planificados. Las referencias visuales comprenden 110 composiciones de Figma y doce vistas HTML complementarias; la evaluación con usuarios requiere su registro de resultados.
+El control documental verificó referencias y cobertura, 29 fichas de prueba detalladas y ocho PNF. La ejecución sobre la aplicación agregará versión, entorno, resultados y evidencia a los 161 escenarios planificados. Las referencias visuales comprenden 110 composiciones de Figma y doce vistas HTML complementarias; la evaluación con usuarios requiere su registro de resultados.
 
 ## Paquete documental disponible
 
