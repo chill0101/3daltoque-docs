@@ -4,7 +4,7 @@ title: "Casos de prueba y trazabilidad"
 
 # Casos de prueba y trazabilidad funcional
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.0. Fecha: 7 de noviembre de 2026.
 
 El catálogo define precondiciones, datos, acciones y resultados esperados para los 68 RF y 25 casos de uso. El estado de ejecución de cada escenario se registra por separado de la cobertura documental.
 
@@ -169,7 +169,7 @@ La corrección de una contraseña rechazada durante una recuperación conserva l
 | CP-RF-12-8-01 | Principal | RF-12.8 | CU-11 | Compra pagada y resultado verificado | Procesar concesión de acceso | Cada compra pagada origina como máximo un período de acceso. | Planificado |
 | CP-RF-12-8-02 | Alternativo | RF-12.8 | CU-11 | Webhook repetido | Repetir la misma concesión | Un único período por compra. | Planificado |
 | CP-RF-12-9-01 | Principal | RF-12.9 | CU-11 | Acceso vencido y condiciones publicadas | Iniciar manualmente una compra y su checkout | Renovar exige acceso vencido y una acción expresa; el período comienza al confirmar el pago. | Planificado |
-| CP-RF-12-9-02 | Alternativo | RF-12.9 | CU-11 | Concesiones concurrentes | Confirmarlas sobre la misma membresía | Intervalos serializados y conservación de todos los días contratados. | Planificado |
+| CP-RF-12-9-02 | Alternativo | RF-12.9 | CU-11 | Membresía con un período vigente, luego reloj en su vencimiento | Intentar comprar antes del vencimiento; volver a comprar y verificar el pago después de vencer | El primer intento se rechaza por acceso vigente. La compra elegible concede un solo período de 30 días desde la confirmación del pago. | Planificado |
 | CP-RF-12-10-01 | Principal | RF-12.10 | CU-02, CU-03, CU-14, CU-17, CU-19, CU-20 | Maker vencido con pedido activo y producto publicado | Continuar chat y revisión del pedido existente | Un maker vencido no confirma un trabajo nuevo mediante una petición directa que eluda la interfaz. | Planificado |
 | CP-RF-12-10-02 | Alternativo | RF-12.10 | CU-02, CU-03, CU-14, CU-17, CU-19, CU-20 | Nuevo pedido del producto o nueva aceptación | Intentar confirmar otro trabajo | Trabajo nuevo restringido y pedido existente operativo. | Planificado |
 | CP-RF-12-11-01 | Principal | RF-12.11 | CU-08, CU-23 | Acceso cercano a vencer y frecuencia de prueba | Procesar aviso de vencimiento | Los destinatarios son autorizados y los reintentos no duplican efectos comerciales. | Planificado |
@@ -226,7 +226,7 @@ La corrección de una contraseña rechazada durante una recuperación conserva l
 | CP-X-08 | Integración funcional | RF-04.6, RF-04.4 | CU-25, CU-03 | Oferta con contraoferta pendiente | Aceptar versión original mientras se resuelve el cambio | Un acuerdo consistente o conflicto; ninguna versión retroactiva altera el pedido. | Planificado |
 | CP-X-09 | Integración funcional | RF-10.3, RF-10.4 | CU-24 | Archivo usado por revisión aprobada o producto contratado | Intentar reemplazar sus bytes con una autorización anterior | Contenido histórico conservado y acceso temporal revalidado. | Planificado |
 | CP-X-10 | Integración funcional | RF-12.3 | CU-10 | Una plaza fundadora disponible | Asignar a dos makers concurrentemente | Cupo respetado y una concesión inicial por maker. | Planificado |
-| CP-X-11 | Integración funcional | RF-12.9 | CU-11 | Dos compras distintas confirmadas para la misma membresía | Procesar sus concesiones concurrentemente | Ambas compras conservadas e intervalos serializados sin perder días. | Planificado |
+| CP-X-11 | Integración funcional | RF-12.9 | CU-11 | Membresía vencida y dos compras distintas con pago confirmado por concurrencia | Procesar ambas concesiones bajo la guarda de membresía y repetir sus eventos | Se conserva un único período elegible; el pago adicional queda registrado para conciliación autorizada. Los reintentos recuperan el resultado y mantienen fechas y evidencias. | Planificado |
 | CP-X-12 | Integración funcional | RF-13.3, RF-14.2, RF-10.3 | CU-19, CU-15, CU-24 | Catálogo y portfolio con originales privados | Consultar como visitante y retirar una publicación | Únicamente derivados autorizados visibles y retiro aplicado a su presentación. | Planificado |
 | CP-X-13 | Integración funcional | RF-06.7, RF-07.2 | CU-06, CU-07 | Inasistencia revisada, cupo agotado y recepción pendiente | Confirmar recepción y cancelar desde soporte en paralelo | Una única salida del pedido. La operación incompatible recibe 409. Si se confirma la cancelación, CP-029 comprueba los avisos obligatorios en app y correo. | Planificado |
 
@@ -234,11 +234,11 @@ La corrección de una contraseña rechazada durante una recuperación conserva l
 
 | RF | Funcionalidades | Casos de uso | Datos principales | Pruebas |
 | --- | --- | --- | --- | --- |
-| RF-01.1 | F01, F03 | CU-13 | `usuarios`, `usuario_roles`, `clientes`, `makers`, `sesiones` | CP-RF-01-1-01, CP-RF-01-1-02 |
+| RF-01.1 | F01, F03 | CU-13 | `usuarios`, `usuario_roles`, `clientes`, `makers`, `auth_sessions` | CP-RF-01-1-01, CP-RF-01-1-02 |
 | RF-01.2 | F03 | CU-09, CU-21 | `makers`, `impresoras`, `materiales`, `capacidades_impresora` | CP-RF-01-2-01, CP-RF-01-2-02 |
 | RF-01.3 | F02 | CU-22 | `clientes`, `ubicaciones` | CP-RF-01-3-01, CP-RF-01-3-02 |
-| RF-01.4 | F01 | CU-13 | `usuarios`, `usuario_roles`, `clientes`, `makers`, `sesiones` | CP-RF-01-4-01, CP-RF-01-4-02 |
-| RF-01.5 | F01 | CU-13 | `usuarios`, `usuario_roles`, `clientes`, `makers`, `sesiones` | CP-RF-01-5-01, CP-RF-01-5-02 |
+| RF-01.4 | F01 | CU-13 | `usuarios`, `usuario_roles`, `clientes`, `makers`, `auth_sessions` | CP-RF-01-4-01, CP-RF-01-4-02 |
+| RF-01.5 | F01 | CU-13 | `usuarios`, `usuario_roles`, `clientes`, `makers`, `auth_sessions` | CP-RF-01-5-01, CP-RF-01-5-02 |
 | RF-02.1 | F05 | CU-01 | `solicitudes`, `solicitud_versiones`, `archivos`, `analisis_archivos` | CP-RF-02-1-01, CP-RF-02-1-02 |
 | RF-02.2 | F05 | CU-01, CU-24 | `solicitudes`, `solicitud_versiones`, `archivos`, `analisis_archivos` | CP-RF-02-2-01, CP-RF-02-2-02 |
 | RF-02.3 | F05 | CU-01 | `solicitudes`, `solicitud_versiones`, `archivos`, `analisis_archivos` | CP-RF-02-3-01, CP-RF-02-3-02 |
@@ -274,8 +274,8 @@ La corrección de una contraseña rechazada durante una recuperación conserva l
 | RF-10.2 | F23 | CU-01, CU-04, CU-24 | `archivos`, `analisis_archivos` | CP-RF-10-2-01, CP-RF-10-2-02 |
 | RF-10.3 | F23 | CU-01, CU-04, CU-24 | `archivos`, `analisis_archivos` | CP-RF-10-3-01, CP-RF-10-3-02, CP-X-09, CP-X-12 |
 | RF-10.4 | F23 | CU-24 | `archivos`, `analisis_archivos` | CP-RF-10-4-01, CP-RF-10-4-02, CP-X-09 |
-| RF-11.1 | F24 | CU-01, CU-02, CU-03, CU-04, CU-05, CU-06, CU-07, CU-08, CU-09, CU-10, CU-11, CU-12, CU-13, CU-14, CU-15, CU-16, CU-17, CU-18, CU-19, CU-20, CU-21, CU-22, CU-23, CU-24, CU-25 | `eventos_salida`, `trabajos`, `sesiones` | CP-RF-11-1-01, CP-RF-11-1-02 |
-| RF-11.2 | F13, F24 | CU-14 | `conversaciones`, `participantes_conversacion`, `mensajes`, `mensaje_archivos`, `eventos_salida`, `trabajos`, `sesiones` | CP-RF-11-2-01, CP-RF-11-2-02 |
+| RF-11.1 | F24 | CU-01, CU-02, CU-03, CU-04, CU-05, CU-06, CU-07, CU-08, CU-09, CU-10, CU-11, CU-12, CU-13, CU-14, CU-15, CU-16, CU-17, CU-18, CU-19, CU-20, CU-21, CU-22, CU-23, CU-24, CU-25 | `eventos_salida`, `trabajos`, `auth_sessions` | CP-RF-11-1-01, CP-RF-11-1-02 |
+| RF-11.2 | F13, F24 | CU-14 | `conversaciones`, `participantes_conversacion`, `mensajes`, `mensaje_archivos`, `eventos_salida`, `trabajos`, `auth_sessions` | CP-RF-11-2-01, CP-RF-11-2-02 |
 | RF-12.1 | F11, F20 | CU-12 | `planes_membresia_versiones`, `membresias_maker`, `compras_membresia`, `periodos_membresia`, `pagos`, `eventos_proveedor`, `casos_soporte`, `auditoria`, `configuraciones_versiones` | CP-RF-12-1-01, CP-RF-12-1-02, CP-MEM-10 |
 | RF-12.2 | F03, F11 | CU-09 | `makers`, `impresoras`, `materiales`, `capacidades_impresora`, `planes_membresia_versiones`, `membresias_maker`, `compras_membresia`, `periodos_membresia`, `pagos`, `eventos_proveedor` | CP-RF-12-2-01, CP-RF-12-2-02, CP-MEM-01 |
 | RF-12.3 | F11, F20 | CU-10 | `planes_membresia_versiones`, `membresias_maker`, `compras_membresia`, `periodos_membresia`, `pagos`, `eventos_proveedor`, `casos_soporte`, `auditoria`, `configuraciones_versiones` | CP-RF-12-3-01, CP-RF-12-3-02, CP-MEM-02, CP-MEM-03, CP-X-10 |

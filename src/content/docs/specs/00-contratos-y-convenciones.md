@@ -4,7 +4,7 @@ title: "Convenciones y contratos compartidos"
 
 # Convenciones y contratos compartidos
 
-Fecha: 25 de octubre de 2026. Versión: 2.0.
+Fecha: 7 de noviembre de 2026. Versión: 2.0.
 
 ## Fuente y alcance de decisión
 
@@ -14,8 +14,8 @@ Las reglas funcionales se fundamentan en el catálogo F01 a F25, los RF/RNF, ADR
 
 | Elemento | Contrato propuesto |
 | --- | --- |
-| Prefijo | /api/v1 |
-| Identidades | UUID opaco; propiedad y pertenencia se verifican en servidor. |
+| Prefijo | /api/v1 para FastAPI; /api/auth para Better Auth en Node/TypeScript. |
+| Identidades | UUID de negocio vinculado de forma única al ID opaco de Better Auth; propiedad y pertenencia se verifican en servidor. |
 | Importes | Cadena decimal y moneda separada; cálculo y redondeo en servidor. La interfaz conserva la precisión del contrato. |
 | Fechas | ISO 8601 en UTC; zona horaria identificada al presentar horarios de encuentro. |
 | Vigencia | Intervalos de acceso [inicio, fin); fecha efectiva del servidor. |
@@ -38,6 +38,8 @@ Los clientes separan caché, filtros y borradores por usuario, contexto y recurs
 El cambio de contexto mantiene intactos estados del pedido, vigencias y concesiones. La confirmación de un pedido exige identidades diferentes entre cliente y usuario titular del maker. El cierre de sesión limpia los datos locales asociados.
 
 ## Éxito y error
+
+Los DTO y errores de esta sección corresponden a FastAPI. Las ocho operaciones nativas de identidad conservan los campos y errores `code` y `message` de Better Auth. El cliente los traduce a estados de interfaz según F01. Una identidad con alta local pendiente recibe `409 profile_setup_required` desde FastAPI y continúa el vínculo de Cliente.
 
 Las respuestas de éxito identifican el recurso, su versión, estado y acciones permitidas cuando corresponda. Las operaciones aceptadas para procesamiento devuelven su referencia y una forma de consultar el resultado.
 

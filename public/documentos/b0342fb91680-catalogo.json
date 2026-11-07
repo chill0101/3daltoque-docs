@@ -1,13 +1,13 @@
 {
-  "version": "3.1",
-  "fecha": "2026-11-05",
-  "decision": "ADR-002, ADR-003 y PD-01/DC-16",
+  "version": "3.2",
+  "fecha": "2026-11-07",
+  "decision": "ADR-002 y ADR-003 conservan membresías, catálogo y chat; ADR-004 incorpora cuatro tablas técnicas de Better Auth y el vínculo único con usuarios de negocio.",
   "schema": [
     {
       "name": "usuarios",
       "module": "identidad",
       "concept": "Usuario",
-      "description": "Identidad y contacto común; la autorización depende de roles y del recurso.",
+      "description": "Cuenta de negocio vinculada de forma única a la identidad de Better Auth; conserva perfiles, estado local y preferencias.",
       "cols": [
         {
           "name": "id",
@@ -16,22 +16,22 @@
           "note": "Identificador estable y opaco de Usuario."
         },
         {
+          "name": "identidad_externa_id",
+          "type": "Texto",
+          "required": true,
+          "note": "Identificador opaco de auth_users; enlace único establecido desde la sesión validada por servidor."
+        },
+        {
           "name": "email",
           "type": "Texto",
           "required": true,
-          "note": "Valor de email del recurso Usuario, validado con las reglas y el tipo indicados."
+          "note": "Proyección de contacto de la identidad validada; Better Auth es la autoridad del correo y de su verificación. Se sincroniza desde el proveedor, sin aceptar una sustitución desde el perfil."
         },
         {
           "name": "email_normalizado",
           "type": "Texto",
           "required": true,
-          "note": "Valor de email normalizado del recurso Usuario, validado con las reglas y el tipo indicados."
-        },
-        {
-          "name": "password_hash",
-          "type": "Texto",
-          "required": true,
-          "note": "Valor de password hash del recurso Usuario, validado con las reglas y el tipo indicados."
+          "note": "Proyección de contacto de la identidad validada; Better Auth es la autoridad del correo y de su verificación. Se sincroniza desde el proveedor, sin aceptar una sustitución desde el perfil."
         },
         {
           "name": "nombre",
@@ -82,14 +82,30 @@
       "uniques": [
         [
           "email_normalizado"
+        ],
+        [
+          "identidad_externa_id"
         ]
       ],
-      "foreign": [],
+      "foreign": [
+        {
+          "cols": [
+            "identidad_externa_id"
+          ],
+          "target": "auth_users",
+          "refs": [
+            "id"
+          ],
+          "label": "vincula identidad"
+        }
+      ],
       "rules": [
-        "No se almacena contraseña en texto plano. La normalización del identificador debe documentarse.",
+        "Better Auth administra credenciales y sesiones. FastAPI consulta su vigencia mediante el adaptador y aplica permisos sobre el UUID de negocio.",
         "Nombre/apellido/contacto obligatorios por perfil se cierran en PD-01; la nulabilidad del borrador no habilita publicar un perfil incompleto.",
         "Bloquear o anonimizar no elimina por cascada acuerdos ni evidencias financieras.",
-        "La cuenta guarda solo los valores elegidos para canales opcionales. Los pares ausentes heredan la política vigente."
+        "La cuenta guarda solo los valores elegidos para canales opcionales. Los pares ausentes heredan la política vigente.",
+        "POST /identidad/perfil crea usuario, rol Cliente, perfil y aceptación de condiciones en una transacción idempotente por identidad_externa_id. Un alta de identidad interrumpida retoma este paso.",
+        "La normalización y unicidad del correo siguen la identidad de Better Auth. La proyección local se reconcilia antes de operar con el contacto actualizado; los cambios de correo utilizan el flujo del proveedor."
       ],
       "requirements": [
         "RF-01.1",
@@ -349,52 +365,52 @@
       "status": "Base"
     },
     {
-      "name": "sesiones",
+      "name": "auth_users",
       "module": "identidad",
-      "concept": "Sesion",
-      "description": "Sesiones y renovación revocable según la estrategia de identidad.",
+      "concept": "IdentidadBetterAuth",
+      "description": "Identidad de acceso administrada por Better Auth; corresponde a su modelo user.",
       "cols": [
         {
           "name": "id",
-          "type": "UUID",
-          "required": true,
-          "note": "Identificador estable y opaco de Sesion."
-        },
-        {
-          "name": "usuario_id",
-          "type": "UUID",
-          "required": true,
-          "note": "Referencia a usuarios para inicia sesión."
-        },
-        {
-          "name": "token_renovacion_hash",
-          "type": "Texto",
-          "required": false,
-          "note": "Valor de token renovacion hash del recurso Sesion, validado con las reglas y el tipo indicados."
-        },
-        {
-          "name": "expira_en",
-          "type": "FechaHora",
-          "required": true,
-          "note": "Fecha del servidor del evento expira en, conservada con zona horaria."
-        },
-        {
-          "name": "revocada_en",
-          "type": "FechaHora",
-          "required": false,
-          "note": "Fecha del servidor del evento revocada en, conservada con zona horaria."
-        },
-        {
-          "name": "cliente_tipo",
           "type": "Texto",
           "required": true,
-          "note": "Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo indicados."
+          "note": "Campo técnico id del esquema de Better Auth; propiedad del componente de identidad."
         },
         {
-          "name": "creado_en",
+          "name": "name",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico name del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "email",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico email del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "emailVerified",
+          "type": "Booleano",
+          "required": true,
+          "note": "Estado de verificación consultado en el proveedor antes de habilitar al maker."
+        },
+        {
+          "name": "image",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico image del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "createdAt",
           "type": "FechaHora",
           "required": true,
-          "note": "Fecha del servidor del evento creado en, conservada con zona horaria."
+          "note": "Campo técnico createdAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "updatedAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad."
         }
       ],
       "pk": [
@@ -402,31 +418,284 @@
       ],
       "uniques": [
         [
-          "token_renovacion_hash"
+          "email"
+        ]
+      ],
+      "foreign": [],
+      "rules": [
+        "Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.",
+        "Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs."
+      ],
+      "requirements": [
+        "RF-01.1",
+        "RF-01.4",
+        "RF-01.5",
+        "RNF-04"
+      ],
+      "status": "Diseño lógico · ADR-004"
+    },
+    {
+      "name": "auth_sessions",
+      "module": "identidad",
+      "concept": "SesionBetterAuth",
+      "description": "Sesión opaca administrada por Better Auth; corresponde a su modelo session.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico id del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "userId",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico userId del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "expiresAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico expiresAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "token",
+          "type": "Texto",
+          "required": true,
+          "note": "Secreto de sesión del proveedor. Persistencia técnica restringida; el adaptador preserva su transporte seguro."
+        },
+        {
+          "name": "createdAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Inicio de la sesión; base de la guarda administrativa de ocho horas."
+        },
+        {
+          "name": "updatedAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "ipAddress",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico ipAddress del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "userAgent",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico userAgent del esquema de Better Auth; propiedad del componente de identidad."
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [
+        [
+          "token"
         ]
       ],
       "foreign": [
         {
           "cols": [
-            "usuario_id"
+            "userId"
           ],
-          "target": "usuarios",
+          "target": "auth_users",
           "refs": [
             "id"
           ],
-          "label": "inicia sesión"
+          "label": "mantiene sesión"
         }
       ],
       "rules": [
-        "El token bruto no se persiste ni se devuelve desde listados. Expiración/revocación se fijan en PD-01.",
-        "La unicidad del hash aplica a valores presentes; cerrar una sesión no supone cierre global."
+        "Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.",
+        "Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.",
+        "Cliente y Maker: siete días renovables con actividad e intervalo de referencia de 24 horas. Administración: máximo de ocho horas desde createdAt. La revocación se resuelve en Better Auth."
       ],
       "requirements": [
+        "RF-01.1",
         "RF-01.4",
         "RF-01.5",
         "RNF-04"
       ],
-      "status": "Base"
+      "status": "Diseño lógico · ADR-004"
+    },
+    {
+      "name": "auth_accounts",
+      "module": "identidad",
+      "concept": "CredencialBetterAuth",
+      "description": "Método de acceso vinculado a la identidad; corresponde a account. El piloto utiliza el proveedor credential.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico id del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "userId",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico userId del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "accountId",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico accountId del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "providerId",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico providerId del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "accessToken",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico accessToken del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "refreshToken",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico refreshToken del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "idToken",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico idToken del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "accessTokenExpiresAt",
+          "type": "FechaHora",
+          "required": false,
+          "note": "Campo técnico accessTokenExpiresAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "refreshTokenExpiresAt",
+          "type": "FechaHora",
+          "required": false,
+          "note": "Campo técnico refreshTokenExpiresAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "scope",
+          "type": "Texto",
+          "required": false,
+          "note": "Campo técnico scope del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "password",
+          "type": "Texto",
+          "required": false,
+          "note": "Hash de contraseña gestionado por Better Auth para credential; el nombre técnico password pertenece al proveedor."
+        },
+        {
+          "name": "createdAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico createdAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "updatedAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad."
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [
+        {
+          "cols": [
+            "userId"
+          ],
+          "target": "auth_users",
+          "refs": [
+            "id"
+          ],
+          "label": "posee método de acceso"
+        }
+      ],
+      "rules": [
+        "Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.",
+        "Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.",
+        "Los campos opcionales de otros proveedores conservan la compatibilidad del esquema técnico; el alcance funcional del piloto habilita correo y contraseña."
+      ],
+      "requirements": [
+        "RF-01.1",
+        "RF-01.4",
+        "RF-01.5",
+        "RNF-04"
+      ],
+      "status": "Diseño lógico · ADR-004"
+    },
+    {
+      "name": "auth_verifications",
+      "module": "identidad",
+      "concept": "VerificacionBetterAuth",
+      "description": "Registros temporales de verificación y recuperación que requiera el proveedor; corresponde a verification.",
+      "cols": [
+        {
+          "name": "id",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico id del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "identifier",
+          "type": "Texto",
+          "required": true,
+          "note": "Campo técnico identifier del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "value",
+          "type": "Texto",
+          "required": true,
+          "note": "Valor técnico protegido del mecanismo de verificación; formato y consumo según el proveedor."
+        },
+        {
+          "name": "expiresAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico expiresAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "createdAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico createdAt del esquema de Better Auth; propiedad del componente de identidad."
+        },
+        {
+          "name": "updatedAt",
+          "type": "FechaHora",
+          "required": true,
+          "note": "Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad."
+        }
+      ],
+      "pk": [
+        "id"
+      ],
+      "uniques": [],
+      "foreign": [],
+      "rules": [
+        "Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.",
+        "Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.",
+        "Verificación de correo: una hora. Recuperación: 15 minutos y un solo uso exitoso, con revocación de todas las sesiones. La integración verifica consumo concurrente y transacciones."
+      ],
+      "requirements": [
+        "RF-01.1",
+        "RF-01.4",
+        "RF-01.5",
+        "RNF-04"
+      ],
+      "status": "Diseño lógico · ADR-004"
     },
     {
       "name": "ubicaciones",
@@ -4942,7 +5211,7 @@
       "name": "planes_membresia_versiones",
       "module": "pagos",
       "concept": "planes_membresia_versiones",
-      "description": "Versiones del único plan mensual prepago; versiones no representan niveles distintos.",
+      "description": "Versiones históricas de las condiciones del único plan prepago de 30 días.",
       "cols": [
         {
           "name": "id",
@@ -6348,30 +6617,36 @@
     {
       "name": "der-identidad",
       "title": "Identidad, ubicaciones y capacidades",
-      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n    Texto email \"Valor de email del recurso Usuario, validado con las reglas y el tipo indic\"\n    Texto email_normalizado \"Valor de email normalizado del recurso Usuario, validado con las reglas y e\"\n    Texto password_hash \"Valor de password hash del recurso Usuario, validado con las reglas y el ti\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto apellido \"Valor de apellido del recurso Usuario, validado con las reglas y el tipo in\"\n    Texto telefono \"Valor de telefono del recurso Usuario, validado con las reglas y el tipo in\"\n    EstadoUsuario estado \"Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada\"\n    JSON preferencias_avisos \"Preferencias opcionales por tipo de aviso y canal. Valor inicial vacío.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n    FechaHora actualizado_en \"Fecha del servidor del evento actualizado en, conservada con zona horaria.\"\n  }\n  usuario_roles {\n    UUID usuario_id PK, FK \"Referencia a usuarios para posee rol.\"\n    Rol rol PK \"Valor de rol del recurso RolUsuario, validado con las reglas y el tipo indi\"\n    UUID otorgado_por FK \"Referencia a usuarios para autoriza.\"\n    FechaHora otorgado_en \"Fecha del servidor del evento otorgado en, conservada con zona horaria.\"\n    FechaHora revocado_en \"Fecha del servidor del evento revocado en, conservada con zona horaria.\"\n  }\n  clientes {\n    UUID usuario_id PK, FK \"Referencia a usuarios para tiene perfil cliente.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica cliente.\"\n    Booleano perfil_completo \"Valor de perfil completo del recurso PerfilCliente, validado con las reglas\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  makers {\n    UUID id PK \"Identificador estable y opaco de Maker.\"\n    UUID usuario_id FK \"Referencia a usuarios para tiene perfil maker.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica maker.\"\n    Texto nombre_publico \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    EstadoPerfil estado \"Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas.\"\n    JSON horario_disponibilidad \"Valor de horario disponibilidad del recurso Maker, validado con las reglas \"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  sesiones {\n    UUID id PK \"Identificador estable y opaco de Sesion.\"\n    UUID usuario_id FK \"Referencia a usuarios para inicia sesión.\"\n    Texto token_renovacion_hash \"Valor de token renovacion hash del recurso Sesion, validado con las reglas \"\n    FechaHora expira_en \"Fecha del servidor del evento expira en, conservada con zona horaria.\"\n    FechaHora revocada_en \"Fecha del servidor del evento revocada en, conservada con zona horaria.\"\n    Texto cliente_tipo \"Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  ubicaciones {\n    UUID id PK \"Identificador estable y opaco de Ubicacion.\"\n    UUID propietario_id FK \"Referencia a usuarios para registra ubicación.\"\n    Coordenada latitud \"Valor de latitud del recurso Ubicacion, validado con las reglas y el tipo i\"\n    Coordenada longitud \"Valor de longitud del recurso Ubicacion, validado con las reglas y el tipo \"\n    Texto zona_publica \"Valor de zona publica del recurso Ubicacion, validado con las reglas y el t\"\n    Texto precision_publica \"Valor de precision publica del recurso Ubicacion, validado con las reglas y\"\n    OrigenUbicacion origen \"Valor de origen del recurso Ubicacion, validado con las reglas y el tipo in\"\n    Texto proveedor \"Valor de proveedor del recurso Ubicacion, validado con las reglas y el tipo\"\n    Texto referencia_externa \"Valor de referencia externa del recurso Ubicacion, validado con las reglas \"\n    FechaHora confirmada_en \"Fecha del servidor del evento confirmada en, conservada con zona horaria.\"\n    FechaHora valida_hasta \"Valor de valida hasta del recurso Ubicacion, validado con las reglas y el t\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  impresoras {\n    UUID id PK \"Identificador estable y opaco de Impresora.\"\n    UUID maker_id FK \"Referencia a makers para declara impresora.\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto tecnologia \"Valor de tecnologia del recurso Impresora, validado con las reglas y el tip\"\n    Decimal dimension_x_mm \"Valor de dimension x mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_y_mm \"Valor de dimension y mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_z_mm \"Valor de dimension z mm del recurso Impresora, validado con las reglas y el\"\n    EstadoRecurso estado \"Estado vigente de Impresora; sus cambios utilizan las transiciones autoriza\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  materiales {\n    UUID id PK \"Identificador estable y opaco de Material.\"\n    Texto codigo \"Valor de codigo del recurso Material, validado con las reglas y el tipo ind\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano activo \"Indicador vigente de activo utilizado en la autorización o selección de Mat\"\n  }\n  capacidades_impresora {\n    UUID id PK \"Identificador estable y opaco de CapacidadImpresora.\"\n    UUID impresora_id FK \"Referencia a impresoras para admite capacidad.\"\n    UUID material_id FK \"Referencia a materiales para usa material.\"\n    Texto color \"Valor de color del recurso CapacidadImpresora, validado con las reglas y el\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    Texto observaciones \"Texto de observaciones del recurso, sujeto a sus permisos y límites.\"\n  }\n  usuarios ||--o{ usuario_roles : \"posee rol\"\n  usuarios o|--o{ usuario_roles : \"autoriza\"\n  usuarios ||--o| clientes : \"tiene perfil cliente\"\n  ubicaciones o|--o{ clientes : \"ubica cliente\"\n  usuarios ||--o| makers : \"tiene perfil maker\"\n  ubicaciones o|--o{ makers : \"ubica maker\"\n  usuarios ||--o{ sesiones : \"inicia sesión\"\n  usuarios ||--o{ ubicaciones : \"registra ubicación\"\n  makers ||--o{ impresoras : \"declara impresora\"\n  impresoras ||--o{ capacidades_impresora : \"admite capacidad\"\n  materiales ||--o{ capacidades_impresora : \"usa material\"\n",
+      "source": "%%{init: {\"theme\":\"base\",\"themeVariables\":{\"primaryColor\":\"#E4F5FA\",\"primaryTextColor\":\"#082345\",\"primaryBorderColor\":\"#00BFE5\",\"lineColor\":\"#315574\",\"secondaryColor\":\"#F5F8FC\",\"tertiaryColor\":\"#FFFFFF\",\"fontFamily\":\"Manrope, sans-serif\"},\"flowchart\":{\"htmlLabels\":false},\"class\":{\"htmlLabels\":false}}}%%\nerDiagram\n  direction TB\n  usuarios {\n    UUID id PK \"Identificador estable y opaco de Usuario.\"\n    Texto identidad_externa_id FK, UK \"Identificador opaco de auth_users; enlace único establecido desde la sesión\"\n    Texto email \"Proyección de contacto de la identidad validada; Better Auth es la autorida\"\n    Texto email_normalizado UK \"Proyección de contacto de la identidad validada; Better Auth es la autorida\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto apellido \"Valor de apellido del recurso Usuario, validado con las reglas y el tipo in\"\n    Texto telefono \"Valor de telefono del recurso Usuario, validado con las reglas y el tipo in\"\n    EstadoUsuario estado \"Estado vigente de Usuario; sus cambios utilizan las transiciones autorizada\"\n    JSON preferencias_avisos \"Preferencias opcionales por tipo de aviso y canal. Valor inicial vacío.\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n    FechaHora actualizado_en \"Fecha del servidor del evento actualizado en, conservada con zona horaria.\"\n  }\n  usuario_roles {\n    UUID usuario_id PK, FK \"Referencia a usuarios para posee rol.\"\n    Rol rol PK \"Valor de rol del recurso RolUsuario, validado con las reglas y el tipo indi\"\n    UUID otorgado_por FK \"Referencia a usuarios para autoriza.\"\n    FechaHora otorgado_en \"Fecha del servidor del evento otorgado en, conservada con zona horaria.\"\n    FechaHora revocado_en \"Fecha del servidor del evento revocado en, conservada con zona horaria.\"\n  }\n  clientes {\n    UUID usuario_id PK, FK \"Referencia a usuarios para tiene perfil cliente.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica cliente.\"\n    Booleano perfil_completo \"Valor de perfil completo del recurso PerfilCliente, validado con las reglas\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  makers {\n    UUID id PK \"Identificador estable y opaco de Maker.\"\n    UUID usuario_id FK, UK \"Referencia a usuarios para tiene perfil maker.\"\n    UUID ubicacion_id FK \"Referencia a ubicaciones para ubica maker.\"\n    Texto nombre_publico \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    EstadoPerfil estado \"Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas.\"\n    JSON horario_disponibilidad \"Valor de horario disponibilidad del recurso Maker, validado con las reglas \"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  ubicaciones {\n    UUID id PK \"Identificador estable y opaco de Ubicacion.\"\n    UUID propietario_id FK \"Referencia a usuarios para registra ubicación.\"\n    Coordenada latitud \"Valor de latitud del recurso Ubicacion, validado con las reglas y el tipo i\"\n    Coordenada longitud \"Valor de longitud del recurso Ubicacion, validado con las reglas y el tipo \"\n    Texto zona_publica \"Valor de zona publica del recurso Ubicacion, validado con las reglas y el t\"\n    Texto precision_publica \"Valor de precision publica del recurso Ubicacion, validado con las reglas y\"\n    OrigenUbicacion origen \"Valor de origen del recurso Ubicacion, validado con las reglas y el tipo in\"\n    Texto proveedor \"Valor de proveedor del recurso Ubicacion, validado con las reglas y el tipo\"\n    Texto referencia_externa \"Valor de referencia externa del recurso Ubicacion, validado con las reglas \"\n    FechaHora confirmada_en \"Fecha del servidor del evento confirmada en, conservada con zona horaria.\"\n    FechaHora valida_hasta \"Valor de valida hasta del recurso Ubicacion, validado con las reglas y el t\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  impresoras {\n    UUID id PK \"Identificador estable y opaco de Impresora.\"\n    UUID maker_id FK \"Referencia a makers para declara impresora.\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto tecnologia \"Valor de tecnologia del recurso Impresora, validado con las reglas y el tip\"\n    Decimal dimension_x_mm \"Valor de dimension x mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_y_mm \"Valor de dimension y mm del recurso Impresora, validado con las reglas y el\"\n    Decimal dimension_z_mm \"Valor de dimension z mm del recurso Impresora, validado con las reglas y el\"\n    EstadoRecurso estado \"Estado vigente de Impresora; sus cambios utilizan las transiciones autoriza\"\n    FechaHora creado_en \"Fecha del servidor del evento creado en, conservada con zona horaria.\"\n  }\n  materiales {\n    UUID id PK \"Identificador estable y opaco de Material.\"\n    Texto codigo UK \"Valor de codigo del recurso Material, validado con las reglas y el tipo ind\"\n    Texto nombre \"Nombre descriptivo del recurso según su finalidad y visibilidad.\"\n    Texto descripcion \"Texto de descripcion del recurso, sujeto a sus permisos y límites.\"\n    Booleano activo \"Indicador vigente de activo utilizado en la autorización o selección de Mat\"\n  }\n  capacidades_impresora {\n    UUID id PK \"Identificador estable y opaco de CapacidadImpresora.\"\n    UUID impresora_id FK \"Referencia a impresoras para admite capacidad.\"\n    UUID material_id FK \"Referencia a materiales para usa material.\"\n    Texto color \"Valor de color del recurso CapacidadImpresora, validado con las reglas y el\"\n    Booleano disponible \"Indicador vigente de disponible utilizado en la autorización o selección de\"\n    Texto observaciones \"Texto de observaciones del recurso, sujeto a sus permisos y límites.\"\n  }\n  auth_users {\n    Texto id PK \"Campo técnico id del esquema de Better Auth; propiedad del componente de id\"\n    Texto name \"Campo técnico name del esquema de Better Auth; propiedad del componente de \"\n    Texto email UK \"Campo técnico email del esquema de Better Auth; propiedad del componente de\"\n    Booleano emailVerified \"Estado de verificación consultado en el proveedor antes de habilitar al mak\"\n    Texto image \"Campo técnico image del esquema de Better Auth; propiedad del componente de\"\n    FechaHora createdAt \"Campo técnico createdAt del esquema de Better Auth; propiedad del component\"\n    FechaHora updatedAt \"Campo técnico updatedAt del esquema de Better Auth; propiedad del component\"\n  }\n  auth_sessions {\n    Texto id PK \"Campo técnico id del esquema de Better Auth; propiedad del componente de id\"\n    Texto userId FK \"Campo técnico userId del esquema de Better Auth; propiedad del componente d\"\n    FechaHora expiresAt \"Campo técnico expiresAt del esquema de Better Auth; propiedad del component\"\n    Texto token UK \"Secreto de sesión del proveedor. Persistencia técnica restringida; el adapt\"\n    FechaHora createdAt \"Inicio de la sesión; base de la guarda administrativa de ocho horas.\"\n    FechaHora updatedAt \"Campo técnico updatedAt del esquema de Better Auth; propiedad del component\"\n    Texto ipAddress \"Campo técnico ipAddress del esquema de Better Auth; propiedad del component\"\n    Texto userAgent \"Campo técnico userAgent del esquema de Better Auth; propiedad del component\"\n  }\n  auth_accounts {\n    Texto id PK \"Campo técnico id del esquema de Better Auth; propiedad del componente de id\"\n    Texto userId FK \"Campo técnico userId del esquema de Better Auth; propiedad del componente d\"\n    Texto accountId \"Campo técnico accountId del esquema de Better Auth; propiedad del component\"\n    Texto providerId \"Campo técnico providerId del esquema de Better Auth; propiedad del componen\"\n    Texto accessToken \"Campo técnico accessToken del esquema de Better Auth; propiedad del compone\"\n    Texto refreshToken \"Campo técnico refreshToken del esquema de Better Auth; propiedad del compon\"\n    Texto idToken \"Campo técnico idToken del esquema de Better Auth; propiedad del componente \"\n    FechaHora accessTokenExpiresAt \"Campo técnico accessTokenExpiresAt del esquema de Better Auth; propiedad de\"\n    FechaHora refreshTokenExpiresAt \"Campo técnico refreshTokenExpiresAt del esquema de Better Auth; propiedad d\"\n    Texto scope \"Campo técnico scope del esquema de Better Auth; propiedad del componente de\"\n    Texto password \"Hash de contraseña gestionado por Better Auth para credential; el nombre té\"\n    FechaHora createdAt \"Campo técnico createdAt del esquema de Better Auth; propiedad del component\"\n    FechaHora updatedAt \"Campo técnico updatedAt del esquema de Better Auth; propiedad del component\"\n  }\n  auth_verifications {\n    Texto id PK \"Campo técnico id del esquema de Better Auth; propiedad del componente de id\"\n    Texto identifier \"Campo técnico identifier del esquema de Better Auth; propiedad del componen\"\n    Texto value \"Valor técnico protegido del mecanismo de verificación; formato y consumo se\"\n    FechaHora expiresAt \"Campo técnico expiresAt del esquema de Better Auth; propiedad del component\"\n    FechaHora createdAt \"Campo técnico createdAt del esquema de Better Auth; propiedad del component\"\n    FechaHora updatedAt \"Campo técnico updatedAt del esquema de Better Auth; propiedad del component\"\n  }\n  auth_users ||--o| usuarios : \"vincula identidad\"\n  usuarios ||--o{ usuario_roles : \"posee rol\"\n  usuarios |o--o{ usuario_roles : \"autoriza\"\n  usuarios ||--o| clientes : \"tiene perfil cliente\"\n  ubicaciones |o--o{ clientes : \"ubica cliente\"\n  usuarios ||--o| makers : \"tiene perfil maker\"\n  ubicaciones |o--o{ makers : \"ubica maker\"\n  usuarios ||--o{ ubicaciones : \"registra ubicación\"\n  makers ||--o{ impresoras : \"declara impresora\"\n  impresoras ||--o{ capacidades_impresora : \"admite capacidad\"\n  materiales ||--o{ capacidades_impresora : \"usa material\"\n  auth_users ||--o{ auth_sessions : \"mantiene sesión\"\n  auth_users ||--o{ auth_accounts : \"posee método de acceso\"\n",
       "ownedTables": [
         "usuarios",
         "usuario_roles",
         "clientes",
         "makers",
-        "sesiones",
         "ubicaciones",
         "impresoras",
         "materiales",
-        "capacidades_impresora"
+        "capacidades_impresora",
+        "auth_users",
+        "auth_sessions",
+        "auth_accounts",
+        "auth_verifications"
       ],
       "entities": [
         "usuarios",
         "usuario_roles",
         "clientes",
         "makers",
-        "sesiones",
         "ubicaciones",
         "impresoras",
         "materiales",
-        "capacidades_impresora"
+        "capacidades_impresora",
+        "auth_users",
+        "auth_sessions",
+        "auth_accounts",
+        "auth_verifications"
       ],
-      "relationshipCount": 11,
+      "relationshipCount": 13,
       "summary": false
     },
     {

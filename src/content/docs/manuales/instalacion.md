@@ -53,7 +53,7 @@ Las credenciales se proporcionan desde el gestor del entorno. Los repositorios c
 
 ## Migraciones y datos iniciales
 
-Aplicá las migraciones del release sobre una base exclusiva. Comprobá la versión del esquema del negocio y las migraciones de Better Auth. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) identifica la adaptación pendiente del catálogo de 58 tablas y la separación de responsabilidades. La primera configuración crea catálogos, plan y capacidades administrativas mediante el procedimiento autorizado. La carga de datos sintéticos se restringe a prueba o demo.
+Aplicá las migraciones del release sobre una base exclusiva. Comprobá la versión del esquema del negocio y las migraciones de Better Auth. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) identifica las cuatro tablas técnicas de Better Auth, su vínculo con el usuario local y la propiedad de cada migración. La primera configuración crea catálogos, plan y capacidades administrativas mediante el procedimiento autorizado. La carga de datos sintéticos se restringe a prueba o demo.
 
 Los [fixtures funcionales](/3daltoque-docs/documentos/8a0c5389371a-datos-funcionales.json) identifican usuarios, producto, plan, escala y archivos de prueba. La carga conserva un namespace para poder restablecerlos sin afectar otro entorno. Las cuentas de demostración obtienen sus contraseñas durante la preparación y se comunican mediante el canal privado del equipo.
 

@@ -4,13 +4,15 @@ title: "Modelo lógico y diccionario de datos"
 
 # Modelo lógico y diccionario de datos
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.2. Fecha: 7 de noviembre de 2026.
 
-El [catálogo estructurado](/3daltoque-docs/documentos/b0342fb91680-catalogo.json) contiene 58 tablas y 552 columnas. El modelo cubre perfiles, capacidades, solicitudes personalizadas, catálogo del maker, negociación, pedidos, conversación, revisión, entrega, reputación y membresías. [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/) define el cobro del abono; [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/) incorpora productos y completa la cobertura funcional.
+El [catálogo estructurado](/3daltoque-docs/documentos/b0342fb91680-catalogo.json) contiene 61 tablas y 579 columnas. El modelo cubre perfiles, capacidades, solicitudes personalizadas, catálogo del maker, negociación, pedidos, conversación, revisión, entrega, reputación y membresías. [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/) define el cobro del abono; [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/) incorpora productos y completa la cobertura funcional.
 
 ## Adaptación de identidad a Better Auth
 
-[ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) delega credenciales y sesiones en Better Auth. El catálogo de 58 tablas conserva la revisión previa: `usuarios.password_hash` y `sesiones` requieren remapeo o sustitución junto con las tablas técnicas del proveedor. La adaptación registra el identificador estable de Better Auth, el estado verificado del correo, la propiedad de cada tabla y las migraciones antes de cerrar el modelo físico de identidad. Los perfiles y las referencias del negocio conservan sus identificadores.
+[ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) asigna a Better Auth la propiedad de `auth_users`, `auth_sessions`, `auth_accounts` y `auth_verifications`, mediante `modelName` para los modelos user, session, account y verification. Se conservan los nombres nativos de sus campos. `usuarios.identidad_externa_id` referencia de forma única `auth_users.id`; el UUID local continúa relacionando perfiles y recursos. El correo local es una proyección de contacto y su verificación se consulta en el proveedor.
+
+El componente Node/TypeScript genera las migraciones técnicas desde la versión fijada de Better Auth. FastAPI migra las tablas de negocio y su vínculo después del esquema de identidad. Cada componente utiliza permisos de base acordes con esa propiedad. La API de negocio resuelve la sesión mediante el adaptador. Las claves, índices y nulabilidad finales se cotejan con la migración generada antes de desplegar. [Esquema y personalización de Better Auth](https://better-auth.com/docs/concepts/database).
 
 ## Invariantes
 
@@ -35,7 +37,10 @@ Las referencias marcadas como versión actual se comprueban al finalizar la tran
 - [usuario_roles](#usuario-roles)
 - [clientes](#clientes)
 - [makers](#makers)
-- [sesiones](#sesiones)
+- [auth_users](#auth-users)
+- [auth_sessions](#auth-sessions)
+- [auth_accounts](#auth-accounts)
+- [auth_verifications](#auth-verifications)
 - [ubicaciones](#ubicaciones)
 - [impresoras](#impresoras)
 - [materiales](#materiales)
@@ -92,16 +97,16 @@ Las referencias marcadas como versión actual se comprueban al finalizar la tran
 <a id="usuarios"></a>
 ### usuarios
 
-Identidad y contacto común; la autorización depende de roles y del recurso.
+Cuenta de negocio vinculada de forma única a la identidad de Better Auth; conserva perfiles, estado local y preferencias.
 
 Módulo: identidad. Concepto: Usuario.
 
 | Columna | Tipo lógico y SQL previsto | Obligatoria | Descripción |
 | --- | --- | --- | --- |
 | `id` | UUID / uuid | Sí | Identificador estable y opaco de Usuario. |
-| `email` | Texto / text | Sí | Valor de email del recurso Usuario, validado con las reglas y el tipo indicados. |
-| `email_normalizado` | Texto / text | Sí | Valor de email normalizado del recurso Usuario, validado con las reglas y el tipo indicados. |
-| `password_hash` | Texto / text | Sí | Valor de password hash del recurso Usuario, validado con las reglas y el tipo indicados. |
+| `identidad_externa_id` | Texto / text | Sí | Identificador opaco de auth_users; enlace único establecido desde la sesión validada por servidor. |
+| `email` | Texto / text | Sí | Proyección de contacto de la identidad validada; Better Auth es la autoridad del correo y de su verificación. Se sincroniza desde el proveedor, sin aceptar una sustitución desde el perfil. |
+| `email_normalizado` | Texto / text | Sí | Proyección de contacto de la identidad validada; Better Auth es la autoridad del correo y de su verificación. Se sincroniza desde el proveedor, sin aceptar una sustitución desde el perfil. |
 | `nombre` | Texto / text | No | Nombre descriptivo del recurso según su finalidad y visibilidad. |
 | `apellido` | Texto / text | No | Valor de apellido del recurso Usuario, validado con las reglas y el tipo indicados. |
 | `telefono` | Texto / text | No | Valor de telefono del recurso Usuario, validado con las reglas y el tipo indicados. |
@@ -112,13 +117,19 @@ Módulo: identidad. Concepto: Usuario.
 
 - PK: id.
 - UQ: (email_normalizado).
+- UQ: (identidad_externa_id).
+- FK: (identidad_externa_id) → auth_users (id). vincula identidad.
 
-- No se almacena contraseña en texto plano. La normalización del identificador debe documentarse.
+Reglas:
+
+- Better Auth administra credenciales y sesiones. FastAPI consulta su vigencia mediante el adaptador y aplica permisos sobre el UUID de negocio.
 - Nombre/apellido/contacto obligatorios por perfil se cierran en PD-01; la nulabilidad del borrador no habilita publicar un perfil incompleto.
 - Bloquear o anonimizar no elimina por cascada acuerdos ni evidencias financieras.
 - La cuenta guarda solo los valores elegidos para canales opcionales. Los pares ausentes heredan la política vigente.
+- POST /identidad/perfil crea usuario, rol Cliente, perfil y aceptación de condiciones en una transacción idempotente por identidad_externa_id. Un alta de identidad interrumpida retoma este paso.
+- La normalización y unicidad del correo siguen la identidad de Better Auth. La proyección local se reconcilia antes de operar con el contacto actualizado; los cambios de correo utilizan el flujo del proveedor.
 
-Trazabilidad: [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), RNF-04, RNF-11.
+Trazabilidad: RF-01.1, RF-01.4, RNF-04, RNF-11.
 
 <a id="usuario-roles"></a>
 ### usuario_roles
@@ -198,31 +209,122 @@ Módulo: identidad. Concepto: Maker.
 
 Trazabilidad: [RF-01.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-2), [RF-03.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-03-1), [RF-09.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-09-2), [RF-13.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-13-3), [RF-14.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-14-2), [RF-15.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-15-2).
 
-<a id="sesiones"></a>
-### sesiones
+<a id="auth-users"></a>
+### auth_users
 
-Sesiones y renovación revocable según la estrategia de identidad.
+Identidad de acceso administrada por Better Auth; corresponde a su modelo user.
 
-Módulo: identidad. Concepto: Sesion.
+Módulo: identidad. Concepto: IdentidadBetterAuth.
 
 | Columna | Tipo lógico y SQL previsto | Obligatoria | Descripción |
 | --- | --- | --- | --- |
-| `id` | UUID / uuid | Sí | Identificador estable y opaco de Sesion. |
-| `usuario_id` | UUID / uuid | Sí | Referencia a usuarios para inicia sesión. |
-| `token_renovacion_hash` | Texto / text | No | Valor de token renovacion hash del recurso Sesion, validado con las reglas y el tipo indicados. |
-| `expira_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento expira en, conservada con zona horaria. |
-| `revocada_en` | FechaHora / timestamptz | No | Fecha del servidor del evento revocada en, conservada con zona horaria. |
-| `cliente_tipo` | Texto / text | Sí | Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo indicados. |
-| `creado_en` | FechaHora / timestamptz | Sí | Fecha del servidor del evento creado en, conservada con zona horaria. |
+| `id` | Texto / text | Sí | Campo técnico id del esquema de Better Auth; propiedad del componente de identidad. |
+| `name` | Texto / text | Sí | Campo técnico name del esquema de Better Auth; propiedad del componente de identidad. |
+| `email` | Texto / text | Sí | Campo técnico email del esquema de Better Auth; propiedad del componente de identidad. |
+| `emailVerified` | Booleano / boolean | Sí | Estado de verificación consultado en el proveedor antes de habilitar al maker. |
+| `image` | Texto / text | No | Campo técnico image del esquema de Better Auth; propiedad del componente de identidad. |
+| `createdAt` | FechaHora / timestamptz | Sí | Campo técnico createdAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `updatedAt` | FechaHora / timestamptz | Sí | Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad. |
 
 - PK: id.
-- UQ: (token_renovacion_hash).
-- FK: (usuario_id) → usuarios (id). inicia sesión.
+- UQ: (email).
 
-- El token bruto no se persiste ni se devuelve desde listados. Expiración/revocación se fijan en PD-01.
-- La unicidad del hash aplica a valores presentes; cerrar una sesión no supone cierre global.
+Reglas:
 
-Trazabilidad: [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), [RF-01.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-5), RNF-04.
+- Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.
+- Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.
+
+Trazabilidad: RF-01.1, RF-01.4, RF-01.5, RNF-04.
+
+<a id="auth-sessions"></a>
+### auth_sessions
+
+Sesión opaca administrada por Better Auth; corresponde a su modelo session.
+
+Módulo: identidad. Concepto: SesionBetterAuth.
+
+| Columna | Tipo lógico y SQL previsto | Obligatoria | Descripción |
+| --- | --- | --- | --- |
+| `id` | Texto / text | Sí | Campo técnico id del esquema de Better Auth; propiedad del componente de identidad. |
+| `userId` | Texto / text | Sí | Campo técnico userId del esquema de Better Auth; propiedad del componente de identidad. |
+| `expiresAt` | FechaHora / timestamptz | Sí | Campo técnico expiresAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `token` | Texto / text | Sí | Secreto de sesión del proveedor. Persistencia técnica restringida; el adaptador preserva su transporte seguro. |
+| `createdAt` | FechaHora / timestamptz | Sí | Inicio de la sesión; base de la guarda administrativa de ocho horas. |
+| `updatedAt` | FechaHora / timestamptz | Sí | Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `ipAddress` | Texto / text | No | Campo técnico ipAddress del esquema de Better Auth; propiedad del componente de identidad. |
+| `userAgent` | Texto / text | No | Campo técnico userAgent del esquema de Better Auth; propiedad del componente de identidad. |
+
+- PK: id.
+- UQ: (token).
+- FK: (userId) → auth_users (id). mantiene sesión.
+
+Reglas:
+
+- Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.
+- Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.
+- Cliente y Maker: siete días renovables con actividad e intervalo de referencia de 24 horas. Administración: máximo de ocho horas desde createdAt. La revocación se resuelve en Better Auth.
+
+Trazabilidad: RF-01.1, RF-01.4, RF-01.5, RNF-04.
+
+<a id="auth-accounts"></a>
+### auth_accounts
+
+Método de acceso vinculado a la identidad; corresponde a account. El piloto utiliza el proveedor credential.
+
+Módulo: identidad. Concepto: CredencialBetterAuth.
+
+| Columna | Tipo lógico y SQL previsto | Obligatoria | Descripción |
+| --- | --- | --- | --- |
+| `id` | Texto / text | Sí | Campo técnico id del esquema de Better Auth; propiedad del componente de identidad. |
+| `userId` | Texto / text | Sí | Campo técnico userId del esquema de Better Auth; propiedad del componente de identidad. |
+| `accountId` | Texto / text | Sí | Campo técnico accountId del esquema de Better Auth; propiedad del componente de identidad. |
+| `providerId` | Texto / text | Sí | Campo técnico providerId del esquema de Better Auth; propiedad del componente de identidad. |
+| `accessToken` | Texto / text | No | Campo técnico accessToken del esquema de Better Auth; propiedad del componente de identidad. |
+| `refreshToken` | Texto / text | No | Campo técnico refreshToken del esquema de Better Auth; propiedad del componente de identidad. |
+| `idToken` | Texto / text | No | Campo técnico idToken del esquema de Better Auth; propiedad del componente de identidad. |
+| `accessTokenExpiresAt` | FechaHora / timestamptz | No | Campo técnico accessTokenExpiresAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `refreshTokenExpiresAt` | FechaHora / timestamptz | No | Campo técnico refreshTokenExpiresAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `scope` | Texto / text | No | Campo técnico scope del esquema de Better Auth; propiedad del componente de identidad. |
+| `password` | Texto / text | No | Hash de contraseña gestionado por Better Auth para credential; el nombre técnico password pertenece al proveedor. |
+| `createdAt` | FechaHora / timestamptz | Sí | Campo técnico createdAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `updatedAt` | FechaHora / timestamptz | Sí | Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad. |
+
+- PK: id.
+- FK: (userId) → auth_users (id). posee método de acceso.
+
+Reglas:
+
+- Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.
+- Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.
+- Los campos opcionales de otros proveedores conservan la compatibilidad del esquema técnico; el alcance funcional del piloto habilita correo y contraseña.
+
+Trazabilidad: RF-01.1, RF-01.4, RF-01.5, RNF-04.
+
+<a id="auth-verifications"></a>
+### auth_verifications
+
+Registros temporales de verificación y recuperación que requiera el proveedor; corresponde a verification.
+
+Módulo: identidad. Concepto: VerificacionBetterAuth.
+
+| Columna | Tipo lógico y SQL previsto | Obligatoria | Descripción |
+| --- | --- | --- | --- |
+| `id` | Texto / text | Sí | Campo técnico id del esquema de Better Auth; propiedad del componente de identidad. |
+| `identifier` | Texto / text | Sí | Campo técnico identifier del esquema de Better Auth; propiedad del componente de identidad. |
+| `value` | Texto / text | Sí | Valor técnico protegido del mecanismo de verificación; formato y consumo según el proveedor. |
+| `expiresAt` | FechaHora / timestamptz | Sí | Campo técnico expiresAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `createdAt` | FechaHora / timestamptz | Sí | Campo técnico createdAt del esquema de Better Auth; propiedad del componente de identidad. |
+| `updatedAt` | FechaHora / timestamptz | Sí | Campo técnico updatedAt del esquema de Better Auth; propiedad del componente de identidad. |
+
+- PK: id.
+
+Reglas:
+
+- Escritura y migraciones a cargo de Better Auth. El esquema físico se genera y coteja con la versión fijada del proveedor.
+- Acceso restringido al componente de identidad; los secretos quedan excluidos de respuestas de negocio, listados y logs.
+- Verificación de correo: una hora. Recuperación: 15 minutos y un solo uso exitoso, con revocación de todas las sesiones. La integración verifica consumo concurrente y transacciones.
+
+Trazabilidad: RF-01.1, RF-01.4, RF-01.5, RNF-04.
 
 <a id="ubicaciones"></a>
 ### ubicaciones
@@ -1491,7 +1593,7 @@ Trazabilidad: RNF-12.
 <a id="planes-membresia-versiones"></a>
 ### planes_membresia_versiones
 
-Versiones del único plan mensual prepago; versiones no representan niveles distintos.
+Versiones históricas de las condiciones del único plan prepago de 30 días.
 
 Módulo: pagos. Concepto: planes_membresia_versiones.
 

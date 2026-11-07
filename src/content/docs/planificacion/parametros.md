@@ -4,7 +4,7 @@ title: "Decisiones y parámetros de implementación"
 
 # Decisiones vigentes y parámetros de implementación
 
-Actualización: 6 de noviembre de 2026.
+Actualización: 7 de noviembre de 2026.
 
 ## Base funcional
 
@@ -210,7 +210,7 @@ Cada parámetro conserva valor, fecha, responsable, fundamento y versión. Las c
 | PD-01 Sesión | Cliente/Maker: 7 días renovables con actividad; referencia de actualización cada 24 horas. Cookie protegida Web y Bearer Mobile; revocación al cerrar sesión. | Administración: máximo de 8 horas desde la autenticación; nuevo inicio de sesión al alcanzar el límite. ADR-004 y seguridad. |
 | PD-02 Límites | Perfil de archivos, mensajes y listas de PERF-01. | Configuración versionada del entorno. |
 | PD-06 Actualización | Consulta autorizada de eventos por cursor y recuperación de intención. | Contratos operativos INT-05. |
-| PD-11 Interfaces | 83 operaciones funcionales y dos técnicas en OpenAPI. | Versión del contrato y release de ambos clientes. |
+| PD-11 Interfaces | 90 operaciones funcionales y dos técnicas en OpenAPI. | Versión del contrato y release de ambos clientes. |
 | PD-13 Calidad | PERF-01 define carga, objetivos, evidencia y recuperación. | Informe de ejecución y configuración utilizada. |
 
 [Seguridad](/3daltoque-docs/diseno/seguridad/), [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) y [PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) conservan estas definiciones. Los valores comerciales y credenciales se registran por entorno con su responsable, fecha y versión.

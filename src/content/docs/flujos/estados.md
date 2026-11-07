@@ -4,7 +4,7 @@ title: "Flujos y estados del producto"
 
 # Flujos y estados del producto
 
-Actualización: 25 de octubre de 2026. Las guardas corresponden a RF, CU y [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/).
+Actualización: 7 de noviembre de 2026. Las guardas corresponden a RF, CU y [ADR-003](/3daltoque-docs/decisiones/catalogo-y-cobertura/).
 
 ## Solicitud, ofertas y aceptación
 
@@ -235,21 +235,22 @@ stateDiagram-v2
   [*] --> sin_inicio
   sin_inicio --> prueba_general: Primera habilitación / 30 días configurables
   sin_inicio --> prueba_fundador: Programa y cupo válidos / 90 días totales configurables
-  prueba_general --> vencido: Fin del intervalo gratuito sin período siguiente
-  prueba_fundador --> vencido: Fin del intervalo gratuito sin período siguiente
-  prueba_general --> pago_vigente: Comienza período pago verificado
-  prueba_fundador --> pago_vigente: Comienza período pago verificado
-  pago_vigente --> pago_vigente: Continúa una renovación concedida
-  pago_vigente --> vencido: Fin del acceso sin período siguiente
-  vencido --> pago_vigente: Compra verificada concede acceso efectivo
+  prueba_general --> vencido: Fin del intervalo gratuito
+  prueba_fundador --> vencido: Fin del intervalo gratuito
+  prueba_general --> prueba_fundador: Convocatoria abierta y cupo / 90 días desde inicio original
+  pago_vigente --> vencido: Fin del período pago
+  pago_vigente --> vencido: Devolución total confirmada del período vigente
+  vencido --> pago_vigente: Renovación al vencer / 30 días desde pago verificado
   note right of prueba_fundador
     Un único beneficio inicial por maker.
     Cupo y asignación auditados.
+    La conversión conserva el inicio original.
   end note
   note right of vencido
     No se aceptan trabajos nuevos.
     Se pueden terminar los pedidos existentes.
-    No se ejecutan cargos automáticos.
+    La renovación es manual.
+    Cada compra verificada concede un solo período.
   end note
 ```
 

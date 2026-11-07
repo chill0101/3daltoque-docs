@@ -6,11 +6,11 @@ title: "Requerimientos no funcionales de 3DAltoque"
 
 > Actualización del 14 de octubre de 2026: ADR-002 cambia la integración financiera a cobro de membresías. La vigencia se calcula con el reloj del servidor y vencer no bloquea pedidos activos.
 
-Versión: 2.1. Fecha: 25 de octubre de 2026.
+Versión: 2.1. Fecha: 7 de noviembre de 2026.
 
 Cada ficha reproduce los 11 campos de la plantilla de requerimiento de la materia, Template de Requerimiento.docx. Los vínculos posteriores permiten relacionar el requisito con integraciones, otros requisitos y decisiones de negocio. Los CU relacionados se desarrollan en fichas individuales con referencias, precondiciones, postcondiciones y flujos normales y alternativos.
 
-La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión del equipo. Un criterio definido sobre una política abierta se comprueba con esa política una vez acordada; la política acordada determina los datos y condiciones de comprobación. El [índice del catálogo](/3daltoque-docs/analisis/requisitos/) registra esas decisiones y las condiciones de medición. El campo Autor identifica al equipo del proyecto y registra la preparación asistida.
+La prioridad MoSCoW, la estabilidad y las metas propuestas requieren revisión del equipo. Un criterio definido sobre una política abierta se comprueba con esa política una vez acordada; la política acordada determina los datos y condiciones de comprobación. El [índice del catálogo](/3daltoque-docs/analisis/requisitos/) registra esas decisiones y las condiciones de medición. El campo Autor identifica al equipo del proyecto. PERF-01 conserva los objetivos acordados; los pendientes específicos continúan en el registro PD.
 
 ## Índice de fichas
 
@@ -50,7 +50,7 @@ El [perfil PERF-01](/3daltoque-docs/planificacion/perfil-perf-01/) define la ref
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. Con el objetivo aprobado, el informe de monitoreo identifica ventana, comprobaciones exitosas/fallidas y disponibilidad calculada.<br>2. El resultado alcanza la meta acordada y registra cualquier exclusión autorizada.<br>3. Una dependencia necesaria caída no produce una comprobación exitosa ficticia. |
@@ -73,7 +73,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Should (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El ensayo aprobado informa dataset, concurrencia, duración, percentiles y errores técnicos.<br>2. La búsqueda alcanza un p95 de hasta 2 segundos, registra la tasa de errores y conserva los resultados funcionalmente correctos.<br>3. La medición identifica por separado la latencia de proveedores y no omite operaciones fallidas para mejorar el resultado. |
@@ -96,7 +96,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-11
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Should (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. El dataset ampliado conserva compatibilidad, privacidad y unicidad de pedido.<br>2. Los resultados y tiempos se informan frente al perfil base; la capacidad aceptable se acuerda antes de cerrar la prueba.<br>3. Los cambios de parámetros previstos no obligan a duplicar reglas de negocio en web/mobile ni en proveedores. |
@@ -119,7 +119,7 @@ Decisiones a cerrar: [PD-04](/3daltoque-docs/analisis/requisitos/#pd-04), [PD-13
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Los escenarios de acceso ajeno no permiten leer, modificar, descargar ni suscribirse a recursos privados.<br>2. La inspección de respuestas, eventos y registros no encuentra contraseñas, tokens privados o coordenadas privadas expuestas.<br>3. Un webhook no auténtico o una acción administrativa sin permiso no cambia el estado del negocio. |
@@ -142,7 +142,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-06
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Dos aceptaciones concurrentes dejan exactamente un pedido confirmado como máximo.<br>2. Una falla dentro de la aceptación no deja pedido parcial ni ofertas incompatibles con el acuerdo.<br>3. Repetir una operación identificada no duplica mensajes, revisiones o finalizaciones y cambiar su contenido recibe el tratamiento de conflicto definido. |
@@ -165,7 +165,7 @@ Decisiones a cerrar: [PD-05](/3daltoque-docs/analisis/requisitos/#pd-05), [PD-07
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Cada escenario crítico ejecutado tiene registros correlacionables con sus recursos y actores.<br>2. Un acuerdo o una configuración anterior puede reconstruirse sin depender del valor global vigente.<br>3. Los registros son inmutables para los roles de negocio y excluyen credenciales.<br>4. El proceso de retiro verifica los 12 meses desde la acción y preserva con acceso restringido los registros sujetos a una excepción vigente de PD-12. |
@@ -188,7 +188,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-14
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una falla inducida de cada servicio elegido queda visible con integración, operación, entorno y resultado.<br>2. Se pueden calcular tiempos y errores del perfil de rendimiento a partir de registros conservados.<br>3. El panel o informe identifica avisos fallidos e intentos inciertos sin confundirlos con éxito ni mezclar simulación con producción. |
@@ -211,7 +211,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Los flujos web críticos se recorren por teclado y los errores se relacionan con el campo o acción afectados.<br>2. Las mediciones de contraste de los textos incluidos cumplen los umbrales aprobados; estado o error no se comunican únicamente por color.<br>3. Antes de aceptar/pagar el usuario identifica precio acordado, estimación y modo real/simulado; la revisión requiere una acción explícita. |
@@ -234,7 +234,7 @@ Decisiones a cerrar: [PD-13](/3daltoque-docs/analisis/requisitos/#pd-13).
 | Historial | 2026-10-14: actualización de alcance por ADR-002; pagos exclusivos del abono de makers. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Un pago repetido o fuera de contexto no crea otra concesión.<br>2. Compra, intentos, operaciones y período concedido son correlacionables.<br>3. Cobros duplicados, resultados inciertos y devoluciones se conservan para resolución sin fingir un resultado normal. |
@@ -257,7 +257,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Los escenarios comunes pueden ejecutarse contra el simulador y el adaptador real de prueba con el mismo contrato local.<br>2. Cada intento y su vista permiten identificar inequívocamente su modo.<br>3. Un cambio de modo por defecto deja los intentos anteriores y sus referencias sin conversión. |
@@ -280,7 +280,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-15
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. Cada categoría utilizada tiene finalidad, plazo/regla, responsable y tratamiento de excepciones documentados.<br>2. Un dato elegible se retira según la política aprobada y no queda accesible mediante las consultas habituales.<br>3. La evidencia que debe conservarse y el tratamiento de copias de respaldo están justificados y son coherentes con la regla de borrado. |
@@ -303,7 +303,7 @@ Decisiones a cerrar: [PD-12](/3daltoque-docs/analisis/requisitos/#pd-12), [PD-13
 | Historial | 2026-10-10: primera ficha estructurada a partir del ID existente; precisión de alcance, criterios y referencias de integración. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. El inventario aplicable identifica condiciones, fuente/fecha, responsable y cómo se atienden en el producto.<br>2. La aceptación requerida, cuando corresponda, conserva usuario, versión y fecha de la acción.<br>3. Las funciones y el uso de datos externos están alineados con las condiciones verificadas del proveedor y la política aprobada. |
@@ -326,7 +326,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 | Historial | 2026-10-14: actualización de alcance por ADR-002; pagos exclusivos del abono de makers. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Alta. Regla principal estable en el alcance vigente; la ficha requiere revisión del equipo. |
 | Criterio de éxito | 1. Un cambio autorizado de parámetros válidos no requiere recompilar.<br>2. Un precio o plazo inválido, cupo excedido o actor no autorizado es rechazado.<br>3. Se conserva la versión aplicada a cada compra y beneficio, sin modificar cargos o acceso históricos. |
@@ -349,7 +349,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-10
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Las operaciones documentadas pueden validarse frente al esquema de la versión elegida.<br>2. Cliente web y clientes mobile implementados interpretan el mismo importe, fecha y código de error de forma equivalente.<br>3. Un cambio incompatible modifica la versión o sigue la política de compatibilidad acordada; no aparece como cambio silencioso. |
@@ -372,7 +372,7 @@ Decisiones a cerrar: [PD-01](/3daltoque-docs/analisis/requisitos/#pd-01), [PD-09
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Una respuesta ausente termina conforme al timeout definido, registra el problema y permite el tratamiento de recuperación acordado.<br>2. Interrumpir y restablecer un worker conserva tareas y evita duplicar efectos de negocio.<br>3. Fallas de pago, mapa, archivo y aviso producen estados diferenciados; no se muestran como éxito o como ausencia normal de resultados. |
@@ -395,7 +395,7 @@ Decisiones a cerrar: [PD-09](/3daltoque-docs/analisis/requisitos/#pd-09), [PD-11
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Los casos por debajo, en el límite y por encima del umbral acordado tienen resultados previstos y consistentes.<br>2. Un archivo con tamaño declarado falso no elude la comprobación real ni los límites de análisis.<br>3. El informe identifica llamadas/almacenamiento consumidos y errores de cuota por integración con su entorno. |
@@ -418,7 +418,7 @@ Decisiones a cerrar: [PD-02](/3daltoque-docs/analisis/requisitos/#pd-02), [PD-11
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. Cada combinación aprobada de canal/dispositivo permite completar sus recorridos críticos.<br>2. En cada flujo compartido, los canales aplican los mismos permisos y devuelven acuerdos, importes, resultados y cambios de estado equivalentes.<br>3. La interfaz web conserva controles y mensajes utilizables en los anchos acordados, sin desbordamiento que impida una operación. |
@@ -441,7 +441,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Must (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Media. Propósito definido; existen parámetros o decisiones de detalle que pueden modificar la ficha. |
 | Criterio de éxito | 1. La revisión de dependencias confirma que dominio/casos de uso no importan SDK de proveedor ni tipos HTTP/ORM.<br>2. Un adaptador alternativo satisface el contrato local sin modificar reglas de ofertas, aprobación o membresía.<br>3. Un entorno limpio reproduce la versión siguiendo sus dependencias, migraciones y manual, con ejemplos de configuración sin secretos. |
@@ -464,7 +464,7 @@ Decisiones a cerrar: [PD-11](/3daltoque-docs/analisis/requisitos/#pd-11), [PD-13
 | Historial | 2026-10-10: alta de ficha complementaria para completar el flujo y/o el plan de integraciones. |
 | Fecha | 2026-10-10 |
 | Versión | 1.0-borrador |
-| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Redacción asistida; revisión del equipo pendiente. |
+| Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). |
 | Prioridad | Should (MoSCoW propuesto; sujeto a revisión) |
 | Estabilidad | Baja. Aplicabilidad, política o valores condicionados a decisiones aún abiertas. |
 | Criterio de éxito | 1. Una restauración de prueba informa fecha de respaldo, punto recuperado, tiempo total y alcance.<br>2. Los datos y archivos recuperados mantienen referencias, permisos y ausencia de registros parciales.<br>3. El punto consistente recuperado tiene una antigüedad de hasta 24 horas respecto del incidente simulado. El servicio recupera sus recorridos críticos dentro de las cuatro horas posteriores al incidente simulado. Se registra el tiempo total y se identifican los pagos externos posteriores para conciliación.<br>4. Al cumplir 30 días desde su generación, la copia deja de estar disponible para restaurar. La rotación conserva recuperables las copias vigentes y los objetos que necesitan. |

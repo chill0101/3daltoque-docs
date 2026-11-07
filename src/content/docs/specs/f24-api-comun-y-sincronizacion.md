@@ -4,7 +4,7 @@ title: "SPEC-F24 · API común y sincronización"
 
 # SPEC-F24 · API común y sincronización
 
-Fecha: 25 de octubre de 2026. Versión: 2.0.
+Fecha: 7 de noviembre de 2026. Versión: 2.0.
 
 ## 1. Objetivo y fundamento
 
@@ -66,7 +66,7 @@ Prefijo `/api/v1`. El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) co
 
 ## 7. Datos, consistencia e integración
 
-Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `eventos_salida`, `trabajos`, `sesiones`.
+Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `eventos_salida`, `trabajos`, `auth_sessions`.
 
 La API FastAPI expone las operaciones autorizadas de perfiles, solicitudes, ofertas, pedidos, membresías y seguimiento. Los clientes consultan y recuperan mensajes y estados persistidos. GET /eventos devuelve cambios autorizados por cursor. Al reconectar, el cliente recupera cambios desde el cursor conservado y deduplica eventos por ID. El backend determina importes, vigencias y transiciones.
 

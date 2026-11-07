@@ -4,7 +4,7 @@ title: "Diagrama entidad-relación"
 
 # Diagrama entidad-relación
 
-El modelo se organiza en diez vistas para recorrer perfiles, catálogo, negociación, pedidos, comunicación, reputación, membresías y operación. El [diccionario lógico](/3daltoque-docs/modelado/modelo-logico/) desarrolla 58 tablas y 552 columnas.
+El modelo se organiza en diez vistas para recorrer perfiles, catálogo, negociación, pedidos, comunicación, reputación, membresías y operación. El [diccionario lógico](/3daltoque-docs/modelado/modelo-logico/) desarrolla 61 tablas y 579 columnas.
 
 ## Recorridos del modelo
 
@@ -244,9 +244,9 @@ erDiagram
   direction TB
   usuarios {
     UUID id PK "Identificador estable y opaco de Usuario."
-    Texto email "Valor de email del recurso Usuario, validado con las reglas y el tipo indic"
-    Texto email_normalizado "Valor de email normalizado del recurso Usuario, validado con las reglas y e"
-    Texto password_hash "Valor de password hash del recurso Usuario, validado con las reglas y el ti"
+    Texto identidad_externa_id FK, UK "Identificador opaco de auth_users; enlace único establecido desde la sesión"
+    Texto email "Proyección de contacto de la identidad validada; Better Auth es la autorida"
+    Texto email_normalizado UK "Proyección de contacto de la identidad validada; Better Auth es la autorida"
     Texto nombre "Nombre descriptivo del recurso según su finalidad y visibilidad."
     Texto apellido "Valor de apellido del recurso Usuario, validado con las reglas y el tipo in"
     Texto telefono "Valor de telefono del recurso Usuario, validado con las reglas y el tipo in"
@@ -270,22 +270,13 @@ erDiagram
   }
   makers {
     UUID id PK "Identificador estable y opaco de Maker."
-    UUID usuario_id FK "Referencia a usuarios para tiene perfil maker."
+    UUID usuario_id FK, UK "Referencia a usuarios para tiene perfil maker."
     UUID ubicacion_id FK "Referencia a ubicaciones para ubica maker."
     Texto nombre_publico "Nombre descriptivo del recurso según su finalidad y visibilidad."
     Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
     Booleano disponible "Indicador vigente de disponible utilizado en la autorización o selección de"
     EstadoPerfil estado "Estado vigente de Maker; sus cambios utilizan las transiciones autorizadas."
     JSON horario_disponibilidad "Valor de horario disponibilidad del recurso Maker, validado con las reglas "
-    FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
-  }
-  sesiones {
-    UUID id PK "Identificador estable y opaco de Sesion."
-    UUID usuario_id FK "Referencia a usuarios para inicia sesión."
-    Texto token_renovacion_hash "Valor de token renovacion hash del recurso Sesion, validado con las reglas "
-    FechaHora expira_en "Fecha del servidor del evento expira en, conservada con zona horaria."
-    FechaHora revocada_en "Fecha del servidor del evento revocada en, conservada con zona horaria."
-    Texto cliente_tipo "Valor de cliente tipo del recurso Sesion, validado con las reglas y el tipo"
     FechaHora creado_en "Fecha del servidor del evento creado en, conservada con zona horaria."
   }
   ubicaciones {
@@ -315,7 +306,7 @@ erDiagram
   }
   materiales {
     UUID id PK "Identificador estable y opaco de Material."
-    Texto codigo "Valor de codigo del recurso Material, validado con las reglas y el tipo ind"
+    Texto codigo UK "Valor de codigo del recurso Material, validado con las reglas y el tipo ind"
     Texto nombre "Nombre descriptivo del recurso según su finalidad y visibilidad."
     Texto descripcion "Texto de descripcion del recurso, sujeto a sus permisos y límites."
     Booleano activo "Indicador vigente de activo utilizado en la autorización o selección de Mat"
@@ -328,17 +319,61 @@ erDiagram
     Booleano disponible "Indicador vigente de disponible utilizado en la autorización o selección de"
     Texto observaciones "Texto de observaciones del recurso, sujeto a sus permisos y límites."
   }
+  auth_users {
+    Texto id PK "Campo técnico id del esquema de Better Auth; propiedad del componente de id"
+    Texto name "Campo técnico name del esquema de Better Auth; propiedad del componente de "
+    Texto email UK "Campo técnico email del esquema de Better Auth; propiedad del componente de"
+    Booleano emailVerified "Estado de verificación consultado en el proveedor antes de habilitar al mak"
+    Texto image "Campo técnico image del esquema de Better Auth; propiedad del componente de"
+    FechaHora createdAt "Campo técnico createdAt del esquema de Better Auth; propiedad del component"
+    FechaHora updatedAt "Campo técnico updatedAt del esquema de Better Auth; propiedad del component"
+  }
+  auth_sessions {
+    Texto id PK "Campo técnico id del esquema de Better Auth; propiedad del componente de id"
+    Texto userId FK "Campo técnico userId del esquema de Better Auth; propiedad del componente d"
+    FechaHora expiresAt "Campo técnico expiresAt del esquema de Better Auth; propiedad del component"
+    Texto token UK "Secreto de sesión del proveedor. Persistencia técnica restringida; el adapt"
+    FechaHora createdAt "Inicio de la sesión; base de la guarda administrativa de ocho horas."
+    FechaHora updatedAt "Campo técnico updatedAt del esquema de Better Auth; propiedad del component"
+    Texto ipAddress "Campo técnico ipAddress del esquema de Better Auth; propiedad del component"
+    Texto userAgent "Campo técnico userAgent del esquema de Better Auth; propiedad del component"
+  }
+  auth_accounts {
+    Texto id PK "Campo técnico id del esquema de Better Auth; propiedad del componente de id"
+    Texto userId FK "Campo técnico userId del esquema de Better Auth; propiedad del componente d"
+    Texto accountId "Campo técnico accountId del esquema de Better Auth; propiedad del component"
+    Texto providerId "Campo técnico providerId del esquema de Better Auth; propiedad del componen"
+    Texto accessToken "Campo técnico accessToken del esquema de Better Auth; propiedad del compone"
+    Texto refreshToken "Campo técnico refreshToken del esquema de Better Auth; propiedad del compon"
+    Texto idToken "Campo técnico idToken del esquema de Better Auth; propiedad del componente "
+    FechaHora accessTokenExpiresAt "Campo técnico accessTokenExpiresAt del esquema de Better Auth; propiedad de"
+    FechaHora refreshTokenExpiresAt "Campo técnico refreshTokenExpiresAt del esquema de Better Auth; propiedad d"
+    Texto scope "Campo técnico scope del esquema de Better Auth; propiedad del componente de"
+    Texto password "Hash de contraseña gestionado por Better Auth para credential; el nombre té"
+    FechaHora createdAt "Campo técnico createdAt del esquema de Better Auth; propiedad del component"
+    FechaHora updatedAt "Campo técnico updatedAt del esquema de Better Auth; propiedad del component"
+  }
+  auth_verifications {
+    Texto id PK "Campo técnico id del esquema de Better Auth; propiedad del componente de id"
+    Texto identifier "Campo técnico identifier del esquema de Better Auth; propiedad del componen"
+    Texto value "Valor técnico protegido del mecanismo de verificación; formato y consumo se"
+    FechaHora expiresAt "Campo técnico expiresAt del esquema de Better Auth; propiedad del component"
+    FechaHora createdAt "Campo técnico createdAt del esquema de Better Auth; propiedad del component"
+    FechaHora updatedAt "Campo técnico updatedAt del esquema de Better Auth; propiedad del component"
+  }
+  auth_users ||--o| usuarios : "vincula identidad"
   usuarios ||--o{ usuario_roles : "posee rol"
-  usuarios o|--o{ usuario_roles : "autoriza"
+  usuarios |o--o{ usuario_roles : "autoriza"
   usuarios ||--o| clientes : "tiene perfil cliente"
-  ubicaciones o|--o{ clientes : "ubica cliente"
+  ubicaciones |o--o{ clientes : "ubica cliente"
   usuarios ||--o| makers : "tiene perfil maker"
-  ubicaciones o|--o{ makers : "ubica maker"
-  usuarios ||--o{ sesiones : "inicia sesión"
+  ubicaciones |o--o{ makers : "ubica maker"
   usuarios ||--o{ ubicaciones : "registra ubicación"
   makers ||--o{ impresoras : "declara impresora"
   impresoras ||--o{ capacidades_impresora : "admite capacidad"
   materiales ||--o{ capacidades_impresora : "usa material"
+  auth_users ||--o{ auth_sessions : "mantiene sesión"
+  auth_users ||--o{ auth_accounts : "posee método de acceso"
 ```
 
 </div>

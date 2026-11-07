@@ -1,6 +1,6 @@
 {
   "version": "2.1",
-  "date": "2026-11-01",
+  "date": "2026-11-07",
   "source": "RF vigentes, CU-01 a CU-25 y specs F01 a F25",
   "counts": {
     "features": 25,
@@ -12,9 +12,10 @@
     "mobile": 50,
     "sharedRecoveryViews": 26,
     "documentedAdditionalViews": 12,
-    "documentedTotalViews": 122,
+    "documentedTotalViews": 128,
     "localPrototypeViews": 12,
-    "visualReferenceViews": 122
+    "visualReferenceViews": 122,
+    "documentedPendingMockViews": 6
   },
   "features": [
     {
@@ -25,14 +26,25 @@
         "WEB-AUTH-01",
         "WEB-AUTH-02",
         "MOB-AUTH-01",
-        "MOB-AUTH-02"
+        "MOB-AUTH-02",
+        "WEB-AUTH-04",
+        "WEB-AUTH-05",
+        "WEB-AUTH-06",
+        "MOB-AUTH-04",
+        "MOB-AUTH-05",
+        "MOB-AUTH-06",
+        "WEB-AUTH-03",
+        "MOB-AUTH-03"
       ],
       "components": [
         "DS01",
         "DS03",
         "DS06",
         "DS11",
-        "DS24"
+        "DS24",
+        "DS05",
+        "DS38",
+        "DS43"
       ],
       "rfs": [
         "RF-01.1",
@@ -52,20 +64,54 @@
       "tables": [
         "usuarios",
         "usuario_roles",
-        "sesiones"
+        "clientes",
+        "makers",
+        "aceptaciones_condiciones",
+        "auth_users",
+        "auth_sessions",
+        "auth_accounts",
+        "auth_verifications"
       ],
       "api": [
         {
           "method": "POST",
-          "route": "/auth/registro"
+          "route": "/api/auth/sign-up/email"
         },
         {
           "method": "POST",
-          "route": "/auth/sesion"
+          "route": "/api/auth/sign-in/email"
         },
         {
-          "method": "DELETE",
-          "route": "/auth/sesion"
+          "method": "POST",
+          "route": "/api/auth/sign-out"
+        },
+        {
+          "method": "GET",
+          "route": "/api/auth/get-session"
+        },
+        {
+          "method": "POST",
+          "route": "/api/auth/send-verification-email"
+        },
+        {
+          "method": "GET",
+          "route": "/api/auth/verify-email"
+        },
+        {
+          "method": "POST",
+          "route": "/api/auth/request-password-reset"
+        },
+        {
+          "method": "POST",
+          "route": "/api/auth/reset-password"
+        },
+        {
+          "method": "GET",
+          "route": "/identidad/perfil"
+        },
+        {
+          "method": "POST",
+          "route": "/identidad/perfil"
         }
       ],
       "pds": [
@@ -166,6 +212,7 @@
         "DS37"
       ],
       "rfs": [
+        "RF-01.1",
         "RF-01.2",
         "RF-12.2"
       ],
@@ -179,13 +226,17 @@
       ],
       "cases": [
         "CU-09",
-        "CU-21"
+        "CU-21",
+        "CU-13"
       ],
       "tables": [
         "makers",
         "impresoras",
         "materiales",
-        "capacidades_impresora"
+        "capacidades_impresora",
+        "usuarios",
+        "usuario_roles",
+        "clientes"
       ],
       "api": [
         {
@@ -194,6 +245,10 @@
         },
         {
           "method": "PATCH",
+          "route": "/makers/me"
+        },
+        {
+          "method": "POST",
           "route": "/makers/me"
         },
         {
@@ -535,6 +590,10 @@
         "periodos_membresia"
       ],
       "api": [
+        {
+          "method": "POST",
+          "route": "/solicitudes/{id}/rondas"
+        },
         {
           "method": "GET",
           "route": "/makers/me/invitaciones"
@@ -965,6 +1024,10 @@
       "api": [
         {
           "method": "GET",
+          "route": "/solicitudes/{id}"
+        },
+        {
+          "method": "GET",
           "route": "/makers/me/cola"
         },
         {
@@ -1138,6 +1201,14 @@
         {
           "method": "GET",
           "route": "/notificaciones"
+        },
+        {
+          "method": "GET",
+          "route": "/notificaciones/preferencias"
+        },
+        {
+          "method": "PUT",
+          "route": "/notificaciones/preferencias/{tipo}/{canal}"
         },
         {
           "method": "PATCH",
@@ -1397,11 +1468,11 @@
         },
         {
           "method": "GET",
-          "route": "/makers/{id}/reputacion"
+          "route": "/pedidos/{id}/valoraciones"
         },
         {
           "method": "GET",
-          "route": "/pedidos/{id}/valoraciones"
+          "route": "/makers/{id}/reputacion"
         },
         {
           "method": "POST",
@@ -1536,6 +1607,10 @@
       "api": [
         {
           "method": "GET",
+          "route": "/admin/casos"
+        },
+        {
+          "method": "POST",
           "route": "/admin/casos"
         },
         {
@@ -1681,6 +1756,10 @@
         {
           "method": "POST",
           "route": "/revisiones/{id}/decisiones"
+        },
+        {
+          "method": "POST",
+          "route": "/revisiones/{id}/seguimiento-soporte"
         }
       ],
       "pds": [
@@ -1861,7 +1940,7 @@
       "tables": [
         "eventos_salida",
         "trabajos",
-        "sesiones"
+        "auth_sessions"
       ],
       "api": [
         {
@@ -1954,6 +2033,10 @@
         {
           "method": "GET",
           "route": "/productos/{id}"
+        },
+        {
+          "method": "GET",
+          "route": "/makers/me/productos"
         },
         {
           "method": "POST",
@@ -3675,7 +3758,7 @@
       "features": [
         "F01"
       ],
-      "flow": "1. Elige registro o acceso y completa los datos requeridos. → 2. Valida identificador, credenciales, estado de cuenta y límites. → 3. Crea la identidad y roles públicos solicitados o autentica la cuenta existente. → 4. Entrega las capacidades y la sesión conforme a la política de seguridad. → 5. Abre el recorrido de cliente, maker o administración autorizado.",
+      "flow": "1. Elige registro o acceso. → 2. Better Auth valida o registra la identidad. → 3. FastAPI vincula idempotentemente Cliente y aceptación de condiciones. → 4. Consulta roles y capacidades de negocio. → 5. Abre el contexto autorizado; el alta maker ocurre después desde F03.",
       "condition": "Datos públicos de registro o credenciales de una cuenta existente.",
       "post": "Identidad y perfiles autorizados; sesión vigente o cierre confirmado."
     },
@@ -3837,7 +3920,7 @@
       "sectionId": "72:4379",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2543",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar composiciones específicas de cuenta bloqueada, sesión vencida durante un comando y validación por campo."
+      "functionalClosure": "Comprobar visualmente cuenta bloqueada, sesión vencida y validación por campo; los contratos de identidad siguen ADR-004 y F01."
     },
     {
       "id": "WEB-MKR-05",
@@ -3901,7 +3984,7 @@
       "sectionId": "72:4380",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2557",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Desglosar edición de impresoras y disponibilidad; cerrar criterios de perfil habilitable de PD-01."
+      "functionalClosure": "Comprobar edición de impresoras, disponibilidad y habilitación con las guardas de F03, F11 y PD-01."
     },
     {
       "id": "WEB-SOL-03",
@@ -3976,7 +4059,7 @@
       "sectionId": "72:4381",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2623",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+      "functionalClosure": "Comprobar análisis pendiente, rechazo del archivo y recuperación del borrador según F05 y F23."
     },
     {
       "id": "WEB-SOL-04",
@@ -4035,7 +4118,7 @@
       "sectionId": "72:4382",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2730",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+      "functionalClosure": "Comprobar análisis pendiente, rechazo del archivo y recuperación del borrador según F05 y F23."
     },
     {
       "id": "WEB-MKR-06",
@@ -4108,7 +4191,7 @@
       "sectionId": "72:4383",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2793",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Dibujar ronda con candidatos insuficientes, invitación cerrada y aviso externo fallido; cerrar política versionada de matching."
+      "functionalClosure": "Comprobar candidatos insuficientes, ronda vacía e invitación cerrada con el radio, cupo y reintentos de PD-04."
     },
     {
       "id": "WEB-MKR-07",
@@ -4159,7 +4242,7 @@
       "sectionId": "72:4384",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2864",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+      "functionalClosure": "Comprobar edición, versionado y vencimiento de ofertas con F09 y PD-05."
     },
     {
       "id": "WEB-OFE-04",
@@ -4217,7 +4300,7 @@
       "sectionId": "72:4385",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2881",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+      "functionalClosure": "Comprobar edición, versionado y vencimiento de ofertas con F09 y PD-05."
     },
     {
       "id": "WEB-PED-02",
@@ -4294,7 +4377,7 @@
       "sectionId": "72:4386",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-2944",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+      "functionalClosure": "Comprobar transiciones inválidas y conflictos de versión según las acciones por estado de F12."
     },
     {
       "id": "WEB-PED-03",
@@ -4354,7 +4437,7 @@
       "sectionId": "72:4387",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3032",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+      "functionalClosure": "Comprobar transiciones inválidas y conflictos de versión según las acciones por estado de F12."
     },
     {
       "id": "WEB-REV-03",
@@ -4416,7 +4499,7 @@
       "sectionId": "72:4388",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3057",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar análisis pendiente por archivo, revisión cerrada y recuperación de una transferencia incompleta."
+      "functionalClosure": "Comprobar análisis pendiente, revisión cerrada y recuperación de transferencias según F15 y F23."
     },
     {
       "id": "WEB-REV-04",
@@ -4472,7 +4555,7 @@
       "sectionId": "72:4389",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3082",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+      "functionalClosure": "Comprobar observación, corrección y seguimiento a las 72 horas con F22 y PD-07."
     },
     {
       "id": "WEB-REV-05",
@@ -4533,7 +4616,7 @@
       "sectionId": "72:4390",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3104",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+      "functionalClosure": "Comprobar observación, corrección y seguimiento a las 72 horas con F22 y PD-07."
     },
     {
       "id": "WEB-ENT-03",
@@ -4591,7 +4674,7 @@
       "sectionId": "72:4391",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3134",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar actores y reglas de acuerdo de PD-08; dibujar cambio de coordinación y alternativa textual del mapa."
+      "functionalClosure": "Comprobar aceptación de ambas partes, máximo de dos reprogramaciones y alternativa textual del mapa según F16 y PD-08."
     },
     {
       "id": "WEB-ENT-04",
@@ -4649,7 +4732,7 @@
       "sectionId": "72:4392",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3156",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Definir mecanismo de PD-08, completar captura y errores del mecanismo elegido; mantener la captura bloqueada mientras falte configuración."
+      "functionalClosure": "Comprobar confirmación de recepción por el cliente autenticado y errores de versión según F17 y PD-08."
     },
     {
       "id": "WEB-MEM-04",
@@ -4714,7 +4797,7 @@
       "sectionId": "72:4393",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3219",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-MEM-05",
@@ -4775,7 +4858,7 @@
       "sectionId": "72:4394",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3294",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-MEM-06",
@@ -4831,7 +4914,7 @@
       "sectionId": "72:4395",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3360",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-MEM-07",
@@ -4883,7 +4966,7 @@
       "sectionId": "72:4396",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3423",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-MEM-08",
@@ -4936,7 +5019,7 @@
       "sectionId": "72:4397",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3483",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-ARC-01",
@@ -4999,7 +5082,7 @@
       "sectionId": "72:4398",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3543",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+      "functionalClosure": "Comprobar previsualización, enlace vencido, integridad y retiro aplicando los plazos acordados de PD-12; los plazos aún abiertos conservan su registro."
     },
     {
       "id": "WEB-ARC-02",
@@ -5058,7 +5141,7 @@
       "sectionId": "72:4399",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3609",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+      "functionalClosure": "Comprobar previsualización, enlace vencido, integridad y retiro aplicando los plazos acordados de PD-12; los plazos aún abiertos conservan su registro."
     },
     {
       "id": "WEB-CHAT-02",
@@ -5115,7 +5198,7 @@
       "sectionId": "72:4400",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3631",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar carga de historial, adjunto rechazado, permiso revocado y reconexión con cursor vencido."
+      "functionalClosure": "Comprobar historial, adjuntos, permisos y reconexión; el cierre del pedido deja el chat en solo lectura según F13."
     },
     {
       "id": "WEB-SOL-05",
@@ -5180,7 +5263,7 @@
       "sectionId": "72:4401",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3694",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Cerrar método de PD-06 y dibujar rango disponible, datos insuficientes y cálculo invalidado por nueva versión."
+      "functionalClosure": "Comprobar rango estimativo ±20 %, datos insuficientes y nueva versión según F06 y PD-06; la calibración requiere cinco piezas de referencia."
     },
     {
       "id": "WEB-HIS-02",
@@ -5252,7 +5335,7 @@
       "sectionId": "72:4402",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3763",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+      "functionalClosure": "Comprobar transiciones inválidas y conflictos de versión según las acciones por estado de F12."
     },
     {
       "id": "WEB-ADM-MEM-02",
@@ -5326,7 +5409,7 @@
       "sectionId": "72:4403",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3842",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-ADM-MEM-03",
@@ -5394,7 +5477,7 @@
       "sectionId": "72:4404",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3916",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-ADM-MEM-04",
@@ -5476,7 +5559,7 @@
       "sectionId": "72:4405",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-3990",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-ADM-MEM-05",
@@ -5549,7 +5632,7 @@
       "sectionId": "72:4406",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4062",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-ADM-MEM-06",
@@ -5617,7 +5700,7 @@
       "sectionId": "72:4407",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4136",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "WEB-ADM-03",
@@ -5693,7 +5776,7 @@
       "sectionId": "72:4408",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4164",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar confirmación y resultado de cada intervención sensible; cerrar permisos finos, devoluciones y conflictos de configuración."
+      "functionalClosure": "Comprobar intervenciones, devoluciones totales y conflictos de configuración con los permisos de F20."
     },
     {
       "id": "WEB-ADM-04",
@@ -5770,7 +5853,7 @@
       "sectionId": "72:4409",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=72-4242",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "MOB-AUTH-03",
@@ -5817,7 +5900,7 @@
       "sectionId": "73:3418",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2079",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar composiciones específicas de cuenta bloqueada, sesión vencida durante un comando y validación por campo."
+      "functionalClosure": "Comprobar visualmente cuenta bloqueada, sesión vencida y validación por campo; los contratos de identidad siguen ADR-004 y F01."
     },
     {
       "id": "MOB-MKR-05",
@@ -5881,7 +5964,7 @@
       "sectionId": "73:3419",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2093",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Desglosar edición de impresoras y disponibilidad; cerrar criterios de perfil habilitable de PD-01."
+      "functionalClosure": "Comprobar edición de impresoras, disponibilidad y habilitación con las guardas de F03, F11 y PD-01."
     },
     {
       "id": "MOB-SOL-03",
@@ -5956,7 +6039,7 @@
       "sectionId": "73:3420",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2166",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+      "functionalClosure": "Comprobar análisis pendiente, rechazo del archivo y recuperación del borrador según F05 y F23."
     },
     {
       "id": "MOB-SOL-04",
@@ -6015,7 +6098,7 @@
       "sectionId": "73:3421",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2272",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Desarrollar estados específicos de análisis pendiente, rechazo del archivo y recuperación del borrador."
+      "functionalClosure": "Comprobar análisis pendiente, rechazo del archivo y recuperación del borrador según F05 y F23."
     },
     {
       "id": "MOB-MKR-06",
@@ -6088,7 +6171,7 @@
       "sectionId": "73:3422",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2334",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Dibujar ronda con candidatos insuficientes, invitación cerrada y aviso externo fallido; cerrar política versionada de matching."
+      "functionalClosure": "Comprobar candidatos insuficientes, ronda vacía e invitación cerrada con el radio, cupo y reintentos de PD-04."
     },
     {
       "id": "MOB-MKR-07",
@@ -6139,7 +6222,7 @@
       "sectionId": "73:3423",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2404",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+      "functionalClosure": "Comprobar edición, versionado y vencimiento de ofertas con F09 y PD-05."
     },
     {
       "id": "MOB-OFE-04",
@@ -6197,7 +6280,7 @@
       "sectionId": "73:3424",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2421",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar edición de oferta y vencimiento contextual; decidir contraofertas en PD-05."
+      "functionalClosure": "Comprobar edición, versionado y vencimiento de ofertas con F09 y PD-05."
     },
     {
       "id": "MOB-PED-02",
@@ -6274,7 +6357,7 @@
       "sectionId": "73:3425",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2483",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+      "functionalClosure": "Comprobar transiciones inválidas y conflictos de versión según las acciones por estado de F12."
     },
     {
       "id": "MOB-PED-03",
@@ -6334,7 +6417,7 @@
       "sectionId": "73:3426",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2570",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+      "functionalClosure": "Comprobar transiciones inválidas y conflictos de versión según las acciones por estado de F12."
     },
     {
       "id": "MOB-REV-03",
@@ -6396,7 +6479,7 @@
       "sectionId": "73:3427",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2595",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar análisis pendiente por archivo, revisión cerrada y recuperación de una transferencia incompleta."
+      "functionalClosure": "Comprobar análisis pendiente, revisión cerrada y recuperación de transferencias según F15 y F23."
     },
     {
       "id": "MOB-REV-04",
@@ -6452,7 +6535,7 @@
       "sectionId": "73:3428",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2620",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+      "functionalClosure": "Comprobar observación, corrección y seguimiento a las 72 horas con F22 y PD-07."
     },
     {
       "id": "MOB-REV-05",
@@ -6513,7 +6596,7 @@
       "sectionId": "73:3429",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2642",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar correcciones, plazos y escalamiento de PD-07; dibujar revisión reemplazada y observación registrada."
+      "functionalClosure": "Comprobar observación, corrección y seguimiento a las 72 horas con F22 y PD-07."
     },
     {
       "id": "MOB-ENT-03",
@@ -6571,7 +6654,7 @@
       "sectionId": "73:3430",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2672",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Cerrar actores y reglas de acuerdo de PD-08; dibujar cambio de coordinación y alternativa textual del mapa."
+      "functionalClosure": "Comprobar aceptación de ambas partes, máximo de dos reprogramaciones y alternativa textual del mapa según F16 y PD-08."
     },
     {
       "id": "MOB-ENT-04",
@@ -6629,7 +6712,7 @@
       "sectionId": "73:3431",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2694",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Definir mecanismo de PD-08, completar captura y errores del mecanismo elegido; mantener la captura bloqueada mientras falte configuración."
+      "functionalClosure": "Comprobar confirmación de recepción por el cliente autenticado y errores de versión según F17 y PD-08."
     },
     {
       "id": "MOB-MEM-04",
@@ -6694,7 +6777,7 @@
       "sectionId": "73:3432",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2756",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "MOB-MEM-05",
@@ -6755,7 +6838,7 @@
       "sectionId": "73:3433",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2830",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "MOB-MEM-06",
@@ -6811,7 +6894,7 @@
       "sectionId": "73:3434",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2895",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "MOB-MEM-07",
@@ -6863,7 +6946,7 @@
       "sectionId": "73:3435",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-2957",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "MOB-MEM-08",
@@ -6916,7 +6999,7 @@
       "sectionId": "73:3436",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3016",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar estados de cupo agotado, asignación previa, devolución pendiente/parcial/confirmada y controles de entorno; cerrar PD-09 y PD-10."
+      "functionalClosure": "Comprobar cupo fundador, renovación solo al vencer, devolución total y controles de entorno según F11, PD-09 y PD-10."
     },
     {
       "id": "MOB-ARC-01",
@@ -6979,7 +7062,7 @@
       "sectionId": "73:3437",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3075",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+      "functionalClosure": "Comprobar previsualización, enlace vencido, integridad y retiro aplicando los plazos acordados de PD-12; los plazos aún abiertos conservan su registro."
     },
     {
       "id": "MOB-ARC-02",
@@ -7038,7 +7121,7 @@
       "sectionId": "73:3438",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3140",
       "designStatus": "Confirmación dibujada",
-      "functionalClosure": "Completar previsualización por tipo, enlace vencido, integridad inválida y resultados del retiro; cerrar política de retención."
+      "functionalClosure": "Comprobar previsualización, enlace vencido, integridad y retiro aplicando los plazos acordados de PD-12; los plazos aún abiertos conservan su registro."
     },
     {
       "id": "MOB-CHAT-02",
@@ -7095,7 +7178,7 @@
       "sectionId": "73:3439",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3162",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Completar carga de historial, adjunto rechazado, permiso revocado y reconexión con cursor vencido."
+      "functionalClosure": "Comprobar historial, adjuntos, permisos y reconexión; el cierre del pedido deja el chat en solo lectura según F13."
     },
     {
       "id": "MOB-SOL-05",
@@ -7160,7 +7243,7 @@
       "sectionId": "73:3440",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3224",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Cerrar método de PD-06 y dibujar rango disponible, datos insuficientes y cálculo invalidado por nueva versión."
+      "functionalClosure": "Comprobar rango estimativo ±20 %, datos insuficientes y nueva versión según F06 y PD-06; la calibración requiere cinco piezas de referencia."
     },
     {
       "id": "MOB-HIS-02",
@@ -7232,10 +7315,83 @@
       "sectionId": "73:3441",
       "figmaUrl": "https://www.figma.com/design/PJTOrEKSxxiS2X4R4DImJn/3DAltoque?node-id=73-3292",
       "designStatus": "Composición dibujada",
-      "functionalClosure": "Cerrar catálogo de transiciones y acciones por estado; dibujar transición inválida y conflicto de versión."
+      "functionalClosure": "Comprobar transiciones inválidas y conflictos de versión según las acciones por estado de F12."
     }
   ],
-  "vistas_documentadas_pendientes_de_mock": [],
+  "vistas_documentadas_pendientes_de_mock": [
+    {
+      "id": "WEB-AUTH-04",
+      "name": "Solicitar recuperación de contraseña",
+      "route": "/recuperar-contrasena",
+      "role": "Titular de cuenta",
+      "features": [
+        "F01"
+      ],
+      "contract": "Solicita enlace con respuesta neutral, confirma recepción y permite reintentar tras fallas de entrega.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-AUTH-05",
+      "name": "Restablecer contraseña",
+      "route": "/restablecer-contrasena",
+      "role": "Titular de cuenta",
+      "features": [
+        "F01"
+      ],
+      "contract": "Valida token de 15 minutos y contraseña de 15 a 128 caracteres; muestra vencimiento o consumo y confirma revocación de sesiones.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "WEB-AUTH-06",
+      "name": "Verificar correo electrónico",
+      "route": "/verificar-correo",
+      "role": "Titular de cuenta",
+      "features": [
+        "F01"
+      ],
+      "contract": "Muestra resultado del enlace de una hora, reenvío y capacidades actualizadas; conserva las guardas de habilitación del maker.",
+      "channel": "web",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-AUTH-04",
+      "name": "Solicitar recuperación de contraseña",
+      "route": "/recuperar-contrasena",
+      "role": "Titular de cuenta",
+      "features": [
+        "F01"
+      ],
+      "contract": "Solicita enlace con respuesta neutral, confirma recepción y permite reintentar tras fallas de entrega.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-AUTH-05",
+      "name": "Restablecer contraseña",
+      "route": "/restablecer-contrasena",
+      "role": "Titular de cuenta",
+      "features": [
+        "F01"
+      ],
+      "contract": "Valida token de 15 minutos y contraseña de 15 a 128 caracteres; muestra vencimiento o consumo y confirma revocación de sesiones.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    },
+    {
+      "id": "MOB-AUTH-06",
+      "name": "Verificar correo electrónico",
+      "route": "/verificar-correo",
+      "role": "Titular de cuenta",
+      "features": [
+        "F01"
+      ],
+      "contract": "Muestra resultado del enlace de una hora, reenvío y capacidades actualizadas; conserva las guardas de habilitación del maker.",
+      "channel": "mobile",
+      "designStatus": "Contrato funcional documentado; mock pendiente"
+    }
+  ],
   "vistas_documentadas_adicionales": [
     {
       "id": "WEB-MKR-08",

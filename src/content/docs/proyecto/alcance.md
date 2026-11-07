@@ -60,7 +60,7 @@ La propuesta base funciona como un **mercado de servicios de fabricación on-dem
 - Incluir evidencias visuales previas a la entrega.
 - Mantener trazabilidad de estado, mensajes y revisiones del cliente.
 - Proteger datos personales mediante el uso de nodos de encuentro (protección de domicilios).
-- Generar ingresos mediante una **membresía mensual prepaga para makers**, con renovación manual y costos de cobro, infraestructura y soporte contemplados en el precio.
+- Generar ingresos mediante una **membresía prepaga de 30 días para makers**, con renovación manual y costos de cobro, infraestructura y soporte contemplados en el precio.
 
 ### 2.1 Indicadores de éxito propuestos (MVP)
 
@@ -126,7 +126,7 @@ La propuesta base funciona como un **mercado de servicios de fabricación on-dem
 | F08 | Matching y envío a makers | Ordena y recomienda makers según cercanía, disponibilidad, reputación, materiales y tipo de pieza, y les envía la solicitud. | Lógica de negocio | Ambas |
 | F09 | Gestión de ofertas | El maker oferta precio, plazo y vigencia; el cliente acepta, rechaza o contraoferta. | Lógica de negocio | Ambas |
 | F10 | Confirmación de oferta | Aceptar una oferta vigente la confirma de forma atómica y cierra automáticamente el resto. | Lógica de negocio | Ambas |
-| F11 | Membresía y abono | Plan mensual prepago, prueba configurable, Makers Fundadores y renovación manual mediante Checkout Pro. | Lógica de negocio | Ambas |
+| F11 | Membresía y abono | Plan prepago de 30 días, prueba configurable, Makers Fundadores y renovación manual mediante Checkout Pro. | Lógica de negocio | Ambas |
 | F12 | Gestión de estados del pedido | Actualización y consulta del estado del pedido (ver §6). | Lógica de negocio | Ambas |
 | F13 | Mensajería cliente–maker | Chat asociado a cada pedido (texto e imágenes de referencia). | Lógica de negocio | Ambas |
 | F14 | Notificaciones | Avisos dentro de la app por mensajes, ofertas nuevas, cambios de estado y confirmaciones. | Lógica de negocio | Ambas |

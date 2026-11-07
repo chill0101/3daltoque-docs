@@ -50,7 +50,7 @@ Web / React Native → API FastAPI → aplicación y dominio → PostgreSQL/Post
 
 ### 7. Condiciones que se conservan
 
-68 RF · 19 RNF · 25 CU · 58 tablas. La aceptación conserva precio, cantidad, moneda y plazo; los reintentos recuperan la misma intención.
+68 RF · 19 RNF · 25 CU · 61 tablas. La aceptación conserva precio, cantidad, moneda y plazo; los reintentos recuperan la misma intención.
 
 **Apoyo:** Abrir modelo lógico y la versión de condiciones aceptadas.
 

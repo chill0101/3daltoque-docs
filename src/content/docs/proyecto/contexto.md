@@ -120,7 +120,7 @@ Consulta: 1 de noviembre de 2026. El benchmark ampliado conserva criterios y fue
 | Desconfianza al retirar en casas particulares | Nodos Amigos (F16) |
 | Falta de reputación verificable de los emprendedores | Reputación bidireccional y portfolio (F04, F18) |
 | Makers sin visibilidad | Perfil de maker con capacidades, portfolio y reputación (F03, F04) |
-| Sostenibilidad del servicio para el maker | Membresía mensual prepaga y evaluación del valor del servicio durante el piloto (F11) |
+| Sostenibilidad del servicio para el maker | Membresía prepaga de 30 días y evaluación del valor del servicio durante el piloto (F11) |
 
 ---
 

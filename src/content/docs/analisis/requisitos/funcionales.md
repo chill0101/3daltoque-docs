@@ -4,7 +4,7 @@ title: "Requerimientos funcionales de 3DAltoque"
 
 # Requerimientos funcionales de 3DAltoque
 
-Versión 3.0. Fecha: 25 de octubre de 2026. 68 fichas vigentes; nueve requisitos anteriores retirados.
+Versión 3.0. Fecha: 7 de noviembre de 2026. 68 fichas vigentes; nueve requisitos anteriores retirados.
 
 El alcance comprende solicitudes personalizadas y pedidos directos de productos del maker, con oferta o condiciones publicadas conservadas, producción, revisión expresa, conversación desde el pedido confirmado y entrega personal. La plataforma cobra el abono del maker mediante renovación manual.
 
@@ -1141,8 +1141,8 @@ Integraciones: [INT-05](/3daltoque-docs/diseno/integraciones/#int-05).
 | ID requerimiento | RF-12.1 |
 | Nombre | Configurar el único plan de membresía |
 | Propósito | Permitir ajustar el precio y las condiciones sin crear varios niveles comerciales. |
-| Descripción | Administración consulta y publica versiones del único plan mensual prepago, con importe, moneda, período, vigencia y condiciones visibles. El período pago inicial es de 30 días, configurable según PD-10. La moneda del abono es pesos argentinos (ARS); el importe inicial es de 10.000 ARS por período de 30 días, configurable y conservado con la versión del plan y cada compra. No existen prorrateos, débito recurrente ni comisión por impresión en v1. |
-| Historial | 2026-10-14: alta por ADR-002; nueva familia de requisitos, sin reutilizar RF-08. |
+| Descripción | Administración consulta y publica versiones del único plan prepago de 30 días, con importe, moneda, período, vigencia y condiciones visibles. El período pago inicial es de 30 días, configurable según PD-10. La moneda del abono es pesos argentinos (ARS); el importe inicial es de 10.000 ARS por período de 30 días, configurable y conservado con la versión del plan y cada compra. No existen prorrateos, débito recurrente ni comisión por impresión en v1. |
+| Historial | 2026-10-14: alta por ADR-002. 2026-11-07: precisión del período prepago de 30 días acordado en PD-10. |
 | Fecha | 14 de octubre de 2026 |
 | Versión | 2.0-borrador |
 | Autor | Equipo 3DAltoque (Bernardez, Cariaga y Ruiz). Revisión académica pendiente. |
