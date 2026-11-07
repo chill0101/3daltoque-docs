@@ -25,7 +25,7 @@ La documentación reúne el producto, sus reglas, modelos, contratos, pruebas, m
 | [12. Clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) | 14 servicios, operaciones, puertos y colaboraciones. | Cotejar dependencias con el código. |
 | [13. Componentes](/3daltoque-docs/diseno/arquitectura/#componentes) | Módulos, responsabilidades e interfaces. | Verificar despliegue e integración. |
 | [14. Interfaces entre sistemas](/3daltoque-docs/diseno/contratos-operativos/) | Siete integraciones y OpenAPI con 83 operaciones funcionales y dos técnicas. | Validar implementación y sandbox de proveedores. |
-| [15. Manual de instalación](/3daltoque-docs/manuales/instalacion/) | Entornos, configuración, migraciones, arranque, respaldo y diagnóstico. | Cotejar comandos y resultados del release del producto. |
+| 15. Manual de instalación | Pendiente de elaboración para la aplicación 3DAltoque. | Documentar dependencias, configuración, migraciones e instalación de servicios, Web y Mobile, con comandos y resultados verificados sobre el producto. |
 | [16. Plan post cursada](/3daltoque-docs/planificacion/post-cursada/) | Doce tareas priorizadas, dependencias, ventanas y criterios de cierre. | Asignar responsables nominales y ajustar calendario oficial. |
 | Manual de usuario | Pendiente de elaboración para la aplicación 3DAltoque Web y Mobile. | Documentar los recorridos de cliente, maker y administración sobre el producto, con capturas e instrucciones verificadas. |
 | [Material de presentación](/3daltoque-docs/presentacion/material/) | Diez diapositivas navegables, notas y guion de demo. | Grabar funcionamiento y ajustar duración al formato de cátedra. |

@@ -1,16 +1,19 @@
 ---
-title: "Instalación y puesta en marcha"
+title: "Manual de instalación de la aplicación"
 ---
 
-# Manual de instalación y puesta en marcha
+# Manual de instalación de la aplicación
 
-Versión 1.0. Fecha: 1 de noviembre de 2026.
+Estado del entregable: pendiente de elaboración. Actualización: 7 de noviembre de 2026.
+
+El manual cubrirá la instalación y puesta en marcha de 3DAltoque, incluidos backend, worker, autenticación, base de datos, almacenamiento, aplicación Web y aplicación Mobile. Se completará con las versiones, comandos y comprobaciones de una versión ejecutable del producto.
+
+Los apartados siguientes reúnen información base para preparar y verificar ese manual.
 
 ## Componentes y versiones
 
 | Componente | Procedencia de su versión | Configuración necesaria |
 | --- | --- | --- |
-| Portal documental | Node.js 24, npm 11, Astro 7.3.8 y Starlight 0.42.6; package-lock.json del repositorio. | site y base de Astro; GitHub Pages. |
 | Backend y worker | Tag del release, manifiesto de dependencias Python y archivo de bloqueo del backend. | Base, sesiones, almacenamiento, adaptadores, configuración y reloj. |
 | Web | Tag del frontend, package.json y archivo de bloqueo. | URL pública de la API y retorno del checkout. |
 | Mobile | Tag del proyecto React Native y dependencias bloqueadas. | URL accesible de API, identificador de aplicación y retorno autorizado. |
@@ -18,26 +21,6 @@ Versión 1.0. Fecha: 1 de noviembre de 2026.
 | Almacenamiento | Adaptador del release y versión del servicio. | Endpoint, bucket privado, credenciales, CORS y TTL. |
 
 La ficha del release reúne commits de los tres clientes/servidor, versiones de runtime, esquema de base y comandos de arranque. Esa ficha acompaña cada instalación para reproducir la combinación evaluada.
-
-## Instalar el portal de documentación
-
-Requisitos: Git, Node.js 24 y npm 11.
-
-```powershell
-git clone https://github.com/chill0101/3daltoque-docs.git
-Set-Location 3daltoque-docs
-npm ci
-npm run dev -- --host 127.0.0.1
-```
-
-Abrí la URL informada por Astro, incluyendo /3daltoque-docs/. Para construir y comprobar la versión estática:
-
-```powershell
-npm run build
-npm run preview -- --host 127.0.0.1
-```
-
-GitHub Actions construye el portal y lo despliega desde main. Después de integrar un cambio, verificá la ejecución y la página afectada.
 
 ## Preparar un entorno de la aplicación
 
@@ -103,7 +86,6 @@ Generá una copia consistente de base y el manifiesto de objetos, con hora de ge
 | Abono pendiente | Consultar compra y evento persistido; conciliar antes de repetir una intención. |
 | Worker atrasado | Revisar trabajos y eventos_salida, error y próximo intento; preservar las claves de deduplicación. |
 | Error de versión | Recuperar recurso vigente antes de reenviar una mutación. |
-| Portal sin estilos o enlaces | Verificar base /3daltoque-docs/, versión compilada y resultado de Actions. |
 
 ## Registro de instalación
 
