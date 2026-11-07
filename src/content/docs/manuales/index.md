@@ -4,7 +4,13 @@ title: "Manuales del proyecto"
 
 # Manuales del proyecto
 
-Los manuales reúnen instalación, operación y uso por rol. Cada instalación y ejecución conserva su release, entorno y evidencia.
+Esta sección reúne la preparación de los manuales de instalación, operación y uso de 3DAltoque.
+
+## Manual de usuario de la aplicación
+
+El entregable está pendiente de elaboración. Cubrirá el uso de la aplicación Web y Mobile por clientes, makers y administración. Sus instrucciones y capturas se prepararán sobre una versión ejecutable de 3DAltoque y se comprobarán siguiendo cada recorrido.
+
+Las guías por rol de esta sección aportan la base de recorridos para preparar ese manual.
 
 ## Documentos
 

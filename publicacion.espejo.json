@@ -6,11 +6,11 @@
       "destino": "src/content/docs/planificacion/estado.md",
       "checkpoint": "Checklist",
       "estado": "entregable",
-      "sha256Fuente": "7d86af4801873ac98420790077987242d81769aec36c84723a2ae5493362a8bf",
-      "sha256": "ab48ca6666b669c7d8e31fe8240d845bea0c53f83fe52ec57a77a65497afd51b",
-      "huella": "c63ba1a4ffd0b94ef07b1e646e3a1d893770da84aadebcadf51f1b0356191e59",
+      "sha256Fuente": "8d5c9eea80be32783ec20a3d2dee9b309b05802d4c4f9f38c4d5df3f261ba2b3",
+      "sha256": "8f1698a29330ec930681621b58ff5f301a5ce5b2d628d29d20088fde58886707",
+      "huella": "fced409ab3378d05794a016b5c757ade7828fcc549f22f460183d888ee3156fe",
       "adjuntos": [],
-      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
+      "commitFuente": "c2b8e45a466d30b6c20ae0e635584f09651d3afb"
     },
     "casos-de-uso": {
       "origen": "docs/04-casos-de-uso-y-aceptacion.md",
@@ -782,11 +782,11 @@
       "destino": "src/content/docs/planificacion/roadmap.md",
       "checkpoint": "Plan de trabajo",
       "estado": "entregable",
-      "sha256Fuente": "1d0e26066b34d5a5ee83fd12f765b36d75bcdaba01534f89042dfaa43d8ef53b",
-      "sha256": "89ad38d0ddfbbb0537562152e18e6dc7325c98c8d9513dc75159a86f208f2e1c",
-      "huella": "18fd44efa804fc0341e8c437399fe89e81efb8ff2b8da8707bf48a5abecd8a1c",
+      "sha256Fuente": "c0b1bfc8b3460acf49a329bfe72bc0e5806a25c7b8deb8ed9d8d41b7bd80ca9e",
+      "sha256": "40b832ba471abf3cd1a0fdf261e95ff592e1c7f309de4aa7c5f0aacdacd664c3",
+      "huella": "6a9fb34ed0a581a07ea82b13e5202f6064b830ea14a410f75fd6d72a0c3b8591",
       "adjuntos": [],
-      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
+      "commitFuente": "c2b8e45a466d30b6c20ae0e635584f09651d3afb"
     },
     "paquete-specs-f01-registro-e-inicio-de-sesion": {
       "origen": "docs/specs/f01-registro-e-inicio-de-sesion.md",
@@ -1615,10 +1615,11 @@
       "destino": "src/content/docs/manuales/index.md",
       "checkpoint": "15 y Manual de usuario",
       "estado": "entregable",
-      "sha256Fuente": "9a24b4ed87ccf682d5ba7a9c8d5a676056721e99ff31834d8c50176c5be3ba4a",
-      "sha256": "168213cb1d0545ff328218fb39ae737688927eaecb37fefdedb505fca761059a",
-      "huella": "6db1b118fcaaca61248da604c053fccf4194fb95cd766b65bc3d6d2b2bdb68c2",
-      "adjuntos": []
+      "sha256Fuente": "f9d82a40fef6d586b8b98aa818c51c766aedf455c3e61c1b9997891354f8a1da",
+      "sha256": "fee578d65b5ac6ffad9a2502361548ef04a1d5b4866597e496defe09371e968c",
+      "huella": "6bf3c480c89fa126dbe6f7e7465173f6af5cc464925115a918c3c14aa499b4d7",
+      "adjuntos": [],
+      "commitFuente": "c2b8e45a466d30b6c20ae0e635584f09651d3afb"
     },
     "entrega-diseno-seguridad": {
       "origen": "docs/operacion/seguridad.md",
