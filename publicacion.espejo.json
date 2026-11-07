@@ -6,11 +6,11 @@
       "destino": "src/content/docs/planificacion/estado.md",
       "checkpoint": "Checklist",
       "estado": "entregable",
-      "sha256Fuente": "b72806402c01609adb6f95fc0462778ebc3cc46707fc3291203301d0634bbd7b",
-      "sha256": "8e5f6e5ba05284284f5da4c10f8fc818650b1cf2a5bc09be70caea0ab59dcabd",
-      "huella": "7aefc94530dc6bbc9289a329169d7e93dbe79d15bb3d480cbc1c2bb0a8904b06",
+      "sha256Fuente": "e48823a05137ae3316620d1296819485e4a9e382f540fa8d20affbec9c44e050",
+      "sha256": "88bebddddd8de845d73bc1c39898f97dc5f26b1c789f9f30a185c5b4ad5a9217",
+      "huella": "c5aaab054a9ed1de962bc3b6614dd005405effd5e14ea7fd70a9f918b80de8fe",
       "adjuntos": [],
-      "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
+      "commitFuente": "03313b84fa61e5098cd4cdb8d733dd43f6f8a87a"
     },
     "casos-de-uso": {
       "origen": "docs/04-casos-de-uso-y-aceptacion.md",
