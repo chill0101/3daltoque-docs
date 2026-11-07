@@ -6,11 +6,11 @@
       "destino": "src/content/docs/planificacion/estado.md",
       "checkpoint": "Checklist",
       "estado": "entregable",
-      "sha256Fuente": "8d5c9eea80be32783ec20a3d2dee9b309b05802d4c4f9f38c4d5df3f261ba2b3",
-      "sha256": "8f1698a29330ec930681621b58ff5f301a5ce5b2d628d29d20088fde58886707",
-      "huella": "fced409ab3378d05794a016b5c757ade7828fcc549f22f460183d888ee3156fe",
+      "sha256Fuente": "b72806402c01609adb6f95fc0462778ebc3cc46707fc3291203301d0634bbd7b",
+      "sha256": "8e5f6e5ba05284284f5da4c10f8fc818650b1cf2a5bc09be70caea0ab59dcabd",
+      "huella": "7aefc94530dc6bbc9289a329169d7e93dbe79d15bb3d480cbc1c2bb0a8904b06",
       "adjuntos": [],
-      "commitFuente": "c2b8e45a466d30b6c20ae0e635584f09651d3afb"
+      "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
     },
     "casos-de-uso": {
       "origen": "docs/04-casos-de-uso-y-aceptacion.md",
@@ -782,11 +782,11 @@
       "destino": "src/content/docs/planificacion/roadmap.md",
       "checkpoint": "Plan de trabajo",
       "estado": "entregable",
-      "sha256Fuente": "c0b1bfc8b3460acf49a329bfe72bc0e5806a25c7b8deb8ed9d8d41b7bd80ca9e",
-      "sha256": "40b832ba471abf3cd1a0fdf261e95ff592e1c7f309de4aa7c5f0aacdacd664c3",
-      "huella": "6a9fb34ed0a581a07ea82b13e5202f6064b830ea14a410f75fd6d72a0c3b8591",
+      "sha256Fuente": "63c69e30fe7f052b9a11b20d340d05d9cae68d842d0d5b7995202b884f3b6af4",
+      "sha256": "6db4d8a43c15f08be176513506519c0cab6f6a1cf460a7cc7f7a72d5f256c2e8",
+      "huella": "1dd53dc92ed251bbd09d5b7820dd61c657a4f66de6a7febd8a0c5f6441ed5639",
       "adjuntos": [],
-      "commitFuente": "c2b8e45a466d30b6c20ae0e635584f09651d3afb"
+      "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
     },
     "paquete-specs-f01-registro-e-inicio-de-sesion": {
       "origen": "docs/specs/f01-registro-e-inicio-de-sesion.md",
@@ -1538,9 +1538,9 @@
       "destino": "src/content/docs/manuales/instalacion.md",
       "checkpoint": "15",
       "estado": "entregable",
-      "sha256Fuente": "75c68b3ce7268f1e8ce17b5e004caa53330dab8ca38601cda2763325f2580e16",
-      "sha256": "481ebf6c432a3129edc3d4fb5c1c0e9e556ffd08bc80e0af36f2655c53c853f6",
-      "huella": "e0dd34dc693caee4854eec735476de463e214f62cd673c86612ade44b39636e3",
+      "sha256Fuente": "adadfa4290e80a2dd39a28b7b76e3416281682cd4aef5c7da38c658db083d2c8",
+      "sha256": "f5ac375c3fb218e343c9b57dc690d83f9af76de1d6a508bdcebd0425af4d2b01",
+      "huella": "6668d58fb2a5b27f1c65ea9c6b09b70d5e52072aa447c3d639cf50e3e10bda05",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/datos-funcionales.json",
@@ -1548,7 +1548,7 @@
           "sha256": "4295b7eace683c432467ae2c932032b64b47d06270a034f1308a9aa19c348bfd"
         }
       ],
-      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
+      "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
     },
     "entrega-manuales-cliente": {
       "origen": "docs/manuales/cliente.md",
@@ -1615,11 +1615,11 @@
       "destino": "src/content/docs/manuales/index.md",
       "checkpoint": "15 y Manual de usuario",
       "estado": "entregable",
-      "sha256Fuente": "f9d82a40fef6d586b8b98aa818c51c766aedf455c3e61c1b9997891354f8a1da",
-      "sha256": "fee578d65b5ac6ffad9a2502361548ef04a1d5b4866597e496defe09371e968c",
-      "huella": "6bf3c480c89fa126dbe6f7e7465173f6af5cc464925115a918c3c14aa499b4d7",
+      "sha256Fuente": "14b1eada5a76479214299bc4b3920f1f537872b0a8922fc944318c07775d2773",
+      "sha256": "bd5975735774d4ce0729497813b58a310b0ab48fe2782f13e1a2318262fce2e1",
+      "huella": "94df532c1427f0d7a3c5611a70552ec7f224f8609f60b48f86801a2971f4a2ff",
       "adjuntos": [],
-      "commitFuente": "c2b8e45a466d30b6c20ae0e635584f09651d3afb"
+      "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
     },
     "entrega-diseno-seguridad": {
       "origen": "docs/operacion/seguridad.md",
@@ -1697,11 +1697,11 @@
       "destino": "src/content/docs/planificacion/post-cursada.md",
       "checkpoint": "16",
       "estado": "entregable",
-      "sha256Fuente": "c2d2378dbe1e0d8b36290a3a9b47e4fde1445a092967d47e567487df8629a71a",
-      "sha256": "1907c6441117b7cfe088c9e05b8a7cc2ef68c230237164fb7841304846e7aec2",
-      "huella": "b61afcfffb1a7714a8be77e33fcc730bbc2d002aab8aa02b0c5cf673f9afbf62",
+      "sha256Fuente": "7ddb55d9e578a81f542ac57d9fb46094e7b12a144aefa05b0d0ec818a492ca24",
+      "sha256": "da4ba44c7b4e9ca95dff9c119bf198184cb07103a54bf40cd33441e815fc5a3f",
+      "huella": "72596ca0aef12bad0f93d28a582bc7d0f6231bc219761fbe3552286c84f678c8",
       "adjuntos": [],
-      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
+      "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
     },
     "entrega-presentacion-material": {
       "origen": "docs/planificacion/08-material-presentacion.md",
