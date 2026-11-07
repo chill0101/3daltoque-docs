@@ -4,7 +4,7 @@ title: "Roadmap de 3DAltoque"
 
 # Roadmap de 3DAltoque
 
-Última actualización: **6 de noviembre de 2026**. Cada etapa se cierra con su evidencia y la fecha acordada por el equipo.
+Última actualización: **7 de noviembre de 2026**. Cada etapa se cierra con su evidencia y la fecha acordada por el equipo.
 
 ## Etapas y criterios de avance
 
@@ -17,7 +17,7 @@ title: "Roadmap de 3DAltoque"
 | M4. Abono propio | Checkout Pro, webhooks, conciliación, renovación manual e idempotencia especificados. | Configurar la cuenta de prueba; implementar y comprobar cobro, notificaciones, concesión de acceso y devolución; comprobar el modo de simulación de PD-15. |
 | M5. Marketplace | Solicitudes, matching, ofertas, catálogo y pedido directo especificados y trazados. | Implementar el recorrido integrado y ejecutar las pruebas de aceptación concurrente y condiciones vigentes. |
 | M6. Producción y recepción | Cola, chat, evidencia, revisión, entrega y recepción especificados. | Implementar y comprobar aprobación expresa, acuerdos de entrega y continuidad del pedido con membresía vencida. |
-| M7. Calidad y entrega | Plan de pruebas, PERF-01, seguridad, manuales, diez diapositivas y guion de demo. | Ejecutar CP/PNF, registrar resultados, comprobar instalación, actualizar capturas del producto, generar APK y grabar la demo. |
+| M7. Calidad y entrega | Plan de pruebas, PERF-01, seguridad, base de recorridos por rol, diez diapositivas y guion de demo. | Elaborar el manual de usuario sobre la aplicación Web y Mobile, con instrucciones y capturas verificadas. Ejecutar CP/PNF, registrar resultados, comprobar instalación, generar APK y grabar la demo. |
 
 Las etapas pueden solaparse. La integración del abono se explora desde el análisis para validar cuentas, credenciales, notificaciones y concesión de períodos antes del recorrido integrado.
 
