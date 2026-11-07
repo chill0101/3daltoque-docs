@@ -141,7 +141,7 @@ La [matriz de cobertura](/3daltoque-docs/specs/02-matriz-de-cobertura/) y los [c
 | Compra | Maker acepta condiciones de una versión publicada y conserva importe, moneda y duración. |
 | Verificación | Persistir notificación, consultar recurso y contrastar cuenta, referencia, modo, entorno, importe y moneda. |
 | Concesión | Una compra elegible concede como máximo un período. |
-| Renovación | Conservar días ya concedidos y serializar cálculo del intervalo según PD-10. |
+| Renovación | Permitir compra únicamente al vencer. Conceder 30 días desde el primer pago verificado; un pago adicional concurrente requiere conciliación autorizada según PD-10. |
 | Vencimiento | Restringir compromisos nuevos y conservar pedidos confirmados. |
 | Devolución | Total autorizada por administración; importe y moneda calculados desde el cobro original verificado, motivo, idempotencia y conciliación según PD-09. |
 | Simulación | Identificar el modo y aplicar únicamente los entornos y permisos de PD-15. |

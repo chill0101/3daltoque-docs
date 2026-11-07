@@ -1,4 +1,14 @@
 classDiagram
+  class ResolverIdentidadUseCase {
+    +execute(credencial)
+  }
+  class IdentidadPort {
+    <<interface>>
+    +resolverSesion(credencial)
+  }
+  class BetterAuthAdapter
+  ResolverIdentidadUseCase --> IdentidadPort
+  BetterAuthAdapter ..|> IdentidadPort
   class AceptarOfertaUseCase {
     +execute(command)
   }

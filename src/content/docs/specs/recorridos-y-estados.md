@@ -32,11 +32,11 @@ React Native forma parte del alcance vigente y comparte la API FastAPI con Web, 
 
 ## Recorridos y cobertura de pantallas
 
-El inventario reúne 122 superficies funcionales: 110 composiciones de referencia y doce vistas adicionales documentadas. Las composiciones de Figma conservan su versión. Las doce vistas adicionales tienen [prototipo HTML navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con referencias a sus specs.
+El inventario reúne 128 superficies funcionales: 110 composiciones de referencia, doce vistas HTML y seis contratos de recuperación/verificación pendientes de mock. Las composiciones de Figma conservan su versión. Las doce vistas adicionales tienen [prototipo HTML navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con referencias a sus specs.
 
 | Funcionalidad | Recorrido y pantallas | Contrato |
 | --- | --- | --- |
-| F01 Registro e inicio de sesión | WEB-AUTH-01, WEB-AUTH-02, MOB-AUTH-01, MOB-AUTH-02 | [Abrir spec](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| F01 Registro e inicio de sesión | WEB/MOB-AUTH-01 a AUTH-06 | [Abrir spec](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
 | F02 Gestión de perfil de cliente | WEB-CLI-01, MOB-CLI-01 | [Abrir spec](/3daltoque-docs/specs/f02-gestion-de-perfil-de-cliente/) |
 | F03 Gestión de perfil de maker | WEB-MKR-01, MOB-MKR-01, WEB-MKR-08, MOB-MKR-08 | [Abrir spec](/3daltoque-docs/specs/f03-gestion-de-perfil-de-maker/) |
 | F04 Portfolio del maker | WEB-MKR-02, MOB-MKR-02, WEB-MKR-08, MOB-MKR-08 | [Abrir spec](/3daltoque-docs/specs/f04-portfolio-del-maker/) |

@@ -4,17 +4,17 @@ title: "Plan de integraciones"
 
 # Plan de integraciones
 
-Versión 3.1. Fecha: 5 de noviembre de 2026.
+Versión 3.2. Fecha: 7 de noviembre de 2026.
 
 | ID | Integración | Alcance vigente | Pendientes |
 | --- | --- | --- | --- |
-| <a id="int-01"></a>INT-01 | Mercado Pago Checkout Pro | Cobro manual del abono del maker a favor de la plataforma | Cuenta, credenciales por entorno, retornos web/mobile, pruebas y política de devolución del abono |
-| <a id="int-02"></a>INT-02 | Mapas y geocodificación | Ubicaciones, visualización y apoyo geográfico | Proveedor, límites, licencias y precisión publicada |
-| <a id="int-03"></a>INT-03 | Archivos y análisis | STL, imágenes y adjuntos privados con validación según finalidad | Proveedor, cuotas, conservación y método de estimación |
+| <a id="int-01"></a>INT-01 | Mercado Pago Checkout Pro | Cobro manual del abono del maker a favor de la plataforma | Cuenta, credenciales por entorno, retornos Web/Mobile y pruebas de cobro y devolución total autorizada |
+| <a id="int-02"></a>INT-02 | Mapas y geocodificación | Ubicaciones, visualización y apoyo geográfico | Proveedor, límites contratados, licencias y configuración; la zona pública acordada es de 1 km |
+| <a id="int-03"></a>INT-03 | Archivos y análisis | STL, imágenes y adjuntos privados con validación según finalidad | Proveedor, capacidad contratada, reglas de conservación aún abiertas y calibración de coeficientes de la fórmula acordada |
 | <a id="int-04"></a>INT-04 | Notificaciones | Bandeja de la app y correo mediante Resend. Preferencias por tipo y canal | Dominio verificado, remitente, credenciales por entorno y política de otros avisos |
 | <a id="int-05"></a>INT-05 | API común y recuperación de eventos | Web y Mobile consultan eventos autorizados cada 10 segundos con la pantalla activa. | Validación de integración en ambos clientes. |
 | <a id="int-06"></a>INT-06 | Simulador de cobros | Demostración identificada del abono y su concesión de acceso | Entorno de demostración identificado y separado de producción. El backend exige permiso explícito por cuenta y el resultado simulado solo se aplica al abono de demostración. |
-| <a id="int-07"></a>INT-07 | Better Auth | Credenciales, sesiones y enlaces de verificación y recuperación con Better Auth; Resend entrega los correos; FastAPI conserva autorización y habilitación comercial | Dominio y remitente de Resend para verificación, contratos de F01, migraciones y alojamiento Node/TypeScript según ADR-004 |
+| <a id="int-07"></a>INT-07 | Better Auth | Credenciales, sesiones y enlaces de verificación y recuperación con Better Auth; Resend entrega los correos; FastAPI conserva autorización y habilitación comercial | Dominio y remitente de Resend, versión y adaptador de Better Auth, migraciones generadas, alojamiento y pruebas de integración según ADR-004 |
 
 ## Cobro propio de membresía
 

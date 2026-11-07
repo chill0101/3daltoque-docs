@@ -7,7 +7,10 @@ flowchart LR
   FILES[("Archivos privados y derivados autorizados")]
   MP["Mercado Pago Checkout Pro · abono del maker"]
   MAPS["Mapas y geocodificación"]
-  AUTH["Identidad y permisos"]
+  AUTH["Perfiles, roles y autorización local"]
+  IDP["Better Auth · Node/TypeScript · /api/auth"]
+  AUTHDB[("Tablas técnicas de identidad")]
+  RESEND["Resend · correos"]
   PROFILE["Perfiles, impresoras y capacidades"]
   CAT["Catálogo y portfolio del maker"]
   MARKET["Solicitudes, estimación, ofertas y negociación"]
@@ -19,6 +22,12 @@ flowchart LR
   REPORTS["Historial e indicadores"]
   ADMIN["Soporte y auditoría"]
   NOTIFY["Avisos y recordatorios"]
+  WEB --> IDP
+  MOBILE --> IDP
+  IDP --> AUTHDB
+  IDP --> RESEND
+  AUTH -->|Resolver sesión vigente| IDP
+  NOTIFY --> RESEND
   WEB --> API
   MOBILE --> API
   API --> AUTH

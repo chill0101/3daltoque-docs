@@ -10,7 +10,7 @@ title: "Ficha de proyecto y organización"
 | Integrantes | Lucas Bernardez, María del Rosario Cariaga y Lucas Ruiz | Informado |
 | Responsable de la ficha | Rosario | Según la lista compartida; asignaciones restantes pendientes |
 | Descripción | Plataforma que conecta clientes con makers compatibles por capacidad y ubicación, con solicitudes personalizadas, productos a precio fijo, chat, cola, revisión y entrega | Diseño en curso |
-| Modelo comercial | Membresía mensual prepaga para makers, renovación manual, prueba y programa fundador | ADR-002 |
+| Modelo comercial | Membresía prepaga de 30 días para makers, renovación manual, prueba y programa fundador | ADR-002 |
 | Web | React; framework final por confirmar | Propuesta |
 | Backend | FastAPI / Python, API compartida | Decidido |
 | Base | PostgreSQL; PostGIS propuesto | Diseño |

@@ -4,7 +4,7 @@ title: "ADR-004 Autenticación con Better Auth"
 
 # ADR-004 · Autenticación con Better Auth
 
-Fecha: 5 de noviembre de 2026. Decisión: Better Auth elegido por Lucas Ruiz durante la revisión de PD-01.
+Fecha de decisión: 5 de noviembre de 2026. Revisión técnica: 7 de noviembre de 2026. Decisión: Better Auth elegido por Lucas Ruiz durante la revisión de PD-01.
 
 ## Problema y fundamento
 
@@ -26,7 +26,7 @@ El mínimo de 15 toma como referencia el criterio de NIST SP 800-63B para contra
 
 El inicio de sesión admite hasta cinco intentos fallidos por identificador de acceso en una ventana móvil de 60 segundos, como límite inicial configurable. Web y Mobile comparten el conteo. Al alcanzar el máximo, los intentos siguientes devuelven 429 con el tiempo de espera en Retry-After. El componente de identidad aplica la regla de DC-95 a todo inicio con correo y contraseña. La clave del conteo se deriva del correo normalizado con la misma regla de identidad, incluso para correos inexistentes. La guarda y el registro del resultado se coordinan por clave entre instancias para mantener el límite ante intentos simultáneos. Los intentos bloqueados no extienden la espera. Retry-After informa en segundos cuándo sale de la ventana el fallo más antiguo. Los errores de credenciales y de tasa mantienen respuestas neutrales y el registro de seguridad excluye contraseñas y correo en claro.
 
-La guarda se aplica tanto en la ruta de sesión del contrato de 3DAltoque como en la entrada nativa de Better Auth, con un solo conteo por intento. El limitador de tráfico de Better Auth cuenta peticiones por IP y queda como control complementario. Las pruebas ejercitan los dos controles por separado. El alcance por identificador protege el acceso cuando los intentos provienen de varias redes. [Rate Limit de Better Auth](https://better-auth.com/docs/concepts/rate-limit), [OWASP sobre límites de inicio de sesión](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#login-throttling).
+La guarda se aplica en POST /api/auth/sign-in/email, compartida por Web y Mobile, con un solo conteo por intento. El limitador de tráfico de Better Auth cuenta peticiones por IP y queda como control complementario. Las pruebas ejercitan los dos controles por separado. El alcance por identificador protege el acceso cuando los intentos provienen de varias redes. [Rate Limit de Better Auth](https://better-auth.com/docs/concepts/rate-limit), [OWASP sobre límites de inicio de sesión](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#login-throttling).
 
 ## Envío de verificación con Resend
 
@@ -75,21 +75,30 @@ Cada cliente separa caché y borradores por usuario, contexto y recurso. Al camb
 4. El enlace confirma el correo en Better Auth y retorna a una dirección Web o Mobile permitida. El cliente vuelve a consultar sesión y capacidades; la verificación por sí sola conserva el estado comercial del maker.
 5. FastAPI exige correo verificado y las demás condiciones de CU-09 antes de habilitarlo y conceder su única prueba inicial.
 
-## Adaptación técnica por completar
+## Contratos y persistencia de identidad
 
-| Artefacto | Trabajo requerido | Cierre verificable |
+Las rutas nativas de Better Auth se montan bajo `/api/auth` en Node/TypeScript. El [OpenAPI](/3daltoque-docs/documentos/e37598f41824-openapi.json) declara un servidor raíz para esas operaciones y conserva `/api/v1` para FastAPI. F01 incluye registro, acceso, cierre, consulta de sesión, envío y validación de correo y solicitud y confirmación de recuperación. Los DTO y errores de esas ocho operaciones conservan el formato del proveedor. El SDK cliente utiliza sus métodos nativos; las cookies y el encabezado `set-auth-token` del plugin Bearer se procesan como credenciales.
+
+FastAPI expone `POST /identidad/perfil` para completar el alta y `GET /identidad/perfil` para recuperar la identidad local, los roles, capacidades y vencimientos. El alta recibe la versión aceptada de condiciones y una clave de operación. La sesión determina la identidad externa; la transacción crea el usuario local, Cliente, rol y aceptación. La unicidad del vínculo permite retomar una interrupción entre componentes. Un usuario que inicia sesión con el alta incompleta recibe `409 profile_setup_required` al consultar su contexto y continúa ese paso.
+
+El [modelo lógico](/3daltoque-docs/modelado/modelo-logico/) conserva el UUID de negocio en usuarios. `usuarios.identidad_externa_id` referencia de forma única `auth_users.id`. Better Auth administra los modelos user, session, account y verification, con `modelName` configurado como `auth_users`, `auth_sessions`, `auth_accounts` y `auth_verifications`. Sus campos conservan los nombres nativos. El correo local sirve como proyección de contacto; el proveedor determina el correo y su verificación. La resolución de sesión sincroniza esa proyección con la identidad validada antes de usar el contacto. Las tablas técnicas tienen acceso restringido y migraciones propiedad del componente Node/TypeScript. Las tablas de negocio y la FK de vínculo pertenecen a las migraciones de FastAPI.
+
+Esta separación conserva las referencias existentes a usuarios y delega la gestión de secretos en el componente elegido. Los [diagramas de arquitectura](/3daltoque-docs/diseno/arquitectura/), [clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) y [DER de identidad](/3daltoque-docs/modelado/datos/) representan la misma frontera.
+
+## Configuración y comprobaciones de implementación
+
+| Tema | Trabajo pendiente | Comprobación |
 | --- | --- | --- |
-| Contratos de F01 y OpenAPI | Resolver las tres rutas propias de registro/sesión frente a las rutas nativas de Better Auth bajo /api/auth; documentar vínculo de perfil, validación de sesión y cierre. | SDK, API y pruebas utilizan las mismas rutas y respuestas; conteos y matriz actualizados. |
-| Persistencia y DER de identidad | Mapear la identidad estable y el correo verificado; sustituir o remapear password_hash y sesiones del catálogo previo. Incorporar las tablas user, session, account y verification administradas por Better Auth y las que requieran los plugins elegidos. | Catálogo, diccionario, DER, permisos de base y migraciones coinciden; propiedad de tablas identificada. |
-| Arquitectura y despliegue | Concretar alojamiento de Node/TypeScript, conexión de datos, adaptador FastAPI y origen de ambos clientes. Actualizar diagramas de componentes y diseño. | Versión de Better Auth fijada, configuración y diagramas concordantes. |
-| Correo | Configurar Resend, dominio verificado, remitente y retornos permitidos. | Enlace válido, vencido, repetido y reenvío ejercitados en ambos clientes. |
-| Seguridad y pruebas | Aplicar los 7 días renovables de Cliente/Maker y comprobar vencimiento, renovación y revocación; aplicar la guarda administrativa de 8 horas y completar las pruebas de indisponibilidad, CSRF y almacenamiento Mobile. | CU-13, CP-002, CP-MEM-01 y pruebas de sesión ejecutables contra la integración elegida. |
+| Versión y persistencia | Fijar versión, adaptador transaccional y migraciones generadas de Better Auth; cotejar tipos, nulabilidad, claves e índices con el catálogo lógico. | Esquema generado, permisos de base y migraciones reproducibles; alta local recuperable. |
+| Despliegue y transporte | Configurar origen de Node/TypeScript, proxy, trusted origins, cookies y transporte Mobile. La propuesta de alojamiento junto a Web en Next.js queda sujeta a PD-11. | CSRF, renovación, revocación, 401 y falla 503; una sesión de administración vence a las ocho horas originales. |
+| Correo | Verificar dominio y remitente de Resend y retornos Web/Mobile autorizados. | Verificación de una hora y recuperación de 15 minutos; enlaces válidos, vencidos, repetidos y reenvío. |
+| Seguridad | Implementar guarda de cinco fallos por identificador en 60 segundos, consumo de recuperación y revocación coordinados. | Pruebas concurrentes entre clientes e instancias, secretos excluidos de logs y cierre de sesiones después del restablecimiento. |
 
-Esta adaptación forma parte de PD-01 y PD-11. El lote de publicación incorpora juntos los contratos, datos y diagramas de identidad revisados.
+Estas tareas pertenecen a la implementación de PD-01 y PD-11. Los contratos, datos y diagramas se revisan como un mismo conjunto documental.
 
 ## Fuentes técnicas
 
-Consulta: 5 de noviembre de 2026.
+Consulta: 7 de noviembre de 2026.
 
 - [Integración con Next.js](https://better-auth.com/docs/integrations/next): montaje del componente de autenticación.
 - [Sesiones](https://better-auth.com/docs/concepts/session-management): consulta, revocación y configuración.
@@ -102,3 +111,5 @@ Consulta: 5 de noviembre de 2026.
 - [Recuperación con email y contraseña](https://better-auth.com/docs/authentication/email-password): callback, contratos nativos, vigencia y consumo del token.
 - [NIST SP 800-63B, contraseñas](https://pages.nist.gov/800-63-4/sp800-63b.html#passwordver): referencia de diseño para el mínimo de 15 caracteres.
 - La vigencia del enlace se configura en segundos. [Opciones de verificación de Better Auth](https://better-auth.com/docs/reference/options#emailverification).
+
+- [API del servidor de Better Auth](https://better-auth.com/docs/concepts/api): consulta de sesión y propagación de encabezados.

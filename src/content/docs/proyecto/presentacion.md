@@ -4,7 +4,7 @@ title: "Alcance y producto de 3DAltoque"
 
 # Alcance y producto de 3DAltoque
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.0. Fecha: 7 de noviembre de 2026.
 
 ## Propósito
 
@@ -31,7 +31,7 @@ El cliente acuerda y paga la impresión directamente al maker. La plataforma cob
 
 ## Acceso y monetización
 
-Un plan mensual prepago con renovación manual mediante Checkout Pro. La primera habilitación del maker concede un único beneficio gratuito: 30 días generales o 90 días totales para fundadores, como valores configurables. El programa fundador conserva cupo, asignación y condiciones. El vencimiento restringe trabajos nuevos y mantiene la operativa de pedidos existentes.
+Un plan prepago de 30 días con renovación manual mediante Checkout Pro. La primera habilitación del maker concede un único beneficio gratuito: 30 días generales o 90 días totales para fundadores, como valores configurables. El programa fundador conserva cupo, asignación y condiciones. El vencimiento restringe trabajos nuevos y mantiene la operativa de pedidos existentes.
 
 ## Canales y capacidades
 

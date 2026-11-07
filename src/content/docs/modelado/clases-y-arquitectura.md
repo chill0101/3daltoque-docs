@@ -14,7 +14,7 @@ Separar Pedido y sus condiciones de la Membresía del maker. La compra del abono
 
 ## Datos
 
-[Modelo lógico](/3daltoque-docs/modelado/modelo-logico/): 58 tablas, 552 columnas. [DER](/3daltoque-docs/modelado/datos/): diez vistas con claves y relaciones. El catálogo estructurado conserva las definiciones de tablas, columnas, claves y reglas del diccionario.
+[Modelo lógico](/3daltoque-docs/modelado/modelo-logico/): 61 tablas, 579 columnas. [DER](/3daltoque-docs/modelado/datos/): diez vistas con claves y relaciones. El catálogo estructurado conserva las definiciones de tablas, columnas, claves y reglas del diccionario.
 
 ## Arquitectura y componentes
 
@@ -30,7 +30,7 @@ Separar Pedido y sus condiciones de la Membresía del maker. La compra del abono
 
 [Abrir SVG](/3daltoque-docs/documentos/a44c2fd72ab2-diseno-hexagonal.svg) · [Fuente editable](/3daltoque-docs/documentos/1061d2163efb-diseno-hexagonal.mmd)
 
-La [especificación de clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) desarrolla servicios, operaciones, puertos y colaboraciones. El [modelo lógico](/3daltoque-docs/modelado/modelo-logico/) conserva 58 tablas y 552 columnas. Hosting, despliegue de workers y versiones concretas se seleccionan durante la implementación.
+La [especificación de clases de diseño](/3daltoque-docs/diseno/clases-de-diseno/) desarrolla servicios, operaciones, puertos y colaboraciones. El [modelo lógico](/3daltoque-docs/modelado/modelo-logico/) conserva 61 tablas y 579 columnas. Hosting, despliegue de workers y versiones concretas se seleccionan durante la implementación.
 
 ## Cobertura funcional
 

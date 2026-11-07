@@ -14,7 +14,7 @@ La solicitud personalizada y el pedido directo de un producto publicado converge
 
 ## Sostener el servicio con una membresía
 
-La membresía mensual prepaga del maker sostiene el servicio de la plataforma y se renueva manualmente. El cliente y el maker acuerdan y gestionan directamente el pago de fabricación.
+La membresía prepaga de 30 días del maker sostiene el servicio de la plataforma y se renueva manualmente. El cliente y el maker acuerdan y gestionan directamente el pago de fabricación.
 
 ## Dar espacio para probar
 

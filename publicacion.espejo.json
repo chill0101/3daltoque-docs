@@ -6,9 +6,9 @@
       "destino": "src/content/docs/planificacion/estado.md",
       "checkpoint": "Checklist",
       "estado": "entregable",
-      "sha256Fuente": "e48823a05137ae3316620d1296819485e4a9e382f540fa8d20affbec9c44e050",
-      "sha256": "88bebddddd8de845d73bc1c39898f97dc5f26b1c789f9f30a185c5b4ad5a9217",
-      "huella": "c5aaab054a9ed1de962bc3b6614dd005405effd5e14ea7fd70a9f918b80de8fe",
+      "sha256Fuente": "c040327cfb414e1fa6a99da8b75b186f32c254d7809b5cba2159bdcd8f42d347",
+      "sha256": "e743e2b5e414ba30117fb2156f08737787114750172dfef748f59a5fd77b4a3f",
+      "huella": "a425cde9f6ffed74b3a8cb05a33198c413dd1897f1c585aa754521e121bc7a11",
       "adjuntos": [],
       "commitFuente": "03313b84fa61e5098cd4cdb8d733dd43f6f8a87a"
     },
@@ -68,29 +68,33 @@
       "destino": "src/content/docs/diseno/arquitectura.md",
       "checkpoint": "11 y 13",
       "estado": "entregable",
-      "sha256Fuente": "b469c0c2dfb2e7c198bea615ba7b6e73ed8c120d8b450c358050c6c947ea1cf3",
-      "sha256": "c2b716b44a5ff915e05ccc175c2be1bd2b33dce26ca6f51e6b71584b77ce369a",
-      "huella": "7c6979c7abca58a38b4025b70cfb9fbab3cc05a4a0d15189ba1a0f8e57911335",
+      "sha256Fuente": "a8272dc8bc9bb206102130e0da98c7cd4858a0a5d015f24a2d39804bfd4c18a0",
+      "sha256": "7247527b6fcaf740c3b8f6446c023683e74190a77ee9433f5af0dfad06203e71",
+      "huella": "ad361a9708b9bfdfe0fd5ed83edbce423aba304223b7fcbc5b60e2028e3cf16a",
       "adjuntos": [
         {
           "origen": "docs/diagramas/componentes.svg",
           "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
-          "sha256": "2972d9c1b6ae9e93c6d6e1da1c6e9f938b071eb5e3bb637fe15d3232621dcb8e"
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "0dee95a4dbe3f54916b5e6ca46c2ed6db0093d949960d4a4513f9dfb1fd92236"
         },
         {
           "origen": "docs/diagramas/componentes.mmd",
           "destino": "public/documentos/410048d78c61-componentes.mmd",
-          "sha256": "4c96d6b945136570fda73240b80ef7228e57743e5f7a4df1c437a00bbdb50714"
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "a1f01e4b3d66d7a2f0e7663c31b9ed3441695f5888d067a03746f0908429997f"
         },
         {
           "origen": "docs/diagramas/diseno-hexagonal.svg",
           "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
-          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "6d73db1bacb1d30926bf7907413dce834e8aba6521bdbaa4a5943f8cc7e3f95d"
         },
         {
           "origen": "docs/diagramas/diseno-hexagonal.mmd",
           "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
-          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "04620147172ef553fdb21a45ffa1040034ad3f478663076df2b858a7bbce18ec"
         }
       ]
     },
@@ -99,29 +103,33 @@
       "destino": "src/content/docs/diseno/implementacion.md",
       "checkpoint": "12",
       "estado": "entregable",
-      "sha256Fuente": "536d5a17ab32cc7a3e87109edf6f8ddeab177a453cbf890f284a63b7a00460cc",
-      "sha256": "201b4373adb9d92d27a392c6b45857638b39cd5158b3845a31a0aee9e35185c9",
-      "huella": "cce678db218f3e9fe6dcc568519a6a8ea1b78d9a30699997040cd674ca61e6a6",
+      "sha256Fuente": "a5f58a9845632039807fd0cd558aaa86781a76735dd4de1a6dd7d5a2ce285d44",
+      "sha256": "c0a7062b25050a5ba56d635dba13382cee6f7a86c272611c212fe8b241f36b6b",
+      "huella": "af3f3946acbd37db1c51890fbb9a004b20dc8face71b0909574d83f1eb9026e3",
       "adjuntos": [
         {
           "origen": "docs/diagramas/componentes.svg",
           "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
-          "sha256": "2972d9c1b6ae9e93c6d6e1da1c6e9f938b071eb5e3bb637fe15d3232621dcb8e"
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "0dee95a4dbe3f54916b5e6ca46c2ed6db0093d949960d4a4513f9dfb1fd92236"
         },
         {
           "origen": "docs/diagramas/componentes.mmd",
           "destino": "public/documentos/410048d78c61-componentes.mmd",
-          "sha256": "4c96d6b945136570fda73240b80ef7228e57743e5f7a4df1c437a00bbdb50714"
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "a1f01e4b3d66d7a2f0e7663c31b9ed3441695f5888d067a03746f0908429997f"
         },
         {
           "origen": "docs/diagramas/diseno-hexagonal.svg",
           "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
-          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "6d73db1bacb1d30926bf7907413dce834e8aba6521bdbaa4a5943f8cc7e3f95d"
         },
         {
           "origen": "docs/diagramas/diseno-hexagonal.mmd",
           "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
-          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "04620147172ef553fdb21a45ffa1040034ad3f478663076df2b858a7bbce18ec"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -131,108 +139,128 @@
       "destino": "src/content/docs/modelado/datos.md",
       "checkpoint": "8",
       "estado": "entregable",
-      "sha256Fuente": "1e3cafe4e7f75d4935ae15cb82a63f5a81f63feef510816dc68fee2286eac93b",
-      "sha256": "7db1122889df69963c14abdae059d2972af76778fe82c0392a8e86e6521c8459",
-      "huella": "f21109bcfc7bdf4adc50185f6e633f601752d2f1d3b0a919c80414755aa80db6",
+      "sha256Fuente": "bae000020fdedde7a88f2686ae20af3db5eae2cb69cdf4dbf60a9909b0f9f4e6",
+      "sha256": "56578152951f5bbb9f4b0166cba1227bd5f2063f3671629c0441a7e222f4c659",
+      "huella": "c8635f266af2fffd456a563ffcadcb6f4e16956fa6342d2a87da50a162ea3683",
       "adjuntos": [
         {
           "origen": "docs/modelo-datos/diagramas/der-general.svg",
           "destino": "public/documentos/b603b79b1a48-der-general.svg",
+          "archivo": "starlight/public/documentos/b603b79b1a48-der-general.svg",
           "sha256": "21c6f803021dadc0bf2141ff023a6aa59393467a599635471bbf6cc092c01fc5"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-general.mmd",
           "destino": "public/documentos/20d7c914f94a-der-general.mmd",
+          "archivo": "starlight/public/documentos/20d7c914f94a-der-general.mmd",
           "sha256": "b2026ab03ce989a4366679fc43dce7bb270f31cd9917ffddbaa0307fcb504c5e"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-identidad.svg",
           "destino": "public/documentos/ccaa2a178084-der-identidad.svg",
-          "sha256": "2c5ed382661c2c78b787bfbd64f020ab0f8bc92130f07f8332e1bbec5ace0cbf"
+          "archivo": "starlight/public/documentos/ccaa2a178084-der-identidad.svg",
+          "sha256": "1635ee95ab94e7ea15ec069b9d85dc65f8be7154ac5d11f088b5e5a9ac8229dd"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-identidad.mmd",
           "destino": "public/documentos/c9a8a7b5f5d5-der-identidad.mmd",
-          "sha256": "a8bb2c8b4234f78c4d68ba533a2b8f59f534c24adbf513fef5d6afe202933421"
+          "archivo": "starlight/public/documentos/c9a8a7b5f5d5-der-identidad.mmd",
+          "sha256": "858a601990079fca0bee50190042292babb455ebfbbb4547a890a9bd16b8eb46"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-archivos.svg",
           "destino": "public/documentos/66377b824f4a-der-archivos.svg",
+          "archivo": "starlight/public/documentos/66377b824f4a-der-archivos.svg",
           "sha256": "a287e8435fc5eebe426ddf85fbdeead92be57c08a8713f34cd15d7330a5cf204"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-archivos.mmd",
           "destino": "public/documentos/86c73d05e0e9-der-archivos.mmd",
+          "archivo": "starlight/public/documentos/86c73d05e0e9-der-archivos.mmd",
           "sha256": "91bdee2e4061603083d7a83e69e126351887813d6cf62897034e54872a9a2e18"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-cotizaciones.svg",
           "destino": "public/documentos/57c3386e5db7-der-cotizaciones.svg",
+          "archivo": "starlight/public/documentos/57c3386e5db7-der-cotizaciones.svg",
           "sha256": "92eec4998d149b417117a4f60b2aa508c2e8e057d4d26692e4f1ed1920142ae8"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-cotizaciones.mmd",
           "destino": "public/documentos/a77b05bb3349-der-cotizaciones.mmd",
+          "archivo": "starlight/public/documentos/a77b05bb3349-der-cotizaciones.mmd",
           "sha256": "ce7e67aefa6c4f6f0da479fec4b4cfaa61bae28af149e1cb4dab91b1452ad25c"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-pedidos.svg",
           "destino": "public/documentos/6a68fff74395-der-pedidos.svg",
+          "archivo": "starlight/public/documentos/6a68fff74395-der-pedidos.svg",
           "sha256": "86ff8c22e0a398ff00f37ef4b6513644835ec69ee9e70fa71a1377c5ce631b3c"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-pedidos.mmd",
           "destino": "public/documentos/78e4f83529b8-der-pedidos.mmd",
+          "archivo": "starlight/public/documentos/78e4f83529b8-der-pedidos.mmd",
           "sha256": "9a58b0e98e5d3cb782a7d2158d7fd3ec01c63747c72527e455f57fad8d106c79"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-pagos.svg",
           "destino": "public/documentos/5950f8bd018c-der-pagos.svg",
+          "archivo": "starlight/public/documentos/5950f8bd018c-der-pagos.svg",
           "sha256": "f0eb9c0d2ae4bdc87da2f24f3ff8e73f355dc4eaec9eabdb6ed631fa80719216"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-pagos.mmd",
           "destino": "public/documentos/3dc6180a8ed6-der-pagos.mmd",
+          "archivo": "starlight/public/documentos/3dc6180a8ed6-der-pagos.mmd",
           "sha256": "5997b8e13e97657fd18850b2eddb17ed750aeb6987ff49a762a6fc27136d2366"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-comunicacion.svg",
           "destino": "public/documentos/e596445273e8-der-comunicacion.svg",
+          "archivo": "starlight/public/documentos/e596445273e8-der-comunicacion.svg",
           "sha256": "ad45888c10a890f04e6a68d56508e0090590174172ca6b707b239329f2204c9d"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-comunicacion.mmd",
           "destino": "public/documentos/94b9740f694c-der-comunicacion.mmd",
+          "archivo": "starlight/public/documentos/94b9740f694c-der-comunicacion.mmd",
           "sha256": "f972994ac1862fadfe57f46bf4db174d8f9b57f46db2fa4b94261ea84bf1e8c7"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-operacion.svg",
           "destino": "public/documentos/4b5695cb3462-der-operacion.svg",
+          "archivo": "starlight/public/documentos/4b5695cb3462-der-operacion.svg",
           "sha256": "ec2d0ce4751a1c030f9d551837a9ea93d007f416a0ced1be802f3ef51c6b5bd6"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-operacion.mmd",
           "destino": "public/documentos/e618405f9449-der-operacion.mmd",
+          "archivo": "starlight/public/documentos/e618405f9449-der-operacion.mmd",
           "sha256": "de695837027c4d9b60506672be9b5b5538efaa7b734efa438ed46171486ee47e"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-catalogo.svg",
           "destino": "public/documentos/03e3afc1c8f3-der-catalogo.svg",
+          "archivo": "starlight/public/documentos/03e3afc1c8f3-der-catalogo.svg",
           "sha256": "137f5319f97fabf281ce1c30cb0522ede0eda67ab7387177e9afe6bf737a4ede"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-catalogo.mmd",
           "destino": "public/documentos/a29f200bbecd-der-catalogo.mmd",
+          "archivo": "starlight/public/documentos/a29f200bbecd-der-catalogo.mmd",
           "sha256": "a4fe3e93f31e75d9a55753464a75a285d6e1fb1c7bd0508886a7da1735f5ff42"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-reputacion.svg",
           "destino": "public/documentos/4c830bd6bed9-der-reputacion.svg",
+          "archivo": "starlight/public/documentos/4c830bd6bed9-der-reputacion.svg",
           "sha256": "16d21529b3a794b5d0cd4db030dd89733120e9e269c1e40de54742047816aeff"
         },
         {
           "origen": "docs/modelo-datos/diagramas/der-reputacion.mmd",
           "destino": "public/documentos/69a11ae1c1f0-der-reputacion.mmd",
+          "archivo": "starlight/public/documentos/69a11ae1c1f0-der-reputacion.mmd",
           "sha256": "de0d389983fc05627438c2a5fad8aafe6f60ac2875b7f81956409068e0cbea6e"
         }
       ],
@@ -243,14 +271,15 @@
       "destino": "src/content/docs/modelado/modelo-logico.md",
       "checkpoint": "8",
       "estado": "entregable",
-      "sha256Fuente": "90466e644649ac54809faabe31bb3848fa3abcaa3699ab79360a4a755175d086",
-      "sha256": "988e9a85d3999b51c126a87449f425f5ad6eb37f8cb1f54c0c6922e23c6eabf2",
-      "huella": "725e447d545e3793dd12313a8cf352a7833038e5b9b44d37ea1e49bb205382d1",
+      "sha256Fuente": "43ec1179a0401b940a85f2d7958e6a7121bb8c40c66f63d59a163238b7da4aa4",
+      "sha256": "da1d9e06d850b3f639a306422d5715ca5ce84ba4127193e8347ad9b376a76831",
+      "huella": "f33e376bfcfb60e13d5696e1769b7be9fd83ef8d08529c88b208155aae820209",
       "adjuntos": [
         {
           "origen": "docs/modelo-datos/catalogo.json",
           "destino": "public/documentos/b0342fb91680-catalogo.json",
-          "sha256": "04b5385ecb82b3172451fd9025a6a88f9461d6dbf1a26713821db2b00edabc97"
+          "archivo": "starlight/public/documentos/b0342fb91680-catalogo.json",
+          "sha256": "e17875acad32430409eb0a3b798958bc0b9698e52f167c6be4b4af5c0a8ce9b9"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -260,128 +289,152 @@
       "destino": "src/content/docs/flujos/estados.md",
       "checkpoint": "3 y 4",
       "estado": "entregable",
-      "sha256Fuente": "08914c777063b9b5de04b34abc75b590fc950c83bc9428f021cf7f1b60e52e46",
-      "sha256": "6251536c2ac277523b372c90f3b4952f686c9397c957443a611b27258e40ccf7",
-      "huella": "eaa40ea4fef3d6ec86a8a8a1e7d048a2fb282f06c584d1382bab6e6ba1bb6643",
+      "sha256Fuente": "49be030cfedd418e3f9ff78db4492eacc0202023b7016d064e11c404ca61fd98",
+      "sha256": "ec30d41f86dddf83559a359cafb0cf538311835ce05b58d90534c70bb820ffdb",
+      "huella": "f42dacc8b9b50ae376b1b8aaf7557ea7f7af9dc5c0c80bc5fb256419fc381371",
       "adjuntos": [
         {
           "origen": "docs/diagramas/secuencia-cotizacion.svg",
           "destino": "public/documentos/97d5eef655ae-secuencia-cotizacion.svg",
+          "archivo": "starlight/public/documentos/97d5eef655ae-secuencia-cotizacion.svg",
           "sha256": "e4c285f57323c31de9522cdc772c2a0b1dda5335816ef792a4b6c73264fd29e1"
         },
         {
           "origen": "docs/diagramas/secuencia-cotizacion.mmd",
           "destino": "public/documentos/3fcf0ef2e392-secuencia-cotizacion.mmd",
+          "archivo": "starlight/public/documentos/3fcf0ef2e392-secuencia-cotizacion.mmd",
           "sha256": "6f0b9605443af7e3120f26af1fd4924bb42d35980b75d4bba8393d9f7ecf8232"
         },
         {
           "origen": "docs/diagramas/estados-solicitud.svg",
           "destino": "public/documentos/5a3710605866-estados-solicitud.svg",
+          "archivo": "starlight/public/documentos/5a3710605866-estados-solicitud.svg",
           "sha256": "b1e45d5ea2a88993f2dbdd0e14d3d0fed019975bf6ef8ef797dbc509971fb6c9"
         },
         {
           "origen": "docs/diagramas/estados-solicitud.mmd",
           "destino": "public/documentos/1441f04a2334-estados-solicitud.mmd",
+          "archivo": "starlight/public/documentos/1441f04a2334-estados-solicitud.mmd",
           "sha256": "04691758845e008767ad4bf3d00e8812ccbaba1cb574581eb768fd0a6dece554"
         },
         {
           "origen": "docs/diagramas/estados-oferta.svg",
           "destino": "public/documentos/a8692614b574-estados-oferta.svg",
+          "archivo": "starlight/public/documentos/a8692614b574-estados-oferta.svg",
           "sha256": "07f31d27efb6cb2fc51ae5d125137d312971659043f7b54aa90b2323de9d3e94"
         },
         {
           "origen": "docs/diagramas/estados-oferta.mmd",
           "destino": "public/documentos/b1d5026866f3-estados-oferta.mmd",
+          "archivo": "starlight/public/documentos/b1d5026866f3-estados-oferta.mmd",
           "sha256": "bec78d6336b759429d79b903599500fb6633fa73471b9137673a6b1b9a600363"
         },
         {
           "origen": "docs/diagramas/estados-pedido.svg",
           "destino": "public/documentos/e9d99ad5c424-estados-pedido.svg",
+          "archivo": "starlight/public/documentos/e9d99ad5c424-estados-pedido.svg",
           "sha256": "319395cb068ad5f303dbc2720229bcb3655a4e0e91b51a579e3b25aef4f5ec43"
         },
         {
           "origen": "docs/diagramas/estados-pedido.mmd",
           "destino": "public/documentos/51c245f91b6b-estados-pedido.mmd",
+          "archivo": "starlight/public/documentos/51c245f91b6b-estados-pedido.mmd",
           "sha256": "b775d6ee6ff71b0c7a883cec8af53b13ef6147ceed095541a5bd6bb880ece267"
         },
         {
           "origen": "docs/diagramas/estados-revision.svg",
           "destino": "public/documentos/d72adef0e9f0-estados-revision.svg",
+          "archivo": "starlight/public/documentos/d72adef0e9f0-estados-revision.svg",
           "sha256": "39d3080358829705df4ad2a03db0adb0dab13b1107680b47c25dbf90a8ef5bae"
         },
         {
           "origen": "docs/diagramas/estados-revision.mmd",
           "destino": "public/documentos/bf6af2ee5236-estados-revision.mmd",
+          "archivo": "starlight/public/documentos/bf6af2ee5236-estados-revision.mmd",
           "sha256": "35a187a7f13714e5cec29f8c37a476e0996fd8a7254d489d7c981300d6d8e0b3"
         },
         {
           "origen": "docs/diagramas/estados-entrega.svg",
           "destino": "public/documentos/1c6a0d8124ee-estados-entrega.svg",
+          "archivo": "starlight/public/documentos/1c6a0d8124ee-estados-entrega.svg",
           "sha256": "f72be75166356e49dd5eb2de6ad99bff4cbd811c0cec8127fb9c23dbace96b25"
         },
         {
           "origen": "docs/diagramas/estados-entrega.mmd",
           "destino": "public/documentos/e91a1c54d94b-estados-entrega.mmd",
+          "archivo": "starlight/public/documentos/e91a1c54d94b-estados-entrega.mmd",
           "sha256": "72fd5854a9e5f2f8adf331f583c486c93853b7a2ee61b26e272a09f825515001"
         },
         {
           "origen": "docs/diagramas/estados-membresia.svg",
           "destino": "public/documentos/f2ba7a368209-estados-membresia.svg",
-          "sha256": "7d50f25aff7c2e3c20c1e5de7fcfbb5503f1b2ad55cfcc4d8c5995aa22b8d05b"
+          "archivo": "starlight/public/documentos/f2ba7a368209-estados-membresia.svg",
+          "sha256": "d2415d938e4f634c70211c7c8f36bb270b680922d633a1cbf13d42380fe90c7f"
         },
         {
           "origen": "docs/diagramas/estados-membresia.mmd",
           "destino": "public/documentos/8f909307fb54-estados-membresia.mmd",
-          "sha256": "3c7dbe8ab380f5096349297fab089195dd02e01a7704f185762bab7b0193ac4a"
+          "archivo": "starlight/public/documentos/8f909307fb54-estados-membresia.mmd",
+          "sha256": "039fc6ab27308ee512bec4c0d9ce3dbead6c39bc3a4842b5dafcc34bff195450"
         },
         {
           "origen": "docs/diagramas/secuencia-pago.svg",
           "destino": "public/documentos/5b550fb39979-secuencia-pago.svg",
+          "archivo": "starlight/public/documentos/5b550fb39979-secuencia-pago.svg",
           "sha256": "1194383a6b9e0c7d7910488bd853910921e4c652153ee204521746a1510ad7f2"
         },
         {
           "origen": "docs/diagramas/secuencia-pago.mmd",
           "destino": "public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
+          "archivo": "starlight/public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
           "sha256": "96e9d3e19d3e76ed5bebccafa5c3e8dd30f1f13dead3fffc74c80318d4bf8876"
         },
         {
           "origen": "docs/diagramas/estados-pago.svg",
           "destino": "public/documentos/c748c25e7e54-estados-pago.svg",
+          "archivo": "starlight/public/documentos/c748c25e7e54-estados-pago.svg",
           "sha256": "8e24f1be8f4271240aad2dff6007ec1ae8c1fd7899ede25019b118cd1b657874"
         },
         {
           "origen": "docs/diagramas/estados-pago.mmd",
           "destino": "public/documentos/564f67e434cc-estados-pago.mmd",
+          "archivo": "starlight/public/documentos/564f67e434cc-estados-pago.mmd",
           "sha256": "4d389042c7205eb9ede4802ee2e7f44279c7aed77da5ad1c27993ba70eef70f3"
         },
         {
           "origen": "docs/diagramas/estados-producto.svg",
           "destino": "public/documentos/f11a1eaae9d7-estados-producto.svg",
+          "archivo": "starlight/public/documentos/f11a1eaae9d7-estados-producto.svg",
           "sha256": "6c1758d03b86f7e250159755e89a2f346c74a0862e586abfe31fefd903c71a71"
         },
         {
           "origen": "docs/diagramas/estados-producto.mmd",
           "destino": "public/documentos/c4a9b64f607e-estados-producto.mmd",
+          "archivo": "starlight/public/documentos/c4a9b64f607e-estados-producto.mmd",
           "sha256": "9e615549bb91ae904004665ad2de062b3191925fd4eb42f1e4e154cecde75cd0"
         },
         {
           "origen": "docs/diagramas/secuencia-producto.svg",
           "destino": "public/documentos/7652af2389d5-secuencia-producto.svg",
+          "archivo": "starlight/public/documentos/7652af2389d5-secuencia-producto.svg",
           "sha256": "5d987177f3e4ea14668adaf9017153c93a9b8929ef0dfdad036bf105de6aaf8a"
         },
         {
           "origen": "docs/diagramas/secuencia-producto.mmd",
           "destino": "public/documentos/2625bc0c8924-secuencia-producto.mmd",
+          "archivo": "starlight/public/documentos/2625bc0c8924-secuencia-producto.mmd",
           "sha256": "1eb52aa4532695c26875e44ea69acccb5de2bdb0b3a971e9272d72e4a2612b7d"
         },
         {
           "origen": "docs/diagramas/secuencia-chat.svg",
           "destino": "public/documentos/4e5ada0a8489-secuencia-chat.svg",
+          "archivo": "starlight/public/documentos/4e5ada0a8489-secuencia-chat.svg",
           "sha256": "0281f59beafb51bfc7dd9f9c25d592a846e2296c76c3b9d508a3e19debc0ed18"
         },
         {
           "origen": "docs/diagramas/secuencia-chat.mmd",
           "destino": "public/documentos/df6ea54a560a-secuencia-chat.mmd",
+          "archivo": "starlight/public/documentos/df6ea54a560a-secuencia-chat.mmd",
           "sha256": "ab28c2ae033e84bce9c10c1acac7b887afc73dea6e4d1350e3fca390e408f0a7"
         }
       ],
@@ -468,29 +521,33 @@
       "destino": "src/content/docs/specs/01-navegacion-y-pantallas.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "ae99aa1d8c83644ab50bd49a226b5189a91d40dd7b02d890b8097719903092a0",
-      "sha256": "1de5b10c87232a9d65d3bca9035a123228ddebc60f97754c5b5ba93788d94a47",
-      "huella": "71cdcd4adde9a2d69c49bff618884c95fbc57e07b8f9c705224e9e89b25d1d72",
+      "sha256Fuente": "5a3c67e2d1b672349c72d59d5b8af83e32685aec19642ceae7acad54623862ba",
+      "sha256": "bdaf11ab093d3b85403e7b1cd67f3e0b4b11c7290d7edd5680c0b0773a211efb",
+      "huella": "8354da06ed452bfb3f508371e1fa2b5053de0d1177b4c19bcb74c0f2d04d93b0",
       "adjuntos": [
         {
           "origen": "docs/design-system/figma/previews/2026-10-23/vista-web-solicitud.png",
           "destino": "public/documentos/bec86659d33a-vista-web-solicitud.png",
+          "archivo": "starlight/public/documentos/bec86659d33a-vista-web-solicitud.png",
           "sha256": "5d1c7117129f1e10696a08042a1cfa7ac760ab43a0a9870ebb2d6f59a4163483"
         },
         {
           "origen": "docs/design-system/figma/previews/2026-10-23-plataformas/mobile-request.png",
           "destino": "public/documentos/cc62b202a1bb-mobile-request.png",
+          "archivo": "starlight/public/documentos/cc62b202a1bb-mobile-request.png",
           "sha256": "5df249a58a3cfef83ad40074fbecccd03c592654b4809103790f98d684b55fbf"
         },
         {
           "origen": "docs/design-system/figma/previews/2026-10-23/vista-mobile-busqueda.png",
           "destino": "public/documentos/849429e79cb7-vista-mobile-busqueda.png",
+          "archivo": "starlight/public/documentos/849429e79cb7-vista-mobile-busqueda.png",
           "sha256": "e23b0971568bf76d5fc6d3b4756d9b798992a7c5b92aca4acea694ffa978969e"
         },
         {
           "origen": "docs/specs/vistas-complementarias.json",
           "destino": "public/documentos/b06f2f01e8a2-vistas-complementarias.json",
-          "sha256": "0ba05fdf54f5968ead1792a9b3f6bf94c85ae27a2ab788d0d4d35cc8f83b46c1"
+          "archivo": "starlight/public/documentos/b06f2f01e8a2-vistas-complementarias.json",
+          "sha256": "243096d8c413430f0985a2b2f1c57f205c9935f607f7652d186622c6b51061a1"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -500,9 +557,9 @@
       "destino": "src/content/docs/specs/03-inventario-de-vistas-y-flujos.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "7eabe7061e0308f91388f12fd3365b17ba026c0bdd0d26dea280201eeb5e2e31",
-      "sha256": "18e15a7830b569b41e11c57965d668b47658ed5270bc7d8702f81849b271cc2d",
-      "huella": "a5cdfffe958f1635bf240e1cac1d1966d8a8452817fe013c952591d0832d22cc",
+      "sha256Fuente": "14f7f3c40df48dc10511cdf8d115e57df864695530f2dca8391785ad5fff6d7f",
+      "sha256": "2de70b6892c5275a884b6c410941033f32c76217e601eb04f9410177207ea848",
+      "huella": "c7bacefe980a0ec093b70b6e349bf72393d430c712c8d3a3709aeb5a4bb3988d",
       "adjuntos": []
     },
     "indice-diagramas": {
@@ -510,49 +567,57 @@
       "destino": "src/content/docs/modelado/diagramas.md",
       "checkpoint": "Análisis, modelado y arquitectura",
       "estado": "entregable",
-      "sha256Fuente": "1184f13c75ae3ac553ae27e8317bfe9f99e13c55244f067c68641e9e761f91dd",
-      "sha256": "382604add684c532cbb03554866919af8044ca2513254fa60250ca5f9558927a",
-      "huella": "62f7bce3aea9d038d9a3014e255b28f1bee78b42fba19d50beb6ab71a74f2345",
+      "sha256Fuente": "4f3614970673839134fab2b5f17a64e545c4ea7c7cb725672dcab3d55e29f444",
+      "sha256": "c15d649f468ab77a183556734c5a812ee55154a1d806ef896b2d6cce0174cc5f",
+      "huella": "2664b3d9bf678408286f1ac6d079b9af9c03760791d8a30b8daf4eb61788bd48",
       "adjuntos": [
         {
           "origen": "docs/diagramas/casos-de-uso.svg",
           "destino": "public/documentos/56672ecacb3e-casos-de-uso.svg",
+          "archivo": "starlight/public/documentos/56672ecacb3e-casos-de-uso.svg",
           "sha256": "470be76fca9a1969053107a2c8792580e6cf182120939b2d2aef51b85bbbd146"
         },
         {
           "origen": "docs/diagramas/casos-de-uso.puml",
           "destino": "public/documentos/c14d6068439c-casos-de-uso.puml",
+          "archivo": "starlight/public/documentos/c14d6068439c-casos-de-uso.puml",
           "sha256": "2e0ad2e5130293e284ce135ab902dc9f956c1516b39a2e04aa0d5787a406179b"
         },
         {
           "origen": "docs/diagramas/dominio.svg",
           "destino": "public/documentos/3a38ed4d1833-dominio.svg",
+          "archivo": "starlight/public/documentos/3a38ed4d1833-dominio.svg",
           "sha256": "ea8dc1ef36c74a3c67259f71be305b39ff920e672969b0ad6586e876049090a5"
         },
         {
           "origen": "docs/diagramas/dominio.mmd",
           "destino": "public/documentos/6420bfd40263-dominio.mmd",
+          "archivo": "starlight/public/documentos/6420bfd40263-dominio.mmd",
           "sha256": "a319b70d9fb002990ffa15988ba09b1631fc5babf3848907411e1b895d5fe203"
         },
         {
           "origen": "docs/diagramas/componentes.svg",
           "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
-          "sha256": "2972d9c1b6ae9e93c6d6e1da1c6e9f938b071eb5e3bb637fe15d3232621dcb8e"
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "0dee95a4dbe3f54916b5e6ca46c2ed6db0093d949960d4a4513f9dfb1fd92236"
         },
         {
           "origen": "docs/diagramas/componentes.mmd",
           "destino": "public/documentos/410048d78c61-componentes.mmd",
-          "sha256": "4c96d6b945136570fda73240b80ef7228e57743e5f7a4df1c437a00bbdb50714"
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "a1f01e4b3d66d7a2f0e7663c31b9ed3441695f5888d067a03746f0908429997f"
         },
         {
           "origen": "docs/diagramas/clases-diseno.svg",
           "destino": "public/documentos/57e576c9dff0-clases-diseno.svg",
-          "sha256": "996b5d3d385351129234d4b463a9e5714861f0bf9870e88ae436380fc6805e3a"
+          "archivo": "starlight/public/documentos/57e576c9dff0-clases-diseno.svg",
+          "sha256": "1b8f7e9257ae7c2a93c430f3873146076cda35949a5b5cfa1baecafe91fde3e2"
         },
         {
           "origen": "docs/diagramas/clases-diseno.mmd",
           "destino": "public/documentos/4fad4154f542-clases-diseno.mmd",
-          "sha256": "0c31e1112b03002ed9ae5f50d15fc5f84cb736bfa250fbf0d73eccc5cfb77010"
+          "archivo": "starlight/public/documentos/4fad4154f542-clases-diseno.mmd",
+          "sha256": "565e2ef8a80ddfab0e86ea2f7c0acdf2b38f403f0bd33d929853488f8678d5d8"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -562,39 +627,45 @@
       "destino": "src/content/docs/modelado/clases-y-arquitectura.md",
       "checkpoint": "7) Diagrama de clases de dominio",
       "estado": "entregable",
-      "sha256Fuente": "318034ccefb2b787f4f95c6f3b71bd20cfd28f16f806153bd20d3b2a4da98eb0",
-      "sha256": "4895994caa5867aefb3751f78e4486e6989330741045dcff1e79a517bce15162",
-      "huella": "519089f74bde7ecbf2027b796a871665208949c9c4248825e882c67b8e268c0c",
+      "sha256Fuente": "04945c5aa58a63f9542f6ba5b4bfa0e9fd17090e8492bde65a248b690f2bf28e",
+      "sha256": "93264641f8aaa6b618963432ec66716a68245cc51412810eb49488f8dc9c5913",
+      "huella": "0a2feb4a37be66381a9d4576c1cf78271fff68cfe3b32639fd7e490ffbdd72fa",
       "adjuntos": [
         {
           "origen": "docs/diagramas/dominio.svg",
           "destino": "public/documentos/3a38ed4d1833-dominio.svg",
+          "archivo": "starlight/public/documentos/3a38ed4d1833-dominio.svg",
           "sha256": "ea8dc1ef36c74a3c67259f71be305b39ff920e672969b0ad6586e876049090a5"
         },
         {
           "origen": "docs/diagramas/dominio.mmd",
           "destino": "public/documentos/6420bfd40263-dominio.mmd",
+          "archivo": "starlight/public/documentos/6420bfd40263-dominio.mmd",
           "sha256": "a319b70d9fb002990ffa15988ba09b1631fc5babf3848907411e1b895d5fe203"
         },
         {
           "origen": "docs/diagramas/componentes.svg",
           "destino": "public/documentos/44ac08b2bfc6-componentes.svg",
-          "sha256": "2972d9c1b6ae9e93c6d6e1da1c6e9f938b071eb5e3bb637fe15d3232621dcb8e"
+          "archivo": "starlight/public/documentos/44ac08b2bfc6-componentes.svg",
+          "sha256": "0dee95a4dbe3f54916b5e6ca46c2ed6db0093d949960d4a4513f9dfb1fd92236"
         },
         {
           "origen": "docs/diagramas/componentes.mmd",
           "destino": "public/documentos/410048d78c61-componentes.mmd",
-          "sha256": "4c96d6b945136570fda73240b80ef7228e57743e5f7a4df1c437a00bbdb50714"
+          "archivo": "starlight/public/documentos/410048d78c61-componentes.mmd",
+          "sha256": "a1f01e4b3d66d7a2f0e7663c31b9ed3441695f5888d067a03746f0908429997f"
         },
         {
           "origen": "docs/diagramas/diseno-hexagonal.svg",
           "destino": "public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
-          "sha256": "558de33c8a88199dc17b1c5f7f3a6a7f9903978806eeee8969d9425bae324f67"
+          "archivo": "starlight/public/documentos/a44c2fd72ab2-diseno-hexagonal.svg",
+          "sha256": "6d73db1bacb1d30926bf7907413dce834e8aba6521bdbaa4a5943f8cc7e3f95d"
         },
         {
           "origen": "docs/diagramas/diseno-hexagonal.mmd",
           "destino": "public/documentos/1061d2163efb-diseno-hexagonal.mmd",
-          "sha256": "4f51e39293a251f4ec9d772b95adb42207010f94b85e580ef995710f5e4b8aac"
+          "archivo": "starlight/public/documentos/1061d2163efb-diseno-hexagonal.mmd",
+          "sha256": "04620147172ef553fdb21a45ffa1040034ad3f478663076df2b858a7bbce18ec"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -604,9 +675,9 @@
       "destino": "src/content/docs/index.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "2b74133a3ed8952731f03db78cad58c55323decd4a07b180d78e698cc15d8900",
-      "sha256": "2b74133a3ed8952731f03db78cad58c55323decd4a07b180d78e698cc15d8900",
-      "huella": "4135ba829ede92ba507e481962dc6d0d7d799bc493bd3e32cda2b0c91758607e",
+      "sha256Fuente": "8b12f3c3bbcc45ff730db37c2c1035917ad77bc145f3494d7b5bd5fe68f1ca53",
+      "sha256": "8b12f3c3bbcc45ff730db37c2c1035917ad77bc145f3494d7b5bd5fe68f1ca53",
+      "huella": "0f4fa42ee377eaa2394934c8219f44518142f5e2ff30fdf6422728f7ae4b5744",
       "adjuntos": []
     },
     "presentacion": {
@@ -614,9 +685,9 @@
       "destino": "src/content/docs/proyecto/presentacion.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "36ba328ec8e2aac6e8a4662d7acd60ed49a3dbc2f0335aa5ca85d591ed4e9ec9",
-      "sha256": "a270bd571c43d5e0d68f8a93835675c2813f1961eaa7778d78989e11f1ddcf0e",
-      "huella": "719689d1f693af9d971ea0c8db8ef64b711aa54590b268bb925dec8a69facfe7",
+      "sha256Fuente": "847202b084d29ff5d7ecad4488ad3f5b6349d07014eb6ba959186ba881f1925f",
+      "sha256": "53496f62f0ef0ca79ab0506dff7085fc0194aa45085303d9644985a42cd72f08",
+      "huella": "27a610d94482f9cb933bd1727d75a1901ddbb097bce7cbece3aa893ebf35f4c1",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -625,9 +696,9 @@
       "destino": "src/content/docs/proyecto/funcionalidades.md",
       "checkpoint": "Documento de Funcionalidades (Planificación de Proyecto)",
       "estado": "entregable",
-      "sha256Fuente": "9c7a3a9c079e323262c82a1f373eecf89accd8df00d423d384bbaf7e417b78d4",
-      "sha256": "109ac74f8992d63f9a039ff3b819551e7cc43d940a4b26cc92dc968d80309c8d",
-      "huella": "c1cfa9cccf50afa51b16d8db67cbee9e7040eedc6e7bbcd29347d35cf378377d",
+      "sha256Fuente": "460f616b3082405a7c28d26d3fcddda796fce15f07ca9abab78ea64c0b33093c",
+      "sha256": "8570405199d294fca5faff99d8883e96b6e1ab49db72bb2e728f547a3a043f9a",
+      "huella": "110a384cf78c36bb0ebea1e94f481a52e97123e97cadaae3733aa70e4580f629",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -636,9 +707,9 @@
       "destino": "src/content/docs/proyecto/manifiesto.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "ac4ddc2f13476485a15b2861858e8ef80d1790baa3b6887a4f468f918112ab88",
-      "sha256": "c62dbd968ed50e149c0c8e089354a175a5f4eb558aef8cff17c30d144340a1e1",
-      "huella": "775a47d9262180f8e911d78b309586ba2c75f43107f10d4b64807deeecc45462",
+      "sha256Fuente": "865ec5b63ca4391fa234ec105e509880711c3aa1c8ffc9ba8f96fbca1328205e",
+      "sha256": "fb26355b808e6093bec6132297136694226d056e5336b0f0ae11d9dbe8bc233c",
+      "huella": "d6ad8b53ca4e4784986a7fda1a6161a788c1132eb40cdc529883f8fa845ef352",
       "adjuntos": []
     },
     "base-tecnica": {
@@ -678,9 +749,9 @@
       "destino": "src/content/docs/analisis/requisitos/index.md",
       "checkpoint": "1 y 2",
       "estado": "entregable",
-      "sha256Fuente": "718e9bc0941f2a17571e5a2550321dcc599254abbb536e30be269158cf6ac062",
-      "sha256": "def17db0cb1309c18be3ec4e8eacd78363a5178df37a7aa8a28adebd65e67ec5",
-      "huella": "fccc5b644a1e10baacbd94211c33772a493538f8ba794ba3e1c2df151c5d5bda",
+      "sha256Fuente": "a20392e6cbe9d9a7575c0c26f29c63c51a5519ae7184f582e0a938fc750448f7",
+      "sha256": "ed3f1c458990cc229ec2f0719ca75e9da8a74bad810cbf2eb6ae794ae4673a8c",
+      "huella": "99c6ffd7a7e30dd49438dc3839e8ebabd0879706023d139a8d0f6e9bf71e1227",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -689,9 +760,9 @@
       "destino": "src/content/docs/analisis/requisitos/funcionales.md",
       "checkpoint": "1",
       "estado": "entregable",
-      "sha256Fuente": "132ee8fd5677ce690ac9c746f9b7f552343ca8f82b870cc83615ad028e4ed33a",
-      "sha256": "d5e43e0fa94cc280df571288246ac58a0b2f211a2c1b707b601ddda30bf337a3",
-      "huella": "3787087fa024cf9a882b16c3611298ef85641779ee340864ff1225eececbfc58",
+      "sha256Fuente": "f226e78bbe36ab45d7534202036661678d12bc2718c2a671e7f583f4be0f0fbe",
+      "sha256": "fb62e8d1c35123329e6e2b98fb4c6659b6d3ee54be3498d16f4bff9b412e1460",
+      "huella": "d9f71a2ea7020350e758f7a3db6aa9105cf2101d9e2ebb31f3ce350ad40d6794",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -700,9 +771,9 @@
       "destino": "src/content/docs/analisis/requisitos/no-funcionales.md",
       "checkpoint": "2",
       "estado": "entregable",
-      "sha256Fuente": "e80c9bade8a31aebf5cba5c59e372b33181c91a8ccfca67e2bdc0101c0776e6b",
-      "sha256": "2a2db0c58ac7c651ef2c83b2806fac08fe1a78a2f1c297e4a6a0aa7084db9df2",
-      "huella": "5cb415f017d4a42087771641195b76ad6ea6007ea14b8438842ae0ffac933052",
+      "sha256Fuente": "e3d972c22f5fe534ca82935f09470c005e2f5f634811a0d7957fe16dbb14551a",
+      "sha256": "06840b9efff248f9baa9302304b9321cf96922a93b9c2280cb72af9f615e3d14",
+      "huella": "ccac461bec09a82dccb23eb962b5c5bcc672e33ca3c8d198e39bc9b5c9f1cd65",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -721,14 +792,15 @@
       "destino": "src/content/docs/diseno/api-eventos.md",
       "checkpoint": "14",
       "estado": "entregable",
-      "sha256Fuente": "e738b928a4647ca37875d169f4f351ee85efb281415c82150866a1e31a35a5b2",
-      "sha256": "31aa79ee2ad2458adc7a24755bce7438f211e1d342f4f7789dc74036f1a25fe2",
-      "huella": "bcd29c5fbb8c27a658fc73d76040bdd11d1cc491440368a623d0582c803a9cd0",
+      "sha256Fuente": "3c0b5b5cc4e4df3731e848e37b84804e743110cb783e6758c15bb3c77b825c21",
+      "sha256": "74d9dbb91453a2040e719640c5df6b05b307cceee3be23138562e3bfd432715e",
+      "huella": "187f915c55181cad3e4ca5788c85773b658b283824769807d460bff1c7fd7727",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
+          "archivo": "starlight/public/documentos/e37598f41824-openapi.json",
+          "sha256": "7a110a61a94d3bb3f3406ac070da43e74f6442b21d0cc9b43eeaf58b16cedc55"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -738,24 +810,27 @@
       "destino": "src/content/docs/diseno/integraciones.md",
       "checkpoint": "14",
       "estado": "entregable",
-      "sha256Fuente": "042663509e0e2bb4b66113cdee83ca42ac6afd636d2db5937c04beda5f26dbe9",
-      "sha256": "3d8df9f6e2419b7434f8a52c11f77fac0f16c9774c936f990f0bb9fe916a06f4",
-      "huella": "9e5a19d615da2261722d53bf7b3aea4671b200385ae884101973b5304d2dc4dd",
+      "sha256Fuente": "995b5e0598d45126ce5ee31b7778597fb3caff75ac2f4c6ce933487d1b2e3aa5",
+      "sha256": "1cfe90abfa5eb1b0a058c6cfeef5c215ebcaad04312470de536aeb14827f52e8",
+      "huella": "cc980b4eac4baa0f6ee5aaff84b696a3973fee91f545b0371928cec58abe7ff8",
       "adjuntos": [
         {
           "origen": "docs/diagramas/secuencia-pago.svg",
           "destino": "public/documentos/5b550fb39979-secuencia-pago.svg",
+          "archivo": "starlight/public/documentos/5b550fb39979-secuencia-pago.svg",
           "sha256": "1194383a6b9e0c7d7910488bd853910921e4c652153ee204521746a1510ad7f2"
         },
         {
           "origen": "docs/diagramas/secuencia-pago.mmd",
           "destino": "public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
+          "archivo": "starlight/public/documentos/2d10cc2b1ebd-secuencia-pago.mmd",
           "sha256": "96e9d3e19d3e76ed5bebccafa5c3e8dd30f1f13dead3fffc74c80318d4bf8876"
         },
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
+          "archivo": "starlight/public/documentos/e37598f41824-openapi.json",
+          "sha256": "7a110a61a94d3bb3f3406ac070da43e74f6442b21d0cc9b43eeaf58b16cedc55"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -765,13 +840,14 @@
       "destino": "src/content/docs/planificacion/pruebas.md",
       "checkpoint": "9 y 10",
       "estado": "entregable",
-      "sha256Fuente": "65025efb5d253dbf9c7c33ffe4c2ae6b1e79aa45a91dd914b7548df9e6905fd4",
-      "sha256": "fd087a6a35fb7502c81e91294fdb7e5bd1f737e231a00fa12e9a71f88428fde5",
-      "huella": "450b8a55d2fc8b7e7c57c7274bbbdb98b8244f33a65a02b62646bd15b52ffe19",
+      "sha256Fuente": "e1f6f98f8c39d9e0fcebd7fe13019a2357e3cc54da7f96701f87f4ae59e7b4d1",
+      "sha256": "b639726593f9feb4a8d937837ef59c1df3aa0a228a269f77a7c0d251f488d261",
+      "huella": "d02eb6425a481d4162cfe572d7d22e005bb0105b104eb62b6ac121540b4426d1",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/casos-detallados.json",
           "destino": "public/documentos/92aa0408f516-casos-detallados.json",
+          "archivo": "starlight/public/documentos/92aa0408f516-casos-detallados.json",
           "sha256": "e8ac4b4b108e2213770cfba083168183ff3581759070e90169f00b8986227ab3"
         }
       ],
@@ -782,9 +858,9 @@
       "destino": "src/content/docs/planificacion/roadmap.md",
       "checkpoint": "Plan de trabajo",
       "estado": "entregable",
-      "sha256Fuente": "63c69e30fe7f052b9a11b20d340d05d9cae68d842d0d5b7995202b884f3b6af4",
-      "sha256": "6db4d8a43c15f08be176513506519c0cab6f6a1cf460a7cc7f7a72d5f256c2e8",
-      "huella": "1dd53dc92ed251bbd09d5b7820dd61c657a4f66de6a7febd8a0c5f6441ed5639",
+      "sha256Fuente": "6d8faaa34a9594d057e79fa032bd961297a8c1285a8e3ce901e8729b57762703",
+      "sha256": "af827575eb9adf9626b4be8478be039153a0de1a945d0e93b56a944c811baf86",
+      "huella": "b1f910f680790737fdcdb6a363d59e989f0a8afae0f5b11b164e7ce833fea7c5",
       "adjuntos": [],
       "commitFuente": "f4b0c21de4652795f64ce4600389826a8388dbfc"
     },
@@ -793,9 +869,9 @@
       "destino": "src/content/docs/specs/f01-registro-e-inicio-de-sesion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "e97cfb0618f314384e399331667091c364e6a9335ae36d8e91b01d94f66d2fa4",
-      "sha256": "5887eb3541b18ad9deed558b2cae7e5a2b1ecd22539ea2ed9000c0ff46477ba1",
-      "huella": "ee013f9e2b7d8f99a111e8544c7940b7a528215793b35f422f5419b1b714accd",
+      "sha256Fuente": "ae761dbad06b030ef083fecadf4e3b1676598c7710f88fd07e141ab2f2a529f7",
+      "sha256": "46f26edc5b367212c44d451f0b46b01d42ed4bf666e54e87f9dec6c01ccfd706",
+      "huella": "d6d78fac35e432a30eb506e692dc7ff6a7999d1a669c229267b631aabbb3efa3",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -902,9 +978,9 @@
       "destino": "src/content/docs/specs/f11-membresia-y-abono.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "200d13677d9be1d0535a0b9bf22e9e3a5da75a2bfe96b89368afd8821e828544",
-      "sha256": "6b288dfd93426b85d688a056c9ae4051dbd3284b8dce8c90d73e3a1e7c56cd0b",
-      "huella": "b2023f2d4220e642d5b44bbe1eabc7db0b6d78a168aa8282e74ee53ddc95ce5f",
+      "sha256Fuente": "1ee17350f6436bfb84aa7212f9fa3c215b8f1ae20f828528c27900dc1dd14e47",
+      "sha256": "645707f5098e0379daf063be68dd4ef444a6ea2f2dc13088c009aeff1efcc1b2",
+      "huella": "35af0b6788cbd860ca7ecf47097a88cac25cf0586923883bb9c4f59ba852199e",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -1044,9 +1120,9 @@
       "destino": "src/content/docs/specs/f24-api-comun-y-sincronizacion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "64bafd230e98c299b746ca8a29faa60f13b70476c8da539e65d302d4d287ce81",
-      "sha256": "89156c473a4ed637815496950071dd3e8ec8d0e7d1ab45821b07e0258f4a5947",
-      "huella": "34d8a1881632ce92a0f03bd2e51bf90e28c223a80471343fa3a2ecb9eecfbbb2",
+      "sha256Fuente": "37b89347a4e08bea72c097828ba4dd368dc4adf49d9f1a20da5aae7691f11e58",
+      "sha256": "9215268cabe6392652ea56d15df71a7ad4beffba5754f44c93ac35e70dca2267",
+      "huella": "0f25117f7bd1772c488f2c9576837ffc332101fff5ac4a8b9f68f59879c2bc54",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -1055,14 +1131,15 @@
       "destino": "src/content/docs/specs/00-contratos-y-convenciones.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "2f79b23c4af1006968e830ff177a13b7feb2bb1aeaa013a661eda3062e49a6d2",
-      "sha256": "43bf04e528249ce0073c435e86fcb07ddb1b05b50c0ef275bffabadc390035f9",
-      "huella": "afcd81a4ee969833844376e6537af22c286614d77a9b74e6ea8b9ceddd962294",
+      "sha256Fuente": "504999390df89582d9527be0c1e879c907d5543887817fee857dcbdd11ca155f",
+      "sha256": "93e225152043857219ef240618e2037fc0578ff987f70e9ca7ed699ee80cd32a",
+      "huella": "f30377d6c4dc9c9dd1df412b842b5e421d2b1d92e6afb6fdea9052003454ee74",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
+          "archivo": "starlight/public/documentos/e37598f41824-openapi.json",
+          "sha256": "7a110a61a94d3bb3f3406ac070da43e74f6442b21d0cc9b43eeaf58b16cedc55"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -1108,9 +1185,9 @@
       "destino": "src/content/docs/specs/03-decisiones-de-implementacion.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "085eb4ae9d6a93e171faf8fdcc3d26545ae400d199183a57ebf1ab9002cf692d",
-      "sha256": "80e8b4ea5766046da28323d30e53ae6e4908a1e3d4328a5ecb8aad7996c02380",
-      "huella": "9216c5488c87df6e91e52883a5b020435fa6ff4ae7c016d9734abc9209c7a308",
+      "sha256Fuente": "8923f14d0a573e62a22fddc1a01b3baa3605a8eff12bdaf62b70ce5e7aff239a",
+      "sha256": "2c5babca4889372228efdcaff150c19d4417d48c55f89f99d7c8167c162894dc",
+      "huella": "994afdcb0778439bdc941d70b3db7783a3ef06066fc2d4c7641dfff92d11a3be",
       "adjuntos": []
     },
     "paquete-specs-index": {
@@ -1128,9 +1205,9 @@
       "destino": "src/content/docs/specs/02-matriz-de-cobertura.md",
       "checkpoint": "Specs funcionales",
       "estado": "entregable",
-      "sha256Fuente": "0a9faa6160cae5c86a874954d13cafe1039d0f0fa7f4c4c9d2eaaafb522bca04",
-      "sha256": "6abba69f4736777ae9da3f726d3efd7444a7a14e6f91c641a6d691301245e6f5",
-      "huella": "aa984f1f23db024e6675536ab8340cad3b2eac36c4cef60427ae55a265cb6295",
+      "sha256Fuente": "39fd5b4b57ff61133b5278c5c2cdf5b67e1e9094ad99098a9d5e0ace48fe1d1f",
+      "sha256": "bcc14694c70d2f38ed0b123d33907e08abb2b8d9308dc96a30d64495739aa0e7",
+      "huella": "cb10583163275fc57d72ada016b114c792757aa9c9a31b479a2f4c5e0658d357",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -1269,9 +1346,9 @@
       "destino": "src/content/docs/analisis/casos/cu-13-registrarse-y-acceder.md",
       "checkpoint": "4) Caso de uso",
       "estado": "entregable",
-      "sha256Fuente": "fffc4671dd6bfcd4a6dacf20d6ee4016369e4f44b272085d3f829f9f09e71c65",
-      "sha256": "a3a35b108fa9d3f580c04ddad3d62f45930f78f530b6c37c55b63571fc66ed2d",
-      "huella": "2c305857d85802e9205f6a8e31f9c6e2f5d3ad377f57aed9b2741bf157fde2c3",
+      "sha256Fuente": "6ffdf55e1422b7efb55bdfd04c6f29f8c778a939d71762b62566613eb99d2837",
+      "sha256": "02d5d0a71be405ed2e2c5fa51e01bfeea9713e0c0bc9a5a98803b802932bcfcb",
+      "huella": "59c39a13c4b547892c8410ea0cd88ffd56ada7662fab49a7a478eeed6d664dfa",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -1420,19 +1497,21 @@
       "destino": "src/content/docs/diseno/clases-de-diseno.md",
       "checkpoint": "12) Clases de diseño",
       "estado": "entregable",
-      "sha256Fuente": "54d1bb569d6005e81854c2fc8005f527f383f1f714fa70adca40665165e24152",
-      "sha256": "d901524397f673bb3838b32a5bff969d70ab74105a429def571118bb536ce0ea",
-      "huella": "0e657d34f913d5b5af137a852b950d23cdba65737fbf915185483489b7c222a6",
+      "sha256Fuente": "7a3923966665188393594e0161ba99486ee986f4195b96d4da594fe026964d63",
+      "sha256": "b675b8c6dde62b0546eda0f1dd20906b2ec4d8a019222dcd9963eec38127bb24",
+      "huella": "5c1d052eb6b416b7ad1ad445581c2b3e1d1d2712df86bb96a5308517ad271c68",
       "adjuntos": [
         {
           "origen": "docs/diagramas/clases-diseno.svg",
           "destino": "public/documentos/57e576c9dff0-clases-diseno.svg",
-          "sha256": "996b5d3d385351129234d4b463a9e5714861f0bf9870e88ae436380fc6805e3a"
+          "archivo": "starlight/public/documentos/57e576c9dff0-clases-diseno.svg",
+          "sha256": "1b8f7e9257ae7c2a93c430f3873146076cda35949a5b5cfa1baecafe91fde3e2"
         },
         {
           "origen": "docs/diagramas/clases-diseno.mmd",
           "destino": "public/documentos/4fad4154f542-clases-diseno.mmd",
-          "sha256": "0c31e1112b03002ed9ae5f50d15fc5f84cb736bfa250fbf0d73eccc5cfb77010"
+          "archivo": "starlight/public/documentos/4fad4154f542-clases-diseno.mmd",
+          "sha256": "565e2ef8a80ddfab0e86ea2f7c0acdf2b38f403f0bd33d929853488f8678d5d8"
         }
       ]
     },
@@ -1441,9 +1520,9 @@
       "destino": "src/content/docs/planificacion/parametros.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "b945c6b4587ce12521ce680fe42eec16707aa21db93d618c5ea8b6d2f376851e",
-      "sha256": "4a98ad5a81a4f209d40eebfaa366894658fbcb87ed9e45c0b1122e35311c9894",
-      "huella": "0b744d0baf4c5038d622b454747a8a672664faa340c41799916d932005280777",
+      "sha256Fuente": "b382003d3fe31426798fd1a0cfce1c46f096b80b802b1a890ab49be997ca6277",
+      "sha256": "e3e906aab82e9736d6c002de7269b383bc12b21c8d5258e45fc6135d3eb8054e",
+      "huella": "c73adeed2968d626e92f0f2d5ed85155ab6b0c48c435685b2cd1455634e4352f",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -1473,18 +1552,20 @@
       "destino": "src/content/docs/analisis/pruebas-y-trazabilidad.md",
       "checkpoint": "9) Casos de prueba y 10) Trazabilidad",
       "estado": "entregable",
-      "sha256Fuente": "743d590fe28c9def7f77e6b7c18ac2cc298ff4879dc8b1f2790f7da26e6dcc9f",
-      "sha256": "732d75e1077758c865fc1b140fc907a17c6c1a9e047221d492144e3ad61d60f3",
-      "huella": "92832d6cf68343bb79a16cedf1c4073f3ddbc37ee9edd0566e234c4fc873d434",
+      "sha256Fuente": "551082eab6a466cf6b1eab4fe7f20682ab84bd1f9e91e1ef87c7b8b7b58bb3b0",
+      "sha256": "c8be9e0f571f91a9ee47bab7507ca959516ac37a0c3fb3ab20dc130cbd3277ff",
+      "huella": "7754751453770adefc7ece4972ceffcbd454cfced18df1a378e1f402c3098ffd",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/datos-funcionales.json",
           "destino": "public/documentos/8a0c5389371a-datos-funcionales.json",
+          "archivo": "starlight/public/documentos/8a0c5389371a-datos-funcionales.json",
           "sha256": "4295b7eace683c432467ae2c932032b64b47d06270a034f1308a9aa19c348bfd"
         },
         {
           "origen": "docs/pruebas/fixtures/casos-detallados.json",
           "destino": "public/documentos/92aa0408f516-casos-detallados.json",
+          "archivo": "starlight/public/documentos/92aa0408f516-casos-detallados.json",
           "sha256": "e8ac4b4b108e2213770cfba083168183ff3581759070e90169f00b8986227ab3"
         }
       ],
@@ -1495,14 +1576,15 @@
       "destino": "src/content/docs/planificacion/revision-funcional.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "7340c18299dfae21873c11ff22ffcf72a3449ce074c43395429e30b3d3af1eaa",
-      "sha256": "dc5d48fc9aea2038f5dcaf1cb3f7906869a97fca974aa684864cd8c83ae77898",
-      "huella": "24458fd024e6f1ac3e8d59aa57f208d8958ca428a9b408cb1e68d82a93cc1f69",
+      "sha256Fuente": "6822b8630530bcbba9584b9b5abafdc0afc138cf33e94471fd89727bec40715e",
+      "sha256": "33b0cb305b30d58ce59830ba16a7f8705187b8cc7a0dc56e03c48438e13d29b1",
+      "huella": "ebf12e4ec6d4f42f4cda89aa49846fb6841e1c38113bb8b80b9700e375a77cf3",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
+          "archivo": "starlight/public/documentos/e37598f41824-openapi.json",
+          "sha256": "7a110a61a94d3bb3f3406ac070da43e74f6442b21d0cc9b43eeaf58b16cedc55"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -1512,13 +1594,14 @@
       "destino": "src/content/docs/proyecto/alcance.md",
       "checkpoint": "Alcance",
       "estado": "entregable",
-      "sha256Fuente": "02bd50df2323985a2e8800b30deac660983acf42c36d39d699aeb0ec421cacb5",
-      "sha256": "c7a5ca4c4e6a7317189f5eb35cacee2fec3862ba3eb190241c7dc2f01013c67e",
-      "huella": "51731efc8cde725eba337d04aaf281c4424c0eca1c62352cc7416b50548ce414",
+      "sha256Fuente": "b98e520409ae793432e4c991cd5729cdf25f052e60fc1716f3117f2da9bd85a1",
+      "sha256": "55206292e3b001b241d237859b6fae6199b7decf836a4dff1277bf408ed6d49a",
+      "huella": "3569dbbb47bb7c249932c2ce09b2fb433e53234b4e53b6eab3a73c6210f3188a",
       "adjuntos": [
         {
           "origen": "docs/diagramas/recorrido-producto.svg",
           "destino": "public/documentos/6533ccc5ef79-recorrido-producto.svg",
+          "archivo": "starlight/public/documentos/6533ccc5ef79-recorrido-producto.svg",
           "sha256": "3a08bdbe3289b313181af55068fc3ca43ec224dd2c4e5858b848567f267dd82d"
         }
       ]
@@ -1528,9 +1611,9 @@
       "destino": "src/content/docs/proyecto/contexto.md",
       "checkpoint": "Contexto",
       "estado": "entregable",
-      "sha256Fuente": "84489a01421309de0f1d401b4eab8eaebcea48cf0c2baf8456175482c5174c2a",
-      "sha256": "0181b17eee9c3fad1e5de2f710f8b2c0483efca5bb31e533c6621daef2a03484",
-      "huella": "8cb0552f0c3aa20e7037bfe0fd17182f71b8c72eb8c62d7e16d7f0497936d589",
+      "sha256Fuente": "9c717e5a516b5e59c7a5ae01c8047d02efedd00549810b513c8967b5c1116974",
+      "sha256": "e7d18d0c083c361e141b53d65df6f2268a46d9064005935c2d526f7b50dea394",
+      "huella": "2e0f8c44c066182c9940df2f2d05bd3f7e847987077dd30d59fcd82240ad6431",
       "adjuntos": []
     },
     "entrega-manuales-instalacion": {
@@ -1538,13 +1621,14 @@
       "destino": "src/content/docs/manuales/instalacion.md",
       "checkpoint": "15",
       "estado": "entregable",
-      "sha256Fuente": "adadfa4290e80a2dd39a28b7b76e3416281682cd4aef5c7da38c658db083d2c8",
-      "sha256": "f5ac375c3fb218e343c9b57dc690d83f9af76de1d6a508bdcebd0425af4d2b01",
-      "huella": "6668d58fb2a5b27f1c65ea9c6b09b70d5e52072aa447c3d639cf50e3e10bda05",
+      "sha256Fuente": "a3684ae5dafeb92af1528cfa2af3edf82cd73c480d08f62397cd09af950d7cad",
+      "sha256": "91d571e2be815f6aa0d3a9c569954230a247248cce041ddfa464f84cda630554",
+      "huella": "23ff8a4ae4f9edf1c22099965e74e8443f173cfb5f4d40e9fa2208e1518c534f",
       "adjuntos": [
         {
           "origen": "docs/pruebas/fixtures/datos-funcionales.json",
           "destino": "public/documentos/8a0c5389371a-datos-funcionales.json",
+          "archivo": "starlight/public/documentos/8a0c5389371a-datos-funcionales.json",
           "sha256": "4295b7eace683c432467ae2c932032b64b47d06270a034f1308a9aa19c348bfd"
         }
       ],
@@ -1648,14 +1732,15 @@
       "destino": "src/content/docs/diseno/contratos-operativos.md",
       "checkpoint": "14",
       "estado": "entregable",
-      "sha256Fuente": "0cc535e72f9a4df7f1d8f785cdb012a82a556b209ae9f247c4ac6599ea7c18ff",
-      "sha256": "89b35664306f86f9b31774475636dab0ff087ed26ea7250fd10a2a95cd0348ed",
-      "huella": "471293b78254f45054338420183e779e24e9e873e3f2815246764272c155029a",
+      "sha256Fuente": "b9eaeb07fd92c59eea463d0c3d4fb25bf14e76de372b2cd96aa71edc31e1864e",
+      "sha256": "7d3a03b41c059640caa38d9d473d1a0ff9d36666c03afb47724ea5b83a46e8cc",
+      "huella": "9d6ad069b79aeef215cdab9eb0b497bc37751e1c5acec647df0b47355a9456b9",
       "adjuntos": [
         {
           "origen": "docs/diseno/openapi.json",
           "destino": "public/documentos/e37598f41824-openapi.json",
-          "sha256": "0e9e2cd5e4a91aee235bd225346d66565fa10e3b41488dad11d839b152bd381b"
+          "archivo": "starlight/public/documentos/e37598f41824-openapi.json",
+          "sha256": "7a110a61a94d3bb3f3406ac070da43e74f6442b21d0cc9b43eeaf58b16cedc55"
         }
       ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
@@ -1708,13 +1793,14 @@
       "destino": "src/content/docs/presentacion/material.md",
       "checkpoint": "Material de presentación",
       "estado": "entregable",
-      "sha256Fuente": "355060bd6ca73409d593a1686e8a88ec3331eb76cf6481852ad4607398548da2",
-      "sha256": "49aa27562ff93ce741c9bf5b5373c79ca00753d9ba583c71a56f111db946d4c4",
-      "huella": "c4dac3f67fef028c061c6f684c193b2b512f3639870d52249032e66815e288b2",
+      "sha256Fuente": "e77dd8839b40460e63c50592a5bb0e4861df0e5663816949bec3190a77b5260f",
+      "sha256": "81911035d447b089bb923bf8b2f6d79a013e4e7c8db182e85cc5c98530222d93",
+      "huella": "928233f53f23ef5f75f56f3ae5d5163dc1c5cecb9d001fbe7cd85dbccaa365f4",
       "adjuntos": [
         {
           "origen": "docs/presentacion/presentacion.html",
           "destino": "public/documentos/95b080382aea-presentacion.html",
+          "archivo": "starlight/public/documentos/95b080382aea-presentacion.html",
           "sha256": "1647f37269e0b7c4d0447292b3ce44f647a3d64ff3c5efa4a592b5ee366f5414"
         }
       ],
@@ -1735,9 +1821,9 @@
       "destino": "src/content/docs/specs/recorridos-y-estados.md",
       "checkpoint": "5 y 6",
       "estado": "entregable",
-      "sha256Fuente": "b42fde8c832c9d0be387bae9cbdde986a8879a2f451c937678ddd25623176856",
-      "sha256": "807fa8e69ea2bf0c31c322240ba4e47f29c34c3e593f8de75a2c269af6c3a8a0",
-      "huella": "0564fbb594ba37bd52f656bac05d73e969eaf9d3c8d5983786b434e3936cf755",
+      "sha256Fuente": "09b949da21351bd8efcaab69063db57eb56fd4179d1f01e1ccbb1828e16277ac",
+      "sha256": "19f4fb826da0416b45f66065195cba62cd7f74fdff46eb5f78d9a474deeaa3aa",
+      "huella": "8ea797bd2f9b593cefa8c24156bc4b118ca021c80f45ef5c950963462d2285b7",
       "adjuntos": []
     },
     "entrega-proyecto-investigacion-y-viabilidad": {
@@ -1745,9 +1831,9 @@
       "destino": "src/content/docs/proyecto/investigacion-y-viabilidad.md",
       "checkpoint": "Planificación",
       "estado": "entregable",
-      "sha256Fuente": "49115c0f60456edf28f89109209993caec8803403862bff6261ae911c31305f3",
-      "sha256": "b85cf383a61fc8f7c23e6af9c827950862a720fe7a1563d922099ea7e74cde18",
-      "huella": "c95c9ca3bf50e0d2a1d23c1d80df4f8e3883e48be1d253a53b512ce6eda68e55",
+      "sha256Fuente": "b4f362abab083fedc26c296f8f229688423b0fe151b54eddf5b9f4b08cecc2ae",
+      "sha256": "4e79818e4af39a416e0b569da225555519369f0216e3d76d88ea986e0daeab45",
+      "huella": "1bb2fe2d12e5402014a4d3ca9aa27a020a9a22a7ded652b9d4f46eee3c8b1aab",
       "adjuntos": [],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
     },
@@ -1756,9 +1842,9 @@
       "destino": "src/content/docs/planificacion/ficha-proyecto.md",
       "checkpoint": "Ficha de proyecto",
       "estado": "entregable",
-      "sha256Fuente": "e58c4f95875fc4e891ee05848d392c8a31520b843bbfbfa7a7c927a2028834e5",
-      "sha256": "63660608adcad626ef61e93706e5012b2786dfae543e369a89dbdfd62e39e685",
-      "huella": "69503624ba811b7111731672bb29022274ae6d0a9b14d51cae76e69dab87f1cd",
+      "sha256Fuente": "5d49eb2cce2da121bc822e9f860846532a0d74fa83fa11e2aafc19900217d8ac",
+      "sha256": "e307466abfbc3c0d2099a004fce786afde218faa0a343266dd082fcfb46225a6",
+      "huella": "7a4b4c4cc25c2d34d57074d487e6191b82bf74c89aad59347f5f19ea5e206e4d",
       "adjuntos": []
     },
     "prototipo-catalogo-y-chat": {
@@ -1842,11 +1928,38 @@
       "destino": "src/content/docs/decisiones/autenticacion-better-auth.md",
       "checkpoint": "Arquitectura",
       "estado": "entregable",
-      "sha256Fuente": "f2d9d456010ec960585882159bc4d8b4fa496be9e71d1de96a82de685c41a6d3",
-      "sha256": "fe7bf78f0058e6985cb2ec3df5a8d4548c2228978add76698c4c36683cbaafca",
-      "huella": "f6da052441280a5e287b5c071f348f9c5bd74f34cc20458c8ca6ff41b300af2f",
-      "adjuntos": [],
+      "sha256Fuente": "012a86b3a7475ec0b5fbf78cb3db286e4fa311816ccadf8dc74d4dbf2aed43cc",
+      "sha256": "bf730d89624e8821ce7674b1288830a13ddef5ca05dedd4cc3ce48523b00e26d",
+      "huella": "9b7dea9df5552a7570a7669580d4ca34759868f47163ddee85a5e6f0d9c0ab47",
+      "adjuntos": [
+        {
+          "origen": "docs/diseno/openapi.json",
+          "destino": "public/documentos/e37598f41824-openapi.json",
+          "archivo": "starlight/public/documentos/e37598f41824-openapi.json",
+          "sha256": "7a110a61a94d3bb3f3406ac070da43e74f6442b21d0cc9b43eeaf58b16cedc55"
+        }
+      ],
       "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
+    },
+    "base-datos": {
+      "origen": "docs/06-base-de-datos.md",
+      "destino": "src/content/docs/modelado/base-datos.md",
+      "checkpoint": "8",
+      "estado": "entregable",
+      "sha256Fuente": "19a6e95680b807fad57b384c123fff17040461073ea8ee1d012dfbd45d61ac2f",
+      "sha256": "4aa695329323eaa2b4dffaab1dcbd0b65b418feacb2257871bfb76be160fda06",
+      "huella": "c6e64484aced1f1b95a714762d60abe62e55616b51acb6b5d0b93df60d266666",
+      "adjuntos": []
+    },
+    "funcional-analisis-funcionalidades-y-casos": {
+      "origen": "docs/planificacion/02-funcionalidades-y-casos-de-uso.md",
+      "destino": "src/content/docs/analisis/funcionalidades-y-casos.md",
+      "checkpoint": "4) Caso de uso",
+      "estado": "entregable",
+      "sha256Fuente": "4dde1341db995a1640a98174331d78c65556780594d6abd83ff5f1bcd341bac9",
+      "sha256": "4f573691ffe9755a702e763bd5c813e27d39c9e58e9f79173f07225e901580ac",
+      "huella": "9574febbc37d9e20a9926858ad2e50498bf535dc7db26d1e5da4a2736ce62ffb",
+      "adjuntos": []
     }
   },
   "integracion": [
@@ -1884,6 +1997,57 @@
         "estado"
       ],
       "motivo": "Precisar decisiones abiertas y verificaciones por etapa."
+    },
+    {
+      "fecha": "2026-11-07",
+      "commitFuente": "4367727dd1f1f288c0f26923e0df6f88c63685d5",
+      "base": "70b4b9e355a3877b8b717fe50ac77b50f35c7957",
+      "documentos": [
+        "inicio",
+        "presentacion",
+        "funcionalidades-proyecto",
+        "alcance-bernardez",
+        "contexto-bernardez",
+        "manifiesto",
+        "requisitos",
+        "funcionales",
+        "no-funcionales",
+        "arquitectura",
+        "implementacion",
+        "api",
+        "integraciones",
+        "base-datos",
+        "der",
+        "modelo-logico",
+        "flujos",
+        "pruebas",
+        "roadmap",
+        "estado",
+        "paquete-specs-f01-registro-e-inicio-de-sesion",
+        "paquete-specs-f11-membresia-y-abono",
+        "paquete-specs-f24-api-comun-y-sincronizacion",
+        "paquete-specs-00-contratos-y-convenciones",
+        "paquete-specs-01-navegacion-y-pantallas",
+        "paquete-specs-03-decisiones-de-implementacion",
+        "paquete-specs-02-matriz-de-cobertura",
+        "paquete-specs-03-inventario-de-vistas-y-flujos",
+        "indice-diagramas",
+        "modelado-arquitectura",
+        "funcional-analisis-casos-cu-13-registrarse-y-acceder",
+        "funcional-diseno-clases-de-diseno",
+        "funcional-planificacion-parametros",
+        "funcional-analisis-pruebas-y-trazabilidad",
+        "funcional-planificacion-revision-funcional",
+        "funcional-analisis-funcionalidades-y-casos",
+        "entrega-manuales-instalacion",
+        "entrega-diseno-contratos-operativos",
+        "entrega-presentacion-material",
+        "entrega-specs-recorridos-y-estados",
+        "entrega-proyecto-investigacion-y-viabilidad",
+        "entrega-planificacion-ficha-proyecto",
+        "decision-autenticacion-better-auth"
+      ],
+      "motivo": "Alinear identidad Better Auth, renovación del abono, contratos, modelo de datos y trazabilidad de los entregables."
     }
   ]
 }

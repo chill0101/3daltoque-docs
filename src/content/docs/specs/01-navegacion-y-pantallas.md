@@ -4,7 +4,7 @@ title: "Navegación y pantallas"
 
 # Navegación y pantallas
 
-Fecha: 25 de octubre de 2026.
+Fecha: 7 de noviembre de 2026.
 
 El inventario conserva WEB-MEM-01, WEB-MEM-02, WEB-MEM-03, WEB-ADM-MEM-01 y MOB-MEM-01 del documento de prototipos. Los nuevos IDs identifican pantallas, paneles o superficies del flujo. Las rutas representan una propuesta de navegación; Mobile utiliza sus equivalentes en el navigator elegido.
 
@@ -1712,3 +1712,73 @@ Cada ficha conserva el enlace al mock de referencia. El contrato de su funcional
 ## Prototipo complementario
 
 Las doce vistas de catálogo, perfil público y bandeja de conversaciones cuentan con [referencia HTML navegable y capturas](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con sus estados y recorridos Web/Mobile.
+
+## Recuperación y verificación de identidad
+
+Contratos de F01 vinculados con CU-13 y ADR-004. Las composiciones visuales de estas seis superficies quedan pendientes.
+
+<a id="web-auth-04"></a>
+#### WEB-AUTH-04 · Solicitar recuperación de contraseña
+
+| Dato | Definición |
+| --- | --- |
+| Canal | Web |
+| Ruta lógica propuesta | /recuperar-contrasena |
+| Specs | [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| Contrato | Solicita enlace con respuesta neutral, confirma recepción y permite reintentar tras fallas de entrega. |
+| Estado visual | Mock pendiente. |
+
+<a id="web-auth-05"></a>
+#### WEB-AUTH-05 · Restablecer contraseña
+
+| Dato | Definición |
+| --- | --- |
+| Canal | Web |
+| Ruta lógica propuesta | /restablecer-contrasena |
+| Specs | [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| Contrato | Valida token de 15 minutos y contraseña de 15 a 128 caracteres; muestra vencimiento o consumo y confirma revocación de sesiones. |
+| Estado visual | Mock pendiente. |
+
+<a id="web-auth-06"></a>
+#### WEB-AUTH-06 · Verificar correo electrónico
+
+| Dato | Definición |
+| --- | --- |
+| Canal | Web |
+| Ruta lógica propuesta | /verificar-correo |
+| Specs | [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| Contrato | Muestra resultado del enlace de una hora, reenvío y capacidades actualizadas; conserva las guardas de habilitación del maker. |
+| Estado visual | Mock pendiente. |
+
+<a id="mob-auth-04"></a>
+#### MOB-AUTH-04 · Solicitar recuperación de contraseña
+
+| Dato | Definición |
+| --- | --- |
+| Canal | Mobile |
+| Ruta lógica propuesta | /recuperar-contrasena |
+| Specs | [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| Contrato | Solicita enlace con respuesta neutral, confirma recepción y permite reintentar tras fallas de entrega. |
+| Estado visual | Mock pendiente. |
+
+<a id="mob-auth-05"></a>
+#### MOB-AUTH-05 · Restablecer contraseña
+
+| Dato | Definición |
+| --- | --- |
+| Canal | Mobile |
+| Ruta lógica propuesta | /restablecer-contrasena |
+| Specs | [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| Contrato | Valida token de 15 minutos y contraseña de 15 a 128 caracteres; muestra vencimiento o consumo y confirma revocación de sesiones. |
+| Estado visual | Mock pendiente. |
+
+<a id="mob-auth-06"></a>
+#### MOB-AUTH-06 · Verificar correo electrónico
+
+| Dato | Definición |
+| --- | --- |
+| Canal | Mobile |
+| Ruta lógica propuesta | /verificar-correo |
+| Specs | [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) |
+| Contrato | Muestra resultado del enlace de una hora, reenvío y capacidades actualizadas; conserva las guardas de habilitación del maker. |
+| Estado visual | Mock pendiente. |

@@ -4,11 +4,11 @@ title: "Requerimientos de 3DAltoque"
 
 # Requerimientos de 3DAltoque
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.0. Fecha: 7 de noviembre de 2026.
 
 ## Alcance vigente
 
-3DAltoque conecta clientes con makers y cobra al maker un abono mensual prepago por el uso del servicio. Hay un único plan inicial y la renovación es manual mediante Mercado Pago Checkout Pro. No se utiliza débito recurrente.
+3DAltoque conecta clientes con makers y cobra al maker un abono prepago de 30 días por el uso del servicio. Hay un único plan inicial y la renovación es manual mediante Mercado Pago Checkout Pro. No se utiliza débito recurrente.
 
 El cliente paga la impresión directamente al maker por el medio acordado entre las partes. Los ingresos de 3DAltoque corresponden al abono del maker, de acuerdo con ADR-002.
 

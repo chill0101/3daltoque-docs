@@ -4,13 +4,13 @@ title: "SPEC-F01 · Registro e inicio de sesión"
 
 # SPEC-F01 · Registro e inicio de sesión
 
-Fecha: 25 de octubre de 2026. Versión: 2.0.
+Fecha: 7 de noviembre de 2026. Versión: 2.1.
 
 ## 1. Objetivo y fundamento
 
 Crear y utilizar una identidad con los perfiles y permisos correspondientes.
 
-Better Auth gestiona credenciales, sesión y cierre de sesión. FastAPI vincula la identidad con su perfil y valida estado de cuenta, roles y permisos. Las cuentas administrativas se crean mediante un procedimiento autorizado. La primera habilitación comercial del maker se trata en F11.
+Better Auth gestiona credenciales, sesión y cierre de sesión. FastAPI vincula la identidad con su perfil y valida estado de cuenta, roles y permisos. Las cuentas administrativas se asignan mediante un procedimiento autorizado. La primera habilitación comercial del maker se trata en F11.
 
 | Referencia | Definición |
 | --- | --- |
@@ -25,6 +25,8 @@ Better Auth gestiona credenciales, sesión y cierre de sesión. FastAPI vincula 
 
 [WEB-AUTH-01](/3daltoque-docs/specs/01-navegacion-y-pantallas/#web-auth-01), [WEB-AUTH-02](/3daltoque-docs/specs/01-navegacion-y-pantallas/#web-auth-02), [MOB-AUTH-01](/3daltoque-docs/specs/01-navegacion-y-pantallas/#mob-auth-01), [MOB-AUTH-02](/3daltoque-docs/specs/01-navegacion-y-pantallas/#mob-auth-02).
 
+El cierre de sesión utiliza WEB-AUTH-03 y MOB-AUTH-03.
+
 El servidor comprueba actor, propiedad, estado y acción en cada operación. La interfaz utiliza las capacidades devueltas para presentar acciones y mantiene la finalización de pedidos existentes cuando aplica RF-12.10.
 
 ### Selector de contexto
@@ -35,11 +37,15 @@ El selector se compone con [DS05](/3daltoque-docs/design-system/02-componentes/#
 
 La selección pertenece a cada pestaña Web o instancia Mobile. Historial, conversaciones, filtros, caché y borradores se segmentan por usuario y contexto. Los [contratos compartidos](/3daltoque-docs/specs/00-contratos-y-convenciones/) definen las guardas y el tratamiento de respuestas al alternar.
 
+Las vistas WEB/MOB-AUTH-04, AUTH-05 y AUTH-06 documentan solicitud de recuperación, contraseña nueva y verificación de correo. Sus mocks quedan pendientes en el [inventario](/3daltoque-docs/specs/03-inventario-de-vistas-y-flujos/#vistas-de-identidad-pendientes-de-mock).
+
 ## 3. Entradas y validaciones
 
 | Campo | Tipo | Obligatoriedad | Validación |
 | --- | --- | --- | --- |
-| email | Texto | Según PD-01 | Formato e identificador normalizado; unicidad en servidor |
+| name | Texto | Sí en registro | Nombre de acceso requerido por Better Auth |
+| condiciones_version_id | UUID | Sí al vincular el perfil | Versión aceptada; FastAPI conserva la aceptación en la misma transacción del alta Cliente |
+| email | Texto | Sí | Formato e identificador normalizado; unicidad en servidor |
 | password | Secreto | Sí en registro y acceso | Contraseña nueva: entre 15 y 128 caracteres, con frases y espacios permitidos; validación en servidor y exclusión de logs y respuestas |
 | Perfil inicial | Asignación del servidor | Automática | Cliente en el registro público; el rol maker se incorpora desde F03 |
 
@@ -76,19 +82,26 @@ La salida de cada error sigue [los contratos compartidos](/3daltoque-docs/specs/
 
 ## 6. Contrato de API propuesto
 
-El [catálogo de API](/3daltoque-docs/diseno/api-eventos/) conserva las rutas de la revisión previa bajo `/api/v1`. La selección de Better Auth requiere cerrar su correspondencia con las rutas nativas de `/api/auth`, el vínculo de perfiles y el transporte de sesión, según [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/). Esta tabla identifica los contratos afectados por esa adaptación.
+Las ocho operaciones nativas de Better Auth usan su prefijo absoluto `/api/auth`. FastAPI expone el vínculo y las capacidades bajo `/api/v1/identidad/perfil`. El contrato conserva las respuestas nativas de identidad; los errores y DTO del negocio se aplican en FastAPI. Los clientes utilizan el SDK de Better Auth y consultan el contexto autorizado después del acceso.
 
 | Método | Ruta | Entrada relevante | Salida relevante | Guarda |
 | --- | --- | --- | --- | --- |
-| POST | `/auth/registro` | identificador, secreto y aceptación de condiciones | identidad, perfil Cliente y siguiente acción | El servidor asigna Cliente; las entradas de roles o privilegios ajenas al contrato se rechazan. |
-| POST | `/auth/sesion` | credenciales y tipo de cliente | identidad, capacidades y expiración | Cuenta habilitada. Con cinco fallos en los últimos 60 segundos para el mismo correo, los intentos siguientes reciben 429 y Retry-After. |
-| DELETE | `/auth/sesion` | sesión vigente | resultado de cierre | Retira o revoca la autorización conforme a la política. |
+| POST | `/api/auth/sign-up/email` | RegistroInput | AccesoBetterAuth | Identidad Better Auth creada; el cliente completa el vínculo Cliente y la aceptación de condiciones en FastAPI. |
+| POST | `/api/auth/sign-in/email` | AccesoBetterAuthInput | AccesoBetterAuth | Credenciales validadas por Better Auth. DC-95: cinco fallos por correo normalizado en 60 segundos compartidos entre clientes e instancias; 429 y Retry-After al alcanzar el límite. |
+| POST | `/api/auth/sign-out` | sesión o parámetros nativos | EstadoBetterAuth | Revoca la sesión actual y retira la cookie; el cliente Mobile elimina su secreto almacenado. |
+| GET | `/api/auth/get-session` | sesión o parámetros nativos | ConsultaSesionBetterAuth | Devuelve sesión e identidad nativas o null si falta una sesión vigente. FastAPI traduce null a 401 al proteger un recurso y propaga la renovación de cookie cuando corresponda. |
+| POST | `/api/auth/send-verification-email` | EnvioVerificacionInput | EstadoBetterAuth | Better Auth genera el enlace de una hora y Resend entrega el mensaje. Los retornos se validan contra la lista permitida. |
+| GET | `/api/auth/verify-email` | sesión o parámetros nativos | EstadoBetterAuth | Valida el token y confirma el correo; puede redirigir a callbackURL autorizada. El cliente consulta sesión y capacidades; la habilitación comercial conserva sus guardas. |
+| POST | `/api/auth/request-password-reset` | SolicitudRecuperacionInput | EstadoBetterAuth | Respuesta neutral. Better Auth genera un enlace de 15 minutos que Resend envía cuando corresponde. |
+| POST | `/api/auth/reset-password` | RestablecimientoInput | EstadoBetterAuth | Consume el token una sola vez, valida la contraseña y revoca todas las sesiones. Las pruebas de integración verifican consumo concurrente y atomicidad con el adaptador elegido. |
+| POST | `/identidad/perfil` | condiciones_version_id e Idempotency-Key | PerfilAcceso; 201 nuevo, 200 existente | Identidad tomada de la sesión y vínculo único con Cliente. |
+| GET | `/identidad/perfil` | sesión vigente | PerfilAcceso o 409 profile_setup_required | Estado local, permisos y antigüedad administrativa. |
 
 ## 7. Datos, consistencia e integración
 
 El maker debe verificar su correo electrónico antes de habilitarse para recibir y aceptar trabajos. El backend comprueba esa condición y conserva la prueba gratuita sin iniciar mientras la habilitación esté pendiente. Better Auth genera y valida el enlace de verificación y Resend entrega el correo. El enlace vence una hora después de su emisión. Desde el aviso de vencimiento, el usuario puede solicitar otro enlace. El dominio, remitente y retornos se configuran según PD-01 y ADR-004.
 
-Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `usuarios`, `usuario_roles`, `clientes`, `makers`, `sesiones`.
+Tablas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/): `usuarios`, `usuario_roles`, `clientes`, `makers`, `aceptaciones_condiciones`, `auth_users`, `auth_sessions`, `auth_accounts`, `auth_verifications`.
 
 Better Auth gestiona credenciales, sesión y cierre de sesión. FastAPI vincula la identidad con su perfil y valida estado de cuenta, roles y permisos. Las cuentas administrativas se crean mediante un procedimiento autorizado. La primera habilitación comercial del maker se trata en F11.
 

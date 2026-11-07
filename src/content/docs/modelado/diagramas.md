@@ -4,7 +4,7 @@ title: "Diagramas del proyecto"
 
 # Diagramas del proyecto
 
-Actualización: 25 de octubre de 2026. Las imágenes y fuentes editables se insertan en el documento de su modelo.
+Actualización: 7 de noviembre de 2026. Las imágenes y fuentes editables se insertan en el documento de su modelo.
 
 | Modelo | Documento |
 | --- | --- |
@@ -244,7 +244,10 @@ flowchart LR
   FILES[("Archivos privados y derivados autorizados")]
   MP["Mercado Pago Checkout Pro · abono del maker"]
   MAPS["Mapas y geocodificación"]
-  AUTH["Identidad y permisos"]
+  AUTH["Perfiles, roles y autorización local"]
+  IDP["Better Auth · Node/TypeScript · /api/auth"]
+  AUTHDB[("Tablas técnicas de identidad")]
+  RESEND["Resend · correos"]
   PROFILE["Perfiles, impresoras y capacidades"]
   CAT["Catálogo y portfolio del maker"]
   MARKET["Solicitudes, estimación, ofertas y negociación"]
@@ -256,6 +259,12 @@ flowchart LR
   REPORTS["Historial e indicadores"]
   ADMIN["Soporte y auditoría"]
   NOTIFY["Avisos y recordatorios"]
+  WEB --> IDP
+  MOBILE --> IDP
+  IDP --> AUTHDB
+  IDP --> RESEND
+  AUTH -->|Resolver sesión vigente| IDP
+  NOTIFY --> RESEND
   WEB --> API
   MOBILE --> API
   API --> AUTH
@@ -310,6 +319,19 @@ flowchart LR
 %%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 classDiagram
   direction LR
+  class IdentidadService {
+    +vincular_cliente(command)
+    +consultar_capacidades(query)
+  }
+  class IdentidadPort {
+    <<interface>>
+    +resolver_sesion(credencial)
+  }
+  class BetterAuthAdapter
+  BetterAuthAdapter ..|> IdentidadPort
+  IdentidadService --> IdentidadPort
+  IdentidadService --> PerfilRepositoryPort
+  IdentidadService --> UnitOfWorkPort
   class PerfilMakerService {
     +consultar_perfil(maker_id)
     +guardar_capacidades(command)
@@ -479,6 +501,8 @@ classDiagram
   class PersistenciaPostgresAdapter
   class MercadoPagoCheckoutProAdapter
   class PagoSimuladoAdapter
+  FastAPIAdapter --> IdentidadService
+  FastAPIAdapter --> IdentidadPort
   FastAPIAdapter --> CatalogoService
   FastAPIAdapter --> ConversacionService
   MercadoPagoCheckoutProAdapter ..|> PaymentGatewayPort

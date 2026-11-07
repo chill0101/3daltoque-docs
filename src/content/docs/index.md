@@ -37,7 +37,7 @@ La búsqueda aplica primero los requisitos de capacidad y material y luego consi
 - Una solicitud confirmada genera un único pedido, con las condiciones exactas de la oferta aceptada.
 - El maker presenta evidencia del resultado y el cliente la aprueba expresamente antes de coordinar la entrega.
 - Cada aprobación queda vinculada a la evidencia presentada por el maker.
-- El maker paga una membresía mensual prepaga mediante Checkout Pro y la renueva manualmente, según ADR-002.
+- El maker paga una membresía prepaga de 30 días mediante Checkout Pro y la renueva manualmente, según ADR-002.
 - La simulación utiliza un entorno identificado y separado de los cobros productivos.
 
 ## Un proyecto en construcción

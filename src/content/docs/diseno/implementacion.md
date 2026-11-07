@@ -4,7 +4,7 @@ title: "Arquitectura de implementación"
 
 # Arquitectura de implementación
 
-Versión 3.1. Fecha: 5 de noviembre de 2026.
+Versión 3.2. Fecha: 7 de noviembre de 2026.
 
 ## Enfoque adoptado
 
@@ -14,7 +14,7 @@ El módulo comercial cobra el servicio de membresía mediante Checkout Pro y con
 
 ## Autenticación con Better Auth
 
-Better Auth gestiona credenciales, sesiones y enlaces de verificación en un componente Node/TypeScript. Se propone alojarlo junto a Web en Next.js. FastAPI obtiene la identidad desde el adaptador de sesión y aplica estado de cuenta, roles y permisos por recurso. La verificación del correo se comprueba antes de habilitar al maker. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) registra el flujo y la adaptación requerida de contratos y persistencia.
+Better Auth gestiona credenciales, sesiones y enlaces de verificación en un componente Node/TypeScript. Se propone alojarlo junto a Web en Next.js. FastAPI obtiene la identidad desde el adaptador de sesión y aplica estado de cuenta, roles y permisos por recurso. La verificación del correo se comprueba antes de habilitar al maker. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) define los contratos nativos, el vínculo del perfil y las tablas técnicas de identidad. Resend entrega los enlaces generados por Better Auth.
 
 ## Componentes
 
@@ -40,7 +40,7 @@ El puerto de pagos recibe una compra del abono con condiciones conservadas. El a
 - Una asignación concurrente no supera el cupo fundador.
 - La prueba general y la de fundador no se acumulan ni se reinician con una edición de perfil.
 - Compra pagada y concesión de acceso se procesan de forma recuperable e idempotente.
-- Una misma compra concede como máximo un período; renovaciones diferentes serializan la elección del intervalo.
+- La compra se habilita únicamente con el acceso vencido. La concesión bloquea la membresía y valida la elegibilidad; una compra verificada concede como máximo un período de 30 días desde la confirmación del pago. Un pago adicional concurrente queda conservado para conciliación autorizada.
 - La guarda de acceso consulta fechas del servidor. El worker de avisos no determina si venció.
 - Vencer la membresía no bloquea la finalización de pedidos existentes.
 

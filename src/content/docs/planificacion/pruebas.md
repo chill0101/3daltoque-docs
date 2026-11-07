@@ -48,7 +48,7 @@ Además del [catálogo completo de 161 escenarios planificados](/3daltoque-docs/
 | Nivel de prueba | Alcance principal | Herramientas previstas | Requisitos cubiertos |
 | --- | --- | --- | --- |
 | **1. Unitarias de dominio** | Invariantes de `Solicitud`, `Oferta`, `Pedido`, `RevisionResultado`, `Entrega`, `ProductoMaker`, `Valoracion` y `MembresiaMaker`; cálculo de vigencia (`30d` general vs `90d` fundador no acumulable). | `pytest` | `RF-02.2`, `RF-02.5`, `RF-04.2`, `RF-06.3`, `RF-06.4`, `RF-12.2`, `RF-12.3`, `RF-12.10`, `RF-13.1`, `RF-15.1` |
-| **2. Integración (API, BD y adaptadores)** | Contratos HTTP REST (`/api/v1`), persistencia en PostgreSQL/PostGIS (`58 tablas`), almacenamiento privado (`INT-03`), geocodificación (`INT-02`) y Checkout Pro (`INT-01`) / simulador (`INT-06`). | `pytest` + `httpx.AsyncClient` + PostgreSQL | `RF-01.1` a `RF-17.1`, `RNF-09`, `RNF-10`, `RNF-14`, `RNF-15` |
+| **2. Integración (API, BD y adaptadores)** | Contratos HTTP REST (`/api/v1`), persistencia en PostgreSQL/PostGIS (`61 tablas`), almacenamiento privado (`INT-03`), geocodificación (`INT-02`) y Checkout Pro (`INT-01`) / simulador (`INT-06`). | `pytest` + `httpx.AsyncClient` + PostgreSQL | `RF-01.1` a `RF-17.1`, `RNF-09`, `RNF-10`, `RNF-14`, `RNF-15` |
 | **3. Concurrencia e idempotencia** | Aceptación simultánea de ofertas, consumo concurrente de cupo fundador y webhooks repetidos de pago de abono. | `pytest-asyncio` | `RF-04.4`, `RF-12.3`, `RF-12.6`, `RF-12.8`, `RNF-05`, `RNF-09` |
 | **4. Seguridad y control de acceso** | Autorización por rol y pertenencia al recurso, enlaces temporales de archivos privados, privacidad de domicilio exacto y validación de firma de webhook. | Suite de casos negativos de API | `RF-09.2`, `RF-10.1..10.4`, `RNF-04`, `RNF-06`, `RNF-16` |
 | **5. E2E y ensayos no funcionales (`PERF-01`)** | Recorridos completos en Web (`WEB-*`) y Mobile (`MOB-*`), disponibilidad, rendimiento de matching y restauración de backup. | Playwright, Maestro/Detox, k6 | `RNF-01` a `RNF-19` |
@@ -89,7 +89,7 @@ Además del [catálogo completo de 161 escenarios planificados](/3daltoque-docs/
 <a id="pnf-004"></a>
 ### PNF-004 — Cumplimiento de contrato OpenAPI y paridad funcional Web/Mobile (`RNF-14`, `RNF-17`, `RF-11.1`, `RF-11.2`)
 - **Precondiciones:** Mismo release de API, Web y Mobile; usuarios y recursos equivalentes.
-- **Datos y entorno:** Respuestas positivas y negativas de las 83 operaciones funcionales de la API. Recursos y usuarios equivalentes para comparar los flujos compartidos entre Web y Mobile.
+- **Datos y entorno:** Respuestas positivas y negativas de las 90 operaciones funcionales de la API. Recursos y usuarios equivalentes para comparar los flujos compartidos entre Web y Mobile.
 - **Procedimiento reproducible:** Validar solicitudes y respuestas contra el contrato. Ejecutar el mismo flujo compartido con datos de partida equivalentes en Web y Mobile. Consultar el resultado desde el otro canal, invertir el orden y repetir con una sesión revocada.
 - **Criterio de aceptación:** Todas las muestras cumplen su esquema. En cada flujo compartido se comprueban los mismos permisos, resultados y cambios de estado en Web y Mobile.
 - **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
@@ -147,11 +147,11 @@ Para verificar auditoría, preparar tres registros de acciones con fecha conocid
 <a id="pnf-008"></a>
 ### PNF-008 — Reproducción limpia del entorno, restauración y retención de respaldos (`RNF-11`, `RNF-18`, `RNF-19`)
 - **Precondiciones:** Release, configuración, migraciones y manifiesto de respaldo disponibles en entorno aislado.
-- **Datos y entorno:** Base de 58 tablas y objetos del fixture. Copia con hashes y hora. PERF-01 fija un RPO de 24 horas y un RTO de cuatro horas.
+- **Datos y entorno:** Base de 61 tablas y objetos del fixture. Copia con hashes y hora. PERF-01 fija un RPO de 24 horas y un RTO de cuatro horas.
 - **Procedimiento reproducible:** Preparar un entorno limpio con las migraciones y el fixture. Generar un respaldo y registrar la hora del incidente simulado. Restaurar la base y los objetos en un destino separado. Identificar el punto consistente recuperado, calcular su antigüedad respecto del incidente y verificar filas, claves foráneas, hashes y permisos. Ejecutar los recorridos de acceso, consulta de pedido y membresía. Registrar la hora en que se verifican y calcular el tiempo desde el incidente simulado.
 - **Criterio de aceptación:** El arranque es reproducible y la restauración recupera un estado consistente de hasta 24 horas antes del incidente simulado. Los recorridos críticos quedan verificados dentro de las cuatro horas posteriores al incidente simulado. El informe registra el punto recuperado, el tiempo total y los objetos verificados.
 - **Evidencia:** Perfil PERF-01, release, fecha, resultados crudos y conclusión por criterio.
-- **Resultado esperado:** Arranque reproducible con las 58 tablas del modelo lógico y restauración íntegra de `pg_dump` verificada por conteo de filas y claves foráneas.
+- **Resultado esperado:** Arranque reproducible con las 61 tablas del modelo lógico y restauración íntegra de `pg_dump` verificada por conteo de filas y claves foráneas.
 
 Para comprobar la retención, preparar dos copias con fechas de generación conocidas y un objeto referenciado por ambas. Ejecutar la rotación con reloj controlado justo antes y al cumplirse los 30 días de la primera. Verificar que siga disponible antes del vencimiento y que al vencer se retiren la copia del catálogo de restauración y sus artefactos exclusivos. Comprobar que la segunda siga recuperable con el objeto compartido. Para comprobar la vigencia de los permisos, preparar un dato presente en la segunda copia que haya sido retirado después de generarla. Restaurar en un destino aislado y verificar que el servicio aplique ese retiro y los permisos vigentes antes de habilitar consultas.
 
@@ -167,7 +167,7 @@ Para comprobar la retención, preparar dos copias con fechas de generación cono
 - **Restablecimiento:** Conservar la evidencia de ejecución y reiniciar el conjunto sintético de este caso en el entorno de pruebas.
 - **Precondiciones:** Servicio de identidad disponible; el correo `cliente.demo01@test.3daltoque.local` no está registrado en `usuarios`.
 - **Datos de entrada:** `nombre: "Lucía Gómez"`, `email: "cliente.demo01@test.3daltoque.local"`, `password: "Frase de prueba 3D 2026"`, `zona: "Caballito, CABA"`, `condiciones_version_id: UUID de la versión publicada`.
-- **Pasos:** 1) Abrir `WEB-AUTH-02` / `MOB-AUTH-02`. 2) Comprobar que el alta asigna el perfil Cliente. 3) Completar datos y aceptar términos. 4) Enviar registro (`POST /auth/registro`). 5) Elegir «Crear mi perfil maker», informar nombre_publico y confirmar (`POST /makers/me` con clave estable). 6) Repetir la intención y consultar los perfiles y la membresía.
+- **Pasos:** 1) Abrir `WEB-AUTH-02` / `MOB-AUTH-02`. 2) Comprobar que el alta asigna el perfil Cliente. 3) Completar datos y aceptar términos. 4) Registrar identidad (`POST /api/auth/sign-up/email`) y completar el vínculo Cliente y la aceptación (`POST /identidad/perfil`); interrumpir y reintentar ese vínculo para comprobar unicidad. 5) Elegir «Crear mi perfil maker», informar nombre_publico y confirmar (`POST /makers/me` con clave estable). 6) Repetir la intención y consultar los perfiles y la membresía.
 - **Resultado esperado:** `201 Created`; usuario creado en `usuarios` y `usuario_roles`, términos registrados e ingreso autenticado con perfil Cliente. Al elegir «Crear mi perfil maker», se conserva Cliente y se crea una sola asignación y perfil maker pendiente; los reintentos conservan su estado y la prueba sin iniciar hasta habilitar. (`Estado: Planificado`).
 
 <a id="cp-002"></a>
@@ -395,7 +395,7 @@ En la variante con correo desactivado, procesar los dos recordatorios y comproba
 - **Resultado esperado:** La conversión conserva ID e inicio de la concesión inicial y amplía el fin a t0+90 días totales; registra antes/después y consume una única plaza. Los reintentos conservan el resultado, la concurrencia respeta el cupo y la prueba vencida o el acceso pago conservan su estado. (`Estado: Planificado`).
 
 <a id="cp-023"></a>
-### CP-023 — Pago manual de abono mensual por Checkout Pro y activación tras verificación del servidor (`CU-11` · `RF-12.5` a `RF-12.9`)
+### CP-023 — Pago manual de abono de 30 días por Checkout Pro y activación tras verificación del servidor (`CU-11` · `RF-12.5` a `RF-12.9`)
 - **Precondiciones:** M-M1 con acceso comercial vencido y compra de abono creada; credenciales y cuentas exclusivas del entorno de prueba.
 - **Datos de prueba:** Compra CP023-A de 10000.00 ARS; retorno del navegador y recurso externo aprobado correspondiente. Fixture específico CP-023 en el registro adjunto.
 - **Prioridad:** Alta. **Técnica:** integración.

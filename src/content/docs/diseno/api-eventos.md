@@ -4,7 +4,7 @@ title: "Contratos propuestos de API y eventos"
 
 # Contratos de API y eventos
 
-Versión 3.0. Fecha: 25 de octubre de 2026. Prefijo común `/api/v1`. Los contratos funcionales se conservan en el OpenAPI publicado y se verifican durante la implementación.
+Versión 3.2. Fecha: 7 de noviembre de 2026. Los contratos de negocio usan `/api/v1`; las rutas que comienzan con `/api/auth/` pertenecen al componente Better Auth y conservan ese prefijo absoluto. Los contratos funcionales se conservan en el OpenAPI publicado y se verifican durante la implementación.
 
 ## Representación y autorización
 
@@ -14,13 +14,22 @@ Las mutaciones sensibles conservan una clave estable y la huella del contenido. 
 
 El contexto Cliente/Maker se conserva por pestaña o instancia sobre la misma identidad. Los listados compartidos requieren rol y filtran por participación; FastAPI valida asignación y propiedad. [F01](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/) y los contratos compartidos detallan el selector y la separación de datos locales.
 
+Las rutas nativas de identidad conservan respuestas y errores de Better Auth (`code`, `message`). Las operaciones de FastAPI utilizan los DTO y errores de negocio. Tras autenticar, el cliente consulta `GET /identidad/perfil`; un vínculo pendiente se completa con `POST /identidad/perfil`. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) fija propiedad de datos, transporte, verificación y recuperación.
+
 ## Operaciones por funcionalidad
 
 | Funcionalidad | Método y ruta | Operación | Entrada | Salida | Guarda |
 | --- | --- | --- | --- | --- | --- |
-| F01 | POST `/auth/registro` | Registrar identidad | identificador, secreto y aceptación de condiciones | identidad, perfil Cliente y siguiente acción | El servidor asigna Cliente y rechaza campos de roles ajenos al contrato. |
-| F01 | POST `/auth/sesion` | Iniciar sesión | credenciales y tipo de cliente | identidad, capacidades y expiración | Cuenta habilitada. Con cinco fallos en los últimos 60 segundos para el mismo correo, los intentos siguientes reciben 429 y Retry-After. |
-| F01 | DELETE `/auth/sesion` | Cerrar sesión | sesión vigente | resultado de cierre | Retira o revoca la autorización conforme a la política. |
+| F01 | POST `/api/auth/sign-up/email` | Registrar identidad | RegistroInput | AccesoBetterAuth | Identidad Better Auth creada; el cliente completa el vínculo Cliente y la aceptación de condiciones en FastAPI. |
+| F01 | POST `/api/auth/sign-in/email` | Iniciar sesión | AccesoBetterAuthInput | AccesoBetterAuth | Credenciales validadas por Better Auth. DC-95: cinco fallos por correo normalizado en 60 segundos compartidos entre clientes e instancias; 429 y Retry-After al alcanzar el límite. |
+| F01 | POST `/api/auth/sign-out` | Cerrar sesión | sesión o parámetros nativos | EstadoBetterAuth | Revoca la sesión actual y retira la cookie; el cliente Mobile elimina su secreto almacenado. |
+| F01 | GET `/api/auth/get-session` | Consultar sesión | sesión o parámetros nativos | ConsultaSesionBetterAuth | Devuelve sesión e identidad nativas o null si falta una sesión vigente. FastAPI traduce null a 401 al proteger un recurso y propaga la renovación de cookie cuando corresponda. |
+| F01 | POST `/api/auth/send-verification-email` | Solicitar verificación de correo | EnvioVerificacionInput | EstadoBetterAuth | Better Auth genera el enlace de una hora y Resend entrega el mensaje. Los retornos se validan contra la lista permitida. |
+| F01 | GET `/api/auth/verify-email` | Verificar correo | sesión o parámetros nativos | EstadoBetterAuth | Valida el token y confirma el correo; puede redirigir a callbackURL autorizada. El cliente consulta sesión y capacidades; la habilitación comercial conserva sus guardas. |
+| F01 | POST `/api/auth/request-password-reset` | Solicitar recuperación | SolicitudRecuperacionInput | EstadoBetterAuth | Respuesta neutral. Better Auth genera un enlace de 15 minutos que Resend envía cuando corresponde. |
+| F01 | POST `/api/auth/reset-password` | Restablecer contraseña | RestablecimientoInput | EstadoBetterAuth | Consume el token una sola vez, valida la contraseña y revoca todas las sesiones. Las pruebas de integración verifican consumo concurrente y atomicidad con el adaptador elegido. |
+| F01 | POST `/identidad/perfil` | Vincular perfil Cliente | condiciones_version_id y clave de operación | identidad local, roles y capacidades | Sesión validada y vínculo único; asignación Cliente en servidor. |
+| F01 | GET `/identidad/perfil` | Consultar capacidades | sesión vigente | identidad local, roles, correo verificado y vencimientos | Estado local y permisos; perfil pendiente informa 409 profile_setup_required. |
 | F02 | GET `/clientes/me` | Consultar perfil propio | sesión | datos propios y versión | Cliente titular. |
 | F02 | PATCH `/clientes/me` | Actualizar perfil | contacto, referencia de ubicación y versión | perfil y versión nueva | Titularidad, formato y concurrencia. |
 | F03 | GET `/makers/{id}` | Consultar perfil público | maker_id | zona pública, punto representativo de 1 km, capacidades, catálogo, portfolio y reputación | Contenido público vigente y precisión autorizada. |
@@ -146,7 +155,7 @@ Las respuestas y salidas por funcionalidad están en [las specs](/3daltoque-docs
 
 ## Contrato intercambiable
 
-[OpenAPI 3.1](/3daltoque-docs/documentos/e37598f41824-openapi.json) contiene las 83 operaciones funcionales y dos controles técnicos. Los [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) completan autenticación, tiempos, recuperación y versionado de las siete integraciones.
+[OpenAPI 3.1](/3daltoque-docs/documentos/e37598f41824-openapi.json) contiene las 90 operaciones funcionales y dos controles técnicos. Los [contratos operativos](/3daltoque-docs/diseno/contratos-operativos/) completan autenticación, tiempos, recuperación y versionado de las siete integraciones.
 
 ## Correspondencia de errores de dominio y HTTP
 

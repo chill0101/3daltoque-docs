@@ -28,7 +28,7 @@ Como facilitar el encuentro geolocalizado y confiable entre clientes que necesit
 
 3DAltoque busca centralizar la solicitud y conectar al cliente con un grupo pequeño de makers cercanos y compatibles. La estimación automática aporta una referencia inicial; cada maker puede aceptar, rechazar o proponer precio y plazo. El cliente compara ofertas vigentes y, al elegir una, confirma el pedido y se cierran las otras ofertas. Durante producción, el maker comparte evidencia; el cliente debe revisar y aprobar expresamente antes de coordinar la entrega. La aprobación requiere una acción expresa del cliente, según RF-06.3.
 
-El modelo vigente cobra una membresía mensual prepaga al maker mediante Checkout Pro, con renovación manual. La prueba general y el programa Makers Fundadores tienen duraciones y cupo configurables, según [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/). La simulación utiliza un entorno identificado y separado de los cobros productivos.
+El modelo vigente cobra una membresía prepaga de 30 días al maker mediante Checkout Pro, con renovación manual. La prueba general y el programa Makers Fundadores tienen duraciones y cupo configurables, según [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/). La simulación utiliza un entorno identificado y separado de los cobros productivos.
 
 ## 3. Segmentos y arquetipos de usuario
 
@@ -156,7 +156,7 @@ El modelo vigente es una membresía prepaga para makers, con prueba configurable
 - ¿Qué tipos de impresoras, materiales, volumen y trabajos podés aceptar?
 - ¿Cómo estimás costo/plazo y que información necesitás del cliente?
 - ¿Qué pedidos rechazarías y por qué?
-- ¿Qué valor tendría para vos el servicio de 3DAltoque y qué condiciones aceptarías para pagar un abono mensual?
+- ¿Qué valor tendría para vos el servicio de 3DAltoque y qué condiciones aceptarías para pagar un abono de 30 días?
 - ¿Qué evidencia podés compartir y como preferis coordinar la entrega?
 
 Registrar protocolo, criterios de selección, consentimiento, fecha, rol (sin datos sensibles innecesarios), notas anonimizadas y limitaciones. El equipo debe decidir el tamaño de muestra acorde al tiempo y declarar que una muestra exploratoria no representa a toda la población.

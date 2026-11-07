@@ -4,7 +4,7 @@ title: "Arquitectura y diseño de implementación"
 
 # Arquitectura y diseño de implementación
 
-Versión 3.0. Fecha: 25 de octubre de 2026.
+Versión 3.0. Fecha: 7 de noviembre de 2026.
 
 ## Enfoque adoptado
 
@@ -43,7 +43,7 @@ El puerto de pagos recibe una compra del abono con condiciones conservadas. El a
 - Una asignación concurrente no supera el cupo fundador.
 - La prueba general y la de fundador no se acumulan ni se reinician con una edición de perfil.
 - Compra pagada y concesión de acceso se procesan de forma recuperable e idempotente.
-- Una misma compra concede como máximo un período; renovaciones diferentes serializan la elección del intervalo.
+- La compra se habilita únicamente con el acceso vencido. La concesión bloquea la membresía y valida la elegibilidad; una compra verificada concede como máximo un período de 30 días desde la confirmación del pago. Un pago adicional concurrente queda conservado para conciliación autorizada.
 - La guarda de acceso consulta fechas del servidor. El worker de avisos no determina si venció.
 - Vencer la membresía no bloquea la finalización de pedidos existentes.
 
@@ -51,9 +51,9 @@ El puerto de pagos recibe una compra del abono con condiciones conservadas. El a
 
 El catálogo lógico conserva versiones de solicitudes/ofertas y evidencia por revisión. Incluye plan versionado, membresía del maker, compras y períodos. Cada pago del abono referencia su compra de membresía mediante `pagos.compra_id`.
 
-PostgreSQL/PostGIS y SQLAlchemy/Alembic permanecen como propuestas por confirmar. Los archivos son privados y el análisis se aísla en un worker del mismo proyecto. Outbox y tareas persistidas permiten reintentos sin perder el hecho de negocio.
+PostgreSQL con PostGIS es la base elegida. El proveedor de alojamiento, ORM y herramientas de migración del negocio se definen en PD-11; SQLAlchemy/Alembic es la propuesta para FastAPI. Los archivos son privados y el análisis se aísla en un worker del mismo proyecto. Outbox y tareas persistidas permiten reintentos sin perder el hecho de negocio.
 
-El despliegue contempla frontend, API, worker, base de datos y almacenamiento de objetos. La selección del hosting requiere presupuesto, contratos de proveedores y objetivos operativos, registrados en PD-11 y PD-13.
+El despliegue contempla frontend, componente Better Auth en Node/TypeScript, API FastAPI, worker, base de datos y almacenamiento de objetos. Better Auth administra credenciales y sesiones; el adaptador de FastAPI consulta su vigencia y aplica la autorización local. Resend entrega los correos de identidad y los avisos del worker. [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/) detalla las fronteras y el vínculo único con el usuario de negocio. La selección del hosting requiere presupuesto, contratos de proveedores y objetivos operativos, registrados en PD-11 y PD-13.
 
 ## Seguridad e integración
 

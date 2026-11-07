@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "3DAltoque · Contrato de API",
-    "version": "1.0.0",
-    "description": "Contrato de diseño de las 75 operaciones funcionales y dos controles técnicos. Las guardas y campos de negocio se relacionan con F01–F25 y sus specs."
+    "version": "3.2.0",
+    "description": "Contrato de diseño de 90 operaciones funcionales y dos controles técnicos. Las guardas y campos de negocio se relacionan con F01–F25 y sus specs. Better Auth conserva sus rutas nativas bajo /api/auth; FastAPI utiliza /api/v1."
   },
   "servers": [
     {
@@ -121,122 +121,112 @@
     }
   ],
   "paths": {
-    "/auth/registro": {
+    "/api/auth/sign-up/email": {
       "post": {
-        "operationId": "f01_post_auth_registro",
+        "operationId": "f01_post_api_auth_sign_up_email",
         "tags": [
           "F01"
         ],
         "summary": "Registrar identidad",
-        "description": "Entrada: nombre, identificador, secreto y aceptación de condiciones. Salida: identidad y perfil Cliente. El servidor asigna Cliente; campos de roles y privilegios ajenos al contrato se rechazan.",
-        "parameters": [
+        "description": "Identidad Better Auth creada; el cliente completa el vínculo Cliente y la aceptación de condiciones en FastAPI.",
+        "servers": [
           {
-            "name": "X-Client",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "web",
-                "mobile"
-              ]
-            },
-            "description": "Web recibe cookie de sesión; Mobile recibe el secreto opaco de la sesión."
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
           }
         ],
+        "security": [],
+        "parameters": [],
         "responses": {
-          "201": {
-            "description": "identidad, perfiles y siguiente acción",
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Recurso"
+                  "$ref": "#/components/schemas/AccesoBetterAuth"
                 }
               }
             }
           },
           "400": {
-            "description": "Solicitud o notificación inválida",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "401": {
-            "description": "Sesión ausente, vencida o revocada",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "403": {
-            "description": "Permiso insuficiente",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Recurso inaccesible o inexistente",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflicto de versión, estado, vigencia o clave",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "422": {
-            "description": "Datos fuera de contrato",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "429": {
-            "description": "Límite de uso superado",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
                 }
               }
             }
           },
           "503": {
-            "description": "Dependencia indispensable temporalmente indisponible",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           }
         },
-        "security": [],
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript",
         "requestBody": {
           "required": true,
           "content": {
@@ -246,123 +236,88 @@
               }
             }
           }
-        },
-        "x-requisitos": [
-          "RF-01.1",
-          "RF-01.4",
-          "RF-01.5"
-        ],
-        "x-casos-de-uso": [
-          "CU-13"
-        ]
+        }
       }
     },
-    "/auth/sesion": {
+    "/api/auth/sign-in/email": {
       "post": {
-        "operationId": "f01_post_auth_sesion",
+        "operationId": "f01_post_api_auth_sign_in_email",
         "tags": [
           "F01"
         ],
         "summary": "Iniciar sesión",
-        "description": "Entrada: credenciales y tipo de cliente. Salida: identidad, capacidades y expiración. Guarda: Cuenta habilitada y protección frente a intentos inválidos. El límite inicial configurable es de cinco fallos por correo normalizado en una ventana móvil de 60 segundos. Los intentos siguientes reciben 429 usage_limit_reached y Retry-After hasta que el primer fallo salga de la ventana.",
-        "parameters": [
+        "description": "Credenciales validadas por Better Auth. DC-95: cinco fallos por correo normalizado en 60 segundos compartidos entre clientes e instancias; 429 y Retry-After al alcanzar el límite.",
+        "servers": [
           {
-            "name": "X-Client",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "web",
-                "mobile"
-              ]
-            },
-            "description": "Web recibe cookie de sesión; Mobile recibe el secreto opaco de la sesión."
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
           }
         ],
+        "security": [],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "identidad, capacidades y expiración",
+            "description": "Respuesta nativa de Better Auth.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Sesion"
+                  "$ref": "#/components/schemas/AccesoBetterAuth"
                 }
               }
             }
           },
           "400": {
-            "description": "Solicitud o notificación inválida",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "401": {
-            "description": "Credenciales inválidas o cuenta sin acceso. Respuesta neutral.",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "403": {
-            "description": "Permiso insuficiente",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Recurso inaccesible o inexistente",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflicto de versión, estado, vigencia o clave",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "422": {
-            "description": "Datos fuera de contrato",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             }
           },
           "429": {
-            "description": "Límite de uso superado. La guarda de inicio de sesión informa la espera en Retry-After.",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
               }
             },
             "headers": {
               "Retry-After": {
-                "description": "Segundos enteros hasta que se pueda volver a intentar.",
+                "description": "Espera en segundos según la guarda aplicable.",
                 "schema": {
                   "type": "integer",
                   "minimum": 1
@@ -371,23 +326,12 @@
             }
           },
           "503": {
-            "description": "Dependencia indispensable temporalmente indisponible",
+            "description": "Error de identidad; formato nativo code y message.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
                 }
-              }
-            }
-          }
-        },
-        "security": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SesionInput"
               }
             }
           }
@@ -399,33 +343,765 @@
         ],
         "x-casos-de-uso": [
           "CU-13"
-        ]
-      },
-      "delete": {
-        "operationId": "f01_delete_auth_sesion",
+        ],
+        "x-componente": "Better Auth · Node/TypeScript",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccesoBetterAuthInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/sign-out": {
+      "post": {
+        "operationId": "f01_post_api_auth_sign_out",
         "tags": [
           "F01"
         ],
         "summary": "Cerrar sesión",
-        "description": "Entrada: sesión vigente. Salida: resultado de cierre. Guarda: Retira o revoca la autorización conforme a la política.",
+        "description": "Revoca la sesión actual y retira la cookie; el cliente Mobile elimina su secreto almacenado.",
+        "servers": [
+          {
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
+          }
+        ],
+        "security": [
+          {
+            "SesionCookie": []
+          },
+          {
+            "SesionBearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoBetterAuth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/get-session": {
+      "get": {
+        "operationId": "f01_get_api_auth_get_session",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Consultar sesión",
+        "description": "Devuelve sesión e identidad nativas o null si falta una sesión vigente. FastAPI traduce null a 401 al proteger un recurso y propaga la renovación de cookie cuando corresponda.",
+        "servers": [
+          {
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
+          }
+        ],
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsultaSesionBetterAuth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript"
+      }
+    },
+    "/api/auth/send-verification-email": {
+      "post": {
+        "operationId": "f01_post_api_auth_send_verification_email",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Solicitar verificación de correo",
+        "description": "Better Auth genera el enlace de una hora y Resend entrega el mensaje. Los retornos se validan contra la lista permitida.",
+        "servers": [
+          {
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
+          }
+        ],
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoBetterAuth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnvioVerificacionInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/verify-email": {
+      "get": {
+        "operationId": "f01_get_api_auth_verify_email",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Verificar correo",
+        "description": "Valida el token y confirma el correo; puede redirigir a callbackURL autorizada. El cliente consulta sesión y capacidades; la habilitación comercial conserva sus guardas.",
+        "servers": [
+          {
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
+          }
+        ],
+        "security": [],
         "parameters": [
           {
-            "name": "X-Client",
-            "in": "header",
+            "name": "token",
+            "in": "query",
             "required": true,
             "schema": {
-              "type": "string",
-              "enum": [
-                "web",
-                "mobile"
-              ]
+              "type": "string"
             },
-            "description": "Web recibe cookie de sesión; Mobile recibe el secreto opaco de la sesión."
+            "description": "Token del enlace de verificación; se excluye de logs."
+          },
+          {
+            "name": "callbackURL",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Operación completada; cuerpo vacío"
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoBetterAuth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "302": {
+            "description": "Retorno autorizado al cliente.",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript"
+      }
+    },
+    "/api/auth/request-password-reset": {
+      "post": {
+        "operationId": "f01_post_api_auth_request_password_reset",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Solicitar recuperación",
+        "description": "Respuesta neutral. Better Auth genera un enlace de 15 minutos que Resend envía cuando corresponde.",
+        "servers": [
+          {
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
+          }
+        ],
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoBetterAuth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudRecuperacionInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/reset-password": {
+      "post": {
+        "operationId": "f01_post_api_auth_reset_password",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Restablecer contraseña",
+        "description": "Consume el token una sola vez, valida la contraseña y revoca todas las sesiones. Las pruebas de integración verifican consumo concurrente y atomicidad con el adaptador elegido.",
+        "servers": [
+          {
+            "url": "/",
+            "description": "Prefijo nativo absoluto del componente Better Auth. El resto de operaciones funcionales utiliza /api/v1."
+          }
+        ],
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Respuesta nativa de Better Auth.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EstadoBetterAuth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            },
+            "headers": {
+              "Retry-After": {
+                "description": "Espera en segundos según la guarda aplicable.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error de identidad; formato nativo code y message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBetterAuth"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4",
+          "RF-01.5"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "x-componente": "Better Auth · Node/TypeScript",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RestablecimientoInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/identidad/perfil": {
+      "get": {
+        "operationId": "f01_get_identidad_perfil",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Consultar identidad de negocio y capacidades",
+        "description": "Resuelve la sesión vigente, el UUID local, roles y capacidades. Si la identidad todavía carece de perfil local, devuelve 409 profile_setup_required para continuar el alta.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "datos propios y versión",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerfilAcceso"
+                }
+              }
+            }
           },
           "400": {
             "description": "Solicitud o notificación inválida",
@@ -508,15 +1184,152 @@
             }
           }
         },
-        "security": [],
         "x-requisitos": [
           "RF-01.1",
-          "RF-01.4",
-          "RF-01.5"
+          "RF-01.4"
         ],
         "x-casos-de-uso": [
           "CU-13"
         ]
+      },
+      "post": {
+        "operationId": "f01_post_identidad_perfil",
+        "tags": [
+          "F01"
+        ],
+        "summary": "Completar vínculo del perfil Cliente",
+        "description": "Crea usuario, Cliente, rol público y aceptación de condiciones en una transacción. Usa la identidad de la sesión, unicidad por identidad_externa_id e Idempotency-Key. Devuelve 201 al crear y 200 al recuperar el mismo vínculo; rechaza asignaciones de privilegios desde el cliente.",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "datos propios y versión",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerfilAcceso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud o notificación inválida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sesión ausente, vencida o revocada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permiso insuficiente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Recurso inaccesible o inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto de versión, estado, vigencia o clave",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Datos fuera de contrato",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Límite de uso superado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Dependencia indispensable temporalmente indisponible",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Perfil Cliente vinculado.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PerfilAcceso"
+                }
+              }
+            }
+          }
+        },
+        "x-requisitos": [
+          "RF-01.1",
+          "RF-01.4"
+        ],
+        "x-casos-de-uso": [
+          "CU-13"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VinculoPerfilInput"
+              }
+            }
+          }
+        }
       }
     },
     "/clientes/me": {
@@ -10039,11 +10852,16 @@
                   },
                   "accion": {
                     "type": "string",
-                    "enum": ["solicitar_seguimiento", "solicitar_reapertura"],
+                    "enum": [
+                      "solicitar_seguimiento",
+                      "solicitar_reapertura"
+                    ],
                     "default": "solicitar_seguimiento"
                   }
                 },
-                "required": ["version_esperada"],
+                "required": [
+                  "version_esperada"
+                ],
                 "additionalProperties": false
               }
             }
@@ -11762,7 +12580,8 @@
       "SesionCookie": {
         "type": "apiKey",
         "in": "cookie",
-        "name": "sesion"
+        "name": "__Secure-better-auth.session_token",
+        "description": "Cookie nativa de Better Auth en HTTPS. El entorno local usa el nombre sin prefijo __Secure-; la configuración de proxy y el adaptador preservan atributos y renovación."
       },
       "SesionBearer": {
         "type": "http",
@@ -11795,7 +12614,7 @@
       "RegistroInput": {
         "type": "object",
         "properties": {
-          "nombre": {
+          "name": {
             "type": "string",
             "minLength": 1
           },
@@ -11809,40 +12628,20 @@
             "writeOnly": true,
             "minLength": 15,
             "maxLength": 128,
-            "description": "Contraseña nueva de 15 a 128 caracteres. Admite frases y espacios, que se conservan al enviar; validación en servidor mediante Better Auth."
+            "description": "DC-22: conserva frases y espacios; validación de contraseña nueva por Better Auth."
           },
-          "condiciones_version_id": {
+          "callbackURL": {
             "type": "string",
-            "format": "uuid"
+            "description": "Retorno incluido en la lista de orígenes y rutas autorizados."
           }
         },
         "required": [
-          "nombre",
-          "email",
-          "password",
-          "condiciones_version_id"
-        ],
-        "additionalProperties": false,
-        "description": "Registro público con perfil Cliente asignado por el servidor. El alta maker ocurre después mediante POST /makers/me."
-      },
-      "SesionInput": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "format": "email"
-          },
-          "password": {
-            "type": "string",
-            "format": "password",
-            "writeOnly": true
-          }
-        },
-        "required": [
+          "name",
           "email",
           "password"
         ],
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Registro nativo de identidad. La aceptación de condiciones y el perfil Cliente se completan en POST /identidad/perfil."
       },
       "ImpresoraInput": {
         "type": "object",
@@ -13014,20 +13813,45 @@
             "items": {
               "type": "object",
               "properties": {
-                "id": { "type": "string", "format": "uuid" },
-                "revision_id": { "type": "string", "format": "uuid" },
-                "estado": { "type": "string", "minLength": 1 },
+                "id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "revision_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "estado": {
+                  "type": "string",
+                  "minLength": 1
+                },
                 "decision_reapertura": {
                   "type": "object",
                   "properties": {
-                    "resultado": { "type": "string", "enum": ["aprobada", "rechazada"] },
-                    "decidida_en": { "type": "string", "format": "date-time" }
+                    "resultado": {
+                      "type": "string",
+                      "enum": [
+                        "aprobada",
+                        "rechazada"
+                      ]
+                    },
+                    "decidida_en": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
                   },
-                  "required": ["resultado", "decidida_en"],
+                  "required": [
+                    "resultado",
+                    "decidida_en"
+                  ],
                   "additionalProperties": false
                 }
               },
-              "required": ["id", "revision_id", "estado"],
+              "required": [
+                "id",
+                "revision_id",
+                "estado"
+              ],
               "additionalProperties": false
             }
           },
@@ -13134,43 +13958,6 @@
           "modo"
         ],
         "additionalProperties": true
-      },
-      "Sesion": {
-        "type": "object",
-        "properties": {
-          "usuario_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "roles": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1
-            },
-            "description": "Roles asignados por el servidor a la identidad. La cuenta admite cliente y maker; el contexto seleccionado pertenece a la navegación de cada pestaña o instancia y conserva las asignaciones."
-          },
-          "expires_at": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Vencimiento actual de la sesión. Cliente/Maker: 7 días renovables con actividad; referencia de actualización cada 24 horas. Cerrar sesión revoca el acceso y una sesión vencida o revocada requiere autenticación."
-          },
-          "access_token": {
-            "type": "string",
-            "description": "Secreto opaco entregado al cliente Mobile; Web utiliza la cookie HttpOnly."
-          },
-          "admin_expires_at": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Límite administrativo calculado por servidor cuando corresponde: el menor valor entre expires_at y Better Auth session.createdAt más 8 horas. Al alcanzarlo, las operaciones administrativas requieren una nueva autenticación con 401 reauthentication_required."
-          }
-        },
-        "required": [
-          "usuario_id",
-          "roles",
-          "expires_at"
-        ],
-        "additionalProperties": false
       },
       "Archivo": {
         "type": "object",
@@ -14958,6 +15745,309 @@
           "nombre_publico"
         ],
         "additionalProperties": false
+      },
+      "AccesoBetterAuthInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "writeOnly": true
+          },
+          "callbackURL": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "additionalProperties": false
+      },
+      "UsuarioBetterAuth": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "emailVerified": {
+            "type": "boolean"
+          },
+          "image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "emailVerified",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "SesionBetterAuth": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string",
+            "description": "Secreto opaco del contrato nativo; se maneja como credencial y se excluye de logs."
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ipAddress": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "userAgent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "userId",
+          "expiresAt",
+          "createdAt",
+          "updatedAt"
+        ],
+        "additionalProperties": false
+      },
+      "ConsultaSesionBetterAuth": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/UsuarioBetterAuth"
+              },
+              "session": {
+                "$ref": "#/components/schemas/SesionBetterAuth"
+              }
+            },
+            "required": [
+              "user",
+              "session"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "AccesoBetterAuth": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UsuarioBetterAuth"
+          },
+          "token": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "redirect": {
+            "type": "boolean"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "user"
+        ],
+        "additionalProperties": true,
+        "description": "Respuesta nativa. Cookie y set-auth-token se procesan con el cliente Better Auth. Los perfiles y capacidades se consultan en FastAPI."
+      },
+      "EnvioVerificacionInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "callbackURL": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "SolicitudRecuperacionInput": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "redirectTo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "redirectTo"
+        ],
+        "additionalProperties": false
+      },
+      "RestablecimientoInput": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "newPassword": {
+            "type": "string",
+            "format": "password",
+            "writeOnly": true,
+            "minLength": 15,
+            "maxLength": 128,
+            "description": "DC-22: conserva frases y espacios; validación de contraseña nueva por Better Auth."
+          }
+        },
+        "required": [
+          "token",
+          "newPassword"
+        ],
+        "additionalProperties": false
+      },
+      "EstadoBetterAuth": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "boolean"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "ErrorBetterAuth": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      },
+      "VinculoPerfilInput": {
+        "type": "object",
+        "properties": {
+          "condiciones_version_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "condiciones_version_id"
+        ],
+        "additionalProperties": false
+      },
+      "PerfilAcceso": {
+        "type": "object",
+        "properties": {
+          "usuario_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "cliente",
+                "maker",
+                "administrador"
+              ]
+            }
+          },
+          "acciones_permitidas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correo_verificado": {
+            "type": "boolean"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "admin_expires_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "usuario_id",
+          "roles",
+          "acciones_permitidas",
+          "correo_verificado",
+          "expires_at"
+        ],
+        "additionalProperties": false,
+        "description": "Identidad de negocio y capacidades calculadas por FastAPI desde la sesión vigente. admin_expires_at aplica al acceso administrativo."
       }
     }
   }

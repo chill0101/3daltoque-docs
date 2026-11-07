@@ -20,6 +20,19 @@ El diseño organiza los casos de uso en servicios de aplicación del monolito Fa
 %%{init: {"theme":"base","themeVariables":{"primaryColor":"#E4F5FA","primaryTextColor":"#082345","primaryBorderColor":"#00BFE5","lineColor":"#315574","secondaryColor":"#F5F8FC","tertiaryColor":"#FFFFFF","fontFamily":"Manrope, sans-serif"},"flowchart":{"htmlLabels":false},"class":{"htmlLabels":false}}}%%
 classDiagram
   direction LR
+  class IdentidadService {
+    +vincular_cliente(command)
+    +consultar_capacidades(query)
+  }
+  class IdentidadPort {
+    <<interface>>
+    +resolver_sesion(credencial)
+  }
+  class BetterAuthAdapter
+  BetterAuthAdapter ..|> IdentidadPort
+  IdentidadService --> IdentidadPort
+  IdentidadService --> PerfilRepositoryPort
+  IdentidadService --> UnitOfWorkPort
   class PerfilMakerService {
     +consultar_perfil(maker_id)
     +guardar_capacidades(command)
@@ -189,6 +202,8 @@ classDiagram
   class PersistenciaPostgresAdapter
   class MercadoPagoCheckoutProAdapter
   class PagoSimuladoAdapter
+  FastAPIAdapter --> IdentidadService
+  FastAPIAdapter --> IdentidadPort
   FastAPIAdapter --> CatalogoService
   FastAPIAdapter --> ConversacionService
   MercadoPagoCheckoutProAdapter ..|> PaymentGatewayPort
@@ -204,6 +219,7 @@ classDiagram
 
 | Clase | Operaciones | Puertos |
 | --- | --- | --- |
+| IdentidadService | `vincular_cliente(command)`, `consultar_capacidades(query)` | IdentidadPort, PerfilRepositoryPort, UnitOfWorkPort |
 | PerfilMakerService | `consultar_perfil(maker_id)`, `guardar_capacidades(command)`, `habilitar_perfil(command)` | PerfilRepositoryPort, MembresiaRepositoryPort, UnitOfWorkPort |
 | CatalogoService | `guardar_producto(command)`, `publicar_producto(command)`, `confirmar_pedido_producto(command)` | CatalogoRepositoryPort, PedidoRepositoryPort, MembresiaRepositoryPort, ConversacionRepositoryPort, UnitOfWorkPort |
 | PortfolioService | `publicar_trabajo(command)`, `retirar_trabajo(command)` | PerfilRepositoryPort, StoragePort |
@@ -223,6 +239,7 @@ classDiagram
 
 | Recorrido | Colaboración y frontera de consistencia |
 | --- | --- |
+| Resolver identidad | BetterAuthAdapter consulta sesión mediante IdentidadPort; IdentidadService vincula el Cliente en una transacción local y calcula capacidades con el estado y los roles de negocio. |
 | Aceptar oferta | OfertaService valida la versión y vigencia; PedidoRepositoryPort conserva pedido y condiciones; ConversacionRepositoryPort habilita la conversación dentro de UnitOfWorkPort. |
 | Pedido de catálogo | CatalogoService recupera primero la intención repetida, valida versión/precio/cantidad y acceso del maker y materializa el acuerdo en la misma frontera. |
 | Enviar mensaje | ConversacionService autoriza participante del pedido, valida contenido y conserva mensaje y evento una vez antes de responder. |
@@ -237,6 +254,8 @@ classDiagram
 Los servicios intercambian comandos y consultas tipados, referencias UUID, versiones, cursores y resultados. Los importes utilizan un valor dinero con importe decimal y moneda; los períodos conservan inicio y fin y las cantidades son enteros positivos. La elección de clases o funciones concretas en Python mantiene estos contratos y responsabilidades.
 
 ## Adaptadores
+
+BetterAuthAdapter resuelve la identidad contra el componente Node/TypeScript y propaga la renovación de cookie cuando corresponde. Las rutas nativas, tablas técnicas y la entrega de correo siguen [ADR-004](/3daltoque-docs/decisiones/autenticacion-better-auth/).
 
 FastAPI recibe las operaciones descritas en [API y eventos](/3daltoque-docs/diseno/api-eventos/). La persistencia PostgreSQL implementa las claves y reglas del [modelo lógico](/3daltoque-docs/modelado/modelo-logico/). Los adaptadores externos siguen [el plan de integraciones](/3daltoque-docs/diseno/integraciones/).
 

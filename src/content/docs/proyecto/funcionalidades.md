@@ -8,7 +8,7 @@ title: "Documento de funcionalidades"
 **Documento:** Planificación de Proyecto: Catálogo funcional  
 **Equipo:** Bernardez, Cariaga y Ruiz  
 **Versión:** 2.0  
-**Fecha:** 25 de octubre de 2026
+**Fecha:** 7 de noviembre de 2026
 
 ## 1. Propósito y fundamento
 
@@ -41,7 +41,7 @@ El pedido confirmado habilita su conversación. El maker informa avance y presen
 
 ### Acceso del maker
 
-El maker utiliza un plan mensual prepago con renovación manual. La primera habilitación concede un único beneficio general o fundador, con duraciones configurables. El vencimiento restringe trabajos nuevos y mantiene la operativa de pedidos existentes.
+El maker utiliza un plan prepago de 30 días con renovación manual. La primera habilitación concede un único beneficio general o fundador, con duraciones configurables. El vencimiento restringe trabajos nuevos y mantiene la operativa de pedidos existentes.
 
 ## 4. Catálogo general
 
@@ -82,15 +82,15 @@ El maker utiliza un plan mensual prepago con renovación manual. La primera habi
 | Tipo y canal | ABM. Web y Mobile; administración en Web. |
 | Actores | Cliente, maker y administración autorizada. |
 | Propósito | Crear y utilizar una identidad con los perfiles y permisos correspondientes. |
-| Entradas | Datos de registro, credenciales y perfil solicitado. |
-| Comportamiento y reglas | El backend valida el identificador y el estado de la cuenta, registra el perfil y autentica el acceso. El cierre de sesión retira o revoca la autorización según la estrategia acordada. Las cuentas administrativas se crean mediante un procedimiento autorizado. La primera habilitación comercial del maker se trata en F11. |
+| Entradas | Datos de registro o acceso, versión aceptada de condiciones y contexto público asignado. |
+| Comportamiento y reglas | Better Auth registra la identidad, autentica, verifica correo, permite recuperar contraseña y revoca sesiones. FastAPI vincula de forma idempotente el perfil Cliente y la aceptación de condiciones, y devuelve los roles y capacidades locales. Las cuentas administrativas reciben permisos mediante un procedimiento autorizado. La primera habilitación comercial del maker se trata en F11. |
 | Resultado | Cuenta y perfil asociados, acceso autorizado y cierre de sesión conforme a su política. |
 | Requerimientos funcionales | [RF-01.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-1), [RF-01.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-4), [RF-01.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-01-5). |
 | Relación con casos de uso | [CU-13](/3daltoque-docs/analisis/casos/cu-13-registrarse-y-acceder/). |
 | Integraciones | [INT-05](/3daltoque-docs/diseno/integraciones/#int-05). |
 | Cierre de definición | Reglas funcionales vinculadas a RF y CU. Los valores de configuración y proveedores se registran en PD-01, PD-12, PD-13. |
 
-[Spec de implementación](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/). Datos: `usuarios`, `usuario_roles`, `sesiones`.
+[Spec de implementación](/3daltoque-docs/specs/f01-registro-e-inicio-de-sesion/). Datos: `usuarios`, `usuario_roles`, `clientes`, `aceptaciones_condiciones`, `auth_users`, `auth_sessions`, `auth_accounts`, `auth_verifications`.
 
 <a id="f02"></a>
 ### F02 Gestión de perfil de cliente
@@ -263,7 +263,7 @@ El maker utiliza un plan mensual prepago con renovación manual. La primera habi
 | Actores | Maker, administración autorizada, sistema y Mercado Pago. |
 | Propósito | Cobrar el servicio de 3DAltoque y determinar el acceso del maker a trabajos nuevos. |
 | Entradas | Plan versionado, primera habilitación, beneficio aplicable, compra, pago y fechas de acceso. |
-| Comportamiento y reglas | El plan es mensual prepago y se renueva mediante una compra iniciada por el maker. La primera habilitación concede un único beneficio gratuito: 30 días generales o 90 días totales para fundadores, como valores configurables. Administración asigna fundadores con cupo y auditoría. Checkout Pro cobra a favor de 3DAltoque; el backend verifica el resultado y concede como máximo un período por compra. La vigencia conserva la operativa de pedidos aceptados al vencer. Se registran compras, conciliación, devoluciones autorizadas, avisos y modo de simulación. |
+| Comportamiento y reglas | El plan es prepago de 30 días y se renueva mediante una compra iniciada por el maker. La primera habilitación concede un único beneficio gratuito: 30 días generales o 90 días totales para fundadores, como valores configurables. Administración asigna fundadores con cupo y auditoría. Checkout Pro cobra a favor de 3DAltoque; el backend verifica el resultado y concede como máximo un período por compra. La vigencia conserva la operativa de pedidos aceptados al vencer. Se registran compras, conciliación, devoluciones autorizadas, avisos y modo de simulación. |
 | Resultado | Estado de acceso, condiciones del plan, compras y períodos trazables. |
 | Requerimientos funcionales | [RF-12.1](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-1), [RF-12.2](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-2), [RF-12.3](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-3), [RF-12.4](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-4), [RF-12.5](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-5), [RF-12.6](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-6), [RF-12.7](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-7), [RF-12.8](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-8), [RF-12.9](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-9), [RF-12.10](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-10), [RF-12.11](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-11), [RF-12.12](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-12), [RF-12.13](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-13), [RF-12.14](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-14), [RF-12.15](/3daltoque-docs/analisis/requisitos/funcionales/#rf-12-15). |
 | Relación con casos de uso | [CU-08](/3daltoque-docs/analisis/casos/cu-08-consultar-membresia/), [CU-09](/3daltoque-docs/analisis/casos/cu-09-habilitar-perfil-e-iniciar-prueba/), [CU-10](/3daltoque-docs/analisis/casos/cu-10-asignar-beneficio-fundador/), [CU-11](/3daltoque-docs/analisis/casos/cu-11-pagar-o-renovar-abono/), [CU-12](/3daltoque-docs/analisis/casos/cu-12-gestionar-plan-y-promociones/). |
@@ -504,7 +504,7 @@ El maker utiliza un plan mensual prepago con renovación manual. La primera habi
 | Integraciones | [INT-05](/3daltoque-docs/diseno/integraciones/#int-05). |
 | Cierre de definición | Reglas funcionales vinculadas a RF y CU. Los valores de configuración y proveedores se registran en PD-01, PD-11, PD-13. |
 
-[Spec de implementación](/3daltoque-docs/specs/f24-api-comun-y-sincronizacion/). Datos: `eventos_salida`, `trabajos`, `sesiones`.
+[Spec de implementación](/3daltoque-docs/specs/f24-api-comun-y-sincronizacion/). Datos: `eventos_salida`, `trabajos`, `auth_sessions`.
 
 <a id="f25"></a>
 ### F25 Catálogo de productos del maker

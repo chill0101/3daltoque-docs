@@ -4,9 +4,9 @@ title: "Inventario de vistas y flujos de Figma"
 
 # Inventario de vistas, flujos y cobertura funcional
 
-Actualización: 25 de octubre de 2026.
+Actualización: 7 de noviembre de 2026.
 
-El catálogo funcional reúne 25 funcionalidades, 68 RF y 25 casos de uso. La referencia de Figma conserva 110 composiciones: 60 Web y 50 Mobile, con 26 estados compartidos contabilizados aparte. Se agregan doce contratos funcionales de vistas para completar el perfil público, catálogo y bandeja de chat. El inventario funcional reúne 122 superficies.
+El catálogo funcional reúne 25 funcionalidades, 68 RF y 25 casos de uso. La referencia de Figma conserva 110 composiciones: 60 Web y 50 Mobile, con 26 estados compartidos contabilizados aparte. Se agregan doce contratos funcionales de vistas para completar el perfil público, catálogo y bandeja de chat. Se agregan seis contratos de recuperación y verificación de identidad pendientes de mock. El inventario funcional reúne 128 superficies; 122 cuentan con referencia visual.
 
 ## Acceso a los componentes individuales
 
@@ -219,3 +219,15 @@ Revisar los mocks de perfil público, productos, confirmación directa, bandeja 
 ## Referencias visuales complementarias
 
 [Doce vistas Web y Mobile de catálogo y conversaciones](/3daltoque-docs/specs/prototipo-catalogo-y-chat/), con prototipo navegable, capturas y recuperación de estados. Las 110 composiciones de Figma conservan sus enlaces originales.
+
+<a id="vistas-de-identidad-pendientes-de-mock"></a>
+## Vistas de identidad pendientes de mock
+
+| Vista | Recorrido | Estado |
+| --- | --- | --- |
+| [WEB-AUTH-04](/3daltoque-docs/specs/01-navegacion-y-pantallas/#web-auth-04) | Solicitar recuperación de contraseña | Contrato en F01; composición pendiente. |
+| [WEB-AUTH-05](/3daltoque-docs/specs/01-navegacion-y-pantallas/#web-auth-05) | Restablecer contraseña | Contrato en F01; composición pendiente. |
+| [WEB-AUTH-06](/3daltoque-docs/specs/01-navegacion-y-pantallas/#web-auth-06) | Verificar correo electrónico | Contrato en F01; composición pendiente. |
+| [MOB-AUTH-04](/3daltoque-docs/specs/01-navegacion-y-pantallas/#mob-auth-04) | Solicitar recuperación de contraseña | Contrato en F01; composición pendiente. |
+| [MOB-AUTH-05](/3daltoque-docs/specs/01-navegacion-y-pantallas/#mob-auth-05) | Restablecer contraseña | Contrato en F01; composición pendiente. |
+| [MOB-AUTH-06](/3daltoque-docs/specs/01-navegacion-y-pantallas/#mob-auth-06) | Verificar correo electrónico | Contrato en F01; composición pendiente. |
