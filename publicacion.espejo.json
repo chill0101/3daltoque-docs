@@ -685,11 +685,11 @@
       "destino": "src/content/docs/proyecto/presentacion.md",
       "checkpoint": "Proyecto",
       "estado": "entregable",
-      "sha256Fuente": "847202b084d29ff5d7ecad4488ad3f5b6349d07014eb6ba959186ba881f1925f",
-      "sha256": "53496f62f0ef0ca79ab0506dff7085fc0194aa45085303d9644985a42cd72f08",
-      "huella": "27a610d94482f9cb933bd1727d75a1901ddbb097bce7cbece3aa893ebf35f4c1",
+      "sha256Fuente": "49fa6330fafb909abdfebb6762561e930b828acec8de4829874faeff047e80ac",
+      "sha256": "169726420eaddd107e013cee98b4d15b901f261076eda0a52bfed5e1ae1e0f54",
+      "huella": "37023cb32182d1d3a4b5e9a5d8639791d1433361af4b3b7654cb3d43901dc78d",
       "adjuntos": [],
-      "commitFuente": "9d8898120b3a70c0c406957f9ca248a7a6ece4ff"
+      "commitFuente": "05602c9098ce35e3b8aa928100795cac484ea639"
     },
     "funcionalidades-proyecto": {
       "origen": "docs/15-funcionalidades.md",
@@ -1594,17 +1594,24 @@
       "destino": "src/content/docs/proyecto/alcance.md",
       "checkpoint": "Alcance",
       "estado": "entregable",
-      "sha256Fuente": "b98e520409ae793432e4c991cd5729cdf25f052e60fc1716f3117f2da9bd85a1",
-      "sha256": "55206292e3b001b241d237859b6fae6199b7decf836a4dff1277bf408ed6d49a",
-      "huella": "3569dbbb47bb7c249932c2ce09b2fb433e53234b4e53b6eab3a73c6210f3188a",
+      "sha256Fuente": "81d8596c2f5982ad3ba8e2ff31481c549331e66758dae6a39b73bd777fd262ab",
+      "sha256": "7c9b9d7e52d5306a8f12a4a79526305ce3979e28658b8e8d7550132a1beda907",
+      "huella": "a3cbf77bdcf98ac8b877f2389416e69dd2b8ef41140f9a970971917f4c7b7ea2",
       "adjuntos": [
+        {
+          "origen": "formal/entregas/PL04-propuesta-de-proyecto.docx",
+          "destino": "public/documentos/136763445ac1-pl04-propuesta-de-proyecto.docx",
+          "archivo": "starlight/public/documentos/136763445ac1-pl04-propuesta-de-proyecto.docx",
+          "sha256": "5f8a85ce1c7f271d5f044b0fa4b6258828b43ad628b8a5f7bd843132c2775060"
+        },
         {
           "origen": "docs/diagramas/recorrido-producto.svg",
           "destino": "public/documentos/6533ccc5ef79-recorrido-producto.svg",
           "archivo": "starlight/public/documentos/6533ccc5ef79-recorrido-producto.svg",
           "sha256": "3a08bdbe3289b313181af55068fc3ca43ec224dd2c4e5858b848567f267dd82d"
         }
-      ]
+      ],
+      "commitFuente": "05602c9098ce35e3b8aa928100795cac484ea639"
     },
     "contexto-bernardez": {
       "origen": "formal/entregas/02-analisis-del-contexto.md",

@@ -4,11 +4,15 @@ title: "Alcance y producto de 3DAltoque"
 
 # Alcance y producto de 3DAltoque
 
-Versión 3.0. Fecha: 7 de noviembre de 2026.
+Versión 3.1. Fecha: 15 de noviembre de 2026.
 
 ## Propósito
 
 Conectar personas que necesitan piezas impresas en 3D con makers cercanos y compatibles, organizando solicitudes personalizadas, productos publicados, acuerdos, comunicación, producción, revisión y entrega personal.
+
+## Cobertura del piloto
+
+El piloto opera dentro de los límites administrativos de la Ciudad Autónoma de Buenos Aires (CABA). La ubicación de referencia para la búsqueda o el pedido y la ubicación operativa del maker deben estar dentro de la ciudad. La primera ronda de una solicitud personalizada usa un radio inicial configurable de 10 km dentro de ese perímetro, según [PD-04](/3daltoque-docs/planificacion/parametros/#pd-04).
 
 ## Solicitud personalizada
 
