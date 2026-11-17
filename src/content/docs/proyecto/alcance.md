@@ -6,11 +6,13 @@ title: "01) Alcance y producto"
 
 Actualización de alcance y redacción: 25 de octubre de 2026. El modelo comercial sigue [ADR-002](/3daltoque-docs/decisiones/modelo-comercial/). La versión anterior se conserva en los antecedentes del cambio comercial.
 
+Revisión del 15 de noviembre de 2026. El perímetro del piloto se ajusta a [PD-04](/3daltoque-docs/planificacion/parametros/#pd-04). La [propuesta de proyecto PL04](/3daltoque-docs/documentos/136763445ac1-pl04-propuesta-de-proyecto.docx) reúne el alcance de la primera versión y su base técnica.
+
 
 **Proyecto:** 3DAltoque
 **Carrera:** Análisis de Sistemas — Trabajo Final de Carrera
 **Equipo:** Lucas Bernardez · María del Rosario Cariaga · Lucas Ruiz
-**Versión:** 2.2
+**Versión:** 2.3
 
 ---
 
@@ -85,7 +87,7 @@ La propuesta base funciona como un **mercado de servicios de fabricación on-dem
 | **Marcos, 42 años: hobbista de nicho** | Administrativo, vive en Almagro; juegos de mesa y modelismo. Descarga STL de Thingiverse/Cults3D. | Piezas chicas con mucho detalle (resina, boquilla de 0.2 mm) y hablar directo con el maker. |
 | **Jorge, 50 años: el "resolutivo" del hogar** | Jubilado técnico, vive en Villa Crespo, desconfía de la tecnología compleja. | Simplicidad: subir el STL, saber cuánto sale y dónde retirarlo cerca. |
 
-**Zona piloto (zona 0):** CABA y Gran Buenos Aires.
+**Zona piloto (zona 0):** Ciudad Autónoma de Buenos Aires (CABA), dentro de sus límites administrativos. La ubicación de referencia del cliente para la búsqueda o el pedido y la ubicación operativa del maker deben estar dentro de ese perímetro.
 
 ---
 
@@ -207,7 +209,7 @@ Las [máquinas de estados](/3daltoque-docs/flujos/estados/) conservan las transi
 - El cliente declara tener derechos de uso sobre el STL que sube. El maker solo puede usarlo para ese pedido.
 - Se prohíbe la fabricación de piezas ilegales o peligrosas.
 - Los archivos STL tendrán un **límite de tamaño** de almacenamiento.
-- La zona piloto propuesta es CABA/GBA. Su delimitación requiere relevar makers elegibles y solicitudes potenciales para evaluar la densidad disponible.
+- El backend aplica la cobertura de CABA al buscar candidatos, enviar invitaciones y confirmar pedidos personalizados o de catálogo. La primera ronda de una solicitud personalizada parte de un radio configurable de 10 km dentro de la ciudad, según [PD-04](/3daltoque-docs/planificacion/parametros/#pd-04). El piloto permite medir la densidad de makers elegibles y la demanda dentro de ese perímetro.
 - Stack de referencia: React web, React Native, FastAPI/Python y PostgreSQL. La selección de autenticación, mapas, almacenamiento y despliegue se registra en [herramientas y despliegue](/3daltoque-docs/proyecto/base-tecnica/).
 
 ---
